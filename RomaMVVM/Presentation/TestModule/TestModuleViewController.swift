@@ -25,6 +25,14 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
+                case .loginButtonDidTap:
+                    viewModel.showLogin()
+                case .phoneOrEmailTextFieldChanged(let letter):
+                    viewModel.validateTextField(letter: letter)
+                case .passwordTextFieldChanged(let letter):
+                    viewModel.validateTextField(letter: letter)
+                case .forgotPasswordButtonDidTap:
+                    viewModel.showForgotPassword()
                 }
             }
             .store(in: &cancellables)

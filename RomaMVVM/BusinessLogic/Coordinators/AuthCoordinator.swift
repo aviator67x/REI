@@ -23,11 +23,12 @@ final class AuthCoordinator: Coordinator {
 
     func start() {
 //        authSelect()
-        startTestModule() 
+        startTestModule()
     }
     
     func startTestModule() {
         let module = TestModuleModuleBuilder.build(container: container)
+        push(module.viewController)
     }
 
     private func authSelect() {

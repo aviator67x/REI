@@ -16,4 +16,12 @@ final class TestModuleViewModel: BaseViewModel {
         self.dogService = dogServce
         super.init()
     }
+    
+    func showLogin() {}
+    
+    func validateTextField(letter: String) {
+        print("Current text has added a new letter \(letter)")
+    }
+    
+    func showForgotPassword() {}
 }

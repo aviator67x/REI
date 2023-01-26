@@ -25,3 +25,162 @@
 "logout" = "Logout";
 "search" = "Search";
 
+// Application
+"Global.emptyString" = "";
+"Global.alertActionTitle" = "OK";
+"Global.photoUploadingError" = "Error uploading photo. Try again";
+"Global.errorTitle" = "Error";
+"Global.cancel" = "Cancel";
+"Global.error" = "Something went wrong!";
+"Global.success" = "Success!";
+"Global.badInternet" = "Bad internet connection!";
+
+// LaunchViewController
+"LaunchViewController.alertMassage" = "Please check your internet connection";
+"LaunchViewController.alertActionLabel" = "Try again";
+
+//LoginViewController
+"LoginViewController.phoneOrEmailField.title" = "Phone number or email";
+"LoginViewController.passwordField.title" = "Password";
+
+"LoginViewController.passwordField.newPassword" = "New password";
+"LoginViewController.passwordField.confirmNewPassword" = "Confirm new password";
+
+"LoginViewController.loginButton.title" = "Log in";
+"LoginViewController.forgotPasswordButton.title" = "Forgot password?";
+"LoginViewController.orLabel.title" = "OR";
+"LoginViewController.loginWithFBButton.title" = "  Log in with Facebook";
+"LoginViewController.loginWithGoogleButton.title" = " Log in with Google";
+"LoginViewController.notAMemberView.title" = "Not a member? Create an account";
+"LoginViewController.createAnAccountLink.title" = "Create an account";
+
+//Photo
+"photo.takePhotoLabel" = "Take photos with Interngram";
+"photo.allowAccessLabel" = "Allow access to you camera to start taking photos with the Interngram app";
+
+//OTPControllerLocalization
+"otp.resendButton" = "Resend";
+"otp.titleLabelText" = "Enter confirmation code";
+"otp.subTitleLabelPhoneText" = "Enter 6-digit code sent to your phone number.";
+"otp.subTitleLabelEmailText" = "Enter 6-digit code sent to your email.";
+"otp.errorLabelText" = "The code is invalid.";
+"otp.defaultMassageLabelText" = "The code did not come?";
+"otp.changeContactsButtonTitleForPhone" = "Change phone number";
+"otp.changeContactsButtonTitleForEmail" = "Change email address";
+"otp.errorMassageLabelText" = "The request limit has been exceeded.You will be able to resubmit your request in 6 minutes.";
+
+//BioViewControllerLocalization
+"bio.titleLabelText" = "Add information about yourself";
+"bio.errorLabelText" = "Please enter maximum 120 symbols.";
+"bio.placeholderText" = "Bio";
+"bio.errorAlert" = "Error";
+"bio.alertErrorMassage" = "Oops, something went wrong, don't worry, you can edit the you personal info in the profile settings.";
+
+// City
+"CityViewController.requestSuccessPasswordChanged.parmTitle" = "Your city has been successfully saved!";
+"CityViewController.failedRequestError.parmTitle" = "Something went wrong!";
+"CityView.titleText" = "Enter your city";
+"CityView.descriptionText" = "This information will be visible in your profile";
+"CityView.stopLoading" = "Something went wrong! Please check you internet connection";
+// FeedPageViewController
+"FeedPageViewController.failureWithUpdatingUserData" = "Something went wrong. User data didn't update!";
+
+// UserPage
+"UserPageViewController.post" = "Posts";
+"UserPageViewController.followers" = "Followers";
+"UserPageViewController.following" = "Following";
+"UserPageViewController.editProfile" = "Edit profile";
+"UserPageViewController.followButton" = "Follow";
+"UserPageViewController.unfollow" = "Unfollow";
+"UserPageViewController.exit" = "Exit";
+"UserPageViewController.leavePageAlertTitle" = "Are you sure you want to log out of your account?";
+"UserPageViewController.leavePageAlertButtonTitle" = "Log out";
+// ChoseImageView
+"ChoseImageView.titleText" = "Please allow access to your photos";
+"ChoseImageView.descriptionText" = "This allows Interngram to share photos from your library and save photos to your camera roll.";
+"ChoseImageView.buttonText" = "Allow in settings";
+
+// ChoseImageViewController
+"ChoseImageVC.warningText" = "Are you sure you want to leave without saving the changes?";
+"ChoseImageVC.navigationTitle" = "New Post";
+"ChoseImageVC.rightBarButtonItemTitle" = "Next";
+"ChoseImageVC.alertCancelActionTitle" = "Yes, leave";
+
+// CreateNewPostViewController
+"CreateNewPostVC.errorParmMessage" = "Your post has not been saved!";
+"CreateNewPostVC.successParmMessage" = "Your post has been successfully saved!";
+"CreateNewPostVC.rightBarButtonItemTitle" = "Share";
+// TextView
+"TextView.addBio.maximumSymbolsForEntering." = "Please enter maximum 120 symbols.";
+"TextView.addADescription.maximumSymbolsForEntering." = "Please enter maximum 500 symbols.";
+"TextView.addAComment.maximumSymbolsForEntering." = "Please enter maximum 300 symbols.";
+"TextView.addAComment.addAcharacter" = "Please use at least 1 Latin letter, number, and common punctuation characters.";
+
+"TextViewType.placeholder.addBio" = "Bio";
+"TextViewType.placeholder.newPostDescription" = "Add a description";
+"TextViewType.placeholder.addComment" = "Add a comment";
+"TextViewType.placeholder.addMassage" = "Write a message";
+"TextViewType.buttonTitle.addComment" = "Post";
+"TextViewType.buttonTitle.addMassage" = "Send";
+
+"CreateNewPostView.errorFirstPart" = "Please enter maximum";
+"CreateNewPostView.errorSecondPart" = "symbols.";
+// TakePhotoViewController
+"TakePhotoVC.cameraViewButtontitle" = "Take a new photo";
+"TakePhotoVC.errorTitle" = "Please allow access to camera";
+"TakePhotoVC.errorDescription" = "This allows Interngram to take photos from camera.";
+
+// SearchViewController
+"SearchViewController.isInvalidSpecialCharacter" = "Please use only letters, numbers, space and common punctuation characters.";
+"SearchViewController.isInvalidCountOfCharacters" = "Please enter maximum 35 symbols.";
+"SearchViewController.placeholder" = "Search";
+"SearchViewController.recentText" = "Recent";
+"SearchViewController.resultsText" = "Results";
+"SearchViewController.noHistory" = "Search history is empty!";
+"SearchViewController.noResults" = "Search results not found!";
+"SearchViewController.posts" = "posts";
+"SearchViewController.post" = "post";
+
+// SearchView
+"SearchView.searchErrorTitle" = "Search error!";
+"SearchView.searchErrorMessage" = "Posts not found";
+
+// DeleteAllHistoryTableCell
+"DeleteTableCell.titleLabel" = "Clear search history";
+// EditProfileViewController
+"EditProfile.navigationTitle" = "Edit profile";
+"EditProfile.nicknameError" = "This nickname is already being used. Please enter the another one.";
+"EditProfile.addPhoto" = "Add a photo";
+"EditProfile.changePhoto" = "Change profile photo";
+"EditProfile.leavePageAlertTitle" = "Do you want to leave the page without saving changes?";
+"EditProfile.leavePageAlertButtonTitle" = "Leave page";
+"UserPageViewController.message" = "Message";
+
+// UsersList
+"UsersListViewController.followingAccounts" = "Following accounts";
+"UsersListViewController.followers" = "Followers";
+"UsersListViewController.likes" = "Likes";
+"UsersListViewController.noFollowers" = "No followers yet";
+"UsersListViewController.noFollowingAccounts" = "No following accounts yet";
+"UsersListViewController.noLikes" = "No likes yet";
+// TextField
+"TextField.accountDoesNotExist" = "That account doesn't exist. Enter a different account or get a new one.";
+"TextField.fieldIsRequired" = "This field is required";
+// ForgotPasswordView
+"ForgotPasswordView.titleText" = "Forgot password?";
+"ForgotPasswordView.descriptionText" = "Enter your email or phone number and we'll send you a code to reset your password";
+//FeedMain
+"feed.likesLabel" = "likes";
+"feed.hoursLabel" = "hrs ago";
+"feed.commentsTextField.placeholder" = "Add a comment";
+"feed.postButton" = "Post";
+"feed.seeMoreButton" = "... See more";
+"feed.deleteButton" = "Delete";
+"feed.replyButton" = "Reply";
+"feed.allCommentsButton" = "See all comments (%i)";
+"feed.sorryLabel" = "Sorry we can't find anything for that page...";
+
+
+
+
+

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 extension UIStackView {
     func setup(axis: NSLayoutConstraint.Axis = .vertical, alignment: Alignment = .fill, distribution: Distribution = .fill, spacing: CGFloat = 0) {
@@ -51,5 +52,13 @@ extension UIStackView {
         stack.addArranged(view)
         stack.addSpacer(inset)
         addArranged(stack, size: size)
+    }
+    
+    func addArrangedSubview(_ view: UIView, closure: (ConstraintMaker) -> Void) {
+        addArrangedSubview(view)
+        view.layout(using: closure)
+    }
+    func addArrangedSubviews(_ views: [UIView]) {
+        views.forEach { addArrangedSubview($0) }
     }
 }
