@@ -16,7 +16,7 @@ protocol TestModuleViewProtocol: AnyObject {
 
 enum TestModuleViewAction {
     case loginButtonDidTap
-    case phoneOrEmailTextFieldChanged(String)
+    case phoneOrEmailTextFieldChanged(text: String)
     case passwordTextFieldChanged(String)
     case forgotPasswordButtonDidTap
 }
@@ -207,7 +207,7 @@ private extension TestModuleView {
         phoneOrEmailTextField.textPublisher
             .replaceNil(with: "")
             .sink { [unowned self] text in
-                actionSubject.send(.phoneOrEmailTextFieldChanged(text)) }
+                actionSubject.send(.phoneOrEmailTextFieldChanged(text: text)) }
                 .store(in: &cancellables)
     
         passwordTextField.textPublisher

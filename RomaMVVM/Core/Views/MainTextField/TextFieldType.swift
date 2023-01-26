@@ -77,7 +77,7 @@ extension TextFieldType {
         case .phoneOrEmail: text = "Phone number or email"
         case .email, .emailForPasswordRecovery: text = "Email"
         case .password: text = "Password"
-        case .passwordRecovery: "New password"
+        case .passwordRecovery: text = "New password"
         case .phone, .phoneForPasswordRecovery: text = "Phone number"
         case .nickName: text = "Nickname"
         case .userName: text = "Full name"

@@ -27,10 +27,10 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
                 switch action {
                 case .loginButtonDidTap:
                     viewModel.showLogin()
-                case .phoneOrEmailTextFieldChanged(let letter):
-                    viewModel.validateTextField(letter: letter)
-                case .passwordTextFieldChanged(let letter):
-                    viewModel.validateTextField(letter: letter)
+                case .phoneOrEmailTextFieldChanged(let inputText):
+                    viewModel.validateTextField(inputText: inputText, type: .phoneOrEmail)
+                case .passwordTextFieldChanged(let inputText):
+                    viewModel.validateTextField(inputText: inputText, type: .password)
                 case .forgotPasswordButtonDidTap:
                     viewModel.showForgotPassword()
                 }
