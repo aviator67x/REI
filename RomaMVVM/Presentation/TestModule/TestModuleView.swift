@@ -110,7 +110,6 @@ final class TestModuleView: BaseView {
     }()
     
     private lazy var passwordErrorMessageLabel = UILabel {
-        $0.text = "passwordErrorMessageLabel"
         $0.font = UIFont.systemFont(ofSize: 12)
         $0.textColor = UIColor(named: "error")
         $0.numberOfLines = 0
@@ -253,15 +252,17 @@ extension TestModuleView {
         scrollView.contentInset.bottom = offSet - safeAreaInsets.bottom
     }
 
-    func showErrorMessage() {
+    func showPhoneEmailErrorMessage(message: String) {
         DispatchQueue.main.async {
+            self.phoneEmailErrorMessageLabel.text = message // == true ? "" : "Error message is: phoneEmailErrorMessageLabel"
 //                self.passwordTextField.showErrorMessageForPassword()
 //                self.phoneOrEmailTextField.textField.fieldState = .invalid(errorMessage: "")
         }
     }
 
-    func showEmptyErrorMessage() {
+    func showPasswordErrorMessage(message: String) {
         DispatchQueue.main.async {
+            self.passwordErrorMessageLabel.text = message //== .valid ? "" : "Error message is: passwordErrorMessageLabel"
 //                self.passwordTextField.showEmptyErrorMessage()
 //                self.phoneOrEmailTextField.showEmptyErrorMessage()
         }

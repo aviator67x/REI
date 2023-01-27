@@ -16,7 +16,6 @@ final class TextFieldValidator {
     
     // MARK: Private properties
     private let type: TextFieldType
-    private var fieldState = State.invalid(errorMessage: nil)
     
     // MARK: Life cycle
     
@@ -27,21 +26,19 @@ final class TextFieldValidator {
     // MARK: Methods
     func validateText(text: String?) -> State {
         if let text = text, text.isEmpty {
-            return fieldState
+            return .valid
         }
         if !performValidation(of: text ?? "", with: type.symbolCountValidator) {
             if let text = text, text.count > 9 {
-                fieldState = .invalid(errorMessage: type.maxSymbolsErrorMessage)
+                return .invalid(errorMessage: type.maxSymbolsErrorMessage)
             } else {
-                fieldState = .invalid(errorMessage: type.minSymbolsErrorMessage)
+              return .invalid(errorMessage: type.minSymbolsErrorMessage)
             }
         } else if !performValidation(of: text ?? "", with: type.regExValidators) {
-            fieldState = .invalid(errorMessage: type.regExtErrorMessage)
+           return .invalid(errorMessage: type.regExtErrorMessage)
         } else {
-            fieldState = .valid
-            return fieldState
+            return .valid
         }
-        return fieldState
     }
 
     func performValidation(of text: String, with validators: [Validable]) -> Bool {

@@ -37,8 +37,28 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
             }
             .store(in: &cancellables)
         
-        viewModel.$isTextFieldValid
-            .sink { [unowned self] value in contentView.showErrorMessage()}
+        viewModel.$isPhoneEmailTextFieldValid
+            .sink { [unowned self] state in
+                var message = ""
+                switch state {
+                case .valid:
+                    message = ""
+                case .invalid(errorMessage: let errorMessage):
+                    message = errorMessage ?? ""
+                }
+                contentView.showPhoneEmailErrorMessage(message: message)}
+            .store(in: &cancellables)
+        
+        viewModel.$isPasswordTextFieldValid
+            .sink { [unowned self] state in
+                var message = ""
+                switch state {
+                case .valid:
+                    message = ""
+                case .invalid(errorMessage: let errorMessage):
+                    message = errorMessage ?? ""
+                }
+                contentView.showPasswordErrorMessage(message: message)}
             .store(in: &cancellables)
     }
 }
