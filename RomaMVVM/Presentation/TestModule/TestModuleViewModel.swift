@@ -11,7 +11,6 @@ final class TestModuleViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<TestModuleTransition, Never>()
     private let dogService: DogService
-    private let validator = TextFieldValidator()
     
     init(dogServce: DogService) {
         self.dogService = dogServce
@@ -21,7 +20,8 @@ final class TestModuleViewModel: BaseViewModel {
     func showLogin() {}
     
     func validateTextField(inputText: String, type: TextFieldType) {
-        print("State is \(validator.validateText(text: inputText, type: type))")
+        let validator = TextFieldValidator(type: type)
+        print("State is \(String(describing: validator.validateText(text: inputText)))")
     }
     
     func showForgotPassword() {}

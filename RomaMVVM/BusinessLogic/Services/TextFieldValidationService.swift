@@ -15,21 +15,27 @@ enum State: Equatable {
 final class TextFieldValidator {
     
     // MARK: Private properties
-//    private let type: TextFieldType = .password
+    private let type: TextFieldType
     private var fieldState = State.invalid(errorMessage: nil)
     
+    // MARK: Life cycle
+    
+    init(type: TextFieldType) {
+        self.type = type
+    }
+    
     // MARK: Methods
-    func validateText(text: String?, type: TextFieldType) -> State {
+    func validateText(text: String?) -> State {
         if let text = text, text.isEmpty {
             return fieldState
         }
-        if !performValidation(of: text ?? "", with: type.symbolCountValidator, type: type) {
+        if !performValidation(of: text ?? "", with: type.symbolCountValidator) {
             if let text = text, text.count > 9 {
                 fieldState = .invalid(errorMessage: type.maxSymbolsErrorMessage)
             } else {
                 fieldState = .invalid(errorMessage: type.minSymbolsErrorMessage)
             }
-        } else if !performValidation(of: text ?? "", with: type.regExValidators, type: type) {
+        } else if !performValidation(of: text ?? "", with: type.regExValidators) {
             fieldState = .invalid(errorMessage: type.regExtErrorMessage)
         } else {
             fieldState = .valid
@@ -38,7 +44,7 @@ final class TextFieldValidator {
         return fieldState
     }
 
-    func performValidation(of text: String, with validators: [Validable], type: TextFieldType) -> Bool {
+    func performValidation(of text: String, with validators: [Validable]) -> Bool {
         var shouldRemoveAdditionalCharacters = false
         switch type {
         case .phone, .phoneForPasswordRecovery: shouldRemoveAdditionalCharacters = true
