@@ -77,34 +77,44 @@ final class TestModuleView: BaseView {
         image.contentMode = .scaleAspectFit
         return image
     }()
+    
+    private lazy var phoneEmailStack = UIStackView {
+        $0.spacing = 5
+        $0.axis = .vertical
+        $0.backgroundColor = .white
+    }
 
     private lazy var phoneOrEmailTextField: TextField = {
         let textfield = TextField(type: .phoneOrEmail)
         textfield.placeholder = "Phone or Email"
         return textfield
     }()
+    
+    private lazy var phoneEmailErrorMessageLabel = UILabel {
+        $0.text = "phoneOrEmailLabel"
+        $0.font = UIFont.systemFont(ofSize: 12)
+        $0.textColor = UIColor(named: "error")
+        $0.numberOfLines = 0
+    }
+    
+    private lazy var passwordStack = UIStackView {
+        $0.spacing = 5
+        $0.axis = .vertical
+        $0.backgroundColor = .white
+    }
 
-//    private lazy var phoneOrEmailTextField: TextFieldView = {
-//        let textfield = TextFieldView(type: .phoneOrEmail)
-//        textfield.textField.didChangeSelection = { _ in
-//            self.textFieldDidChange()
-//        }
-//        return textfield
-//    }()
-//
     private lazy var passwordTextField: TextField = {
         let textField = TextField(type: .password)
         textField.placeholder = "Password"
         return textField
     }()
-
-//    private lazy var passwordTextField: TextFieldView = {
-//        let textfield = TextFieldView(type: .passwordWithoutVerification)
-//        textfield.textField.didChangeSelection = { _ in
-//            self.textFieldDidChange()
-//        }
-//        return textfield
-//    }()
+    
+    private lazy var passwordErrorMessageLabel = UILabel {
+        $0.text = "passwordErrorMessageLabel"
+        $0.font = UIFont.systemFont(ofSize: 12)
+        $0.textColor = UIColor(named: "error")
+        $0.numberOfLines = 0
+    }
 
     private lazy var forgotPasswordButton: UIButton = {
         let button = UIButton()
@@ -318,10 +328,12 @@ private extension TestModuleView {
             ]
         )
 
+        phoneEmailStack.addArrangedSubviews([phoneOrEmailTextField, phoneEmailErrorMessageLabel])
+        passwordStack.addArrangedSubviews([passwordTextField, passwordErrorMessageLabel])
         loginStackView.addArrangedSubviews(
             [
-                phoneOrEmailTextField,
-                passwordTextField,
+                phoneEmailStack,
+                passwordStack,
                 forgotPasswordButton,
             ]
         )

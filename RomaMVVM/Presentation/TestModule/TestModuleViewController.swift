@@ -36,5 +36,9 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel.$isTextFieldValid
+            .sink { [unowned self] value in contentView.showErrorMessage()}
+            .store(in: &cancellables)
     }
 }
