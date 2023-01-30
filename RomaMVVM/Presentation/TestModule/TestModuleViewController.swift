@@ -28,16 +28,20 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
                 case .loginButtonDidTap:
                     viewModel.showLogin()
                 case .phoneOrEmailTextFieldChanged(let inputText):
-                    viewModel.validateTextField(inputText: inputText, type: .phoneOrEmail)
+                    viewModel.phoneOrEmail = inputText
+                    viewModel.saveLogin(login: inputText)
+                case .phoneOrEmailTextFieldDidReturn:
+                    viewModel.logIn()
                 case .passwordTextFieldChanged(let inputText):
-                    viewModel.validateTextField(inputText: inputText, type: .password)
+                    viewModel.password = inputText
+                    viewModel.savePassword(password: inputText)
                 case .forgotPasswordButtonDidTap:
                     viewModel.showForgotPassword()
                 }
             }
             .store(in: &cancellables)
         
-        viewModel.$isPhoneEmailTextFieldValid
+        viewModel.$isPhoneOrEmailValid
             .sink { [unowned self] state in
                 var message = ""
                 switch state {
@@ -49,7 +53,7 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
                 contentView.showPhoneEmailErrorMessage(message: message)}
             .store(in: &cancellables)
         
-        viewModel.$isPasswordTextFieldValid
+        viewModel.$isPasswordValid
             .sink { [unowned self] state in
                 var message = ""
                 switch state {
@@ -59,6 +63,10 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
                     message = errorMessage ?? ""
                 }
                 contentView.showPasswordErrorMessage(message: message)}
+            .store(in: &cancellables)
+        
+        viewModel.$isInputValid
+            .sink { [unowned self] in contentView.setLoginButton(enabled: $0)}
             .store(in: &cancellables)
     }
 }

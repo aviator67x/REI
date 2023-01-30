@@ -14,7 +14,7 @@ enum TestModuleTransition: Transition {
 
 final class TestModuleModuleBuilder {
     class func build(container: AppContainer) -> Module<TestModuleTransition, UIViewController> {
-        let viewModel = TestModuleViewModel(dogServce: container.dogService)
+        let viewModel = TestModuleViewModel(authService: container.authService)
         let viewController = TestModuleViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

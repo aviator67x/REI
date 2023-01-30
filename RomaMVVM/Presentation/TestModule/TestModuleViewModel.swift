@@ -6,44 +6,55 @@
 //
 
 import Combine
+import Foundation
 
 final class TestModuleViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<TestModuleTransition, Never>()
-    private let dogService: DogService
+    private let authService: AuthService
 
-    @Published var isPhoneEmailTextFieldValid: State = .valid
-    @Published var isPasswordTextFieldValid: State = .valid
+    @Published var phoneOrEmail = ""
+    @Published var password = ""
 
-    init(dogServce: DogService) {
-        self.dogService = dogServce
+    @Published var isPhoneOrEmailValid: State = .valid
+    @Published var isPasswordValid: State = .valid
+
+    @Published var isInputValid = false
+
+    init(authService: AuthService) {
+        self.authService = authService
         super.init()
     }
 
-    func showLogin() {}
+    override func onViewDidLoad() {
+        $phoneOrEmail
+            .map { login in TextFieldValidator(type: .phoneOrEmail).validateText(text: login) }
+            .sink { [unowned self] state in
+                isPhoneOrEmailValid = state
+            }
+            .store(in: &cancellables)
 
-    func validateTextField(inputText: String, type: TextFieldType) {
-        let validator = TextFieldValidator(type: type)
-        let result = validator.validateText(text: inputText)
-        if type == .phoneOrEmail {
-            isPhoneEmailTextFieldValid = result
-        } else if type == .password {
-            isPasswordTextFieldValid = result
-        }
-        
-//        switch result {
-//        case .valid: if type == .phoneOrEmail {
-//                isPhoneEmailTextFieldValid = true
-//        } else if type == .password {
-//                isPasswordTextFieldValid = true
-//            }
-//        default: if type == .phoneOrEmail {
-//                isPhoneEmailTextFieldValid = false
-//            } else {
-//                isPasswordTextFieldValid = false
-//            }
-//        }
+        $password
+            .map { password in TextFieldValidator(type: .password).validateText(text: password) }
+            .sink { [unowned self] state in isPasswordValid = state }
+            .store(in: &cancellables)
+
+        $isPhoneOrEmailValid.combineLatest($isPasswordValid)
+            .map { $0 == $1 }
+            .sink { [unowned self] in isInputValid = $0 }
+            .store(in: &cancellables)
     }
+
+    func saveLogin(login: String) {
+        phoneOrEmail = login
+    }
+
+    func savePassword(password: String) {
+        self.password = password
+    }
+
+    func showLogin() {}
+    func logIn() {}
 
     func showForgotPassword() {}
 }

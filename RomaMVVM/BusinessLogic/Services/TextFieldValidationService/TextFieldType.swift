@@ -161,7 +161,7 @@ extension TextFieldType {
     var regExtErrorMessage: String? {
         switch self {
         case .phoneOrEmail:
-            return nil
+            return "To long nickname"
         case .password, .passwordRecovery:
             return "Password doesn't meet minimal requirements"
         case .email, .emailForPasswordRecovery:

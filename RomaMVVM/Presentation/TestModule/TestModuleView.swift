@@ -17,6 +17,7 @@ protocol TestModuleViewProtocol: AnyObject {
 enum TestModuleViewAction {
     case loginButtonDidTap
     case phoneOrEmailTextFieldChanged(text: String)
+    case phoneOrEmailTextFieldDidReturn
     case passwordTextFieldChanged(String)
     case forgotPasswordButtonDidTap
 }
@@ -67,9 +68,11 @@ final class TestModuleView: BaseView {
         return view
     }()
 
-    lazy var loginButton = UIButton {
-        $0.addTarget(self, action: #selector(loginButtonDidTap), for: .touchUpInside)
-    }
+    lazy var loginButton: BaseButton = {
+        let button = BaseButton(buttonState: .login)
+        button.isEnabled = false
+        return button
+    }()
 
     private lazy var loginImage: UIImageView = {
         let image = UIImageView()
@@ -208,16 +211,17 @@ private extension TestModuleView {
 
     private func bindActions() {
         loginButton.tapPublisher
-            .sink { [unowned self] in
-                actionSubject.send(.loginButtonDidTap)
-            }
+            .sink { [unowned self] in actionSubject.send(.loginButtonDidTap)}
             .store(in: &cancellables)
         
         phoneOrEmailTextField.textPublisher
             .replaceNil(with: "")
-            .sink { [unowned self] text in
-                actionSubject.send(.phoneOrEmailTextFieldChanged(text: text)) }
+            .sink { [unowned self] text in actionSubject.send(.phoneOrEmailTextFieldChanged(text: text)) }
                 .store(in: &cancellables)
+        
+        phoneOrEmailTextField.returnPublisher
+            .sink { [unowned self] in actionSubject.send(.phoneOrEmailTextFieldDidReturn)}
+            .store(in: &cancellables)
     
         passwordTextField.textPublisher
         .replaceNil(with: "")
@@ -225,9 +229,7 @@ private extension TestModuleView {
             .store(in: &cancellables)
         
         forgotPasswordButton.tapPublisher
-            .sink { [unowned self] in
-                actionSubject.send(.forgotPasswordButtonDidTap)
-            }
+            .sink { [unowned self] in actionSubject.send(.forgotPasswordButtonDidTap)}
             .store(in: &cancellables)
         }
 
@@ -239,32 +241,28 @@ private extension TestModuleView {
         addSubviews()
         addConstraints()
     }
-
-    private func textFieldDidChange() {
-//            passwordTextField.changeTextFieldState(state: .valid)
-//            phoneOrEmailTextField.changeTextFieldState(state: .valid)
-    }
 }
 
 // MARK: - Internal extension
 extension TestModuleView {
+    func setLoginButton(enabled: Bool) {
+        loginButton.isEnabled = enabled
+        loginButton.alpha = enabled ? 1 : 0.5
+    }
+    
     func setScrollViewOffSet(offSet: CGFloat) {
         scrollView.contentInset.bottom = offSet - safeAreaInsets.bottom
     }
 
     func showPhoneEmailErrorMessage(message: String) {
         DispatchQueue.main.async {
-            self.phoneEmailErrorMessageLabel.text = message // == true ? "" : "Error message is: phoneEmailErrorMessageLabel"
-//                self.passwordTextField.showErrorMessageForPassword()
-//                self.phoneOrEmailTextField.textField.fieldState = .invalid(errorMessage: "")
+            self.phoneEmailErrorMessageLabel.text = message
         }
     }
 
     func showPasswordErrorMessage(message: String) {
         DispatchQueue.main.async {
-            self.passwordErrorMessageLabel.text = message //== .valid ? "" : "Error message is: passwordErrorMessageLabel"
-//                self.passwordTextField.showEmptyErrorMessage()
-//                self.phoneOrEmailTextField.showEmptyErrorMessage()
+            self.passwordErrorMessageLabel.text = message
         }
     }
 }
