@@ -18,12 +18,13 @@ class InstaServiceImpl {
 }
 
 extension InstaServiceImpl: InstaService {
-    func sendVerificationCode(emailOrPhone: String) -> AnyPublisher<String, CombineNetworking.CNError> {
+    func sendVerificationCode(emailOrPhone: String) -> AnyPublisher<String, CNError> {
         provider.perform(.sendVerification(code: emailOrPhone))
     }
     
     func logInForAccessToken(emailOrPhone: String, password: String) -> AnyPublisher<String, CNError> {
         provider.perform(.requestForAccessToken(phoneOrEmail: emailOrPhone, password: password))
+            .eraseToAnyPublisher()
     }
 }
    

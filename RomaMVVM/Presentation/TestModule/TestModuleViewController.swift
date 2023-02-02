@@ -26,17 +26,17 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
             .sink { [unowned self] action in
                 switch action {
                 case .loginButtonDidTap:
-                    viewModel.showLogin()
+                    viewModel.logInForAccessToken()
                 case .phoneOrEmailTextFieldChanged(let inputText):
                     viewModel.phoneOrEmail = inputText
-                    viewModel.saveLogin(login: inputText)
                 case .phoneOrEmailTextFieldDidReturn:
-                    viewModel.logIn()
+                    viewModel.logInForAccessToken()
                 case .passwordTextFieldChanged(let inputText):
                     viewModel.password = inputText
-                    viewModel.savePassword(password: inputText)
                 case .forgotPasswordButtonDidTap:
                     viewModel.showForgotPassword()
+                case .createAccontDidTap:
+                    viewModel.showSignUp()
                 }
             }
             .store(in: &cancellables)

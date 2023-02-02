@@ -14,6 +14,7 @@ protocol AppContainer: AnyObject {
     var userService: UserService { get }
     var appSettingsService: AppSettingsService { get }
     var dogService: DogService { get }
+    var instaService: InstaService { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -22,6 +23,7 @@ final class AppContainerImpl: AppContainer {
     let userService: UserService
     let appSettingsService: AppSettingsService
     let dogService: DogService
+    let instaService: InstaService
 
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -35,6 +37,12 @@ final class AppContainerImpl: AppContainer {
 
         let appSettingsService = AppSettingsServiceImpl()
         self.appSettingsService = appSettingsService
+        
+        let cnProvider = CNProvider(baseURL: appConfiguration.environment.baseURL,
+                                    requestBuilder: InstaAPIRequestBuilder.self)
+        
+        let instaService = InstaServiceImpl(cnProvider)
+        self.instaService = instaService
 
         let authPlugin = AuthPlugin(token: appConfiguration.environment.apiToken)
         

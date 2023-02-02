@@ -58,7 +58,6 @@ final class SignInViewModel: BaseViewModel {
                 switch completion {
                 case .finished:
                     debugPrint("ok")
-
                 case .failure(let error):
                     debugPrint(error.localizedDescription)
                     self?.errorSubject.send(error)

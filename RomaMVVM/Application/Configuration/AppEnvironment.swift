@@ -14,9 +14,12 @@ enum AppEnvironment: String {
 
     var baseURL: URL {
         switch self {
-        case .dev: return URL(string: "https://api.thedogapi.com/v1")!
-        case .stg: return URL(string: "https://api.thedogapi.com/v1")!
-        case .prod: return URL(string: "https://api.thedogapi.com/v1")!
+        case .dev: return URL(string: "https://api-interngram.chisw.us/")!
+        case .stg: return URL(string: "https://api-interngram.chisw.us/")!
+        case .prod: return URL(string: "https://api-interngram.chisw.us/")!
+//        case .dev: return URL(string: "https://api.thedogapi.com/v1")!
+//        case .stg: return URL(string: "https://api.thedogapi.com/v1")!
+//        case .prod: return URL(string: "https://api.thedogapi.com/v1")!
         }
     }
 

@@ -8,29 +8,20 @@
 import Combine
 import SnapKit
 
-protocol TestModuleViewProtocol: AnyObject {
-    func createAccountView()
-    func loginButtonTapped(login: String?, password: String?)
-    func forgotPasswordButtonTapped()
-}
-
 enum TestModuleViewAction {
     case loginButtonDidTap
     case phoneOrEmailTextFieldChanged(text: String)
     case phoneOrEmailTextFieldDidReturn
     case passwordTextFieldChanged(String)
     case forgotPasswordButtonDidTap
+    case createAccontDidTap
 }
 
 final class TestModuleView: BaseView {
-    weak var delegate: TestModuleViewProtocol?
 
     // MARK: - Private
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<TestModuleViewAction, Never>()
-
-
-    //        private var forgotButtonTopConstraint: ConstraintMakerEditable?
 
     // MARK: - Subviews
     private lazy var scrollView: UIScrollView = {
@@ -123,7 +114,6 @@ final class TestModuleView: BaseView {
         button.setTitle("Forgot password?", for: .normal)
         button.setTitleColor(UIColor(named: "fillButtonBackground"), for: .normal)
         button.titleLabel?.font = UIFont(name: "SF-Pro-Text-Bold", size: 13)
-        button.addTarget(self, action: #selector(forgotPasswordButtonTapped), for: .touchUpInside)
         button.contentHorizontalAlignment = .right
         return button
     }()
@@ -167,31 +157,25 @@ final class TestModuleView: BaseView {
         return stack
     }()
 
-    private lazy var createAccountTextView: UITextView = {
-        let textView = UITextView()
-        textView.backgroundColor = .none
-        textView.isEditable = false
-        textView.isScrollEnabled = false
-        textView.delegate = self
-        textView.text = Constant.createAnAccountFullLine
-        textView.attributedText = NSAttributedString.makeHyperlink(
-            for: Constant.createAnAccountURL,
-            in: textView.text,
-            as: Constant.createAnAccountLink
-        )
-        textView.font = UIFont(name: "sfProTextRegular", size: 13)
-        textView.textColor = UIColor(named: "secondaryTextColor")
-        textView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "linkButtonColor")]
-        textView.textAlignment = .center
-        return textView
+    private lazy var createAccountTextView: UIButton = {
+        let button = UIButton()
+        
+        let firstAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor(named: "secondaryTextColor")]
+        let secondAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "linkButtonColor")]
+        let firstString = NSMutableAttributedString(string: "Not a member? ", attributes: firstAttributes)
+        let secondString = NSAttributedString(string: "Create an account", attributes: secondAttributes)
+        firstString.append(secondString)
+        
+        button.setAttributedTitle(firstString, for: .normal)
+        button.titleLabel?.font = UIFont(name: "sfProTextRegular", size: 13)
+        button.contentHorizontalAlignment = .center
+        return button
     }()
 
     // MARK: - Lifecycle
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        phoneOrEmailTextField.buttonDelegate = self
-//        passwordTextField.buttonDelegate = self
         initialSetup()
     }
 
@@ -231,6 +215,9 @@ private extension TestModuleView {
         forgotPasswordButton.tapPublisher
             .sink { [unowned self] in actionSubject.send(.forgotPasswordButtonDidTap)}
             .store(in: &cancellables)
+        
+        createAccountTextView.tapPublisher
+        
         }
 
     private func setupUI() {
@@ -247,7 +234,6 @@ private extension TestModuleView {
 extension TestModuleView {
     func setLoginButton(enabled: Bool) {
         loginButton.isEnabled = enabled
-        loginButton.alpha = enabled ? 1 : 0.5
     }
     
     func setScrollViewOffSet(offSet: CGFloat) {
@@ -264,20 +250,6 @@ extension TestModuleView {
         DispatchQueue.main.async {
             self.passwordErrorMessageLabel.text = message
         }
-    }
-}
-
-// MARK: - Buttons actions
-extension TestModuleView {
-    @objc
-    private func loginButtonDidTap() {
-//            delegate?.loginButtonTapped(login: phoneOrEmailTextField.textField.text,
-//                                        password: passwordTextField.textField.text)
-    }
-
-    @objc
-    private func forgotPasswordButtonTapped() {
-        delegate?.forgotPasswordButtonTapped()
     }
 }
 
@@ -354,7 +326,7 @@ extension TestModuleView: UITextViewDelegate {
         in characterRange: NSRange,
         interaction: UITextItemInteraction
     ) -> Bool {
-        delegate?.createAccountView()
+//        delegate?.createAccountView()
         return false
     }
 }
