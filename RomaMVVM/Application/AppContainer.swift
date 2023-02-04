@@ -40,7 +40,6 @@ final class AppContainerImpl: AppContainer {
         
         let cnProvider = CNProvider(baseURL: appConfiguration.environment.baseURL,
                                     requestBuilder: InstaAPIRequestBuilder.self)
-        
         let instaService = InstaServiceImpl(cnProvider)
         self.instaService = instaService
 
@@ -48,8 +47,7 @@ final class AppContainerImpl: AppContainer {
         
         let provider = CNProvider(baseURL: appConfiguration.environment.baseURL,
                                   requestBuilder: DogAPIRequestBuilder.self,
-                                  plugins: [authPlugin])
-        
+                                  plugins: [authPlugin])        
         self.dogService = DogServiceImpl(provider)
     }
 }

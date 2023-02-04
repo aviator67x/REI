@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum TestModuleTransition: Transition {
-    case signUp, forgotPassword
+    case signUp, testSignUp, forgotPassword
 }
 
 final class TestModuleModuleBuilder {

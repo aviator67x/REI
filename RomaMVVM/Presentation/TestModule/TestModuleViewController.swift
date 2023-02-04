@@ -36,7 +36,7 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
                 case .forgotPasswordButtonDidTap:
                     viewModel.showForgotPassword()
                 case .createAccontDidTap:
-                    viewModel.showSignUp()
+                    viewModel.showTestSignUp()
                 }
             }
             .store(in: &cancellables)

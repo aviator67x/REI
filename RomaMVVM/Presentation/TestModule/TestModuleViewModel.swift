@@ -79,8 +79,8 @@ final class TestModuleViewModel: BaseViewModel {
         transitionSubject.send(.forgotPassword)
     }
     
-    func showSignUp() {
-        transitionSubject.send(.signUp)
+    func showTestSignUp() {
+        transitionSubject.send(.testSignUp)
     }
 }
 

@@ -217,7 +217,8 @@ private extension TestModuleView {
             .store(in: &cancellables)
         
         createAccountTextView.tapPublisher
-        
+            .sink { [unowned self] in actionSubject.send(.createAccontDidTap)}
+            .store(in: &cancellables)
         }
 
     private func setupUI() {
