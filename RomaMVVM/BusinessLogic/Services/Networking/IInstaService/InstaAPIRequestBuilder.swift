@@ -9,12 +9,12 @@ import Foundation
 import CombineNetworking
 
 enum InstaAPIRequestBuilder: CNRequestBuilder {
-    case requestForAccessToken(phoneOrEmail: String, password: String)
+    case requestForAccessToken(phone: String, password: String)
     case sendVerification(code: String)
     
     var path: String {
         switch self {
-        case .requestForAccessToken: return "auth/token"
+        case .requestForAccessToken: return "users/login"
         case .sendVerification: return "auth/send-confirm-code"
         }
     }

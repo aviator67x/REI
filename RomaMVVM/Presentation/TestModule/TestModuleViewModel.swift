@@ -12,8 +12,6 @@ final class TestModuleViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<TestModuleTransition, Never>()
     private let authService: AuthService
-    
-    private let instaService: InstaService
 
     @Published var phoneOrEmail = ""
     @Published var password = ""
@@ -23,9 +21,8 @@ final class TestModuleViewModel: BaseViewModel {
 
     @Published var isInputValid = false
 
-    init(authService: AuthService, instaService: InstaService) {
+    init(authService: AuthService) {
         self.authService = authService
-        self.instaService = instaService
         super.init()
     }
 
@@ -47,7 +44,8 @@ final class TestModuleViewModel: BaseViewModel {
         $isPhoneOrEmailValid.combineLatest($isPasswordValid)
             .map { $0 == $1 }
             .sink { [unowned self] in
-                isInputValid = $0
+                isInputValid = true
+//                isInputValid = $0
             }
             .store(in: &cancellables)
     }
@@ -55,7 +53,7 @@ final class TestModuleViewModel: BaseViewModel {
     func logInForAccessToken() {
         debugPrint(phoneOrEmail, password)
         isLoadingSubject.send(true)
-            instaService.logInForAccessToken(emailOrPhone: phoneOrEmail, password: password)
+        authService.signInForToken(email: phoneOrEmail, password: password)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 switch completion {
@@ -66,13 +64,13 @@ final class TestModuleViewModel: BaseViewModel {
                 case .finished:
                     print("successfully finished")
                 }
-            } receiveValue: { [weak self] token in
-                print(token)
-                debugPrint("token: ", token)
-                TokenStorageManager.setAccessToken(token: token)
+            } receiveValue: { [weak self] user in
+                print(user.accessToken)
+                debugPrint("token: ", user.accessToken)
+                TokenStorageManager.setAccessToken(token: user.accessToken)
                 self?.transitionSubject.send(completion: .finished)
             }
-            .store (in: &cancellables)
+            .store(in: &cancellables)
     }
 
     func showForgotPassword() {

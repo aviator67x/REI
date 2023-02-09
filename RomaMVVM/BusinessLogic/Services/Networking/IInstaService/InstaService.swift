@@ -11,7 +11,7 @@ import CombineNetworking
 protocol InstaService {
     func sendVerificationCode(emailOrPhone: String) -> AnyPublisher<String, CNError>
 //    func signUp(userModel: CreateUserDataModel, completionHandler: @escaping (Results<Codable>) -> Void)
-    func logInForAccessToken(emailOrPhone: String, password: String) -> AnyPublisher<String, CNError>
+    func logInForAccessToken(email: String, password: String) -> AnyPublisher<String, CNError>
 //    func refreshToken(token: RefreshTokenBodyDataModel?, completionHandler: @escaping (Results<RefreshTokenResponseModel>) -> Void)
 //    func resetPassword(passwordsModel: ResetPasswordBodyDataModel, emailOrPhone: String, completionHandler: @escaping (Results<Codable>) -> Void)
 //    func resendVerificationCode(emailOrPhone: String, completionHandler: @escaping (Results<Codable>) -> Void)

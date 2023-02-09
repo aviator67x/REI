@@ -22,8 +22,8 @@ extension InstaServiceImpl: InstaService {
         provider.perform(.sendVerification(code: emailOrPhone))
     }
     
-    func logInForAccessToken(emailOrPhone: String, password: String) -> AnyPublisher<String, CNError> {
-        provider.perform(.requestForAccessToken(phoneOrEmail: emailOrPhone, password: password))
+    func logInForAccessToken(email: String, password: String) -> AnyPublisher<String, CNError> {
+        provider.perform(.requestForAccessToken(phone: email, password: password))
             .eraseToAnyPublisher()
     }
 }
