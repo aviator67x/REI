@@ -7,16 +7,18 @@
 
 import UIKit
 import Combine
+import KeychainAccess
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
+    
     var window: UIWindow?
     var cancellables = Set<AnyCancellable>()
 
     var appCoordinator: AppCoordinator!
     var appContainer: AppContainer!
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {       
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
         self.appContainer = AppContainerImpl()

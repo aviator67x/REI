@@ -298,6 +298,7 @@
 			children = (
 				CC0A1CA43C51CE9B7E60BECF /* RomaMVVM */,
 				DE3F1EFB85403EF50F47B481 /* Products */,
+				47F11462ACEDD10BC6A4F32A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -372,6 +373,13 @@
 				9A10E293B0B75868A7443F0F /* SignUpViewModel.swift */,
 			);
 			path = SignUp;
+			sourceTree = "<group>";
+		};
+		47F11462ACEDD10BC6A4F32A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		4EDF4871176F264FACAA073A /* Configs */ = {
@@ -720,6 +728,7 @@
 				2169446AF206FD83EB85CF8D /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				CEA545E62978016C007F9962 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
+			productRefGroup = DE3F1EFB85403EF50F47B481 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (

@@ -30,7 +30,7 @@ final class AppCoordinator: Coordinator {
         self.window.rootViewController = navigationController
         self.window.makeKeyAndVisible()
         
-        container.userService.isAuthorized ? mainFlow() : authFlow()
+        container.userService.isAuthorized ? authFlow() : authFlow()
     }
 
     private func authFlow() {

@@ -73,15 +73,11 @@ class AuthServiceImpl: AuthService {
     }
 
     func signInForToken(email: String, password: String) -> AnyPublisher<SignInResponse, Error> {
-//        var request: URLRequest
-//        let baseURL =
-//            "https://api.backendless.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B"
-//        let path = "/users/login"
-//        guard let url = URL(string: baseURL.appending(path)) else { fatalError() }
-        var request = URLRequest(url: URL(string: "https://api.backendless.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/users/login")!)
-//            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-//            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        let baseURL =
+            "https://api.backendless.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B"
+        let path = "/users/login"
+        guard let url = URL(string: baseURL.appending(path)) else { fatalError() }
+        var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         

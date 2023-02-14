@@ -16,6 +16,7 @@ protocol UserService {
     var userId: String? { get }
     
     func save(user: SignInResponse)
+    func saveAccessToken(token: String)
     func clear()
 }
 
@@ -53,6 +54,10 @@ final class UserServiceImpl: UserService {
         keychain[Keys.name] = user.name
         keychain[Keys.email] = user.email
         keychain[Keys.token] = user.accessToken
+    }
+    
+    func saveAccessToken(token: String) {
+        keychain[Keys.token] = token
     }
     
     func clear() {

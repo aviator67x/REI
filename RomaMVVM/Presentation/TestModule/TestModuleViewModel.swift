@@ -12,6 +12,7 @@ final class TestModuleViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<TestModuleTransition, Never>()
     private let authService: AuthService
+    private let userService: UserService
 
     @Published var phoneOrEmail = ""
     @Published var password = ""
@@ -21,8 +22,9 @@ final class TestModuleViewModel: BaseViewModel {
 
     @Published var isInputValid = false
 
-    init(authService: AuthService) {
+    init(authService: AuthService, userService: UserService) {
         self.authService = authService
+        self.userService = userService
         super.init()
     }
 
@@ -65,9 +67,9 @@ final class TestModuleViewModel: BaseViewModel {
                     print("successfully finished")
                 }
             } receiveValue: { [weak self] user in
-                print(user.accessToken)
                 debugPrint("token: ", user.accessToken)
-                TokenStorageManager.setAccessToken(token: user.accessToken)
+                self?.userService.saveAccessToken(token: user.accessToken)
+//                TokenStorageManager.setAccessToken(token: user.accessToken)
                 self?.transitionSubject.send(completion: .finished)
             }
             .store(in: &cancellables)
