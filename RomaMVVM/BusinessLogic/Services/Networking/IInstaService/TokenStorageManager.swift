@@ -37,10 +37,8 @@ final class TokenStorageManager {
     }
     
     static func clearTokens() {
-//        keychain.removeObject(forKey: accessToken)
-//        keychain.removeObject(forKey: refreshToken)
-//        UserAvatarFileManagerService.removeSavedImage()
-//        UserDefaultsDataService.removeAllUserData()
+        keychain.removeObject(forKey: accessToken)
+        keychain.removeObject(forKey: refreshToken)
     }
     
     static var isAutorized: Bool {

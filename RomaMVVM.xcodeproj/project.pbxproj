@@ -73,6 +73,8 @@
 		C89644FBACE71E197085D1BC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A101D5F618D54C4FD3C7C1A0 /* HomeViewModel.swift */; };
 		C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B987BF6DF71C9B592152ADD5 /* MainTabBarViewController.swift */; };
 		CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F16D0E37163C320B0E6859 /* UIView+Constraints.swift */; };
+		CE98819F299E544E0086F583 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE98819E299E544E0086F583 /* NetworkManager.swift */; };
+		CE9881A1299E54590086F583 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881A0299E54590086F583 /* RequestBuilder.swift */; };
 		CEA545E029754FBC007F9962 /* TestModuleModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545DC29754FBC007F9962 /* TestModuleModuleBuilder.swift */; };
 		CEA545E129754FBC007F9962 /* TestModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545DD29754FBC007F9962 /* TestModuleViewController.swift */; };
 		CEA545E229754FBC007F9962 /* TestModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545DE29754FBC007F9962 /* TestModuleView.swift */; };
@@ -96,6 +98,7 @@
 		CEA5F588298CE92300B87DD4 /* TestSignUpModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F584298CE92300B87DD4 /* TestSignUpModuleView.swift */; };
 		CEA5F589298CE92300B87DD4 /* TestSignUpModuleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F585298CE92300B87DD4 /* TestSignUpModuleViewModel.swift */; };
 		CEA5F58B298CEBA200B87DD4 /* UISegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F58A298CEBA200B87DD4 /* UISegmentControl.swift */; };
+		CEA5F5D0299BECE300B87DD4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F5CD299BECE300B87DD4 /* NetworkError.swift */; };
 		CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99C2981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift */; };
 		CEADC9A12981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99D2981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift */; };
 		CEADC9A22981A22E007A0650 /* UniformKeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99E2981A22E007A0650 /* UniformKeyPathInitializable.swift */; };
@@ -198,6 +201,8 @@
 		CA3BC08D121DE730EFC08F65 /* Config-STG.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-STG.xcconfig"; sourceTree = "<group>"; };
 		CA51E79F6908337E1B14DE70 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		CDC26BABD5C06A4C5B789348 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		CE98819E299E544E0086F583 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		CE9881A0299E54590086F583 /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		CEA545DC29754FBC007F9962 /* TestModuleModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleModuleBuilder.swift; sourceTree = "<group>"; };
 		CEA545DD29754FBC007F9962 /* TestModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleViewController.swift; sourceTree = "<group>"; };
 		CEA545DE29754FBC007F9962 /* TestModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleView.swift; sourceTree = "<group>"; };
@@ -220,6 +225,7 @@
 		CEA5F584298CE92300B87DD4 /* TestSignUpModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignUpModuleView.swift; sourceTree = "<group>"; };
 		CEA5F585298CE92300B87DD4 /* TestSignUpModuleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignUpModuleViewModel.swift; sourceTree = "<group>"; };
 		CEA5F58A298CEBA200B87DD4 /* UISegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentControl.swift; sourceTree = "<group>"; };
+		CEA5F5CD299BECE300B87DD4 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		CEADC99C2981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+UniformKeyPathInitializable.swift"; sourceTree = "<group>"; };
 		CEADC99D2981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+KeyPathInitializable.swift"; sourceTree = "<group>"; };
 		CEADC99E2981A22E007A0650 /* UniformKeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniformKeyPathInitializable.swift; sourceTree = "<group>"; };
@@ -583,6 +589,16 @@
 			path = TestSignUp;
 			sourceTree = "<group>";
 		};
+		CEA5F5CA299BECE300B87DD4 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				CE9881A0299E54590086F583 /* RequestBuilder.swift */,
+				CE98819E299E544E0086F583 /* NetworkManager.swift */,
+				CEA5F5CD299BECE300B87DD4 /* NetworkError.swift */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
 		CEADC99B2981A22E007A0650 /* KeyPathInitializable */ = {
 			isa = PBXGroup;
 			children = (
@@ -670,6 +686,7 @@
 				B61D0EF8B1999093C976E133 /* AppSettings.swift */,
 				51CFD4204AC5C192A2EB09E5 /* AuthService.swift */,
 				90A4F4E565EAAD3D9ED5C262 /* UserService.swift */,
+				CEA5F5CA299BECE300B87DD4 /* NetworkLayer */,
 				CEADC9A62983D9E4007A0650 /* TextFieldValidationService */,
 				0ABA33F4C68A53878DD45650 /* Networking */,
 			);
@@ -814,6 +831,7 @@
 				CEA545F3297820A3007F9962 /* ChecmarkView.swift in Sources */,
 				CEA545E52977FF04007F9962 /* Creatable.swift in Sources */,
 				69FC756CA7A3ECBB0ADBB994 /* AuthPlugin.swift in Sources */,
+				CEA5F5D0299BECE300B87DD4 /* NetworkError.swift in Sources */,
 				CEADC9AD2987BE9F007A0650 /* InstaServiceImpl.swift in Sources */,
 				A18F96B98F54CE37C74BB352 /* AuthSelectModuleBuilder.swift in Sources */,
 				92AD0D8D2625830033F2F575 /* AuthSelectView.swift in Sources */,
@@ -844,6 +862,7 @@
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
 				E8A38D357261F60F542286DF /* HomeCoordinator.swift in Sources */,
 				48B8837C3689F3F1F6D1C94A /* HomeModuleBuilder.swift in Sources */,
+				CE98819F299E544E0086F583 /* NetworkManager.swift in Sources */,
 				CEADC9A52982EC63007A0650 /* TextFieldValidator.swift in Sources */,
 				75EAFD1623ED144901066A91 /* HomeView.swift in Sources */,
 				F76F80F523567F473C397554 /* HomeViewController.swift in Sources */,
@@ -872,6 +891,7 @@
 				CEA545EF297820A3007F9962 /* TextFieldType.swift in Sources */,
 				CEADC9B12987D351007A0650 /* KeychianStorage.swift in Sources */,
 				E0783FEAD4F64D8929109DF5 /* SignInViewController.swift in Sources */,
+				CE9881A1299E54590086F583 /* RequestBuilder.swift in Sources */,
 				62A24654EC339481A9A42790 /* SignInViewModel.swift in Sources */,
 				36F21C3E89939F36F60109C7 /* SignUpModuleBuilder.swift in Sources */,
 				D34253F8086536BA886A792C /* SignUpView.swift in Sources */,

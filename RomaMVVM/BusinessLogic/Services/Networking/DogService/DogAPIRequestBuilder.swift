@@ -9,6 +9,8 @@ import Foundation
 import CombineNetworking
 
 enum DogAPIRequestBuilder: CNRequestBuilder {
+    var method: CombineNetworking.HTTPMethod { return .get }
+    
     case search(breeds: String)
     
     var path: String {
@@ -25,5 +27,5 @@ enum DogAPIRequestBuilder: CNRequestBuilder {
     }
     
     var body: Data? { return nil }
-    var method: HTTPMethod { return .get }
+//    var method: HTTPMethod { return .get }
 }
