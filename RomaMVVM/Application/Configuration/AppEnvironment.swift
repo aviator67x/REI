@@ -14,20 +14,36 @@ enum AppEnvironment: String {
 
     var baseURL: URL {
         switch self {
-        case .dev: return URL(string: "https://api-interngram.chisw.us/")!
-        case .stg: return URL(string: "https://api-interngram.chisw.us/")!
-        case .prod: return URL(string: "https://api-interngram.chisw.us/")!
+        case .dev: return URL(string: "https://api.backendless.com")!
+        case .stg: return URL(string: "https://api.backendless.com")!
+        case .prod: return URL(string: "https://api.backendless.com")!
 //        case .dev: return URL(string: "https://api.thedogapi.com/v1")!
 //        case .stg: return URL(string: "https://api.thedogapi.com/v1")!
 //        case .prod: return URL(string: "https://api.thedogapi.com/v1")!
         }
     }
 
-    var apiToken: String {
+    var host: String {
         switch self {
-        case .dev: return "60b38a7e-b2b0-4c87-9106-04c900e0cdf5"
-        case .stg: return "60b38a7e-b2b0-4c87-9106-04c900e0cdf5"
-        case .prod: return "60b38a7e-b2b0-4c87-9106-04c900e0cdf5"
+        case .dev: return "api.backendless.com"
+        case .stg: return "api.backendless.com"
+        case .prod: return "api.backendless.com"
+        }
+    }
+
+    var apiKey: String {
+        switch self {
+        case .dev: return "/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B"
+        case .stg: return "/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B"
+        case .prod: return "04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B"
+        }
+    }
+
+    var appId: String {
+        switch self {
+        case .dev: return "/DD1C6C3C-1432-CEA8-FF78-F071F66BF000"
+        case .stg: return "/DD1C6C3C-1432-CEA8-FF78-F071F66BF000"
+        case .prod: return "/DD1C6C3C-1432-CEA8-FF78-F071F66BF000"
         }
     }
 }

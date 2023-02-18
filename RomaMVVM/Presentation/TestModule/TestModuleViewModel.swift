@@ -13,7 +13,6 @@ final class TestModuleViewModel: BaseViewModel {
     private let transitionSubject = PassthroughSubject<TestModuleTransition, Never>()
     private let authService: AuthService
     private let userService: UserService
-    private let netwokManager = NetworkService()
 
     @Published var phoneOrEmail = ""
     @Published var password = ""
@@ -56,13 +55,11 @@ final class TestModuleViewModel: BaseViewModel {
     func logInForAccessToken() {
         debugPrint(phoneOrEmail, password)
         isLoadingSubject.send(true)
-//        authService.signInForToken(email: "aviator67x@gmail.com", password: "password")
-        netwokManager.login(email: "aviator67x@gmail.com", password: "password")
+        authService.signIn(email: "superMegaJamesBond@mi6.co.uk", password: "supe3rs3cre3t")
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 switch completion {
                 case .failure(let error):
-                    
                     debugPrint(error.localizedDescription)
                     self?.errorSubject.send(error)
                 case .finished:
@@ -72,7 +69,6 @@ final class TestModuleViewModel: BaseViewModel {
                 self?.isLoadingSubject.send(false)
                 debugPrint("token: ", user.accessToken)
                 self?.userService.saveAccessToken(token: user.accessToken)
-//                TokenStorageManager.setAccessToken(token: user.accessToken)
                 self?.transitionSubject.send(completion: .finished)
             }
             .store(in: &cancellables)

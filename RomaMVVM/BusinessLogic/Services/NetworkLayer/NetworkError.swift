@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum NetworkError: Error, Equatable {
+ enum NetworkError: Error, Equatable {
     case badURL(_ error: String)
     case apiError(code: Int, error: String)
     case invalidJSON(_ error: String)

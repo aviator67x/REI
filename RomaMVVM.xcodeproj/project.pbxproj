@@ -73,7 +73,6 @@
 		C89644FBACE71E197085D1BC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A101D5F618D54C4FD3C7C1A0 /* HomeViewModel.swift */; };
 		C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B987BF6DF71C9B592152ADD5 /* MainTabBarViewController.swift */; };
 		CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F16D0E37163C320B0E6859 /* UIView+Constraints.swift */; };
-		CE98819F299E544E0086F583 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE98819E299E544E0086F583 /* NetworkManager.swift */; };
 		CE9881A1299E54590086F583 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881A0299E54590086F583 /* RequestBuilder.swift */; };
 		CEA545E029754FBC007F9962 /* TestModuleModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545DC29754FBC007F9962 /* TestModuleModuleBuilder.swift */; };
 		CEA545E129754FBC007F9962 /* TestModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545DD29754FBC007F9962 /* TestModuleViewController.swift */; };
@@ -201,7 +200,6 @@
 		CA3BC08D121DE730EFC08F65 /* Config-STG.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-STG.xcconfig"; sourceTree = "<group>"; };
 		CA51E79F6908337E1B14DE70 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		CDC26BABD5C06A4C5B789348 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		CE98819E299E544E0086F583 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CE9881A0299E54590086F583 /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		CEA545DC29754FBC007F9962 /* TestModuleModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleModuleBuilder.swift; sourceTree = "<group>"; };
 		CEA545DD29754FBC007F9962 /* TestModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModuleViewController.swift; sourceTree = "<group>"; };
@@ -246,7 +244,7 @@
 		D7BB6B90CE54A3FB9463DD52 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		DE8FD48F3E7B67CE19F2ACBB /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.ttf"; sourceTree = "<group>"; };
 		E23D40C86BEC784EDA067A6B /* SignUpModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModuleBuilder.swift; sourceTree = "<group>"; };
-		E6353D0F1511E20E206B1634 /* RomaMVVM.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = RomaMVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6353D0F1511E20E206B1634 /* RomaMVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RomaMVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E722D2C413B04E108431D849 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		E78D80BB88651B2614D68BAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EBA716F47AF0AB3063BF8B2F /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -344,8 +342,8 @@
 				EBA716F47AF0AB3063BF8B2F /* UIView+Ext.swift */,
 				CEA545FE297832F6007F9962 /* UIView+layout.swift */,
 				CEA54600297836C8007F9962 /* NSAttributedString.swift */,
-				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
 				CEA5F58A298CEBA200B87DD4 /* UISegmentControl.swift */,
+				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -593,7 +591,6 @@
 			isa = PBXGroup;
 			children = (
 				CE9881A0299E54590086F583 /* RequestBuilder.swift */,
-				CE98819E299E544E0086F583 /* NetworkManager.swift */,
 				CEA5F5CD299BECE300B87DD4 /* NetworkError.swift */,
 			);
 			path = NetworkLayer;
@@ -862,7 +859,6 @@
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
 				E8A38D357261F60F542286DF /* HomeCoordinator.swift in Sources */,
 				48B8837C3689F3F1F6D1C94A /* HomeModuleBuilder.swift in Sources */,
-				CE98819F299E544E0086F583 /* NetworkManager.swift in Sources */,
 				CEADC9A52982EC63007A0650 /* TextFieldValidator.swift in Sources */,
 				75EAFD1623ED144901066A91 /* HomeView.swift in Sources */,
 				F76F80F523567F473C397554 /* HomeViewController.swift in Sources */,
@@ -937,14 +933,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1081,14 +1083,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "Release STG";
 		};
@@ -1098,14 +1106,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1302,14 +1316,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "Release DEV";
 		};
@@ -1319,14 +1339,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "Debug DEV";
 		};
@@ -1336,14 +1362,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "Debug STG";
 		};

@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>APP_API_KEY</key>
+	<string>$(APP_API_KEY)</string>
+	<key>APP_APP_ID</key>
+	<string>$(APP_APP_ID)</string>
 	<key>APP_ENVIRONMENT</key>
 	<string>$(APP_ENVIRONMENT)</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -9,7 +13,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(APP_BUNDLE_ID)</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

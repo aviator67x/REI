@@ -8,17 +8,17 @@
 import Combine
 import Foundation
 
-public enum HTTPMethod: String {
+enum Environment: String, CaseIterable {
+    case development
+    case staging
+    case production
+}
+
+enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
     case put = "PUT"
     case delete = "DELETE"
-}
-
-public enum Environment: String, CaseIterable {
-    case development
-    case staging
-    case production
 }
 
 protocol EndPoint: RequestBuilder {
@@ -29,7 +29,7 @@ protocol EndPoint: RequestBuilder {
     var headers: [String: String] { get }
     var body: Data? { get }
 
-//    func getURL() -> URL?
+    func getURL() -> URL?
 }
 
 protocol RequestBuilder {
@@ -63,6 +63,67 @@ extension EndPoint {
         }
         components.queryItems = queryItems
         return components.url
+    }
+}
+
+enum AuthEndPoint: EndPoint {
+    case login(model: SignInRequest)
+    case signUp(model: SignUpRequest)
+    case recoverPassword
+
+    var baseURL: String {
+//        AppEnvironment.dev.rawValue
+        "api.backendless.com"
+    }
+
+    var path: String {
+        switch self {
+        case .login:
+            return "/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/users/login"
+        case .signUp:
+            return "/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/data/Users"
+        case .recoverPassword:
+            return "/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/users/restorepassword/:userIdentity"
+        }
+    }
+
+    var query: [String: String]? {
+        nil
+    }
+
+    var method: HTTPMethod {
+        switch self {
+        case .login, .signUp:
+            return .post
+        case .recoverPassword:
+            return .get
+        }
+    }
+
+    var headers: [String: String] {
+        switch self {
+        case .login:
+            return ["Content-Type": "application/json"]
+        case .signUp:
+            return ["Content-Type": "application/json"]
+        case .recoverPassword:
+            return [:]
+        }
+    }
+
+    var body: Data? {
+        switch self {
+        case let .login(model: model):
+            let data = try? JSONEncoder().encode(model)
+
+            return data
+        case let .signUp(model: model):
+            let data = try? JSONEncoder().encode(model)
+
+            return data
+        case .recoverPassword:
+            return nil
+        }
     }
 }
 
