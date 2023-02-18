@@ -17,17 +17,6 @@ enum AppEnvironment: String {
         case .dev: return URL(string: "https://api.backendless.com")!
         case .stg: return URL(string: "https://api.backendless.com")!
         case .prod: return URL(string: "https://api.backendless.com")!
-//        case .dev: return URL(string: "https://api.thedogapi.com/v1")!
-//        case .stg: return URL(string: "https://api.thedogapi.com/v1")!
-//        case .prod: return URL(string: "https://api.thedogapi.com/v1")!
-        }
-    }
-
-    var host: String {
-        switch self {
-        case .dev: return "api.backendless.com"
-        case .stg: return "api.backendless.com"
-        case .prod: return "api.backendless.com"
         }
     }
 

@@ -54,7 +54,7 @@ final class TestModuleViewModel: BaseViewModel {
 
     func logInForAccessToken() {
         debugPrint(phoneOrEmail, password)
-        isLoadingSubject.send(true)
+//        isLoadingSubject.send(true)
         authService.signIn(email: "superMegaJamesBond@mi6.co.uk", password: "supe3rs3cre3t")
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -66,7 +66,7 @@ final class TestModuleViewModel: BaseViewModel {
                     print("successfully finished")
                 }
             } receiveValue: { [weak self] user in
-                self?.isLoadingSubject.send(false)
+//                self?.isLoadingSubject.send(false)
                 debugPrint("token: ", user.accessToken)
                 self?.userService.saveAccessToken(token: user.accessToken)
                 self?.transitionSubject.send(completion: .finished)

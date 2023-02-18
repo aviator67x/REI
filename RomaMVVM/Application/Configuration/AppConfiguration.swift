@@ -39,14 +39,18 @@ final class AppConfigurationImpl: AppConfiguration {
         debugPrint(bundleId)
         debugPrint(apiKey)
         debugPrint(appId)
-        DispatchQueue.global().async {
-            debugPrint(try? String(contentsOf: self.baseURL))
-        }
     }
 
     lazy var baseURL: URL = {
-        let url = AppEnvironment.dev.baseURL.appendingPathExtension(appId).appendingPathExtension(apiKey)
-        return url
+        switch environment {
+        case .dev:
+            return AppEnvironment.dev.baseURL.appendingPathComponent(appId).appendingPathComponent(apiKey)
+        case .stg:
+            return AppEnvironment.stg.baseURL.appendingPathComponent(appId).appendingPathComponent(apiKey)
+        case .prod:
+            return AppEnvironment.prod.baseURL.appendingPathComponent(appId).appendingPathComponent(apiKey)
+        }
+        
     }()
 
     private enum Key {

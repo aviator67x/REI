@@ -101,37 +101,4 @@ class AuthServiceImpl: AuthService {
 //        }
 //        .eraseToAnyPublisher()
 //    }
-//
-//    func signInForToken(email: String, password: String) -> AnyPublisher<SignInResponse, Error> {
-//        let baseURL =
-//            "https://api.backendless.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B"
-//        let path = "/users/login"
-//        guard let url = URL(string: baseURL.appending(path)) else { fatalError() }
-//        var request = URLRequest(url: url)
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.httpMethod = "POST"
-//
-//        struct SignInRequestModel: Encodable {
-//            var login: String
-//            var password: String
-//        }
-//        let requestModel = SignInRequestModel(login: email, password: password)
-//
-//
-//
-//        let body = try? JSONEncoder().encode(requestModel)
-//        request.httpBody = body
-//
-//        return URLSession.shared.dataTaskPublisher(for: request)
-//            .tryMap { element -> Data in
-//                guard let httpResponse = element.response as? HTTPURLResponse,
-//                      httpResponse.statusCode == 200
-//                else {
-//                    throw URLError(.badServerResponse)
-//                }
-//                return element.data
-//            }
-//            .decode(type: SignInResponse.self, decoder: JSONDecoder())
-//            .eraseToAnyPublisher()
-//    }
 }

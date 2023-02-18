@@ -8,24 +8,20 @@
 import Combine
 import Foundation
 
-enum Environment: String, CaseIterable {
-    case development
-    case staging
-    case production
-}
-
 enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
     case put = "PUT"
+    case patch = "PATCH"
     case delete = "DELETE"
 }
 
 protocol EndPoint: RequestBuilder {
-    var baseURL: String { get }
+    var baseURL: URL { get }
     var path: String { get }
     var query: [String: String]? { get }
     var method: HTTPMethod { get }
+//    var task: HTTPTask { get }
     var headers: [String: String] { get }
     var body: Data? { get }
 
@@ -37,6 +33,11 @@ protocol RequestBuilder {
 }
 
 extension EndPoint {
+    var baseURL: URL {
+//    URL(string: "https://api.backendless.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B")!
+        AppConfigurationImpl().baseURL
+    }
+    
     func buildRequest() -> URLRequest? {
         guard let url = getURL() else { return nil }
         var request = URLRequest(url: url)
@@ -51,18 +52,25 @@ extension EndPoint {
     }
 
     func getURL() -> URL? {
-        var components = URLComponents()
+//        var components = URLComponents()
         var queryItems = [URLQueryItem]()
-        components.scheme = "https"
-        components.host = baseURL
-        components.path = path
-
+//        components.scheme = "https"
+//        components.host = baseURL
+//        components.path = path
+//
         query?.forEach { item in
             let urlQueryItem = URLQueryItem(name: item.key, value: item.value)
             queryItems.append(urlQueryItem)
         }
-        components.queryItems = queryItems
-        return components.url
+//        components.queryItems = queryItems
+//        return components.url
+        if #available(iOS 16.0, *) {
+            return baseURL.appendingPathComponent(path).appending(queryItems: queryItems)
+        } else {
+            // Fallback on earlier versions
+            return nil
+        }
+               
     }
 }
 
@@ -71,15 +79,14 @@ enum AuthEndPoint: EndPoint {
     case signUp(model: SignUpRequest)
     case recoverPassword
 
-    var baseURL: String {
-//        AppEnvironment.dev.rawValue
-        "api.backendless.com"
-    }
+//    var baseURL: String {
+//        "api.backendless.com"
+//    }
 
     var path: String {
         switch self {
         case .login:
-            return "/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/users/login"
+            return "/users/login"
         case .signUp:
             return "/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/data/Users"
         case .recoverPassword:
@@ -115,11 +122,9 @@ enum AuthEndPoint: EndPoint {
         switch self {
         case let .login(model: model):
             let data = try? JSONEncoder().encode(model)
-
             return data
         case let .signUp(model: model):
             let data = try? JSONEncoder().encode(model)
-
             return data
         case .recoverPassword:
             return nil
