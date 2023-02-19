@@ -55,7 +55,7 @@ final class TestModuleViewModel: BaseViewModel {
     func logInForAccessToken() {
         debugPrint(phoneOrEmail, password)
 //        isLoadingSubject.send(true)
-        authService.signIn(email: "superMegaJamesBond@mi6.co.uk", password: "supe3rs3cre3t")
+        authService.signIn(email: phoneOrEmail, password: password)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 switch completion {
@@ -63,15 +63,34 @@ final class TestModuleViewModel: BaseViewModel {
                     debugPrint(error.localizedDescription)
                     self?.errorSubject.send(error)
                 case .finished:
-                    print("successfully finished")
+                    print("SignIn successfully finished")
                 }
             } receiveValue: { [weak self] user in
-//                self?.isLoadingSubject.send(false)
+                self?.isLoadingSubject.send(false)
                 debugPrint("token: ", user.accessToken)
                 self?.userService.saveAccessToken(token: user.accessToken)
                 self?.transitionSubject.send(completion: .finished)
             }
             .store(in: &cancellables)
+    }
+    
+    func signUP() {
+        authService.signUp(email: "bluberry@mail.co", name: "Bluberry", password: "tasty")
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    print("SignIn successfully finished")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self?.errorSubject.send(error)
+                }
+            } receiveValue: { [weak self] signUpInfo in
+                debugPrint("signUpInfo", signUpInfo.name)
+                self?.transitionSubject.send(completion: .finished)
+            }
+            .store(in: &cancellables)
+
     }
 
     func showForgotPassword() {

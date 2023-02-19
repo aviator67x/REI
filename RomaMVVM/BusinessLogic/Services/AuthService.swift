@@ -65,40 +65,10 @@ class AuthServiceImpl: AuthService {
     func signUp(email: String, name: String, password: String) -> AnyPublisher<SignUpResponse, NetworkError> {
         let signUpRequestModel = SignUpRequest(name: name, email: email, password: password)
         let authEndPoint = AuthEndPoint.signUp(model: signUpRequestModel)
-        guard let request = authEndPoint.buildRequest() else { fatalError("Can't build URLRequest for SignUp flow") }
+        guard let request = authEndPoint.buildRequest() else {
+            fatalError("Can't build URLRequest for SignUp flow")
+        }
 
         return networkRequestable.request(request)
     }
-    
-//    func signIn(email: String, password: String) -> AnyPublisher<SignInResponse, CustomError> {
-//        Future<SignInResponse, CustomError> { promise in
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                if password.count > 8 {
-//                    let model = SignInResponse(
-//                        id: UUID().uuidString,
-//                        name: "Username",
-//                        email: email,
-//                        accessToken: UUID().uuidString
-//                    )
-//                    promise(.success(model))
-//                } else {
-//                    promise(.failure(.authError))
-//                }
-//            }
-//        }
-//        .eraseToAnyPublisher()
-//    }
-//
-//    func signUp(email: String, password: String) -> AnyPublisher<Bool, CustomError> {
-//        Future<Bool, CustomError> { promise in
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                if password.count > 4 {
-//                    promise(.success(true))
-//                } else {
-//                    promise(.failure(.authError))
-//                }
-//            }
-//        }
-//        .eraseToAnyPublisher()
-//    }
 }

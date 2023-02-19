@@ -88,9 +88,9 @@ enum AuthEndPoint: EndPoint {
         case .login:
             return "/users/login"
         case .signUp:
-            return "/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/data/Users"
+            return "/data/Users"
         case .recoverPassword:
-            return "/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/users/restorepassword/:userIdentity"
+            return "/users/restorepassword/:userIdentity"
         }
     }
 

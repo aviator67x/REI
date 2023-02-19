@@ -81,6 +81,7 @@ final class TestModuleView: BaseView {
     private lazy var phoneOrEmailTextField: TextField = {
         let textfield = TextField(type: .phoneOrEmail)
         textfield.placeholder = "Phone or Email"
+        textfield.text = "superMegaJamesBond@mi6.co.u"
         return textfield
     }()
     
@@ -100,6 +101,7 @@ final class TestModuleView: BaseView {
     private lazy var passwordTextField: TextField = {
         let textField = TextField(type: .password)
         textField.placeholder = "Password"
+        textField.text = "supe3rs3cre3"
         return textField
     }()
     
