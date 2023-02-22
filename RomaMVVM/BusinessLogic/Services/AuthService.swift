@@ -39,36 +39,31 @@ struct SignUpResponse: Decodable {
     let id: String
     let name: String
     let email: String
-   
+
     enum CodingKeys: String, CodingKey {
         case name, email, id = "ownerId"
     }
 }
 
 protocol AuthService {
-    func signIn(email: String, password: String) -> AnyPublisher<SignInResponse, NetworkError>
-    func signUp(email: String, name: String, password: String) -> AnyPublisher<SignUpResponse, NetworkError>
+    func signIn(_ requestModel: SignInRequest) -> AnyPublisher<SignInResponse, NetworkError>
+    func signUp(_ requestModel: SignUpRequest) -> AnyPublisher<SignUpResponse, NetworkError>
 }
 
-class AuthServiceImpl: AuthService {
-    let networkRequestable = NetworkRequestable()
-    
-    func signIn(email: String, password: String) -> AnyPublisher<SignInResponse, NetworkError> {
-        let loginRequestModel = SignInRequest(login: email, password: password)
-        let authEndPoint = AuthEndPoint.login(model: loginRequestModel)
-        guard let networkRequest = authEndPoint.buildRequest()
-        else { fatalError("Can't build URLRequest for Login flow") }
+class AuthServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == AuthEndPoint {
+    let authProvider: NetworkProvider
 
-        return networkRequestable.request(networkRequest)
+    init(authProvider: NetworkProvider) {
+        self.authProvider = authProvider
+    }
+}
+
+extension AuthServiceImpl: AuthService {
+    func signIn(_ requestModel: SignInRequest) -> AnyPublisher<SignInResponse, NetworkError> {
+        return authProvider.execute(endpoint: .login(model: requestModel), decodeType: SignInResponse.self)
     }
 
-    func signUp(email: String, name: String, password: String) -> AnyPublisher<SignUpResponse, NetworkError> {
-        let signUpRequestModel = SignUpRequest(name: name, email: email, password: password)
-        let authEndPoint = AuthEndPoint.signUp(model: signUpRequestModel)
-        guard let request = authEndPoint.buildRequest() else {
-            fatalError("Can't build URLRequest for SignUp flow")
-        }
-
-        return networkRequestable.request(request)
+    func signUp(_ requestModel: SignUpRequest) -> AnyPublisher<SignUpResponse, NetworkError> {
+        return authProvider.execute(endpoint: .signUp(model: requestModel), decodeType: SignUpResponse.self)
     }
 }

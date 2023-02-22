@@ -54,8 +54,9 @@ final class TestModuleViewModel: BaseViewModel {
 
     func logInForAccessToken() {
         debugPrint(phoneOrEmail, password)
+        let requestModel = SignInRequest(login: phoneOrEmail, password: password)
 //        isLoadingSubject.send(true)
-        authService.signIn(email: phoneOrEmail, password: password)
+        authService.signIn(requestModel)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 switch completion {
@@ -75,12 +76,13 @@ final class TestModuleViewModel: BaseViewModel {
     }
     
     func signUP() {
-        authService.signUp(email: "bluberry@mail.co", name: "Bluberry", password: "tasty")
+        let requestModel = SignUpRequest(name: "Bluberry", email: "bluberry@mail.co", password: "tasty")
+        authService.signUp(requestModel)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
-                    print("SignIn successfully finished")
+                    print("SignUp successfully finished")
                 case .failure(let error):
                     print(error.localizedDescription)
                     self?.errorSubject.send(error)

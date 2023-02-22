@@ -49,24 +49,24 @@ final class SignInViewModel: BaseViewModel {
     }
 
     func signInUser() {
-        debugPrint(email, password)
-        isLoadingSubject.send(true)
-        authService.signIn(email: email, password: password)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                self?.isLoadingSubject.send(false)
-                switch completion {
-                case .finished:
-                    debugPrint("ok")
-                case .failure(let error):
-                    debugPrint(error.localizedDescription)
-                    self?.errorSubject.send(error)
-                }
-            } receiveValue: { [weak self] response in
-                debugPrint("sign in result: ", response)
-                self?.userService.save(user: response)
-                self?.transitionSubject.send(.success)
-            }
-            .store(in: &cancellables)
+//        debugPrint(email, password)
+//        isLoadingSubject.send(true)
+//        authService.signIn(email: email, password: password)
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] completion in
+//                self?.isLoadingSubject.send(false)
+//                switch completion {
+//                case .finished:
+//                    debugPrint("ok")
+//                case .failure(let error):
+//                    debugPrint(error.localizedDescription)
+//                    self?.errorSubject.send(error)
+//                }
+//            } receiveValue: { [weak self] response in
+//                debugPrint("sign in result: ", response)
+//                self?.userService.save(user: response)
+//                self?.transitionSubject.send(.success)
+//            }
+//            .store(in: &cancellables)
     }
 }

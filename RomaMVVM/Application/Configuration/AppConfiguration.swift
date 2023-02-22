@@ -7,7 +7,11 @@
 
 import Foundation
 
-protocol AppConfiguration {
+protocol BaseURLStorage {
+    var baseURL: URL { get }
+}
+
+protocol AppConfiguration: BaseURLStorage {
     var bundleId: String { get }
     var environment: AppEnvironment { get }
 }
@@ -42,21 +46,12 @@ final class AppConfigurationImpl: AppConfiguration {
     }
 
     lazy var baseURL: URL = {
-        switch environment {
-        case .dev:
-            return AppEnvironment.dev.baseURL.appendingPathComponent(appId).appendingPathComponent(apiKey)
-        case .stg:
-            return AppEnvironment.stg.baseURL.appendingPathComponent(appId).appendingPathComponent(apiKey)
-        case .prod:
-            return AppEnvironment.prod.baseURL.appendingPathComponent(appId).appendingPathComponent(apiKey)
-        }
-        
+        return environment.baseURL.appendingPathComponent(appId).appendingPathComponent(apiKey)        
     }()
 
     private enum Key {
         static let Environment = "APP_ENVIRONMENT"
         static let ApiKey = "APP_API_KEY"
         static let AppId = "APP_APP_ID"
-        static let BaseURL = "APP_BASE_URL"
     }
 }
