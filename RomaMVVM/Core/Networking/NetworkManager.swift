@@ -26,7 +26,7 @@ class NetworkManagerImpl: NetworkManager {
             }
             .flatMap { output -> AnyPublisher<Data, NetworkError> in
                 guard let httpResponse = output.response as? HTTPURLResponse else {
-                    return Fail(error: NetworkError.unknown)
+                    return Fail(error: NetworkError.noResponse)
                         .eraseToAnyPublisher()
                 }
               
@@ -37,11 +37,11 @@ class NetworkManagerImpl: NetworkManager {
                         .eraseToAnyPublisher()
                     
                 case 400...499:
-                    return Fail(error: NetworkError.badRequest(code: 102, error: "Bad URL request"))
+                    return Fail(error: NetworkError.badRequest)
                         .eraseToAnyPublisher()
                     
                 case 500...599:
-                    return Fail(error: NetworkError.serverError(code: 103, error: "Server error"))
+                    return Fail(error: NetworkError.serverError)
                         .eraseToAnyPublisher()
                     
                 default:

@@ -39,8 +39,7 @@ extension Endpoint {
             fullURL = fullURL.appendingPathComponent(path)
         }
         guard var components = URLComponents(url: fullURL, resolvingAgainstBaseURL: true) else {
-//            return nil
-            throw RequestBuilderError.unableToCreateComponents(code: 100, error: "Unable to create components")
+            throw RequestBuilderError.unableToCreateComponents
         }
         components.queryItems = queries.map {
             URLQueryItem(name: $0.key, value: $0.value)
@@ -57,7 +56,7 @@ extension Endpoint {
                 
             case .encodable(let model):
                 guard let data = try? encoder.encode(model) else {
-                    throw RequestBuilderError.unableToBuildUrl
+                    throw RequestBuilderError.unableToEncode
                 }
                 request.httpBody = data
             }

@@ -7,18 +7,21 @@
 
 import Foundation
 enum RequestBuilderError: Error, LocalizedError, Equatable {
-    case unableToCreateComponents(code: Int, error: String)
+    case unableToCreateComponents
     case unableToBuildUrl
     case unableToBuildRequest
-    
+    case unableToEncode
+
     var errorDescription: String? {
         switch self {
-        case let .unableToCreateComponents(code: code, error: error):
+        case .unableToCreateComponents:
             return "Unable to create URL components"
         case .unableToBuildUrl:
             return "Unable to get URL from components"
         case .unableToBuildRequest:
             return "Unable to build URL request"
+        case .unableToEncode:
+            return "Unable to encode"
         }
     }
 }
@@ -26,28 +29,30 @@ enum RequestBuilderError: Error, LocalizedError, Equatable {
 enum NetworkError: Error, LocalizedError, Equatable {
     case cannotBuildRequest(reason: RequestBuilderError)
     case badURL(_ error: URLError)
-    case apiError(code: Int, error: String)
-    case invalidJSON(_ error: String)
-    case unauthorized(code: Int, error: String)
-    case badRequest(code: Int, error: String)
-    case serverError(code: Int, error: String)
-    case noResponse(_ error: String)
-    case unableToParseData(_ error: String)
+    case apiError
+    case invalidJSON
+    case unauthorized
+    case badRequest
+    case serverError
+    case noResponse
+    case unableToParseData
     case unknown
 
     var errorDescription: String? {
         switch self {
+        case let .cannotBuildRequest(reason: reason):
+            return "Can't build request because of \(reason)"
         case .badURL:
             return "Bad URL"
-        case let .apiError(code: code, error: error):
+        case .apiError:
             return "API error"
         case .invalidJSON:
             return "Invalid JSON"
-        case let .unauthorized(code: code, error: error):
+        case .unauthorized:
             return "Unauthorized"
-        case let .badRequest(code: code, error: error):
+        case .badRequest:
             return "Bad URL request"
-        case let .serverError(code: code, error: error):
+        case .serverError:
             return "Server error"
         case .noResponse:
             return "No response"
@@ -55,8 +60,6 @@ enum NetworkError: Error, LocalizedError, Equatable {
             return "Unable to parse Data"
         case .unknown:
             return "Unknown error"
-        case .cannotBuildRequest(reason: let reason):
-            return "Can't build request"
         }
     }
 }

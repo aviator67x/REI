@@ -73,7 +73,6 @@
 		C89644FBACE71E197085D1BC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A101D5F618D54C4FD3C7C1A0 /* HomeViewModel.swift */; };
 		C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B987BF6DF71C9B592152ADD5 /* MainTabBarViewController.swift */; };
 		CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F16D0E37163C320B0E6859 /* UIView+Constraints.swift */; };
-		CE9881A1299E54590086F583 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881A0299E54590086F583 /* RequestBuilder.swift */; };
 		CE9881AF29A3A3820086F583 /* AuthEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881AE29A3A3820086F583 /* AuthEndPoint.swift */; };
 		CE9881B729A4F3550086F583 /* NetworkServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B329A4F3550086F583 /* NetworkServiceProvider.swift */; };
 		CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B429A4F3550086F583 /* NetworkManager.swift */; };
@@ -200,7 +199,6 @@
 		CA3BC08D121DE730EFC08F65 /* Config-STG.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-STG.xcconfig"; sourceTree = "<group>"; };
 		CA51E79F6908337E1B14DE70 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		CDC26BABD5C06A4C5B789348 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		CE9881A0299E54590086F583 /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		CE9881AE29A3A3820086F583 /* AuthEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEndPoint.swift; sourceTree = "<group>"; };
 		CE9881B329A4F3550086F583 /* NetworkServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkServiceProvider.swift; sourceTree = "<group>"; };
 		CE9881B429A4F3550086F583 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -272,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				CE9881B229A4F3550086F583 /* Networking */,
-				CEA5F5CA299BECE300B87DD4 /* NetworkLayer */,
 				E4F5B0F1C99026175D577186 /* Base */,
 				0D4EA0BF73C90A4165E225F0 /* Extensions */,
 				91141CBDC33D0A219CE8AEA5 /* Helpers */,
@@ -609,14 +606,6 @@
 			path = TestSignUp;
 			sourceTree = "<group>";
 		};
-		CEA5F5CA299BECE300B87DD4 /* NetworkLayer */ = {
-			isa = PBXGroup;
-			children = (
-				CE9881A0299E54590086F583 /* RequestBuilder.swift */,
-			);
-			path = NetworkLayer;
-			sourceTree = "<group>";
-		};
 		CEADC99B2981A22E007A0650 /* KeyPathInitializable */ = {
 			isa = PBXGroup;
 			children = (
@@ -894,7 +883,6 @@
 				CEA546032978379B007F9962 /* RegEx.swift in Sources */,
 				CEA545EF297820A3007F9962 /* TextFieldType.swift in Sources */,
 				E0783FEAD4F64D8929109DF5 /* SignInViewController.swift in Sources */,
-				CE9881A1299E54590086F583 /* RequestBuilder.swift in Sources */,
 				62A24654EC339481A9A42790 /* SignInViewModel.swift in Sources */,
 				36F21C3E89939F36F60109C7 /* SignUpModuleBuilder.swift in Sources */,
 				D34253F8086536BA886A792C /* SignUpView.swift in Sources */,

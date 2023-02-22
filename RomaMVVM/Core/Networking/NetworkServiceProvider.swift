@@ -29,19 +29,14 @@ class NetworkServiceProviderImpl<E: Endpoint>: NetworkServiceProvider {
     }
 
     func execute(endpoint: E) -> AnyPublisher<Void, NetworkError> {
-//        let request: URLRequest
-//        guard let request = endpoint.build(baseURL: baseURLStorage.baseURL, encoder: encoder) else {
-//            return Fail(error: NetworkError.unknown(code: 101, error: "No HTTPResponse"))
-//                .eraseToAnyPublisher()
-//        }
         do {
            let request = try endpoint.build(baseURL: baseURLStorage.baseURL, encoder: encoder)
             return networkManager.execute(request: request)
                 .map { _ in }
                 .eraseToAnyPublisher()
-        } catch let error as NetworkError  {
+        } catch let error as RequestBuilderError {
             debugPrint(error.localizedDescription)
-            return Fail(error: error)
+            return Fail(error: NetworkError.cannotBuildRequest(reason: error))
                 .eraseToAnyPublisher()
         } catch {
             return Fail(error: NetworkError.unknown)
@@ -59,19 +54,13 @@ class NetworkServiceProviderImpl<E: Endpoint>: NetworkServiceProvider {
                             NetworkError.unknown
                         }
                         .eraseToAnyPublisher()
+        } catch let error as RequestBuilderError {
+            debugPrint(error.localizedDescription)
+            return Fail(error: NetworkError.cannotBuildRequest(reason: error))
+                .eraseToAnyPublisher()
         } catch {
             return Fail(error: NetworkError.unknown)
                 .eraseToAnyPublisher()
         }
-//        guard let request = endpoint.build(baseURL: baseURLStorage.baseURL, encoder: encoder) else {
-//            return Fail(error: NetworkError.unknown)
-//                .eraseToAnyPublisher()
-//        }
-//        return networkManager.execute(request: request)
-//            .decode(type: decodeType, decoder: decoder)
-//            .mapError { _ in
-//                NetworkError.unknown
-//            }
-//            .eraseToAnyPublisher()
     }
 }

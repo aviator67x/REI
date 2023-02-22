@@ -26,8 +26,8 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
             .sink { [unowned self] action in
                 switch action {
                 case .loginButtonDidTap:
-//                    viewModel.logInForAccessToken()
-                    viewModel.signUP()
+                    viewModel.logInForAccessToken()
+//                    viewModel.signUP()
                 case .phoneOrEmailTextFieldChanged(let inputText):
                     viewModel.phoneOrEmail = inputText
                 case .phoneOrEmailTextFieldDidReturn:
