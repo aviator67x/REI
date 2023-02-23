@@ -20,16 +20,19 @@ class NetworkManagerImpl: NetworkManager {
     }
     
     func execute(request: URLRequest) -> AnyPublisher<Data, NetworkError> {
+        NetworkLogger.log(request: request)
         return session.dataTaskPublisher(for: request)
             .mapError { error in
                 return NetworkError.badURL(error)
             }
             .flatMap { output -> AnyPublisher<Data, NetworkError> in
+                if let httpUrlResponse = output.response as? HTTPURLResponse {
+                    NetworkLogger.log(response: httpUrlResponse)
+                }                
                 guard let httpResponse = output.response as? HTTPURLResponse else {
                     return Fail(error: NetworkError.noResponse)
                         .eraseToAnyPublisher()
-                }
-              
+                }              
                 switch httpResponse.statusCode {
                 case 200...399:
                     return Just(output.data)

@@ -55,7 +55,7 @@ final class TestModuleViewModel: BaseViewModel {
     func logInForAccessToken() {
         debugPrint(phoneOrEmail, password)
         let requestModel = SignInRequest(login: phoneOrEmail, password: password)
-//        isLoadingSubject.send(true)
+        isLoadingSubject.send(true)
         authService.signIn(requestModel)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -77,6 +77,7 @@ final class TestModuleViewModel: BaseViewModel {
     
     func signUP() {
         let requestModel = SignUpRequest(name: "Bluberry", email: "bluberry@mail.co", password: "tasty")
+        isLoadingSubject.send(true)
         authService.signUp(requestModel)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
