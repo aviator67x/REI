@@ -64,7 +64,7 @@ final class TestModuleViewModel: BaseViewModel {
                     debugPrint(error.localizedDescription)
                     self?.errorSubject.send(error)
                 case .finished:
-                    print("SignIn successfully finished")
+                    debugPrint("SignIn is successfully finished")
                 }
             } receiveValue: { [weak self] user in
                 self?.isLoadingSubject.send(false)
@@ -73,6 +73,7 @@ final class TestModuleViewModel: BaseViewModel {
                 self?.transitionSubject.send(completion: .finished)
             }
             .store(in: &cancellables)
+        showTestSignUp()
     }
     
     func signUP() {
@@ -83,7 +84,7 @@ final class TestModuleViewModel: BaseViewModel {
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
-                    print("SignUp successfully finished")
+                    print("SignUp is successfully finished")
                 case .failure(let error):
                     print(error.localizedDescription)
                     self?.errorSubject.send(error)
@@ -93,7 +94,6 @@ final class TestModuleViewModel: BaseViewModel {
                 self?.transitionSubject.send(completion: .finished)
             }
             .store(in: &cancellables)
-
     }
 
     func showForgotPassword() {

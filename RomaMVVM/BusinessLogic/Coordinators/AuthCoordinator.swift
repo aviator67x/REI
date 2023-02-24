@@ -15,21 +15,35 @@ final class AuthCoordinator: Coordinator {
     private(set) lazy var didFinishPublisher = didFinishSubject.eraseToAnyPublisher()
     private let didFinishSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
-
+    
     init(navigationController: UINavigationController, container: AppContainer) {
         self.navigationController = navigationController
         self.container = container
     }
-
+    
     func start() {
-//        authSelect()
-        startTestModule()
+        //        authSelect()
+//        startTestModule()
+        launch()
+    }
+    
+    func launch() {
+        let module = LaunchModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transitionValue in
+                switch transitionValue {
+                case .signIn: startTestModule()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+        
     }
     
     func startTestModule() {
         let module = TestModuleModuleBuilder.build(container: container)
         module.transitionPublisher
-            .sink {[unowned self] transitionValue in
+            .sink { [unowned self] transitionValue in
                 switch transitionValue {
                 case .signUp: print("signUp")
                     signUp()
