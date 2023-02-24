@@ -60,10 +60,10 @@ class AuthServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProv
 
 extension AuthServiceImpl: AuthService {
     func signIn(_ requestModel: SignInRequest) -> AnyPublisher<SignInResponse, NetworkError> {
-        return authProvider.execute(endpoint: .login(model: requestModel), decodeType: SignInResponse.self)
+        return authProvider.execute(endpoint: .login(model: requestModel))
     }
 
     func signUp(_ requestModel: SignUpRequest) -> AnyPublisher<SignUpResponse, NetworkError> {
-        return authProvider.execute(endpoint: .signUp(model: requestModel), decodeType: SignUpResponse.self)
+        return authProvider.execute(endpoint: .signUp(model: requestModel))
     }
 }

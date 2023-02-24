@@ -25,6 +25,8 @@ final class LaunchViewController: BaseViewController<LaunchViewModel> {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
+                case .animationDidFinish:
+                    viewModel.showTestModule()
                 }
             }
             .store(in: &cancellables)

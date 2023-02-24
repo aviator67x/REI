@@ -15,5 +15,7 @@ final class LaunchViewModel: BaseViewModel {
 
         super.init()
     }
-    
+    func showTestModule() {
+        transitionSubject.send(.testModule)
+    }
 }

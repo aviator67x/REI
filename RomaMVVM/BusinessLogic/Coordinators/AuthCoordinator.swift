@@ -33,6 +33,7 @@ final class AuthCoordinator: Coordinator {
             .sink { [unowned self] transitionValue in
                 switch transitionValue {
                 case .signIn: startTestModule()
+                case .testModule: startTestModule()             
                 }
             }
             .store(in: &cancellables)

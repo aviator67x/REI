@@ -12,7 +12,7 @@ protocol NetworkServiceProvider {
     associatedtype E: Endpoint
 
     func execute(endpoint: E) -> AnyPublisher<Void, NetworkError>
-    func execute<Model: Decodable>(endpoint: E, decodeType: Model.Type) -> AnyPublisher<Model, NetworkError>
+    func execute<Model: Decodable>(endpoint: E) -> AnyPublisher<Model, NetworkError>
 }
 
 class NetworkServiceProviderImpl<E: Endpoint>: NetworkServiceProvider {
@@ -45,11 +45,12 @@ class NetworkServiceProviderImpl<E: Endpoint>: NetworkServiceProvider {
       
     }
 
-    func execute<Model: Decodable>(endpoint: E, decodeType: Model.Type) -> AnyPublisher<Model, NetworkError> {
+    func execute<Model: Decodable>(endpoint: E) -> AnyPublisher<Model, NetworkError> {
         do {
             let request = try endpoint.build(baseURL: baseURLStorage.baseURL, encoder: encoder)
             return networkManager.execute(request: request)
-                        .decode(type: decodeType, decoder: decoder)
+//                        .decode(type: decodeType, decoder: decoder)
+                .decode(type: Model.self, decoder: decoder)
                         .mapError { _ in
                             NetworkError.unknown
                         }

@@ -10,6 +10,7 @@ import Combine
 
 enum LaunchTransition: Transition {
     case signIn
+    case testModule
 }
 
 final class LaunchModuleBuilder {
