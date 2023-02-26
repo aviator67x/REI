@@ -10,6 +10,8 @@ import Combine
 
 enum SignInTransition: Transition {
     case success
+    case forgotPassword
+    case testSignUp
 }
 
 final class SignInModuleBuilder {

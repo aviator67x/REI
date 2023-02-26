@@ -10,7 +10,7 @@ import CombineNetworking
 
 protocol AppContainer: AnyObject {
     var appConfiguration: AppConfiguration { get }
-    var authService: AuthService { get }
+    var authService: AuthNetworkService { get }
     var userService: UserService { get }
     var appSettingsService: AppSettingsService { get }
     var dogService: DogService { get }
@@ -18,7 +18,7 @@ protocol AppContainer: AnyObject {
 
 final class AppContainerImpl: AppContainer {
     let appConfiguration: AppConfiguration
-    let authService: AuthService
+    let authService: AuthNetworkService
     let userService: UserService
     let appSettingsService: AppSettingsService
     let dogService: DogService
@@ -33,7 +33,7 @@ final class AppContainerImpl: AppContainer {
                                                                               networkManager: networkManagerImpl,
                                                                               encoder: JSONEncoder(),
                                                                               decoder: JSONDecoder())
-        let authService = AuthServiceImpl(authProvider: networkServiceProvider)
+        let authService = AuthNetworkServiceImpl(authProvider: networkServiceProvider)
         self.authService = authService
 
         let userService = UserServiceImpl(configuration: appConfiguration)

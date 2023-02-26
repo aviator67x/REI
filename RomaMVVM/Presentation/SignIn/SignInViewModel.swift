@@ -5,68 +5,86 @@
 //  Created by Roman Savchenko on 12.12.2021.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 final class SignInViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SignInTransition, Never>()
 
-    private let authService: AuthService
+    private let authService: AuthNetworkService
     private let userService: UserService
 
-    @Published var email: String = ""
-    @Published var password: String = ""
+    @Published var email = ""
+    @Published var password = ""
 
-    @Published var isEmailValid: Bool = false
-    @Published var isPasswordValid: Bool = false
+    @Published var isEmailValid: State = .valid
+    @Published var isPasswordValid: State = .invalid(errorMessage: nil)
 
-    @Published private(set) var isInputValid: Bool = false
+    @Published private(set) var isInputValid = false
 
-    init(authService: AuthService,
-         userService: UserService) {
+    init(
+        authService: AuthNetworkService,
+        userService: UserService
+    ) {
         self.authService = authService
         self.userService = userService
-        
+
         super.init()
     }
 
     override func onViewDidLoad() {
         $email
-            .map { $0.count > 5 }
-            .sink { [unowned self] in isEmailValid = $0 }
+            .map { login in TextFieldValidator(type: .phoneOrEmail).validateText(text: login) }
+            .sink { [unowned self] state in
+                isEmailValid = state
+            }
             .store(in: &cancellables)
 
         $password
-            .map { $0.count > 5 }
-            .sink { [unowned self] in isPasswordValid = $0 }
+            .map { password in TextFieldValidator(type: .password).validateText(text: password) }
+            .sink { [unowned self] state in
+                isPasswordValid = state
+            }
             .store(in: &cancellables)
 
         $isEmailValid.combineLatest($isPasswordValid)
-            .map { $0 && $1 }
-            .sink { [unowned self] in isInputValid = $0 }
+            .map { $0 == $1 }
+            .sink { [unowned self] in
+                isInputValid = true
+//                isInputValid = $0
+            }
             .store(in: &cancellables)
     }
 
-    func signInUser() {
-//        debugPrint(email, password)
-//        isLoadingSubject.send(true)
-//        authService.signIn(email: email, password: password)
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] completion in
-//                self?.isLoadingSubject.send(false)
-//                switch completion {
-//                case .finished:
-//                    debugPrint("ok")
-//                case .failure(let error):
-//                    debugPrint(error.localizedDescription)
-//                    self?.errorSubject.send(error)
-//                }
-//            } receiveValue: { [weak self] response in
-//                debugPrint("sign in result: ", response)
-//                self?.userService.save(user: response)
-//                self?.transitionSubject.send(.success)
-//            }
-//            .store(in: &cancellables)
+    func logInForAccessToken() {
+        debugPrint(email, password)
+        let requestModel = SignInRequest(login: email, password: password)
+        isLoadingSubject.send(true)
+        authService.signIn(requestModel)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case let .failure(error):
+                    debugPrint(error.localizedDescription)
+                    self?.errorSubject.send(error)
+                case .finished:
+                    debugPrint("SignIn is successfully finished")
+                }
+            } receiveValue: { [weak self] user in
+                self?.isLoadingSubject.send(false)
+                debugPrint("token: ", user.accessToken)
+                self?.userService.saveAccessToken(token: user.accessToken)
+                self?.transitionSubject.send(completion: .finished)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func showForgotPassword() {
+        transitionSubject.send(.forgotPassword)
+    }
+    
+    func showTestSignUp() {
+        transitionSubject.send(.testSignUp)
     }
 }

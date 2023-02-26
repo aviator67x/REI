@@ -24,21 +24,7 @@ final class AuthCoordinator: Coordinator {
     func start() {
         //        authSelect()
 //        startTestModule()
-        launch()
-    }
-    
-    func launch() {
-        let module = LaunchModuleBuilder.build(container: container)
-        module.transitionPublisher
-            .sink { [unowned self] transitionValue in
-                switch transitionValue {
-                case .signIn: startTestModule()
-                case .testModule: startTestModule()             
-                }
-            }
-            .store(in: &cancellables)
-        push(module.viewController)
-        
+        signIn()
     }
     
     func startTestModule() {
@@ -78,6 +64,10 @@ final class AuthCoordinator: Coordinator {
             .sink { [unowned self] transition in
                 switch transition {
                 case .success: didFinishSubject.send()
+                case .forgotPassword:
+                    forgotPassword()
+                case .testSignUp:
+                    testSignUp()
                 }
             }
             .store(in: &cancellables)
@@ -107,4 +97,6 @@ final class AuthCoordinator: Coordinator {
             .store(in: &cancellables)
         push(module.viewController)
     }
+    
+    private func forgotPassword() {}
 }

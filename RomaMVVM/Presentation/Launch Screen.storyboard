@@ -17,13 +17,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="sww-Fm-hOL">
-                                <rect key="frame" x="76" y="362" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="launchBackground" translatesAutoresizingMaskIntoConstraints="NO" id="IH7-zd-xv4">
+                                <rect key="frame" x="50" y="109" width="293" height="634"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="xOR-gr-QF0">
+                                <rect key="frame" x="75.333333333333314" y="364" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="8cz-6M-QPi"/>
+                                    <constraint firstAttribute="width" constant="240" id="yPx-Cb-glt"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hyn-y7-fnl"/>
                         <color key="backgroundColor" systemColor="systemBlueColor"/>
+                        <constraints>
+                            <constraint firstItem="IH7-zd-xv4" firstAttribute="top" secondItem="Hyn-y7-fnl" secondAttribute="top" constant="50" id="UaG-ef-yg0"/>
+                            <constraint firstItem="xOR-gr-QF0" firstAttribute="leading" secondItem="Hyn-y7-fnl" secondAttribute="leading" constant="75.394891944998562" id="ZZJ-tQ-Fbv"/>
+                            <constraint firstItem="IH7-zd-xv4" firstAttribute="centerX" secondItem="2kj-Je-Cp5" secondAttribute="centerX" id="eCg-w1-Pk5"/>
+                            <constraint firstItem="IH7-zd-xv4" firstAttribute="centerY" secondItem="2kj-Je-Cp5" secondAttribute="centerY" id="fB5-NZ-hc5"/>
+                            <constraint firstItem="Hyn-y7-fnl" firstAttribute="trailing" secondItem="IH7-zd-xv4" secondAttribute="trailing" constant="50" id="oJ9-Nm-2zE"/>
+                            <constraint firstItem="xOR-gr-QF0" firstAttribute="top" secondItem="Hyn-y7-fnl" secondAttribute="top" constant="304.85461689588737" id="qmI-Pf-zq4"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -32,6 +46,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="launchBackground" width="375" height="811"/>
         <image name="logo" width="83" height="36"/>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

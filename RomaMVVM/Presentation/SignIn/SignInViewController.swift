@@ -19,27 +19,55 @@ final class SignInViewController: BaseViewController<SignInViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
-        title = Localization.signIn.uppercased()
     }
 
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .emailChanged(let text):
-                    viewModel.email = text
-
-                case .passwordChanged(let text):
-                    viewModel.password = text
-
-                case .doneTapped:
-                    viewModel.signInUser()
+                case .signInDidTap:
+                    viewModel.logInForAccessToken()
+//                    viewModel.signUP()
+                case .emailDidChange(let inputText):
+                    viewModel.email = inputText
+                case .phoneOrEmailTextFieldDidReturn:
+                    viewModel.logInForAccessToken()
+                case .passwordDidChange(let inputText):
+                    viewModel.password = inputText
+                case .forgotPasswordButtonDidTap:
+                    viewModel.showForgotPassword()
+                case .createAccontDidTap:
+                    viewModel.showTestSignUp()
                 }
             }
             .store(in: &cancellables)
-
+        
+        viewModel.$isEmailValid
+            .sink { [unowned self] state in
+                var message = ""
+                switch state {
+                case .valid:
+                    message = ""
+                case .invalid(errorMessage: let errorMessage):
+                    message = errorMessage ?? ""
+                }
+                contentView.showEmailErrorMessage(message: message)}
+            .store(in: &cancellables)
+        
+        viewModel.$isPasswordValid
+            .sink { [unowned self] state in
+                var message = ""
+                switch state {
+                case .valid:
+                    message = ""
+                case .invalid(errorMessage: let errorMessage):
+                    message = errorMessage ?? ""
+                }
+                contentView.showPasswordErrorMessage(message: message)}
+            .store(in: &cancellables)
+        
         viewModel.$isInputValid
-            .sink { [unowned self] in contentView.setDoneButton(enabled: $0) }
+            .sink { [unowned self] in contentView.setSignInButton(enabled: $0)}
             .store(in: &cancellables)
     }
 }

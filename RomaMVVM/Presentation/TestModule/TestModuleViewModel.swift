@@ -11,7 +11,7 @@ import Foundation
 final class TestModuleViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<TestModuleTransition, Never>()
-    private let authService: AuthService
+    private let authService: AuthNetworkService
     private let userService: UserService
 
     @Published var phoneOrEmail = ""
@@ -22,7 +22,7 @@ final class TestModuleViewModel: BaseViewModel {
 
     @Published var isInputValid = false
 
-    init(authService: AuthService, userService: UserService) {
+    init(authService: AuthNetworkService, userService: UserService) {
         self.authService = authService
         self.userService = userService
         super.init()
