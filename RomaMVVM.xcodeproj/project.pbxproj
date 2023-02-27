@@ -321,11 +321,10 @@
 			isa = PBXGroup;
 			children = (
 				CEAEB9CF29A8B7E1005BBF50 /* Launch Screen.storyboard */,
+				5B5C3AE1BF141B5158BBB0E9 /* MainTabBar */,
 				CEAEB9F129AD0B59005BBF50 /* AuthFlow */,
 				CEAEB9F229AD0BA5005BBF50 /* MainFlow */,
 				AF9E062C03BCDE796B2924AB /* AuthSelect */,
-				5B5C3AE1BF141B5158BBB0E9 /* MainTabBar */,
-				CCA876F88893001B36189960 /* Settings */,
 				440C51B19DAF56929BBF0AD7 /* SignUp */,
 			);
 			path = Presentation;
@@ -410,8 +409,8 @@
 			children = (
 				92538858FFEEA766147EFFCB /* AppCoordinator.swift */,
 				BE9E493181ACAF4283DF6A60 /* AuthCoordinator.swift */,
-				4204A762E062DA5EEE513D13 /* HomeCoordinator.swift */,
 				594D4969D87ADFBE45DB3B4A /* MainTabBarCoordinator.swift */,
+				4204A762E062DA5EEE513D13 /* HomeCoordinator.swift */,
 				CA51E79F6908337E1B14DE70 /* SettingsCoordinator.swift */,
 			);
 			path = Coordinators;
@@ -663,16 +662,9 @@
 			isa = PBXGroup;
 			children = (
 				76E8843FA342597467112D6C /* Home */,
-				CEAEB9F329AD0BD0005BBF50 /* Profile */,
+				CCA876F88893001B36189960 /* Settings */,
 			);
 			path = MainFlow;
-			sourceTree = "<group>";
-		};
-		CEAEB9F329AD0BD0005BBF50 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Profile;
 			sourceTree = "<group>";
 		};
 		D6541A1C4A888E2C3F3EAC3F /* Fonts */ = {

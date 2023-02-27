@@ -9,18 +9,23 @@ import Foundation
 import Combine
 
 protocol UserNetworkService {
-    func deleteUser(with id: String) -> AnyPublisher<Void, NetworkError>
+    func deleteUser(id: String) -> AnyPublisher<Void, NetworkError>
+    func logOut() -> AnyPublisher<Void, NetworkError>
 }
 
 final class UserNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == UserEndPoint {
-    let authProvder: NetworkProvider
+    let userProvider: NetworkProvider
     
-    init(authProvder: NetworkProvider) {
-        self.authProvder = authProvder
+    init(userProvider: NetworkProvider) {
+        self.userProvider = userProvider
     }
 }
 extension UserNetworkServiceImpl: UserNetworkService {
-    func deleteUser(with id: String) -> AnyPublisher<Void, NetworkError> {
-        return authProvder.execute(endpoint: .deleteUser(id: id))
+    func deleteUser(id: String) -> AnyPublisher<Void, NetworkError> {
+        return userProvider.execute(endpoint: .deleteUser(id: id))
+    }
+    
+    func logOut() -> AnyPublisher<Void, NetworkError> {
+        return userProvider.execute(endpoint: .logOut)
     }
 }

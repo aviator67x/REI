@@ -35,7 +35,7 @@ final class PasswordRestoreViewModel: BaseViewModel {
                     debugPrint("Restore password is successfully finfished")
                 }
             } receiveValue: { [weak self] value in
-                debugPrint("API  response for restoring passwor is: \(value)")
+                debugPrint("API  response for restoring password is: \(value)")
                 self?.transitionSubject.send(completion: .finished)
             }
             .store(in: &cancellables)

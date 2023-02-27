@@ -18,9 +18,7 @@ final class SignInViewModel: BaseViewModel {
 //    @Published var email = ""
 //    private(set) lazy var emailPublisher = emailSubject.eraseToAnyPublisher()
     private let emailSubject = CurrentValueSubject<String, Never>("")
-    
-    
-    
+
     @Published var password = ""
 
     @Published var isEmailValid: State = .valid
@@ -62,13 +60,12 @@ final class SignInViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
     }
-    
+
     func setEmail(_ text: String) {
         emailSubject.send(text)
     }
 
     func logInForAccessToken() {
-//        debugPrint(email, password)
         let requestModel = SignInRequest(login: emailSubject.value, password: password)
         isLoadingSubject.send(true)
         authService.signIn(requestModel)
@@ -85,16 +82,16 @@ final class SignInViewModel: BaseViewModel {
                 self?.isLoadingSubject.send(false)
                 debugPrint("token: ", user.accessToken)
                 self?.userService.saveAccessToken(token: user.accessToken)
-//                self?.transitionSubject.send(completion: .finished)
-                self?.transitionSubject.send(.mainTabBar)
+                self?.transitionSubject.send(.success)
+                self?.transitionSubject.send(completion: .finished)
             }
             .store(in: &cancellables)
     }
-    
+
     func showForgotPassword() {
         transitionSubject.send(.forgotPassword)
     }
-    
+
     func showTestSignUp() {
         transitionSubject.send(.testSignUp)
     }

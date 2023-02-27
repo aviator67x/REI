@@ -5,8 +5,8 @@
 //  Created by Roman Savchenko on 28.11.2021.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 final class AuthCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
@@ -15,30 +15,15 @@ final class AuthCoordinator: Coordinator {
     private(set) lazy var didFinishPublisher = didFinishSubject.eraseToAnyPublisher()
     private let didFinishSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
-    
+
     init(navigationController: UINavigationController, container: AppContainer) {
         self.navigationController = navigationController
         self.container = container
     }
-    
+
     func start() {
         //        authSelect()
-//        startTestModule()
         signIn()
-    }
-
-    private func authSelect() {
-        let module = AuthSelectModuleBuilder.build()
-        module.transitionPublisher
-            .sink { [unowned self] transition in
-                switch transition {
-                case .signIn:   signIn()
-                case .signUp:   signUp()
-                case .skip:     didFinishSubject.send()
-                }
-            }
-            .store(in: &cancellables)
-        push(module.viewController)
     }
 
     private func signIn() {
@@ -50,27 +35,13 @@ final class AuthCoordinator: Coordinator {
                 case .forgotPassword:
                     forgotPassword()
                 case .testSignUp:
-                    testSignUp()
-                case .mainTabBar:
-                    mainFlow()
+                    testSignUp()                
                 }
             }
             .store(in: &cancellables)
         push(module.viewController)
     }
-    
-    private func signUp() {
-        let module = SignUpModuleBuilder.build(container: container)
-        module.transitionPublisher
-            .sink { [unowned self] transition in
-                switch transition {
-                case .success: didFinishSubject.send()
-                }
-            }
-            .store(in: &cancellables)
-        push(module.viewController)
-    }
-    
+
     private func testSignUp() {
         let module = TestSignUpModuleModuleBuilder.build(container: container)
         module.transitionPublisher
@@ -82,7 +53,7 @@ final class AuthCoordinator: Coordinator {
             .store(in: &cancellables)
         push(module.viewController)
     }
-    
+
     private func forgotPassword() {
         let module = PasswordRestoreModuleBuilder.build(container: container)
         module.transitionPublisher
@@ -94,8 +65,46 @@ final class AuthCoordinator: Coordinator {
             .store(in: &cancellables)
         push(module.viewController)
     }
-    
+
     private func mainFlow() {
-//        let coordinator = AppCoordinator(window: <#UIWindow#>, container: <#AppContainer#>)
+        let mainCoordinator = MainTabBarCoordinator(
+            navigationController: navigationController,
+            container: container
+        )
+        childCoordinators.append(mainCoordinator)
+        mainCoordinator.didFinishPublisher
+            .sink { [unowned self] in
+                signIn()
+                removeChild(coordinator: mainCoordinator)
+            }
+            .store(in: &cancellables)
+        mainCoordinator.start()
+    }
+    
+    private func authSelect() {
+        let module = AuthSelectModuleBuilder.build()
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .signIn: signIn()
+                case .signUp: signUp()
+                case .skip: didFinishSubject.send()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    
+    private func signUp() {
+        let module = SignUpModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .success: didFinishSubject.send()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
     }
 }

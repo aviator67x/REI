@@ -12,6 +12,7 @@ protocol AppContainer: AnyObject {
     var appConfiguration: AppConfiguration { get }
     var authService: AuthNetworkService { get }
     var userService: UserService { get }
+    var userNetworkService: UserNetworkService { get }
     var appSettingsService: AppSettingsService { get }
     var dogService: DogService { get }
 }
@@ -20,6 +21,7 @@ final class AppContainerImpl: AppContainer {
     let appConfiguration: AppConfiguration
     let authService: AuthNetworkService
     let userService: UserService
+    let userNetworkService: UserNetworkService
     let appSettingsService: AppSettingsService
     let dogService: DogService
 
@@ -38,6 +40,13 @@ final class AppContainerImpl: AppContainer {
 
         let userService = UserServiceImpl(configuration: appConfiguration)
         self.userService = userService
+        
+        let userNetworkServiceProvider = NetworkServiceProviderImpl<UserEndPoint>(baseURLStorage: appConfiguration,
+                                                                                  networkManager: networkManagerImpl,
+                                                                                  encoder: JSONEncoder(),
+                                                                                  decoder: JSONDecoder())
+        let userNetworkService = UserNetworkServiceImpl(userProvider: userNetworkServiceProvider)
+        self.userNetworkService = userNetworkService
         
         let appSettingsService = AppSettingsServiceImpl()
         self.appSettingsService = appSettingsService

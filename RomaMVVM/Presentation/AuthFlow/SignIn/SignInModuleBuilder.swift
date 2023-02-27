@@ -12,7 +12,6 @@ enum SignInTransition: Transition {
     case success
     case forgotPassword
     case testSignUp
-    case mainTabBar
 }
 
 final class SignInModuleBuilder {
