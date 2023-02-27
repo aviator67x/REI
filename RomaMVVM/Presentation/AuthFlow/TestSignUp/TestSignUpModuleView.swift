@@ -9,7 +9,7 @@ import SnapKit
 import Combine
 
 enum TestSignUpModuleViewAction {
-
+case signUpDidTap
 }
 
 final class TestSignUpModuleView: BaseView {
@@ -41,17 +41,7 @@ final class TestSignUpModuleView: BaseView {
         segmentedControl.insertSegment(withTitle: "Phone", at: 0, animated: true)
         segmentedControl.insertSegment(withTitle: "Email", at: 1, animated: true)
         segmentedControl.selectedSegmentIndex = 0
-        
-//        segmentedControl.setTitleTextAttributes([
-//            NSAttributedString.Key.foregroundColor: UIColor(named: "lightSecondaryText"),
-//            NSAttributedString.Key.font: UIFont(name: "sfProTextRegular", size: 13),
-//        ], for: .normal)
-//        segmentedControl.setTitleTextAttributes([
-//            NSAttributedString.Key.foregroundColor: UIColor.black,
-//            NSAttributedString.Key.font: UIFont(name: "sfProTextRegular", size: 13),
-//        ], for: .selected)
-        
-        //            segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+
         return segmentedControl
     }()
     
@@ -99,49 +89,16 @@ final class TestSignUpModuleView: BaseView {
         $0.textColor = UIColor(named: "error")
         $0.numberOfLines = 0
     }
-    //        private lazy var phoneNumberTextField: TextFieldView = {
-    //            let textfield = TextFieldView(type: .phone)
-    //            textfield.textField.becomeFirstResponder()
-    //            textfield.textField.didChangeSelection = { _ in
-    //                self.textFieldDidChange()
-    //            }
-    //            return textfield
-    //        }()
-    //
-    //        private lazy var emailTextField: TextFieldView = {
-    //            let textfield = TextFieldView(type: .email)
-    //            textfield.textField.didChangeSelection = { _ in
-    //                self.textFieldDidChange()
-    //            }
-    //            return textfield
-    //        }()
+  
     
-    private lazy var nextButton: BaseButton = {
+    private lazy var signUpButton: BaseButton = {
         let button = BaseButton(buttonState: .next)
+        button.setTitle("Sing Up", for: .normal)
         button.isEnabled = false
-        //            button.addTarget(self, action: #selector(nextTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var termsAndConditionsTextView: UIButton = {
-        //            let textView = UITextView()
-        //            textView.isEditable = false
-        //            textView.isScrollEnabled = false
-        //            textView.delegate = self
-        //            textView.text = Constants.termsAndConditionsFullLine
-        //            textView.attributedText = NSAttributedString.makeHyperlink(
-        //                for: "termsAndConditions",
-        //                in: textView.text,
-        //                as: Constants.termsAndConditionslinkString
-        //            )
-        //            textView.font = UIFont.sfProTextRegular(size: 12)
-        //            textView.textColor = Asset.Colors.lightSecondaryText.color
-        //            textView.linkTextAttributes = [
-        //                NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
-        //                .underlineStyle: 1
-        //            ]
-        //            textView.textAlignment = .center
-        //            return textView
         
         let button = UIButton()
         
@@ -163,22 +120,7 @@ final class TestSignUpModuleView: BaseView {
     }()
     
     private lazy var loginTextView: UIButton = {
-        //            let textView = UITextView()
-        //            textView.isEditable = false
-        //            textView.isScrollEnabled = false
-        //            textView.delegate = self
-        //            textView.text = Constants.haveAnAccountLine
-        //            textView.attributedText = NSAttributedString.makeHyperlink(
-        //                for: "login",
-        //                in: textView.text,
-        //                as: Constants.loginLinkString
-        //            )
-        //            textView.font = UIFont.sfProTextRegular(size: 13)
-        //            textView.textColor = Asset.Colors.secondaryTextColor.color
-        //            textView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: Asset.Colors.linkButtonColor.color]
-        //            textView.textAlignment = .center
-        //            return textView
-        
+
         let button = UIButton()
         
         let firstAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor(named: "secondaryTextColor")]
@@ -193,71 +135,6 @@ final class TestSignUpModuleView: BaseView {
         return button
     }()
     
-    //        // MARK: - @objc Actions
-    //
-    //        @objc
-    //        private func nextTapped() {
-    //            var text = ""
-    //            if let email = emailTextField.textField.text,
-    //               !email.isEmpty {
-    //                text = email
-    //            } else {
-    //                if let phoneNumber = phoneNumberTextField.textField.text,
-    //                   !phoneNumber.isEmpty {
-    //                   text = "+380" + "\(phoneNumber)"
-    //                }
-    //            }
-    //            delegate?.nextButtonTapped(with: text)
-    //            delegate?.textDidVerify(text)
-    //        }
-    
-    //        @objc
-    //        private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-    //            changeSegmentedControlLinePosition()
-    //            switch sender.selectedSegmentIndex {
-    //            case 0:
-    //                emailTextField.textField.text = nil
-    //                emailTextField.removeFromSuperview()
-    //                configurePhoneTextField()
-    //                configureNextButton(below: phoneNumberTextField)
-    //                delegate?.assign(state: .phoneConfirmation)
-    //            case 1:
-    //                phoneNumberTextField.textField.text = nil
-    //                phoneNumberTextField.removeFromSuperview()
-    //                configureEmailTextField()
-    //                configureNextButton(below: emailTextField)
-    //                delegate?.assign(state: .emailConfirmation)
-    //            default:
-    //                break
-    //            }
-    //        }
-    
-    //        func showErrorAlreadyExist() {
-    //            nextButton.isEnabled = false
-    //            if !(emailTextField.textField.text?.isEmpty ?? false) {
-    //                emailTextField.textField.fieldState = .invalid(errorMessage: Constants.alreadyExistEmail)
-    //            } else {
-    //            phoneNumberTextField.textField.fieldState = .invalid(errorMessage: Constants.alreadyExsistNumber)
-    //            }
-    //        }
-    // MARK: - UITextViewDelegate
-    
-    //    extension StartSingupView: UITextViewDelegate {
-    //        func textView(
-    //            _ textView: UITextView,
-    //            shouldInteractWith URL: URL,
-    //            in characterRange: NSRange,
-    //            interaction: UITextItemInteraction
-    //        ) -> Bool {
-    //            if URL.absoluteString == "termsAndConditions" {
-    //                print("Terms")
-    //                delegate?.termsAndConditionsDidTap()
-    //            } else if URL.absoluteString == "login" {
-    //                delegate?.loginButtonTapped()
-    //            }
-    //            return false
-    //        }
-    //    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -277,6 +154,11 @@ extension TestSignUpModuleView {
     }
 
     private func bindActions() {
+        signUpButton.tapPublisher
+            .sink { [unowned self] in
+                self.actionSubject.send(.signUpDidTap)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -292,6 +174,10 @@ extension TestSignUpModuleView {
             configureLoginTextView()
             phoneTextField.becomeFirstResponder()
         }
+    
+    func setSignUpButton(enabled: Bool) {
+        signUpButton.isEnabled = enabled
+    }
 
         func configureTitleLAbel() {
             addSubview(titleLabel) {
@@ -352,7 +238,7 @@ extension TestSignUpModuleView {
         }
 
         func configureNextButton(below textField: UIStackView) {
-            addSubview(nextButton) {
+            addSubview(signUpButton) {
                 $0.top.equalTo(textField.snp.bottom).offset(16)
                 $0.leading.equalToSuperview().offset(16)
                 $0.trailing.equalToSuperview().offset(-16)
@@ -362,7 +248,7 @@ extension TestSignUpModuleView {
 
         func configureTermsAndConditionView() {
             addSubview(termsAndConditionsTextView) {
-                $0.top.equalTo(nextButton.snp.bottom).offset(7)
+                $0.top.equalTo(signUpButton.snp.bottom).offset(7)
                 $0.leading.leading.equalToSuperview().inset(16)
                 $0.height.equalTo(23)
             }

@@ -58,12 +58,12 @@ final class SignInView: BaseView {
             x: -UIScreen.main.bounds.width / 1.6,
             y: -UIScreen.main.bounds.height / 1.4
         )
-        UIView.animate(withDuration: 2, delay: 1, animations: {
+        UIView.animate(withDuration: 1, delay: 1, animations: {
             self.logoView.transform = scaledAndTranslatedTransform
         }) {
-            _ in 
+            _ in
             let originalTransform = self.scrollView.transform
-            UIView.animate(withDuration: 3, animations: {
+            UIView.animate(withDuration: 1, animations: {
                 self.scrollView.alpha = 1
             })
         }
@@ -88,8 +88,18 @@ final class SignInView: BaseView {
         signInButton.tapPublisher
             .sink { [unowned self] in actionSubject.send(.signInDidTap) }
             .store(in: &cancellables)
+
+        createAccounButton.tapPublisher
+            .sink { [unowned self] in
+                actionSubject.send(.createAccontDidTap)
+            }
+            .store(in: &cancellables)
         
-        
+        forgotPasswordButton.tapPublisher
+            .sink{ [unowned self] in
+                actionSubject.send(.forgotPasswordButtonDidTap)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -118,16 +128,16 @@ final class SignInView: BaseView {
             $0.borderStyle = .roundedRect
             $0.layer.cornerRadius = 6
         }
-        
+
         forgotPasswordButton.titleLabel?.font = UIFont(name: "SF-Pro-Text-Bold", size: 23)
-        forgotPasswordButton.setTitleColor(UIColor(named: "linkButtonColor"), for: .normal )
+        forgotPasswordButton.setTitleColor(UIColor(named: "linkButtonColor"), for: .normal)
         forgotPasswordButton.setTitle("Forgot password?", for: .normal)
         forgotPasswordButton.contentHorizontalAlignment = .right
 
         signInButton.setTitle(Localization.signIn, for: .normal)
         signInButton.backgroundColor = UIColor(named: "fillButtonBackground")
         signInButton.titleLabel?.font = UIFont(name: "SF-Pro-Text-Bold", size: 26)
-        signInButton.setTitleColor(.white, for: .normal )
+        signInButton.setTitleColor(.white, for: .normal)
         signInButton.rounded(6)
 
         let firstAttributes: [NSAttributedString.Key: Any] =

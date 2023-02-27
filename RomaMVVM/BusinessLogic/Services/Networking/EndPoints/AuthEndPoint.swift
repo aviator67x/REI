@@ -10,7 +10,7 @@ import Foundation
 enum AuthEndPoint: Endpoint {
     case login(model: SignInRequest)
     case signUp(model: SignUpRequest)
-    case recoverPassword
+    case restorePassword(model: RestoreRequest)
 
     var path: String? {
         switch self {
@@ -18,8 +18,8 @@ enum AuthEndPoint: Endpoint {
             return "/users/login"
         case .signUp:
             return "/data/Users"
-        case .recoverPassword:
-            return "/users/restorepassword/:userIdentity"
+        case .restorePassword(let model):
+            return "/users/restorepassword/\(model.email)"
         }
     }
 
@@ -27,7 +27,7 @@ enum AuthEndPoint: Endpoint {
         switch self {
         case .login, .signUp:
             return .post
-        case .recoverPassword:
+        case .restorePassword:
             return .get
         }
     }
@@ -38,19 +38,26 @@ enum AuthEndPoint: Endpoint {
             return ["Content-Type": "application/json"]
         case .signUp:
             return ["Content-Type": "application/json"]
-        case .recoverPassword:
+        case .restorePassword:
             return [:]
         }
     }
 
     var body: RequestBody? {
         switch self {
-        case .login(model: let model):
+        case let .login(model: model):
             return .encodable(model)
-        case .signUp(model: let model):
+        case let .signUp(model: model):
             return .encodable(model)
-        case .recoverPassword:
-           return nil
+        case .restorePassword:
+            return nil
+        }
+    }
+
+    var queries: HTTPQueries {
+        switch self {
+        case .login, .signUp,.restorePassword:
+           return [:]
         }
     }
 }

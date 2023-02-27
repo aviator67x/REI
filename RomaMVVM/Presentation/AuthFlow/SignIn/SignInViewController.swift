@@ -1,15 +1,15 @@
 //
-//  TestModuleViewController.swift
-//  RomaMVVM
+//  SignInViewController.swift
+//  MVVMSkeleton
 //
-//  Created by User on 16.01.2023.
+//  Created by Roman Savchenko on 12.12.2021.
 //
 
 import UIKit
 
-final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
+final class SignInViewController: BaseViewController<SignInViewModel> {
     // MARK: - Views
-    private let contentView = TestModuleView()
+    private let contentView = SignInView()
     
     // MARK: - Lifecycle
     override func loadView() {
@@ -25,14 +25,15 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .loginButtonDidTap:
+                case .signInDidTap:
                     viewModel.logInForAccessToken()
 //                    viewModel.signUP()
-                case .phoneOrEmailTextFieldChanged(let inputText):
-                    viewModel.phoneOrEmail = inputText
+                case .emailDidChange(let inputText):
+//                    viewModel.email = inputText
+                    viewModel.setEmail(inputText)
                 case .phoneOrEmailTextFieldDidReturn:
                     viewModel.logInForAccessToken()
-                case .passwordTextFieldChanged(let inputText):
+                case .passwordDidChange(let inputText):
                     viewModel.password = inputText
                 case .forgotPasswordButtonDidTap:
                     viewModel.showForgotPassword()
@@ -42,7 +43,7 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
             }
             .store(in: &cancellables)
         
-        viewModel.$isPhoneOrEmailValid
+        viewModel.$isEmailValid
             .sink { [unowned self] state in
                 var message = ""
                 switch state {
@@ -51,7 +52,7 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
                 case .invalid(errorMessage: let errorMessage):
                     message = errorMessage ?? ""
                 }
-                contentView.showPhoneEmailErrorMessage(message: message)}
+                contentView.showEmailErrorMessage(message: message)}
             .store(in: &cancellables)
         
         viewModel.$isPasswordValid
@@ -67,7 +68,7 @@ final class TestModuleViewController: BaseViewController<TestModuleViewModel> {
             .store(in: &cancellables)
         
         viewModel.$isInputValid
-            .sink { [unowned self] in contentView.setLoginButton(enabled: $0)}
+            .sink { [unowned self] in contentView.setSignInButton(enabled: $0)}
             .store(in: &cancellables)
     }
 }

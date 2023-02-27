@@ -20,6 +20,7 @@ enum ButtonState {
     case follow
     case message
     case exit
+    case restorePassword
 }
 
 class BaseButton: UIButton {
@@ -175,6 +176,8 @@ extension ButtonState {
             return "Send message"
         case .exit:
             return "Exit"
+        case .restorePassword:
+            return "Restore password"
         }
     }
 }

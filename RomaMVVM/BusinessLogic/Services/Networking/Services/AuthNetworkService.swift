@@ -15,9 +15,10 @@ enum CustomError: Error {
 protocol AuthNetworkService {
     func signIn(_ requestModel: SignInRequest) -> AnyPublisher<SignInResponse, NetworkError>
     func signUp(_ requestModel: SignUpRequest) -> AnyPublisher<SignUpResponse, NetworkError>
+    func restorePassword(_ requestModel: RestoreRequest) -> AnyPublisher<Void, NetworkError>
 }
 
-class AuthNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == AuthEndPoint {
+final class AuthNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == AuthEndPoint {
     let authProvider: NetworkProvider
 
     init(authProvider: NetworkProvider) {
@@ -26,6 +27,7 @@ class AuthNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where Netw
 }
 
 extension AuthNetworkServiceImpl: AuthNetworkService {
+
     func signIn(_ requestModel: SignInRequest) -> AnyPublisher<SignInResponse, NetworkError> {
         return authProvider.execute(endpoint: .login(model: requestModel))
     }
@@ -33,4 +35,9 @@ extension AuthNetworkServiceImpl: AuthNetworkService {
     func signUp(_ requestModel: SignUpRequest) -> AnyPublisher<SignUpResponse, NetworkError> {
         return authProvider.execute(endpoint: .signUp(model: requestModel))
     }
+    
+    func restorePassword(_ requestModel: RestoreRequest) -> AnyPublisher<Void, NetworkError> {
+        return authProvider.execute(endpoint: .restorePassword(model: requestModel))
+    }
+    
 }

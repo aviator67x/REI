@@ -1,38 +1,49 @@
 //
-//  TestModuleViewModel.swift
-//  RomaMVVM
+//  SignInViewModel.swift
+//  MVVMSkeleton
 //
-//  Created by User on 16.01.2023.
+//  Created by Roman Savchenko on 12.12.2021.
 //
 
 import Combine
 import Foundation
 
-final class TestModuleViewModel: BaseViewModel {
+final class SignInViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
-    private let transitionSubject = PassthroughSubject<TestModuleTransition, Never>()
+    private let transitionSubject = PassthroughSubject<SignInTransition, Never>()
+
     private let authService: AuthNetworkService
     private let userService: UserService
 
-    @Published var phoneOrEmail = ""
+//    @Published var email = ""
+//    private(set) lazy var emailPublisher = emailSubject.eraseToAnyPublisher()
+    private let emailSubject = CurrentValueSubject<String, Never>("")
+    
+    
+    
     @Published var password = ""
 
-    @Published var isPhoneOrEmailValid: State = .valid
+    @Published var isEmailValid: State = .valid
     @Published var isPasswordValid: State = .invalid(errorMessage: nil)
 
-    @Published var isInputValid = false
+    @Published private(set) var isInputValid = false
 
-    init(authService: AuthNetworkService, userService: UserService) {
+    init(
+        authService: AuthNetworkService,
+        userService: UserService
+    ) {
         self.authService = authService
         self.userService = userService
+
         super.init()
     }
 
     override func onViewDidLoad() {
-        $phoneOrEmail
+//        $email
+        emailSubject
             .map { login in TextFieldValidator(type: .phoneOrEmail).validateText(text: login) }
             .sink { [unowned self] state in
-                isPhoneOrEmailValid = state
+                isEmailValid = state
             }
             .store(in: &cancellables)
 
@@ -43,7 +54,7 @@ final class TestModuleViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
 
-        $isPhoneOrEmailValid.combineLatest($isPasswordValid)
+        $isEmailValid.combineLatest($isPasswordValid)
             .map { $0 == $1 }
             .sink { [unowned self] in
                 isInputValid = true
@@ -51,16 +62,20 @@ final class TestModuleViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
     }
+    
+    func setEmail(_ text: String) {
+        emailSubject.send(text)
+    }
 
     func logInForAccessToken() {
-        debugPrint(phoneOrEmail, password)
-        let requestModel = SignInRequest(login: phoneOrEmail, password: password)
+//        debugPrint(email, password)
+        let requestModel = SignInRequest(login: emailSubject.value, password: password)
         isLoadingSubject.send(true)
         authService.signIn(requestModel)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 switch completion {
-                case .failure(let error):
+                case let .failure(error):
                     debugPrint(error.localizedDescription)
                     self?.errorSubject.send(error)
                 case .finished:
@@ -70,32 +85,12 @@ final class TestModuleViewModel: BaseViewModel {
                 self?.isLoadingSubject.send(false)
                 debugPrint("token: ", user.accessToken)
                 self?.userService.saveAccessToken(token: user.accessToken)
-                self?.transitionSubject.send(completion: .finished)
+//                self?.transitionSubject.send(completion: .finished)
+                self?.transitionSubject.send(.mainTabBar)
             }
             .store(in: &cancellables)
-        showTestSignUp()
     }
     
-    func signUP() {
-        let requestModel = SignUpRequest(name: "Bluberry", email: "bluberry@mail.co", password: "tasty")
-        isLoadingSubject.send(true)
-        authService.signUp(requestModel)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    print("SignUp is successfully finished")
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    self?.errorSubject.send(error)
-                }
-            } receiveValue: { [weak self] signUpInfo in
-                debugPrint("signUpInfo", signUpInfo.name)
-                self?.transitionSubject.send(completion: .finished)
-            }
-            .store(in: &cancellables)
-    }
-
     func showForgotPassword() {
         transitionSubject.send(.forgotPassword)
     }
@@ -104,4 +99,3 @@ final class TestModuleViewModel: BaseViewModel {
         transitionSubject.send(.testSignUp)
     }
 }
-

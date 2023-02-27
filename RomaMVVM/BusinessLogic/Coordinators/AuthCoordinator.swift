@@ -26,23 +26,6 @@ final class AuthCoordinator: Coordinator {
 //        startTestModule()
         signIn()
     }
-    
-    func startTestModule() {
-        let module = TestModuleModuleBuilder.build(container: container)
-        module.transitionPublisher
-            .sink { [unowned self] transitionValue in
-                switch transitionValue {
-                case .signUp: print("signUp")
-                    signUp()
-                case .forgotPassword:
-                    print("forgotPassword")
-                case .testSignUp:
-                    testSignUp()
-                }
-            }
-            .store(in: &cancellables)
-        push(module.viewController)
-    }
 
     private func authSelect() {
         let module = AuthSelectModuleBuilder.build()
@@ -68,6 +51,8 @@ final class AuthCoordinator: Coordinator {
                     forgotPassword()
                 case .testSignUp:
                     testSignUp()
+                case .mainTabBar:
+                    mainFlow()
                 }
             }
             .store(in: &cancellables)
@@ -98,5 +83,19 @@ final class AuthCoordinator: Coordinator {
         push(module.viewController)
     }
     
-    private func forgotPassword() {}
+    private func forgotPassword() {
+        let module = PasswordRestoreModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transiton in
+                switch transiton {
+                case .success: didFinishSubject.send()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    private func mainFlow() {
+//        let coordinator = AppCoordinator(window: <#UIWindow#>, container: <#AppContainer#>)
+    }
 }

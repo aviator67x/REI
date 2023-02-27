@@ -39,3 +39,11 @@ struct SignUpResponse: Decodable {
         case name, email, id = "ownerId"
     }
 }
+
+struct RestoreRequest: Encodable {
+    let email: String
+}
+
+struct RestoreResponse: Decodable {
+    let success: String
+}
