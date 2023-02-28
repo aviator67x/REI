@@ -25,13 +25,19 @@ final class AuthCoordinator: Coordinator {
         //        authSelect()
         signIn()
     }
+    
+    deinit {
+        print("Deinit of \(String.init(describing: self))")
+    }
 
     private func signIn() {
         let module = SignInModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .success: didFinishSubject.send()
+                case .success:
+                    didFinishSubject.send()
+                    didFinishSubject.send(completion: .finished)
                 case .forgotPassword:
                     forgotPassword()
                 case .testSignUp:
@@ -48,6 +54,7 @@ final class AuthCoordinator: Coordinator {
             .sink { [unowned self] transition in
                 switch transition {
                 case .success: didFinishSubject.send()
+                    didFinishSubject.send(completion: .finished)
                 }
             }
             .store(in: &cancellables)
@@ -60,6 +67,7 @@ final class AuthCoordinator: Coordinator {
             .sink { [unowned self] transiton in
                 switch transiton {
                 case .success: didFinishSubject.send()
+                    didFinishSubject.send(completion: .finished)
                 }
             }
             .store(in: &cancellables)

@@ -53,6 +53,7 @@ final class MainTabBarCoordinator: Coordinator {
             .sink { [unowned self] in
                 childCoordinators.forEach { removeChild(coordinator: $0) }
                 didFinishSubject.send()
+                didFinishSubject.send(completion: .finished)
             }
             .store(in: &cancellables)
         coordinator.start()

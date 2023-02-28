@@ -22,7 +22,24 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Colors {
+  internal static let backgroundColor = ColorAsset(name: "backgroundColor")
+  internal static let buttonGrayColor = ColorAsset(name: "buttonGrayColor")
+  internal static let darkBlue = ColorAsset(name: "darkBlue")
+  internal static let error = ColorAsset(name: "error")
+  internal static let fillButtonBackground = ColorAsset(name: "fillButtonBackground")
+  internal static let fullNameLabelColor = ColorAsset(name: "fullNameLabelColor")
+  internal static let gradientFirst = ColorAsset(name: "gradientFirst")
+  internal static let gradientSecond = ColorAsset(name: "gradientSecond")
+  internal static let gradientThird = ColorAsset(name: "gradientThird")
+  internal static let hashtagColor = ColorAsset(name: "hashtagColor")
+  internal static let lightSecondaryText = ColorAsset(name: "lightSecondaryText")
+  internal static let linkButtonColor = ColorAsset(name: "linkButtonColor")
+  internal static let secondaryTextColor = ColorAsset(name: "secondaryTextColor")
+  internal static let successGreen = ColorAsset(name: "successGreen")
   internal static let text = ColorAsset(name: "text")
+  internal static let textFieldBorder = ColorAsset(name: "textFieldBorder")
+  internal static let textFieldsBackground = ColorAsset(name: "textFieldsBackground")
+  internal static let violet = ColorAsset(name: "violet")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 
