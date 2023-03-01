@@ -8,6 +8,10 @@
 import Foundation
 import KeychainAccess
 
+enum UserServiceError: Error {
+    case userDefaults
+}
+
 protocol UserService {
     var isAuthorized: Bool { get }
     var token: String? { get }
@@ -18,6 +22,7 @@ protocol UserService {
     func save(user: SignInResponse)
     func saveAccessToken(token: String)
     func clear()
+    func getUser(for key: String) -> UserModel
 }
 
 final class UserServiceImpl: UserService {
@@ -50,10 +55,24 @@ final class UserServiceImpl: UserService {
     }
     
     func save(user: SignInResponse) {
-        keychain[Keys.userId] = user.id
-        keychain[Keys.name] = user.name
-        keychain[Keys.email] = user.email
-        keychain[Keys.token] = user.accessToken
+        let userModel = UserModel(networkModel: user)
+        let userDefaults = UserDefaults.standard
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(userModel) {
+            userDefaults.set(encoded, forKey: "User")
+        }
+//        keychain[Keys.userId] = user.id
+//        keychain[Keys.name] = user.name
+//        keychain[Keys.email] = user.email
+//        keychain[Keys.token] = user.accessToken
+    }
+    
+    func getUser(for key: String) -> UserModel {
+        let userDefaults = UserDefaults.standard
+        let decoder = JSONDecoder()
+        guard let savedUser = userDefaults.object(forKey: "User") as? Data,
+              let user = try? decoder.decode(UserModel.self, from: savedUser) else {fatalError()}
+                return user
     }
     
     func saveAccessToken(token: String) {

@@ -25,21 +25,16 @@ final class HomeViewController: BaseViewController<HomeViewModel> {
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
-                switch action {
-                case .didSelect(let dog):
-                    viewModel.showDetail(for: dog)
-                    
-                case .searchTextChanged(let text):
-                    viewModel.searchText = text
-                    
-                case .printTextWithDelay(let text):
-                    print(text)
-                }
+                
             }
             .store(in: &cancellables)
-
-        viewModel.$dogs
-            .sink { [unowned self] dogs in contentView.show(dogs: dogs) }
+        
+//        viewModel.userPublisher
+        viewModel.userValueSubject
+            .sink { [unowned self] user in
+                guard let user = user else { return }
+                contentView.updateUser(user)
+            }
             .store(in: &cancellables)
     }
 }

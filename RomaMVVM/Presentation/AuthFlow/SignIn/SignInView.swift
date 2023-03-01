@@ -129,14 +129,14 @@ final class SignInView: BaseView {
             $0.layer.cornerRadius = 6
         }
 
-        forgotPasswordButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 23)
+        forgotPasswordButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 13)
         forgotPasswordButton.setTitleColor(UIColor(named: "linkButtonColor"), for: .normal)
         forgotPasswordButton.setTitle("Forgot password?", for: .normal)
         forgotPasswordButton.contentHorizontalAlignment = .right
 
         signInButton.setTitle(Localization.signIn, for: .normal)
         signInButton.backgroundColor = UIColor(named: "fillButtonBackground")
-        signInButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 26)
+        signInButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 21)
         signInButton.setTitleColor(.white, for: .normal)
         signInButton.rounded(6)
 
@@ -147,7 +147,7 @@ final class SignInView: BaseView {
         let secondString = NSAttributedString(string: "Create an account", attributes: secondAttributes)
         firstString.append(secondString)
         createAccounButton.setAttributedTitle(firstString, for: .normal)
-        createAccounButton.titleLabel?.font = UIFont(name: "SFProTextRegular", size: 13)
+        createAccounButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 13)
         createAccounButton.contentHorizontalAlignment = .center
     }
 

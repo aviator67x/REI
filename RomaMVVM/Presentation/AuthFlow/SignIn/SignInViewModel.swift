@@ -82,6 +82,9 @@ final class SignInViewModel: BaseViewModel {
                 self?.isLoadingSubject.send(false)
                 debugPrint("token: ", user.accessToken)
                 self?.userService.saveAccessToken(token: user.accessToken)
+                self?.userService.save(user: user)
+                guard let userrr = self?.userService.getUser(for: "User") else {fatalError()}
+                print("\(userrr.name)\n\(userrr.email)\n\(userrr.id)")
                 self?.transitionSubject.send(.success)
                 self?.transitionSubject.send(completion: .finished)
             }

@@ -5,41 +5,31 @@
 //  Created by Roman Savchenko on 14.12.2021.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 enum HomeViewAction {
-    case searchTextChanged(String)
-    case didSelect(DogResponseModel)
-    case printTextWithDelay(String)
+  
 }
 
 final class HomeView: BaseView {
     // MARK: - Subviews
-    private let searchTextField = UITextField()
-    private let tableView = UITableView()
-    private var dogs: [DogResponseModel] = []
-    
-    
+    private let nameLabel = UILabel()
+    private let emailLabel = UILabel()
+    private let tokenLabel = UILabel()
+    private let idLabel = UILabel()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<HomeViewAction, Never>()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.actionSubject.send(.printTextWithDelay("Basil"))
-        }
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    func show(dogs: [DogResponseModel]) {
-        self.dogs = dogs
-        self.tableView.reloadData()
     }
 
     private func initialSetup() {
@@ -49,65 +39,40 @@ final class HomeView: BaseView {
     }
 
     private func bindActions() {
-        searchTextField.textPublisher
-            .replaceNil(with: "")
-            .removeDuplicates()
-            .sink { [unowned self] text in actionSubject.send(.searchTextChanged(text)) }
-            .store(in: &cancellables)
+           
     }
 
     private func setupUI() {
-        backgroundColor = .white
-        searchTextField.placeholder = Localization.search
-        searchTextField.borderStyle = .roundedRect
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = .white
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constant.cellReuseIdentifier)
+        backgroundColor = .lightGray
+        let labels = [nameLabel, emailLabel, tokenLabel, idLabel]
+        labels.forEach { label in
+            label.backgroundColor = .yellow
+            label.bordered(width: 1, color: .red)
+        }
     }
 
     private func setupLayout() {
         let stack = UIStackView()
         stack.setup(axis: .vertical, alignment: .fill, distribution: .fill, spacing: 8)
-        stack.addCentered(searchTextField, inset: 16, size: 50)
-        stack.addArranged(tableView)
-        addSubview(stack, withEdgeInsets: .zero, safeArea: true)
-    }
-    
-    func reloadData() {
-        tableView.reloadData()
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension HomeView: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dogs.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constant.cellReuseIdentifier, for: indexPath)
-        let data = dogs[indexPath.row].name
-        cell.textLabel?.text = data
-        return cell
+        stack.addCentered(nameLabel, inset: 16, size: 50)
+        stack.addCentered(emailLabel, inset: 16, size: 50)
+        stack.addCentered(tokenLabel, inset: 16, size: 50)
+        stack.addCentered(idLabel, inset: 16, size: 50)
+        addSubview(stack, withEdgeInsets: UIEdgeInsets(top: 100, left: 0, bottom: 350, right: 0), safeArea: true)
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dog = dogs[indexPath.row]
-        actionSubject.send(.didSelect(dog))
+    func updateUser(_ user: UserModel) {
+        nameLabel.text = user.name
+        emailLabel.text = user.email
+        tokenLabel.text = user.accessToken
+        idLabel.text = user.accessToken
+        layoutIfNeeded()
     }
 }
 
 // MARK: - View constants
 private enum Constant {
-    static let cellReuseIdentifier: String = "UITableViewCell"
+   
 }
 
-import SwiftUI
-struct HomeViewPreview: PreviewProvider {
-    static var dogs = [DogResponseModel(name: "Dog 1"),
-                       DogResponseModel(name: "Dog 2")]
-    static var previews: some View {
-        ViewRepresentable(HomeView()) { $0.show(dogs: dogs) }
-    }
-}
+

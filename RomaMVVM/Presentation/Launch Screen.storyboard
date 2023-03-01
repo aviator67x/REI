@@ -17,9 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="launchBackground" translatesAutoresizingMaskIntoConstraints="NO" id="IH7-zd-xv4">
-                                <rect key="frame" x="50" y="109" width="293" height="634"/>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="xOR-gr-QF0">
                                 <rect key="frame" x="75.333333333333314" y="364" width="240" height="128"/>
                                 <constraints>
@@ -27,15 +24,18 @@
                                     <constraint firstAttribute="width" constant="240" id="yPx-Cb-glt"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="launchBackground" translatesAutoresizingMaskIntoConstraints="NO" id="IH7-zd-xv4">
+                                <rect key="frame" x="-7" y="2" width="407" height="852"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hyn-y7-fnl"/>
                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                         <constraints>
-                            <constraint firstItem="IH7-zd-xv4" firstAttribute="top" secondItem="Hyn-y7-fnl" secondAttribute="top" constant="50" id="UaG-ef-yg0"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="IH7-zd-xv4" secondAttribute="bottom" constant="-36" id="8dy-3e-TxJ"/>
+                            <constraint firstItem="IH7-zd-xv4" firstAttribute="top" secondItem="2kj-Je-Cp5" secondAttribute="topMargin" constant="-57" id="MUi-5m-Vo1"/>
                             <constraint firstItem="xOR-gr-QF0" firstAttribute="leading" secondItem="Hyn-y7-fnl" secondAttribute="leading" constant="75.394891944998562" id="ZZJ-tQ-Fbv"/>
-                            <constraint firstItem="IH7-zd-xv4" firstAttribute="centerX" secondItem="2kj-Je-Cp5" secondAttribute="centerX" id="eCg-w1-Pk5"/>
-                            <constraint firstItem="IH7-zd-xv4" firstAttribute="centerY" secondItem="2kj-Je-Cp5" secondAttribute="centerY" id="fB5-NZ-hc5"/>
-                            <constraint firstItem="Hyn-y7-fnl" firstAttribute="trailing" secondItem="IH7-zd-xv4" secondAttribute="trailing" constant="50" id="oJ9-Nm-2zE"/>
+                            <constraint firstItem="IH7-zd-xv4" firstAttribute="leading" secondItem="2kj-Je-Cp5" secondAttribute="leadingMargin" constant="-23" id="gVL-zC-ywz"/>
+                            <constraint firstItem="IH7-zd-xv4" firstAttribute="centerX" secondItem="2kj-Je-Cp5" secondAttribute="centerX" id="h6o-sY-ZfC"/>
                             <constraint firstItem="xOR-gr-QF0" firstAttribute="top" secondItem="Hyn-y7-fnl" secondAttribute="top" constant="304.85461689588737" id="qmI-Pf-zq4"/>
                         </constraints>
                     </view>

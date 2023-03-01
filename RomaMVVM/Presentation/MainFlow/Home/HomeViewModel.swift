@@ -6,47 +6,30 @@
 //
 
 import Combine
-import Foundation
 import CombineNetworking
+import Foundation
 
 final class HomeViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<HomeTransition, Never>()
 
-    private let dogService: DogService
-
-    @Published var dogs: [DogResponseModel] = []
-    @Published var searchText: String = ""
+    private(set) lazy var userPublisher = userSubject.eraseToAnyPublisher()
+    private let userSubject = PassthroughSubject<UserModel, Never>()
     
-    init(dogService: DogService) {
-        self.dogService = dogService
+    private(set) var userValueSubject = CurrentValueSubject<UserModel?, Never>(nil)
+
+    private let userService: UserService
+
+    init(userService: UserService) {
+        self.userService = userService
         super.init()
     }
-    
-    override func onViewDidAppear() {
-        super.onViewDidAppear()
 
-        $searchText
-            .dropFirst()
-            .debounce(for: 1, scheduler: RunLoop.main)
-            .removeDuplicates()
-            .setFailureType(to: CNError.self)
-            .flatMap { [unowned self] text -> AnyPublisher<[DogResponseModel], CNError> in
-                isLoadingSubject.send(true)
-                return dogService.getBreeds(text)
-            }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                self?.isLoadingSubject.send(false)
-                guard case let .failure(error) = completion else {
-                    return
-                }
-                self?.errorSubject.send(error)
-            } receiveValue: { [weak self] model in
-                self?.isLoadingSubject.send(false)
-                self?.dogs = model
-            }
-            .store(in: &cancellables)
+    override func onViewDidLoad() {
+        super.onViewDidLoad()
+        let user = userService.getUser(for: "User")
+//        userSubject.send(user)
+        userValueSubject.send(user)
     }
 
     func showDetail(for dog: DogResponseModel) {
