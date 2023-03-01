@@ -29,7 +29,6 @@ final class SignInViewController: BaseViewController<SignInViewModel> {
                     viewModel.logInForAccessToken()
 //                    viewModel.signUP()
                 case .emailDidChange(let inputText):
-//                    viewModel.email = inputText
                     viewModel.setEmail(inputText)
                 case .phoneOrEmailTextFieldDidReturn:
                     viewModel.logInForAccessToken()

@@ -37,7 +37,6 @@ final class SignInViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
-//        $email
         emailSubject
             .map { login in TextFieldValidator(type: .phoneOrEmail).validateText(text: login) }
             .sink { [unowned self] state in
@@ -81,7 +80,7 @@ final class SignInViewModel: BaseViewModel {
             } receiveValue: { [weak self] user in
                 self?.isLoadingSubject.send(false)
                 debugPrint("token: ", user.accessToken)
-                self?.userService.saveAccessToken(token: user.accessToken)
+//                self?.userService.saveAccessToken(token: user.accessToken)
                 self?.userService.save(user: user)
                 let userModel = UserModel(networkModel: user)
                 self?.userService.userValueSubject.value = userModel

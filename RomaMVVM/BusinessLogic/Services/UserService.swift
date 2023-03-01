@@ -23,8 +23,8 @@ protocol UserService {
     
     func save(user: SignInResponse)
     func saveAccessToken(token: String)
-    func clear()
-    func getUser(for key: String) -> UserModel
+    func clearAccessToken()
+    func getUser() -> UserModel
 }
 
 final class UserServiceImpl: UserService {
@@ -39,15 +39,15 @@ final class UserServiceImpl: UserService {
     }
     
     var email: String? {
-        keychain[Keys.email]
+        getUser().email
     }
     
     var name: String? {
-        keychain[Keys.name]
+        getUser().name
     }
     
     var userId: String? {
-        keychain[Keys.userId]
+        getUser().id
     }
     
     private let keychain: Keychain
@@ -65,13 +65,11 @@ final class UserServiceImpl: UserService {
         if let encoded = try? encoder.encode(userModel) {
             userDefaults.set(encoded, forKey: "User")
         }
-//        keychain[Keys.userId] = user.id
-//        keychain[Keys.name] = user.name
-//        keychain[Keys.email] = user.email
-//        keychain[Keys.token] = user.accessToken
+        
+        keychain[Keys.token] = userModel.accessToken
     }
     
-    func getUser(for key: String) -> UserModel {
+    func getUser() -> UserModel {
         let userDefaults = UserDefaults.standard
         let decoder = JSONDecoder()
         guard let savedUser = userDefaults.object(forKey: "User") as? Data,
@@ -83,10 +81,7 @@ final class UserServiceImpl: UserService {
         keychain[Keys.token] = token
     }
     
-    func clear() {
-        keychain[Keys.userId] = nil
-        keychain[Keys.name] = nil
-        keychain[Keys.email] = nil
+    func clearAccessToken() {
         keychain[Keys.token] = nil
     }
 }
