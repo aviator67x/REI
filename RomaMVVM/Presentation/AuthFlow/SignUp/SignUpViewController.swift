@@ -1,8 +1,8 @@
 //
-//  SignUpViewController.swift
-//  MVVMSkeleton
+//  TestSignUpModuleViewController.swift
+//  RomaMVVM
 //
-//  Created by Roman Savchenko on 12.12.2021.
+//  Created by User on 03.02.2023.
 //
 
 import UIKit
@@ -19,7 +19,6 @@ final class SignUpViewController: BaseViewController<SignUpViewModel> {
     override func viewDidLoad() {
         setupBindings()
         super.viewDidLoad()
-        title = Localization.signUp.uppercased()
     }
 
     private func setupBindings() {
@@ -39,7 +38,7 @@ final class SignUpViewController: BaseViewController<SignUpViewModel> {
                     viewModel.confirmPassword = text
 
                 case .doneTapped:
-                    viewModel.signUpUser()
+                    viewModel.signUp()
                 }
             }
             .store(in: &cancellables)
