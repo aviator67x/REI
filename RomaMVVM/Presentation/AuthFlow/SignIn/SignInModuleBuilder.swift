@@ -11,7 +11,7 @@ import Combine
 enum SignInTransition: Transition {
     case success
     case forgotPassword
-    case testSignUp
+    case signUp
 }
 
 final class SignInModuleBuilder {

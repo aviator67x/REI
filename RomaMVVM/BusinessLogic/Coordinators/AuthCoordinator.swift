@@ -22,12 +22,11 @@ final class AuthCoordinator: Coordinator {
     }
 
     func start() {
-        //        authSelect()
         signIn()
     }
-    
+
     deinit {
-        print("Deinit of \(String.init(describing: self))")
+        print("Deinit of \(String(describing: self))")
     }
 
     private func signIn() {
@@ -40,16 +39,16 @@ final class AuthCoordinator: Coordinator {
                     didFinishSubject.send(completion: .finished)
                 case .forgotPassword:
                     forgotPassword()
-                case .testSignUp:
-                    testSignUp()                
+                case .signUp:
+                    signUp()
                 }
             }
             .store(in: &cancellables)
         push(module.viewController)
     }
 
-    private func testSignUp() {
-        let module = TestSignUpModuleModuleBuilder.build(container: container)
+    private func signUp() {
+        let module = SignUpModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
@@ -68,48 +67,6 @@ final class AuthCoordinator: Coordinator {
                 switch transiton {
                 case .success: didFinishSubject.send()
                     didFinishSubject.send(completion: .finished)
-                }
-            }
-            .store(in: &cancellables)
-        push(module.viewController)
-    }
-
-    private func mainFlow() {
-        let mainCoordinator = MainTabBarCoordinator(
-            navigationController: navigationController,
-            container: container
-        )
-        childCoordinators.append(mainCoordinator)
-        mainCoordinator.didFinishPublisher
-            .sink { [unowned self] in
-                signIn()
-                removeChild(coordinator: mainCoordinator)
-            }
-            .store(in: &cancellables)
-        mainCoordinator.start()
-    }
-    
-    private func authSelect() {
-        let module = AuthSelectModuleBuilder.build()
-        module.transitionPublisher
-            .sink { [unowned self] transition in
-                switch transition {
-                case .signIn: signIn()
-                case .signUp: signUp()
-                case .skip: didFinishSubject.send()
-                }
-            }
-            .store(in: &cancellables)
-        push(module.viewController)
-    }
-    
-    
-    private func signUp() {
-        let module = SignUpModuleBuilder.build(container: container)
-        module.transitionPublisher
-            .sink { [unowned self] transition in
-                switch transition {
-                case .success: didFinishSubject.send()
                 }
             }
             .store(in: &cancellables)

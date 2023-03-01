@@ -66,7 +66,6 @@ final class HomeView: BaseView {
         emailLabel.text = user.email
         tokenLabel.text = user.accessToken
         idLabel.text = user.accessToken
-        layoutIfNeeded()
     }
 }
 

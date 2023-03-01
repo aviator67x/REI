@@ -14,7 +14,6 @@ protocol AppContainer: AnyObject {
     var userService: UserService { get }
     var userNetworkService: UserNetworkService { get }
     var appSettingsService: AppSettingsService { get }
-    var dogService: DogService { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -23,7 +22,6 @@ final class AppContainerImpl: AppContainer {
     let userService: UserService
     let userNetworkService: UserNetworkService
     let appSettingsService: AppSettingsService
-    let dogService: DogService
 
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -52,10 +50,5 @@ final class AppContainerImpl: AppContainer {
         self.appSettingsService = appSettingsService
 
         let authPlugin = AuthPlugin(token: appConfiguration.environment.apiKey)
-        
-        let provider = CNProvider(baseURL: appConfiguration.environment.baseURL,
-                                  requestBuilder: DogAPIRequestBuilder.self,
-                                  plugins: [authPlugin])        
-        self.dogService = DogServiceImpl(provider)
     }
 }

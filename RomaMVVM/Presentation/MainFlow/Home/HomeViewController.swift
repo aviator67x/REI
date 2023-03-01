@@ -28,9 +28,8 @@ final class HomeViewController: BaseViewController<HomeViewModel> {
                 
             }
             .store(in: &cancellables)
-        
-//        viewModel.userPublisher
-        viewModel.userValueSubject
+
+        viewModel.userService.userValueSubject
             .sink { [unowned self] user in
                 guard let user = user else { return }
                 contentView.updateUser(user)

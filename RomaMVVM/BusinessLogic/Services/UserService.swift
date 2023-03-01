@@ -7,6 +7,7 @@
 
 import Foundation
 import KeychainAccess
+import Combine
 
 enum UserServiceError: Error {
     case userDefaults
@@ -18,6 +19,7 @@ protocol UserService {
     var email: String? { get }
     var name: String? { get }
     var userId: String? { get }
+    var userValueSubject: CurrentValueSubject<UserModel?, Never> { get set }
     
     func save(user: SignInResponse)
     func saveAccessToken(token: String)
@@ -26,6 +28,8 @@ protocol UserService {
 }
 
 final class UserServiceImpl: UserService {
+    var userValueSubject = CurrentValueSubject<UserModel?, Never>(nil)
+    
     var isAuthorized: Bool {
         keychain[Keys.token] != nil
     }

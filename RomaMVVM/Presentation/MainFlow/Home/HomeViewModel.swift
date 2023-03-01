@@ -13,12 +13,7 @@ final class HomeViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<HomeTransition, Never>()
 
-    private(set) lazy var userPublisher = userSubject.eraseToAnyPublisher()
-    private let userSubject = PassthroughSubject<UserModel, Never>()
-    
-    private(set) var userValueSubject = CurrentValueSubject<UserModel?, Never>(nil)
-
-    private let userService: UserService
+    let userService: UserService
 
     init(userService: UserService) {
         self.userService = userService
@@ -27,12 +22,7 @@ final class HomeViewModel: BaseViewModel {
 
     override func onViewDidLoad() {
         super.onViewDidLoad()
-        let user = userService.getUser(for: "User")
-//        userSubject.send(user)
-        userValueSubject.send(user)
-    }
-
-    func showDetail(for dog: DogResponseModel) {
-        debugPrint("show detail for ", dog)
+        guard let user = userService.userValueSubject.value else { return }
+        userService.userValueSubject.send(user)
     }
 }

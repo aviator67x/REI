@@ -83,8 +83,8 @@ final class SignInViewModel: BaseViewModel {
                 debugPrint("token: ", user.accessToken)
                 self?.userService.saveAccessToken(token: user.accessToken)
                 self?.userService.save(user: user)
-                guard let userrr = self?.userService.getUser(for: "User") else {fatalError()}
-                print("\(userrr.name)\n\(userrr.email)\n\(userrr.id)")
+                let userModel = UserModel(networkModel: user)
+                self?.userService.userValueSubject.value = userModel
                 self?.transitionSubject.send(.success)
                 self?.transitionSubject.send(completion: .finished)
             }
@@ -96,6 +96,7 @@ final class SignInViewModel: BaseViewModel {
     }
 
     func showTestSignUp() {
-        transitionSubject.send(.testSignUp)
+//        transitionSubject.send(.testSignUp)
+        transitionSubject.send(.signUp)
     }
 }
