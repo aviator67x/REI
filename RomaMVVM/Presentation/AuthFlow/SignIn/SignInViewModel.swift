@@ -21,7 +21,7 @@ final class SignInViewModel: BaseViewModel {
 
     @Published var password = ""
 
-    @Published var isEmailValid: State = .valid
+    @Published var isEmailValid: State = .invalid(errorMessage: nil)
     @Published var isPasswordValid: State = .invalid(errorMessage: nil)
 
     @Published private(set) var isInputValid = false
@@ -38,7 +38,9 @@ final class SignInViewModel: BaseViewModel {
 
     override func onViewDidLoad() {
         emailSubject
-            .map { login in TextFieldValidator(type: .phoneOrEmail).validateText(text: login) }
+            .map { login in
+                TextFieldValidator(type: .email).validateText(text: login)
+            }
             .sink { [unowned self] state in
                 isEmailValid = state
             }

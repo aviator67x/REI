@@ -15,9 +15,7 @@ enum RegEx: String {
     case numeric = "^[0-9,$ ]+$"
     case alphanumeric = "^[A-Za-z0-9 -]+.$"
     case alphanumExtended = "^[A-Za-z'0-9 @,;:_.!#%'+^\"$*()&?\\/|\\[\\]!{}-]+.$"
-    case email = "^[a-zA-Z0-9-_.,']+$"
-
-//    case email = "(^[A-Z0-9a-z!#$%&'*+-/=?^_`{|}~]{1,64})([@]([A-Z0-9a-z!#$%&'*+-/=?^_`{|}~]{1,63}))[.]([A-Za-z]{2,6})"
+    case email = "(^[A-Z0-9a-z!#$%&'*+-/=?^_`{|}~]{1,64})([@]([A-Z0-9a-z!#$%&'*+-/=?^_`{|}~]{1,63}))[.]([A-Za-z]{2,6})"
     case phoneWithCode = "^(?=.*[0])[0-9+ ]{13}$"
     case phoneWithoutCode = "^(?=.*[0])[0-9+ ]{10}$"
     case phoneWithPlus = "^(?=.*[0])[0-9 ]{12}$"

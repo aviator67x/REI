@@ -26,7 +26,8 @@ final class TextFieldValidator {
     // MARK: Methods
     func validateText(text: String?) -> State {
         if let text = text, text.isEmpty {
-            return .valid
+//            return .valid
+            return .invalid(errorMessage: "Empty text for email")
         }
         if !performValidation(of: text ?? "", with: type.symbolCountValidator) {
             if let text = text, text.count > 9 {

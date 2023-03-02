@@ -28,18 +28,10 @@ public enum TextFieldType {
 extension TextFieldType {
     var keyboardType: UIKeyboardType {
         switch self {
-        case .phoneOrEmail: return .emailAddress
-        case .email, .emailForPasswordRecovery: return .emailAddress
-        case .password: return .alphabet
-        case .passwordRecovery: return .alphabet
+        case .phoneOrEmail, .email, .emailForPasswordRecovery: return .emailAddress
+        case .password, .passwordRecovery, .userName, .confirmPassword, .confirmNewPassword, .passwordWithoutVerification, .city: return .alphabet
         case .phone, .phoneForPasswordRecovery: return .decimalPad
-        case .nickName: return .default
-        case .userName: return .alphabet
-        case .confirmPassword, .confirmNewPassword: return .alphabet
-        case .fullName: return .default
-        case .passwordWithoutVerification:
-            return .alphabet
-        case .city: return .alphabet
+        case .nickName, .fullName: return .default
         }
     }
     
@@ -55,17 +47,13 @@ extension TextFieldType {
     var rightImage: UIImage? {
         var imageName: String = ""
         switch self {
-        case .password: imageName = "eye.slash"
-        case .passwordRecovery: imageName = "eye.slash"
-        case .email, .emailForPasswordRecovery: imageName = "multiply.circle"
-        case .phone, .phoneForPasswordRecovery: imageName = "multiply.circle"
-        case .nickName: imageName = "multiply.circle"
-        case .userName: imageName = "multiply.circle"
-        case .confirmPassword, .confirmNewPassword: imageName = "eye.slash"
-        case .fullName: imageName = "multiply.circle"
-        case .phoneOrEmail: return nil
-        case .passwordWithoutVerification: imageName = "eye.slash"
-        case .city: imageName = "multiply.circle"
+        case .password, .passwordRecovery, .confirmPassword, .confirmNewPassword, .passwordWithoutVerification:
+            imageName = "eye.slash"
+        case .email, .emailForPasswordRecovery, .phone, .phoneForPasswordRecovery, .nickName, .userName, .fullName, .city:
+            imageName = "multiply.circle"
+        case .phoneOrEmail:
+            
+            return nil
         }
         
         return UIImage(systemName: imageName)?.withRenderingMode(.alwaysTemplate)
@@ -89,35 +77,30 @@ extension TextFieldType {
         case .city: text = "Your City"
         }
         
-        let attibutes: [NSAttributedString.Key: Any] = [
+        let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.gray,
             .font: UIFont.systemFont(ofSize: 12)
         ]
         
-        return NSAttributedString(string: text, attributes: attibutes)
+        return NSAttributedString(string: text, attributes: attributes)
     }
     
     var needsSecureTextEntry: Bool {
         switch self {
-        case .passwordWithoutVerification: return true
-        case .password: return true
-        case .confirmPassword: return true
+        case .password, .confirmPassword, .passwordWithoutVerification: return true
         default: return false
         }
     }
     
     var regExValidators: [ValidatorType] {
         switch self {
-        case .phoneOrEmail: return [.email]
-        case .email, .emailForPasswordRecovery: return [.email]
-        case .password, .passwordRecovery: return [.password]
+        case .phoneOrEmail, .email, .emailForPasswordRecovery: return [.email]
+        case .password, .passwordRecovery, .confirmPassword, .confirmNewPassword: return [.password]
         case .phone, .phoneForPasswordRecovery: return [.onlyDigits]
         case .nickName: return [.nickname]
         case .userName: return [.alphanumericExtended]
-        case .confirmPassword, .confirmNewPassword: return [.password]
         case .fullName: return [.fullname]
-        case .passwordWithoutVerification:
-            return []
+        case .passwordWithoutVerification: return []
         case .city: return [.city]
         }
     }

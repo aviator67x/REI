@@ -109,7 +109,7 @@ final class SignInView: BaseView {
         logoView.image = UIImage(named: "logo")
 
         emailTextField.placeholder = Localization.email
-        emailTextField.text = "superMegaJamesBond@mi6.co.u"
+//        emailTextField.text = "superMegaJamesBond@mi6.co.u"
 
         emailErrorMessageLabel.text = ""
         emailErrorMessageLabel.font = UIFont.systemFont(ofSize: 12)
