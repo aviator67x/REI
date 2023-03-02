@@ -83,6 +83,12 @@
 		CEA545FF297832F6007F9962 /* UIView+layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545FE297832F6007F9962 /* UIView+layout.swift */; };
 		CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA54600297836C8007F9962 /* NSAttributedString.swift */; };
 		CEA546032978379B007F9962 /* RegEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA546022978379B007F9962 /* RegEx.swift */; };
+		CEA5B72829B0A1B80038A29C /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5B72729B0A1B80038A29C /* Publisher+Sink.swift */; };
+		CEA5B72A29B0A2060038A29C /* Publisher+Assign.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5B72929B0A2060038A29C /* Publisher+Assign.swift */; };
+		CEA5B72C29B0A2650038A29C /* Publisher+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5B72B29B0A2650038A29C /* Publisher+Unwrap.swift */; };
+		CEA5B72E29B0A2B70038A29C /* Publisher+WithLatestFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5B72D29B0A2B70038A29C /* Publisher+WithLatestFrom.swift */; };
+		CEA5B73329B0B8D30038A29C /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5B73029B0B8D30038A29C /* KeychainService.swift */; };
+		CEA5B73529B0B8D30038A29C /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5B73229B0B8D30038A29C /* TokenManager.swift */; };
 		CEA5F586298CE92300B87DD4 /* TestSignUpModuleModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F582298CE92300B87DD4 /* TestSignUpModuleModuleBuilder.swift */; };
 		CEA5F587298CE92300B87DD4 /* TestSignUpModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F583298CE92300B87DD4 /* TestSignUpModuleViewController.swift */; };
 		CEA5F588298CE92300B87DD4 /* TestSignUpModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F584298CE92300B87DD4 /* TestSignUpModuleView.swift */; };
@@ -207,6 +213,12 @@
 		CEA545FE297832F6007F9962 /* UIView+layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+layout.swift"; sourceTree = "<group>"; };
 		CEA54600297836C8007F9962 /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		CEA546022978379B007F9962 /* RegEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegEx.swift; sourceTree = "<group>"; };
+		CEA5B72729B0A1B80038A29C /* Publisher+Sink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Sink.swift"; sourceTree = "<group>"; };
+		CEA5B72929B0A2060038A29C /* Publisher+Assign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Assign.swift"; sourceTree = "<group>"; };
+		CEA5B72B29B0A2650038A29C /* Publisher+Unwrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Unwrap.swift"; sourceTree = "<group>"; };
+		CEA5B72D29B0A2B70038A29C /* Publisher+WithLatestFrom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+WithLatestFrom.swift"; sourceTree = "<group>"; };
+		CEA5B73029B0B8D30038A29C /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		CEA5B73229B0B8D30038A29C /* TokenManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		CEA5F582298CE92300B87DD4 /* TestSignUpModuleModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignUpModuleModuleBuilder.swift; sourceTree = "<group>"; };
 		CEA5F583298CE92300B87DD4 /* TestSignUpModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignUpModuleViewController.swift; sourceTree = "<group>"; };
 		CEA5F584298CE92300B87DD4 /* TestSignUpModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignUpModuleView.swift; sourceTree = "<group>"; };
@@ -274,7 +286,7 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		0ABA33F4C68A53878DD45650 /* Networking */ = {
+		0ABA33F4C68A53878DD45650 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
 				CEAEB9DD29AAA3CC005BBF50 /* Models */,
@@ -282,12 +294,13 @@
 				CEAEB9E229AAA4E4005BBF50 /* Services */,
 				C9D85D83A7E6D498A3AA3EFF /* Plugins */,
 			);
-			path = Networking;
+			path = NetworkService;
 			sourceTree = "<group>";
 		};
 		0D4EA0BF73C90A4165E225F0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CEA5B72429B0A1580038A29C /* Publisher */,
 				33D443A3F68FEB0700F4D3BE /* UIKit */,
 			);
 			path = Extensions;
@@ -549,6 +562,17 @@
 			path = MainTextField;
 			sourceTree = "<group>";
 		};
+		CEA5B72429B0A1580038A29C /* Publisher */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5B72729B0A1B80038A29C /* Publisher+Sink.swift */,
+				CEA5B72929B0A2060038A29C /* Publisher+Assign.swift */,
+				CEA5B72B29B0A2650038A29C /* Publisher+Unwrap.swift */,
+				CEA5B72D29B0A2B70038A29C /* Publisher+WithLatestFrom.swift */,
+			);
+			path = Publisher;
+			sourceTree = "<group>";
+		};
 		CEA5F581298CE89400B87DD4 /* TestSignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -593,6 +617,7 @@
 		CEAEB9E229AAA4E4005BBF50 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CEA5B73229B0B8D30038A29C /* TokenManager.swift */,
 				51CFD4204AC5C192A2EB09E5 /* AuthNetworkService.swift */,
 				CEAEB9E329AAA57E005BBF50 /* UserNetworkService.swift */,
 			);
@@ -683,8 +708,9 @@
 			children = (
 				B61D0EF8B1999093C976E133 /* AppSettings.swift */,
 				90A4F4E565EAAD3D9ED5C262 /* UserService.swift */,
+				CEA5B73029B0B8D30038A29C /* KeychainService.swift */,
 				CEADC9A62983D9E4007A0650 /* TextFieldValidationService */,
-				0ABA33F4C68A53878DD45650 /* Networking */,
+				0ABA33F4C68A53878DD45650 /* NetworkService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -820,6 +846,8 @@
 				08EEB3184A8082B0C0C25EC4 /* AppCoordinator.swift in Sources */,
 				82CC8E4ECAA1B873DDFB95AB /* AppDelegate.swift in Sources */,
 				CEAEB9E129AAA49B005BBF50 /* UserModels.swift in Sources */,
+				CEA5B72E29B0A2B70038A29C /* Publisher+WithLatestFrom.swift in Sources */,
+				CEA5B72A29B0A2060038A29C /* Publisher+Assign.swift in Sources */,
 				CEAEB9EF29ACA6B1005BBF50 /* PasswordRestoreViewModel.swift in Sources */,
 				3F262958B2CE34CD77EC9A8D /* AppEnvironment.swift in Sources */,
 				CEADC9B32987D61A007A0650 /* Optional+extension.swift in Sources */,
@@ -830,11 +858,13 @@
 				CEA545E52977FF04007F9962 /* Creatable.swift in Sources */,
 				69FC756CA7A3ECBB0ADBB994 /* AuthPlugin.swift in Sources */,
 				CEA5F5D0299BECE300B87DD4 /* NetworkError.swift in Sources */,
+				CEA5B72C29B0A2650038A29C /* Publisher+Unwrap.swift in Sources */,
 				CEAEB9DC29AA9D58005BBF50 /* UserEndPoint.swift in Sources */,
 				CEAEB9F929AE34EC005BBF50 /* UserModel.swift in Sources */,
 				CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */,
 				CEA5F588298CE92300B87DD4 /* TestSignUpModuleView.swift in Sources */,
 				656F7BA65C21EC792A53FC1A /* AuthNetworkService.swift in Sources */,
+				CEA5B73329B0B8D30038A29C /* KeychainService.swift in Sources */,
 				4E49AFA694CC28CA8EB3D441 /* AxisScrollView.swift in Sources */,
 				CEA5F589298CE92300B87DD4 /* TestSignUpModuleViewModel.swift in Sources */,
 				5143110F52CB4AE108E6832F /* BaseView.swift in Sources */,
@@ -866,6 +896,7 @@
 				EDFD24AA92041FD400F9F11D /* MainTabBarCoordinator.swift in Sources */,
 				936E18287F780641A997D742 /* MainTabBarModuleBuilder.swift in Sources */,
 				CEAEB9F729AE2609005BBF50 /* Assets.swift in Sources */,
+				CEA5B72829B0A1B80038A29C /* Publisher+Sink.swift in Sources */,
 				C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */,
 				8DEAEE4E8A532047AAF41423 /* MainTabBarViewModel.swift in Sources */,
 				8B92C57154F6E7BCFE57E7B1 /* Module.swift in Sources */,
@@ -874,6 +905,7 @@
 				FE1FD4B33EFBF38BB3F20858 /* SettingsCoordinator.swift in Sources */,
 				0F42C83C9EF50CE2D9816660 /* SettingsModuleBuilder.swift in Sources */,
 				CEA545F2297820A3007F9962 /* TextField.swift in Sources */,
+				CEA5B73529B0B8D30038A29C /* TokenManager.swift in Sources */,
 				5E9FA1F198504A7E904ABBCA /* SettingsView.swift in Sources */,
 				CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */,
 				03EA4466B3EA6DF4583F862E /* SettingsViewController.swift in Sources */,

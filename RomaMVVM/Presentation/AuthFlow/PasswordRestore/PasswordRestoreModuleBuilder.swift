@@ -14,7 +14,7 @@ enum PasswordRestoreTransition: Transition {
 
 final class PasswordRestoreModuleBuilder {
     class func build(container: AppContainer) -> Module<PasswordRestoreTransition, UIViewController> {
-        let viewModel = PasswordRestoreViewModel(authServicw: container.authService)
+        let viewModel = PasswordRestoreViewModel(authServicw: container.authNetworkService)
         let viewController = PasswordRestoreViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

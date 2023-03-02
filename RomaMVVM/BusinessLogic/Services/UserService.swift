@@ -16,9 +16,6 @@ enum UserServiceError: Error {
 protocol UserService {
     var isAuthorized: Bool { get }
     var token: String? { get }
-    var email: String? { get }
-    var name: String? { get }
-    var userId: String? { get }
     var userValueSubject: CurrentValueSubject<UserModel?, Never> { get set }
     
     func save(user: SignInResponse)
@@ -31,31 +28,17 @@ final class UserServiceImpl: UserService {
     var userValueSubject = CurrentValueSubject<UserModel?, Never>(nil)
     
     var isAuthorized: Bool {
-        keychain[Keys.token] != nil
+        keychainService.getObject(forKey: Keys.token) != nil
     }
     
     var token: String? {
-        keychain[Keys.token]
+        keychainService.getAccessToken()
     }
-    
-    var email: String? {
-        getUser().email
-    }
-    
-    var name: String? {
-        getUser().name
-    }
-    
-    var userId: String? {
-        getUser().id
-    }
-    
-    private let keychain: Keychain
-    private let configuration: AppConfiguration
-    
-    init(configuration: AppConfiguration) {
-        self.configuration = configuration
-        self.keychain = Keychain(service: configuration.bundleId)
+
+    private let keychainService: KeychainService
+
+    init(keychainService: KeychainService) {
+        self.keychainService = keychainService
     }
     
     func save(user: SignInResponse) {
@@ -63,33 +46,30 @@ final class UserServiceImpl: UserService {
         let userDefaults = UserDefaults.standard
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(userModel) {
-            userDefaults.set(encoded, forKey: "User")
+            userDefaults.set(encoded, forKey: Keys.user)
         }
-        
-        keychain[Keys.token] = userModel.accessToken
+        keychainService.saveAccessToken(token: userModel.accessToken)
     }
     
     func getUser() -> UserModel {
         let userDefaults = UserDefaults.standard
         let decoder = JSONDecoder()
-        guard let savedUser = userDefaults.object(forKey: "User") as? Data,
+        guard let savedUser = userDefaults.object(forKey: Keys.user) as? Data,
               let user = try? decoder.decode(UserModel.self, from: savedUser) else {fatalError()}
                 return user
     }
     
     func saveAccessToken(token: String) {
-        keychain[Keys.token] = token
+        keychainService.saveAccessToken(token: token)
     }
     
     func clearAccessToken() {
-        keychain[Keys.token] = nil
+        keychainService.clearAccessToken()
     }
 }
 extension UserServiceImpl {
     private enum Keys: CaseIterable {
         static let token = "secure_token_key"
-        static let email = "secure_email_key"
-        static let name = "secure_name_key"
-        static let userId = "secure_userId_key"
+        static let user = "User"
     }
 }

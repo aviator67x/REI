@@ -52,7 +52,9 @@ final class SignInViewModel: BaseViewModel {
             .store(in: &cancellables)
 
         $isEmailValid.combineLatest($isPasswordValid)
-            .map { $0 == $1 }
+            .map {
+                ($0 == .valid) && ($1 == .valid)
+            }
             .sink { [unowned self] in
                 isInputValid = true
 //                isInputValid = $0
@@ -80,7 +82,6 @@ final class SignInViewModel: BaseViewModel {
             } receiveValue: { [weak self] user in
                 self?.isLoadingSubject.send(false)
                 debugPrint("token: ", user.accessToken)
-//                self?.userService.saveAccessToken(token: user.accessToken)
                 self?.userService.save(user: user)
                 let userModel = UserModel(networkModel: user)
                 self?.userService.userValueSubject.value = userModel
@@ -95,7 +96,6 @@ final class SignInViewModel: BaseViewModel {
     }
 
     func showTestSignUp() {
-//        transitionSubject.send(.testSignUp)
         transitionSubject.send(.signUp)
     }
 }

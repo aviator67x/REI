@@ -9,7 +9,7 @@ import Foundation
 
 enum UserEndPoint: Endpoint {
     case deleteUser(id: String)
-    case logOut
+    case logOut(token: String)
 
     var path: String? {
         switch self {
@@ -33,8 +33,9 @@ enum UserEndPoint: Endpoint {
         switch self {
         case let .deleteUser(id: id):
             return ["user-token": id]
-        case .logOut:
-            return [:]
+        case .logOut(let token):
+            return ["Content-Type": "application/json",
+                    "user-token": token]
         }
     }
 

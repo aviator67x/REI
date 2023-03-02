@@ -22,8 +22,9 @@ final class SettingsViewModel: BaseViewModel {
     }
     
     func logout() {
+        guard let token = userService.token else { return }
 //        userService.clear()
-        userNetworkService.logOut()
+        userNetworkService.logOut(token: token)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 switch completion {

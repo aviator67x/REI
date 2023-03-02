@@ -16,7 +16,7 @@ enum SignInTransition: Transition {
 
 final class SignInModuleBuilder {
     class func build(container: AppContainer) -> Module<SignInTransition, UIViewController> {
-        let viewModel = SignInViewModel(authService: container.authService,
+        let viewModel = SignInViewModel(authService: container.authNetworkService,
                                         userService: container.userService)
         let viewController = SignInViewController(viewModel: viewModel)
         return Module(viewController: viewController,

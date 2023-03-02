@@ -10,7 +10,7 @@ import Combine
 
 protocol UserNetworkService {
     func deleteUser(id: String) -> AnyPublisher<Void, NetworkError>
-    func logOut() -> AnyPublisher<Void, NetworkError>
+    func logOut(token: String) -> AnyPublisher<Void, NetworkError>
 }
 
 final class UserNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == UserEndPoint {
@@ -25,7 +25,7 @@ extension UserNetworkServiceImpl: UserNetworkService {
         return userProvider.execute(endpoint: .deleteUser(id: id))
     }
     
-    func logOut() -> AnyPublisher<Void, NetworkError> {
-        return userProvider.execute(endpoint: .logOut)
+    func logOut(token: String) -> AnyPublisher<Void, NetworkError> {
+        return userProvider.execute(endpoint: .logOut(token: token))
     }
 }
