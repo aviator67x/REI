@@ -26,13 +26,12 @@ class NetworkManagerImpl: NetworkManager {
                 return NetworkError.badURL(error)
             }
             .flatMap { output -> AnyPublisher<Data, NetworkError> in
-                if let httpUrlResponse = output.response as? HTTPURLResponse {
-                    NetworkLogger.log(response: httpUrlResponse)
-                }                
+                              
                 guard let httpResponse = output.response as? HTTPURLResponse else {
                     return Fail(error: NetworkError.noResponse)
                         .eraseToAnyPublisher()
-                }              
+                }
+                NetworkLogger.log(response: httpResponse)
                 switch httpResponse.statusCode {
                 case 200...399:
                     return Just(output.data)

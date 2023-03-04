@@ -9,20 +9,22 @@ import Combine
 import Foundation
 
 final class SignUpViewModel: BaseViewModel {
-    @Published var name: String = "Bluberry"
-    @Published var email: String = "bluberry@mail.co"
-    @Published var password: String = "tasty"
-    @Published var confirmPassword: String = "tasty"
-    @Published var isInputValid: Bool = false
+    @Published var name = ""
+    @Published var email = ""
+    @Published var password = ""
+    @Published var confirmPassword = ""
+    @Published var isInputValid = false
 
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SignUpTransition, Never>()
-    
+
     private let authService: AuthNetworkService
-    
-    init(authService: AuthNetworkService) {
+    private let userService: UserService
+
+    init(authService: AuthNetworkService, userService: UserService) {
         self.authService = authService
-        
+        self.userService = userService
+
         super.init()
     }
 
@@ -32,30 +34,48 @@ final class SignUpViewModel: BaseViewModel {
             .sink { [unowned self] in isInputValid = $0 }
             .store(in: &cancellables)
     }
-    
+
     func signUp() {
         let requestModel = SignUpRequest(name: name, email: email, password: password)
         isLoadingSubject.send(true)
-       authService.signUp(requestModel)
+        authService.signUp(requestModel)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
                     print("SignUp is successfully finished")
                     self?.isLoadingSubject.send(false)
-                case .failure(let error):
+                case let .failure(error):
                     print(error.localizedDescription)
                     self?.errorSubject.send(error)
                 }
             } receiveValue: { [weak self] signUpInfo in
                 debugPrint("signUpInfo", signUpInfo.name)
+                guard let self = self else { return }
+                let requestModel = SignInRequest(login: self.email, password: self.password)
+                self.signIn(requestModel: requestModel)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func signIn(requestModel: SignInRequest) {
+        authService.signIn(requestModel)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    print("SignIn is successfully finished")
+                    self?.isLoadingSubject.send(false)
+                case let .failure(error):
+                    print(error.localizedDescription)
+                    self?.errorSubject.send(error)
+                }
+            } receiveValue: { [weak self] signInInfo in
+                debugPrint("accessToken", signInInfo.accessToken)
+                self?.userService.save(user: signInInfo)
                 self?.transitionSubject.send(.success)
                 self?.transitionSubject.send(completion: .finished)
             }
             .store(in: &cancellables)
     }
-
-//    func signUpUser() {
-//        transitionSubject.send(.success)
-//    }
 }

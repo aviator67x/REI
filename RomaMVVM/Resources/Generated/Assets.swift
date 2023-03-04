@@ -31,6 +31,7 @@ internal enum Assets {
   internal static let internGramLogo = ImageAsset(name: "internGramLogo")
   internal static let launchBackground = ImageAsset(name: "launchBackground")
   internal static let logo = ImageAsset(name: "logo")
+  internal static let logologo = ImageAsset(name: "logologo")
   internal static let galleryIcon = ImageAsset(name: "galleryIcon")
   internal static let internGram = ImageAsset(name: "InternGram")
   internal static let dot = ImageAsset(name: "dot")

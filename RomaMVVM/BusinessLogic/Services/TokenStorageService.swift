@@ -8,17 +8,16 @@
 import Foundation
 import KeychainAccess
 
-protocol KeychainService {
+protocol TokenStorageService {
+    var keychain: Keychain { get }
+    
     func saveAccessToken(token: String)
     func getAccessToken() -> String?
     func clearAccessToken()
-    func saveObject(_ object: String, forKey: String)
-    func getObject(forKey: String) -> String?
-    func clearObject(forKey: String)
 }
 
-final class KeychainServiceImpl: KeychainService {
-    private let keychain: Keychain
+final class TokenStorageServiceImpl: TokenStorageService {
+    let keychain: Keychain
     private let configuration: AppConfiguration
     
     init(configuration: AppConfiguration) {
@@ -37,25 +36,9 @@ final class KeychainServiceImpl: KeychainService {
     func clearAccessToken() {
         keychain[Keys.token] = nil
     }
-
-    func saveObject(_ object: String, forKey: String) {
-        keychain[forKey] = object
-    }
-
-    func getObject(forKey: String) -> String? {
-        return keychain[forKey]
-    }
-
-    func clearObject(forKey: String) {
-        do {
-            try keychain.remove(forKey)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
 }
 
-extension KeychainServiceImpl {
+extension TokenStorageServiceImpl {
     private enum Keys: CaseIterable {
         static let token = "secure_token_key"
     }

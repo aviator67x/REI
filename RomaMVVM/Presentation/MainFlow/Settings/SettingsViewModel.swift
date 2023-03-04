@@ -23,8 +23,8 @@ final class SettingsViewModel: BaseViewModel {
     
     func logout() {
         guard let token = userService.token else { return }
-//        userService.clear()
-        userNetworkService.logOut(token: token)
+//        userNetworkService.logOut(token: token)
+        userService.logOut(token: token)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 switch completion {
@@ -35,8 +35,8 @@ final class SettingsViewModel: BaseViewModel {
                     self?.errorSubject.send(error)
                 }
             } receiveValue: { _ in
-//                self.transitionSubject.send(completion: .finished)//
                 self.transitionSubject.send(.logout)
+                self.transitionSubject.send(completion: .finished)
             }
             .store(in: &cancellables)
 

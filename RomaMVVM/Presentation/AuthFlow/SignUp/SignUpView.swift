@@ -77,9 +77,13 @@ final class SignUpView: BaseView {
     private func setupUI() {
         backgroundColor = .white
         nameTextField.placeholder = Localization.name
+        nameTextField.text = "Bluberry"
         emailTextField.placeholder = Localization.email
+        emailTextField.text = "bluberry@mail.co"
         passwordTextField.placeholder = Localization.password
+        passwordTextField.text = "tasty"
         confirmPasswordTextField.placeholder = Localization.confirmPassword
+        confirmPasswordTextField.text = "tasty"
 
         [nameTextField, emailTextField, passwordTextField, confirmPasswordTextField].forEach {
             $0.borderStyle = .roundedRect

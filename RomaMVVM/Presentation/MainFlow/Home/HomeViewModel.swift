@@ -30,7 +30,7 @@ final class HomeViewModel: BaseViewModel {
     }
     
     func getUser() {
-        userService.userValueSubject
+        userService.userPublisher
             .sink { [weak self] userModel in
                 guard let userModel =  userModel else { return }
                 self?.userSubject.send(userModel)
