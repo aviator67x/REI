@@ -24,7 +24,6 @@ final class SignInView: BaseView {
     private let scrollView = AxisScrollView()
     private let emailTextField = UITextField()
     private let emailErrorMessageLabel = UILabel()
-
     private let passwordTextField = UITextField()
     private let passwordErrorMessageLabel = UILabel()
     private let forgotPasswordButton = UIButton()
@@ -53,16 +52,16 @@ final class SignInView: BaseView {
 
     private func animation() {
         let originalTransform = logoView.transform
-        let scaledTransform = originalTransform.scaledBy(x: 0.5, y: 0.5)
+        let scaledTransform = originalTransform.scaledBy(x: 0.4, y: 0.4)
         let scaledAndTranslatedTransform = scaledTransform.translatedBy(
-            x: -UIScreen.main.bounds.width / 1.6,
-            y: -UIScreen.main.bounds.height / 1.4
+            x: -UIScreen.main.bounds.width / 1.4,
+            y: -UIScreen.main.bounds.height / 1.1
         )
         UIView.animate(withDuration: 1, delay: 1, animations: {
             self.logoView.transform = scaledAndTranslatedTransform
         }) {
             _ in
-            let originalTransform = self.scrollView.transform
+//            let originalTransform = self.scrollView.transform
             UIView.animate(withDuration: 1, animations: {
                 self.scrollView.alpha = 1
             })
@@ -106,13 +105,12 @@ final class SignInView: BaseView {
         backgroundColor = .yellow
         backgroundView.image = UIImage(named: "launchBackground")
         scrollView.alpha = 0
-        logoView.image = UIImage(named: "logo")
+        logoView.image = UIImage(named: "loggogo")
 
         emailTextField.placeholder = Localization.email
-//        emailTextField.text = "superMegaJamesBond@mi6.co.u"
 
         emailErrorMessageLabel.text = ""
-        emailErrorMessageLabel.font = UIFont.systemFont(ofSize: 12)
+        emailErrorMessageLabel.font = UIFont(name: "SFProText-Regular", size: 13)
         emailErrorMessageLabel.textColor = UIColor(named: "error")
         emailErrorMessageLabel.numberOfLines = 0
 
@@ -120,7 +118,7 @@ final class SignInView: BaseView {
         passwordTextField.text = "supe3rs3cre3"
 
         passwordErrorMessageLabel.text = ""
-        passwordErrorMessageLabel.font = UIFont.systemFont(ofSize: 12)
+        passwordErrorMessageLabel.font = UIFont(name: "SFProText-Regular", size: 13)
         passwordErrorMessageLabel.textColor = UIColor(named: "error")
         passwordErrorMessageLabel.numberOfLines = 0
 
@@ -129,7 +127,7 @@ final class SignInView: BaseView {
             $0.layer.cornerRadius = 6
         }
 
-        forgotPasswordButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 13)
+        forgotPasswordButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 14)
         forgotPasswordButton.setTitleColor(UIColor(named: "linkButtonColor"), for: .normal)
         forgotPasswordButton.setTitle("Forgot password?", for: .normal)
         forgotPasswordButton.contentHorizontalAlignment = .right
@@ -141,13 +139,13 @@ final class SignInView: BaseView {
         signInButton.rounded(6)
 
         let firstAttributes: [NSAttributedString.Key: Any] =
-            [.foregroundColor: UIColor(named: "secondaryTextColor")]
+        [.foregroundColor: UIColor(named: "textFieldsBackground")]
         let secondAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "linkButtonColor")]
         let firstString = NSMutableAttributedString(string: "Not a member? ", attributes: firstAttributes)
         let secondString = NSAttributedString(string: "Create an account", attributes: secondAttributes)
         firstString.append(secondString)
         createAccounButton.setAttributedTitle(firstString, for: .normal)
-        createAccounButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 13)
+        createAccounButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 14)
         createAccounButton.contentHorizontalAlignment = .center
     }
 
@@ -161,26 +159,21 @@ final class SignInView: BaseView {
 
         logoView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(logoView)
-        logoView.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        logoView.heightAnchor.constraint(equalToConstant: 128).isActive = true
+        logoView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        logoView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         logoView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         logoView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 
         let stack = UIStackView()
-        stack.setup(axis: .vertical, alignment: .fill, distribution: .fill)
-        stack.addSpacer(250)
+        stack.setup(axis: .vertical, alignment: .fill, distribution: .fill, spacing: Constants.textFieldSpacing)
+        stack.addSpacer(200)
         stack.addArranged(emailTextField, size: Constants.textFieldHeight)
-        stack.addSpacer(6)
         stack.addArranged(emailErrorMessageLabel)
-        stack.addSpacer(16)
         stack.addArranged(passwordTextField, size: Constants.textFieldHeight)
-        stack.addSpacer(6)
         stack.addArranged(passwordErrorMessageLabel)
-        stack.addSpacer(6)
         stack.addArranged(forgotPasswordButton)
-        stack.addSpacer(32)
+        stack.addSpacer(190)
         stack.addArranged(signInButton, size: Constants.signInButtonHeight)
-        stack.addSpacer(16)
         stack.addArranged(createAccounButton)
 
         addSubview(scrollView, withEdgeInsets: .zero, safeArea: true, bottomToKeyboard: false)
@@ -215,7 +208,7 @@ extension SignInView {
 private enum Constants {
     static let textFieldHeight: CGFloat = 50
     static let signInButtonHeight: CGFloat = 50
-    static let textFieldSpacing: CGFloat = 16
+    static let textFieldSpacing: CGFloat = 6
     static let containerSpacing: CGFloat = 16
 }
 

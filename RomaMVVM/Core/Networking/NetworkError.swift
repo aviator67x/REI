@@ -26,16 +26,18 @@ enum RequestBuilderError: Error, LocalizedError, Equatable {
     }
 }
 
-enum NetworkError: Error, LocalizedError, Equatable {
+enum NetworkError: Error, LocalizedError {
     case cannotBuildRequest(reason: RequestBuilderError)
     case badURL(_ error: URLError)
     case apiError
     case invalidJSON
     case unauthorized
     case badRequest
+    case forbidden
+    case notFound
     case serverError
     case noResponse
-    case unableToParseData
+    case decodingError(_ error: DecodingError)
     case unknown
 
     var errorDescription: String? {
@@ -56,8 +58,15 @@ enum NetworkError: Error, LocalizedError, Equatable {
             return "Server error"
         case .noResponse:
             return "No response"
-        case .unableToParseData:
-            return "Unable to parse Data"
+        case let .decodingError(error):
+            let message = "Decoding Error: \(error.localizedDescription)."
+
+            return "\(message) \(error.description)."
+
+        case .forbidden:
+            return "Access denied"
+        case .notFound:
+            return "Not found"
         case .unknown:
             return "Unknown error"
         }

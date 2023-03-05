@@ -13,6 +13,9 @@ final class SignUpViewModel: BaseViewModel {
     @Published var email = ""
     @Published var password = ""
     @Published var confirmPassword = ""
+    var isNameValid = CurrentValueSubject<State, Never>(.invalid(errorMessage: ""))
+    var isEmailValid = CurrentValueSubject<State, Never>(.invalid(errorMessage: ""))
+    var isPasswordValid = CurrentValueSubject<State, Never>(.invalid(errorMessage: ""))
     @Published var isInputValid = false
 
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -29,6 +32,33 @@ final class SignUpViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
+        $name
+            .map { name in
+                TextFieldValidator(type: .fullName).validateText(text: name)
+            }
+            .sink { [unowned self] state in
+                isNameValid.value = state
+            }
+            .store(in: &cancellables)
+
+        $email
+            .map { email in
+                TextFieldValidator(type: .email).validateText(text: email)
+            }
+            .sink { [unowned self] state in
+                isEmailValid.value = state
+            }
+            .store(in: &cancellables)
+
+        $password
+            .map { password in
+                TextFieldValidator(type: .password).validateText(text: password)
+            }
+            .sink { [unowned self] state in
+                isPasswordValid.value = state
+            }
+            .store(in: &cancellables)
+
         $name.combineLatest($email, $password, $confirmPassword)
             .map { !$0.0.isEmpty && !$0.1.isEmpty && !$0.2.isEmpty && !$0.3.isEmpty }
             .sink { [unowned self] in isInputValid = $0 }
@@ -57,7 +87,7 @@ final class SignUpViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
     }
-
+    
     private func signIn(requestModel: SignInRequest) {
         authService.signIn(requestModel)
             .receive(on: DispatchQueue.main)
@@ -71,7 +101,7 @@ final class SignUpViewModel: BaseViewModel {
                     self?.errorSubject.send(error)
                 }
             } receiveValue: { [weak self] signInInfo in
-                debugPrint("accessToken", signInInfo.accessToken)
+                debugPrint("signInInfo", signInInfo.name)
                 self?.userService.save(user: signInInfo)
                 self?.transitionSubject.send(.success)
                 self?.transitionSubject.send(completion: .finished)

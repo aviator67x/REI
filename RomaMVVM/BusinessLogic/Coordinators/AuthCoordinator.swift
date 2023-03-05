@@ -23,6 +23,7 @@ final class AuthCoordinator: Coordinator {
 
     func start() {
         signIn()
+//        signUp()
     }
 
     deinit {

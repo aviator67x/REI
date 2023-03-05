@@ -33,6 +33,11 @@ class NetworkServiceProviderImpl<E: Endpoint>: NetworkServiceProvider {
             let request = try endpoint.build(baseURL: baseURLStorage.baseURL, encoder: encoder)
             return networkManager.execute(request: request)
                 .map { _ in }
+                .mapError { [unowned self] error -> NetworkError in
+                    let mappedError = handleError(error)
+                    debugPrint(mappedError.errorDescription ?? "")
+                    return mappedError
+                }
                 .eraseToAnyPublisher()
         } catch let error as RequestBuilderError {
             debugPrint(error.localizedDescription)
@@ -49,8 +54,10 @@ class NetworkServiceProviderImpl<E: Endpoint>: NetworkServiceProvider {
             let request = try endpoint.build(baseURL: baseURLStorage.baseURL, encoder: encoder)
             return networkManager.execute(request: request)
                 .decode(type: Model.self, decoder: decoder)
-                .mapError { error in
-                    NetworkError.unknown
+                .mapError { [unowned self] error -> NetworkError in
+                    let mappedError = handleError(error)
+                    debugPrint(mappedError.errorDescription ?? "")
+                    return mappedError
                 }
                 .eraseToAnyPublisher()
         } catch let error as RequestBuilderError {
@@ -60,6 +67,19 @@ class NetworkServiceProviderImpl<E: Endpoint>: NetworkServiceProvider {
         } catch {
             return Fail(error: NetworkError.unknown)
                 .eraseToAnyPublisher()
+        }
+    }
+
+    private func handleError(_ error: Error) -> NetworkError {
+        switch error {
+        case let error as Swift.DecodingError:
+            return .decodingError(error)
+        case let urlError as URLError:
+            return .badURL(urlError)
+        case let error as NetworkError:
+            return error
+        default:
+            return NetworkError.unknown
         }
     }
 }

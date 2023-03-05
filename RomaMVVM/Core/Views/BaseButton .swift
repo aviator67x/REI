@@ -21,55 +21,63 @@ enum ButtonState {
     case message
     case exit
     case restorePassword
+    case signUp
 }
 
 class BaseButton: UIButton {
-    
     var buttonState: ButtonState
     var activityIndicator: UIActivityIndicatorView!
-    
+
     override var isHighlighted: Bool {
-            didSet {
-                UIView.animate(withDuration: 0.25,
-                               delay: 0,
-                               options: [.beginFromCurrentState, .allowUserInteraction],
-                               animations: {
+        didSet {
+            UIView.animate(
+                withDuration: 0.25,
+                delay: 0,
+                options: [.beginFromCurrentState, .allowUserInteraction],
+                animations: {
                     self.alpha = self.isHighlighted ? 0.5 : 1
-                }, completion: nil)
-            }
+                },
+                completion: nil
+            )
         }
-    
+    }
+
     override var isEnabled: Bool {
-            didSet {
-                alpha = isEnabled ? 1.0 : 0.5
-            }
+        didSet {
+            alpha = isEnabled ? 1.0 : 0.5
         }
-    
+    }
+
     init(buttonState: ButtonState) {
         self.buttonState = buttonState
         super.init(frame: .zero)
         setupView()
     }
- 
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func initialSetup() {
         setTitle(buttonState.titleForButton, for: .normal)
         layer.cornerRadius = 6
-        titleLabel?.font = UIFont(name: "SF-Pro-Text-Bold", size: 13)
+        layer.borderWidth = 0
+        layer.borderColor = UIColor.clear.cgColor
+        titleLabel?.font = UIFont(name: "SFProText-Bold", size: 21)
+        setTitleColor(.white, for: .normal)
+        backgroundColor = UIColor(named: "fillButtonBackground")
     }
-    
+
     func showLoading() {
-        self.setTitle("", for: .normal)
+        setTitle("", for: .normal)
         if activityIndicator == nil {
             activityIndicator = createActivityIndicator()
         }
         isUserInteractionEnabled = false
         showSpinning()
     }
-    
+
     func hideLoading() {
         DispatchQueue.main.async { [weak self] in
             self?.setTitle(self?.buttonState.titleForButton, for: .normal)
@@ -77,36 +85,33 @@ class BaseButton: UIButton {
             self?.isUserInteractionEnabled = true
         }
     }
-    
+
     private func setupView() {
         initialSetup()
         switch buttonState {
         case .createNewAccount, .message, .exit:
             setTitleColor(UIColor(named: "violet"), for: .normal)
             backgroundColor = .clear
-            layer.borderWidth = 0
-            layer.borderColor = UIColor.clear.cgColor
-            layer.cornerRadius = 6
         default:
-            tintColor = .white
-            backgroundColor = UIColor(named: "fillButtonBackground")
+            setTitleColor(.white, for: .normal)
+         
         }
     }
-    
+
     private func createActivityIndicator() -> UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.hidesWhenStopped = true
         activityIndicator.color = UIColor.white
         return activityIndicator
     }
-    
+
     private func showSpinning() {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(activityIndicator)
+        addSubview(activityIndicator)
         centerActivityIndicatorInButton()
         activityIndicator.startAnimating()
     }
-    
+
     private func centerActivityIndicatorInButton() {
         let xCenterConstraint = NSLayoutConstraint(
             item: self,
@@ -117,8 +122,8 @@ class BaseButton: UIButton {
             multiplier: 1,
             constant: 0
         )
-        self.addConstraint(xCenterConstraint)
-        
+        addConstraint(xCenterConstraint)
+
         let yCenterConstraint = NSLayoutConstraint(
             item: self,
             attribute: .centerY,
@@ -128,28 +133,28 @@ class BaseButton: UIButton {
             multiplier: 1,
             constant: 0
         )
-        self.addConstraint(yCenterConstraint)
+        addConstraint(yCenterConstraint)
     }
-    
+
     func setGradientBorder() {
-        self.layer.cornerRadius = 6
-        self.clipsToBounds = true
+        layer.cornerRadius = 6
+        clipsToBounds = true
         let gradient = CAGradientLayer()
-        gradient.frame = self.bounds
+        gradient.frame = bounds
         gradient.colors = [
             UIColor(named: "gradientFirst")?.cgColor,
             UIColor(named: "gradientSecond")?.cgColor,
-            UIColor(named: "gradientThird")?.cgColor
+            UIColor(named: "gradientThird")?.cgColor,
         ]
         gradient.startPoint = CGPoint(x: 0.0, y: 1)
         gradient.endPoint = CGPoint(x: 1, y: 1)
         let shape = CAShapeLayer()
         shape.lineWidth = 3
-        shape.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: 6).cgPath
+        shape.path = UIBezierPath(roundedRect: bounds, cornerRadius: 6).cgPath
         shape.strokeColor = UIColor.black.cgColor
         shape.fillColor = UIColor.clear.cgColor
         gradient.mask = shape
-        self.layer.addSublayer(gradient)
+        layer.addSublayer(gradient)
     }
 }
 
@@ -178,6 +183,8 @@ extension ButtonState {
             return "Exit"
         case .restorePassword:
             return "Restore password"
+        case .signUp:
+            return "Sign Up"
         }
     }
 }

@@ -70,6 +70,7 @@
 		CE9881B929A4F3550086F583 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B529A4F3550086F583 /* HTTPMethod.swift */; };
 		CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B629A4F3550086F583 /* Endpoint.swift */; };
 		CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */; };
+		CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2F29B52163007DC31B /* DecodingError+.swift */; };
 		CEA545E52977FF04007F9962 /* Creatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545E42977FF04007F9962 /* Creatable.swift */; };
 		CEA545E82978016D007F9962 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEA545E72978016D007F9962 /* SnapKit */; };
 		CEA545EF297820A3007F9962 /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545EA297820A3007F9962 /* TextFieldType.swift */; };
@@ -201,6 +202,7 @@
 		CE9881B529A4F3550086F583 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		CE9881B629A4F3550086F583 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+coding.swift"; sourceTree = "<group>"; };
+		CE9CAF2F29B52163007DC31B /* DecodingError+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingError+.swift"; sourceTree = "<group>"; };
 		CEA545E42977FF04007F9962 /* Creatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creatable.swift; sourceTree = "<group>"; };
 		CEA545EA297820A3007F9962 /* TextFieldType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
 		CEA545EB297820A3007F9962 /* TextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 			children = (
 				CE9881B529A4F3550086F583 /* HTTPMethod.swift */,
 				CEA5F5CD299BECE300B87DD4 /* NetworkError.swift */,
+				CE9CAF2F29B52163007DC31B /* DecodingError+.swift */,
 				CE9881B329A4F3550086F583 /* NetworkServiceProvider.swift */,
 				CE9881B429A4F3550086F583 /* NetworkManager.swift */,
 				CE9881B629A4F3550086F583 /* Endpoint.swift */,
@@ -927,6 +930,7 @@
 				CEFEA50F29A7881F0085AB1D /* NetworkLogger.swift in Sources */,
 				E4CB518683283ED390099429 /* UIStackView+Ext.swift in Sources */,
 				CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */,
+				CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */,
 				360A002C89ECA7CB25436514 /* UIView+Ext.swift in Sources */,
 				CEADC9A12981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift in Sources */,
 				8EE80BCD4FB1B0CFFC81B625 /* UserService.swift in Sources */,

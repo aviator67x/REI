@@ -25,24 +25,61 @@ final class SignUpViewController: BaseViewController<SignUpViewModel> {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .nameChanged(let text):
+                case .nameDidChange(let text):
                     viewModel.name = text
 
-                case .emailChanged(let text):
+                case .emailDidChange(let text):
                     viewModel.email = text
 
-                case .passwordChanged(let text):
+                case .passwordDidChange(let text):
                     viewModel.password = text
 
-                case .confirmPasswordChanged(let text):
+                case .confirmPasswordDidChange(let text):
                     viewModel.confirmPassword = text
 
-                case .doneTapped:
+                case .signUpDidTap:
                     viewModel.signUp()
                 }
             }
             .store(in: &cancellables)
-
+        
+        viewModel.isNameValid
+            .sink { [unowned self] state in
+                var message = ""
+                switch state {
+                case .valid:
+                    message = ""
+                case .invalid(errorMessage: let errorMessage):
+                    message = errorMessage ?? ""
+                }
+                contentView.showNameErrorMessage(message: message)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.isEmailValid
+            .sink { [unowned self] state in
+                var message = ""
+                switch state {
+                case .valid:
+                    message = ""
+                case .invalid(errorMessage: let errorMessage):
+                    message = errorMessage ?? ""
+                }
+                contentView.showEmailErrorMessage(message: message)}
+            .store(in: &cancellables)
+        
+        viewModel.isPasswordValid
+            .sink { [unowned self] state in
+                var message = ""
+                switch state {
+                case .valid:
+                    message = ""
+                case .invalid(errorMessage: let errorMessage):
+                    message = errorMessage ?? ""
+                }
+                contentView.showPasswordErrorMessage(message: message)}
+            .store(in: &cancellables)
+        
         viewModel.$isInputValid
             .sink { [unowned self] isValid in
                 contentView.setDoneButton(enabled: isValid)
