@@ -89,9 +89,9 @@ final class SignUpView: BaseView {
         emailTextField.placeholder = Localization.email
         emailTextField.text = "bluberry@mail.co"
         passwordTextField.placeholder = Localization.password
-        passwordTextField.text = "tasty"
+        passwordTextField.text = "Tasty@123"
         confirmPasswordTextField.placeholder = Localization.confirmPassword
-        confirmPasswordTextField.text = "tasty"
+        confirmPasswordTextField.text = "Tasty@123"
 
         [nameTextField, emailTextField, passwordTextField, confirmPasswordTextField].forEach {
             $0.borderStyle = .roundedRect

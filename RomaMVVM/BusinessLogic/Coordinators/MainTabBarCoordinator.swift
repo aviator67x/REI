@@ -26,6 +26,7 @@ final class MainTabBarCoordinator: Coordinator {
     func start() {
         setupHomeCoordinator()
         setupSettingsCoordinator()
+        setupProperyeCoordinator()
 
         let controllers = childCoordinators.compactMap { $0.navigationController }
         let module = MainTabBarModuleBuilder.build(viewControllers: controllers)
@@ -56,6 +57,27 @@ final class MainTabBarCoordinator: Coordinator {
         coordinator.didFinishPublisher
             .sink { [unowned self] in
                 childCoordinators.forEach { removeChild(coordinator: $0) }
+                didFinishSubject.send()
+                didFinishSubject.send(completion: .finished)
+            }
+            .store(in: &cancellables)
+        coordinator.start()
+    }
+    
+    func setupProperyeCoordinator() {
+        let navController = UINavigationController()
+        navController.tabBarItem = .init(
+            title: "Property",
+            image: UIImage(systemName: "house.circle"),
+            selectedImage: nil
+        )
+        let coordinator = PropertyCoordinator(navigationController: navController, container: container)
+        childCoordinators.append(coordinator)
+        coordinator.didFinishPublisher
+            .sink { [unowned self] in
+                childCoordinators.forEach {
+                    removeChild(coordinator: $0)
+                }
                 didFinishSubject.send()
                 didFinishSubject.send(completion: .finished)
             }

@@ -71,6 +71,11 @@
 		CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B629A4F3550086F583 /* Endpoint.swift */; };
 		CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */; };
 		CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2F29B52163007DC31B /* DecodingError+.swift */; };
+		CE9CAF3229B6551B007DC31B /* PropertyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3129B6551B007DC31B /* PropertyCoordinator.swift */; };
+		CE9CAF3829B657C0007DC31B /* PropertyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3429B657C0007DC31B /* PropertyModuleBuilder.swift */; };
+		CE9CAF3929B657C0007DC31B /* PropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3529B657C0007DC31B /* PropertyViewController.swift */; };
+		CE9CAF3A29B657C0007DC31B /* PropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3629B657C0007DC31B /* PropertyView.swift */; };
+		CE9CAF3B29B657C0007DC31B /* PropertyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3729B657C0007DC31B /* PropertyViewModel.swift */; };
 		CEA545E52977FF04007F9962 /* Creatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545E42977FF04007F9962 /* Creatable.swift */; };
 		CEA545E82978016D007F9962 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEA545E72978016D007F9962 /* SnapKit */; };
 		CEA545EF297820A3007F9962 /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545EA297820A3007F9962 /* TextFieldType.swift */; };
@@ -203,6 +208,11 @@
 		CE9881B629A4F3550086F583 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+coding.swift"; sourceTree = "<group>"; };
 		CE9CAF2F29B52163007DC31B /* DecodingError+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingError+.swift"; sourceTree = "<group>"; };
+		CE9CAF3129B6551B007DC31B /* PropertyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyCoordinator.swift; sourceTree = "<group>"; };
+		CE9CAF3429B657C0007DC31B /* PropertyModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyModuleBuilder.swift; sourceTree = "<group>"; };
+		CE9CAF3529B657C0007DC31B /* PropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyViewController.swift; sourceTree = "<group>"; };
+		CE9CAF3629B657C0007DC31B /* PropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyView.swift; sourceTree = "<group>"; };
+		CE9CAF3729B657C0007DC31B /* PropertyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyViewModel.swift; sourceTree = "<group>"; };
 		CEA545E42977FF04007F9962 /* Creatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creatable.swift; sourceTree = "<group>"; };
 		CEA545EA297820A3007F9962 /* TextFieldType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
 		CEA545EB297820A3007F9962 /* TextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
@@ -401,6 +411,7 @@
 				594D4969D87ADFBE45DB3B4A /* MainTabBarCoordinator.swift */,
 				4204A762E062DA5EEE513D13 /* HomeCoordinator.swift */,
 				CA51E79F6908337E1B14DE70 /* SettingsCoordinator.swift */,
+				CE9CAF3129B6551B007DC31B /* PropertyCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -556,6 +567,17 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		CE9CAF3329B65788007DC31B /* Property */ = {
+			isa = PBXGroup;
+			children = (
+				CE9CAF3429B657C0007DC31B /* PropertyModuleBuilder.swift */,
+				CE9CAF3529B657C0007DC31B /* PropertyViewController.swift */,
+				CE9CAF3629B657C0007DC31B /* PropertyView.swift */,
+				CE9CAF3729B657C0007DC31B /* PropertyViewModel.swift */,
+			);
+			path = Property;
+			sourceTree = "<group>";
+		};
 		CEA545E9297820A3007F9962 /* MainTextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -653,6 +675,7 @@
 			children = (
 				5B5C3AE1BF141B5158BBB0E9 /* MainTabBar */,
 				76E8843FA342597467112D6C /* Home */,
+				CE9CAF3329B65788007DC31B /* Property */,
 				CCA876F88893001B36189960 /* Settings */,
 			);
 			path = MainFlow;
@@ -868,6 +891,7 @@
 				CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */,
 				CEA5F588298CE92300B87DD4 /* TestSignUpModuleView.swift in Sources */,
 				656F7BA65C21EC792A53FC1A /* AuthNetworkService.swift in Sources */,
+				CE9CAF3A29B657C0007DC31B /* PropertyView.swift in Sources */,
 				CEA5B73329B0B8D30038A29C /* TokenStorageService.swift in Sources */,
 				4E49AFA694CC28CA8EB3D441 /* AxisScrollView.swift in Sources */,
 				CEA5F589298CE92300B87DD4 /* TestSignUpModuleViewModel.swift in Sources */,
@@ -877,12 +901,14 @@
 				5085332B1A5B06C8C213ECDB /* BaseViewController.swift in Sources */,
 				173F149C6D6553B04D682E9D /* BaseViewModel.swift in Sources */,
 				CEADC9A22981A22E007A0650 /* UniformKeyPathInitializable.swift in Sources */,
+				CE9CAF3229B6551B007DC31B /* PropertyCoordinator.swift in Sources */,
 				B33A99E3AECD58D23DDA8E79 /* Coordinator.swift in Sources */,
 				CEA545FF297832F6007F9962 /* UIView+layout.swift in Sources */,
 				CEADC9A32981A22E007A0650 /* CGPoint+UniformKeyPathInitializable.swift in Sources */,
 				501CE75C4EB6601A82AD5409 /* Fonts.swift in Sources */,
 				CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */,
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
+				CE9CAF3B29B657C0007DC31B /* PropertyViewModel.swift in Sources */,
 				CEAEB9E429AAA57E005BBF50 /* UserNetworkService.swift in Sources */,
 				CEAEB9EC29ACA6B1005BBF50 /* PasswordRestoreModuleBuilder.swift in Sources */,
 				E8A38D357261F60F542286DF /* HomeCoordinator.swift in Sources */,
@@ -915,6 +941,7 @@
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,
 				1F2825C6E85F4B0D9F8DAC85 /* SignInModuleBuilder.swift in Sources */,
 				CEAEB9ED29ACA6B1005BBF50 /* PasswordRestoreViewController.swift in Sources */,
+				CE9CAF3829B657C0007DC31B /* PropertyModuleBuilder.swift in Sources */,
 				BC83B275D377DACEB60714C8 /* SignInView.swift in Sources */,
 				CEA546032978379B007F9962 /* RegEx.swift in Sources */,
 				CEA545EF297820A3007F9962 /* TextFieldType.swift in Sources */,
@@ -931,6 +958,7 @@
 				E4CB518683283ED390099429 /* UIStackView+Ext.swift in Sources */,
 				CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */,
 				CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */,
+				CE9CAF3929B657C0007DC31B /* PropertyViewController.swift in Sources */,
 				360A002C89ECA7CB25436514 /* UIView+Ext.swift in Sources */,
 				CEADC9A12981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift in Sources */,
 				8EE80BCD4FB1B0CFFC81B625 /* UserService.swift in Sources */,

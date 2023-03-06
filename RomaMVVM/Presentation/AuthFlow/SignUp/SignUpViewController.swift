@@ -17,6 +17,7 @@ final class SignUpViewController: BaseViewController<SignUpViewModel> {
     }
 
     override func viewDidLoad() {
+        navigationItem.setHidesBackButton(true, animated: true)
         setupBindings()
         super.viewDidLoad()
     }
