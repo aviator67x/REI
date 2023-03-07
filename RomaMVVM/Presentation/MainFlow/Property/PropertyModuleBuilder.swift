@@ -14,7 +14,7 @@ enum PropertyTransition: Transition {
 
 final class PropertyModuleBuilder {
     class func build(container: AppContainer) -> Module<PropertyTransition, UIViewController> {
-        let viewModel = PropertyViewModel()
+        let viewModel = PropertyViewModel(propertyNetworkService: container.propertyNetworkService)
         let viewController = PropertyViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

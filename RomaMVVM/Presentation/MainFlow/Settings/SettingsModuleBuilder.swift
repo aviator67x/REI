@@ -10,6 +10,7 @@ import Combine
 
 enum SettingsTransition: Transition {
     case logout
+    case property
 }
 
 final class SettingsModuleBuilder {

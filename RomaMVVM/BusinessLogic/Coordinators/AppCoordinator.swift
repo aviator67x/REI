@@ -31,7 +31,7 @@ final class AppCoordinator: Coordinator {
         self.window.makeKeyAndVisible()
         
         container.userService.clearAccessToken()
-        container.userService.isAuthorized ? mainFlow() : authFlow()
+        container.userService.isAuthorized ? mainFlow() : mainFlow()//authFlow()
     }
 
     private func authFlow() {

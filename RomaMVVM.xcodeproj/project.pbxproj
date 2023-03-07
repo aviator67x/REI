@@ -76,6 +76,7 @@
 		CE9CAF3929B657C0007DC31B /* PropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3529B657C0007DC31B /* PropertyViewController.swift */; };
 		CE9CAF3A29B657C0007DC31B /* PropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3629B657C0007DC31B /* PropertyView.swift */; };
 		CE9CAF3B29B657C0007DC31B /* PropertyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3729B657C0007DC31B /* PropertyViewModel.swift */; };
+		CE9CAF3E29B678BE007DC31B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CE9CAF3D29B678BE007DC31B /* Kingfisher */; };
 		CEA545E52977FF04007F9962 /* Creatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545E42977FF04007F9962 /* Creatable.swift */; };
 		CEA545E82978016D007F9962 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEA545E72978016D007F9962 /* SnapKit */; };
 		CEA545EF297820A3007F9962 /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545EA297820A3007F9962 /* TextFieldType.swift */; };
@@ -108,6 +109,9 @@
 		CEADC9A52982EC63007A0650 /* TextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC9A42982EC63007A0650 /* TextFieldValidator.swift */; };
 		CEADC9B32987D61A007A0650 /* Optional+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC9B22987D61A007A0650 /* Optional+extension.swift */; };
 		CEADC9B5298853E8007A0650 /* BaseButton .swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC9B4298853E8007A0650 /* BaseButton .swift */; };
+		CEAE382F29B768C00046198A /* PropertyEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE382E29B768C00046198A /* PropertyEndPoint.swift */; };
+		CEAE383129B76BCA0046198A /* PropertyNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383029B76BCA0046198A /* PropertyNetworkService.swift */; };
+		CEAE383329B772640046198A /* PropertyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383229B772640046198A /* PropertyModels.swift */; };
 		CEAEB9D029A8B7E1005BBF50 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEAEB9CF29A8B7E1005BBF50 /* Launch Screen.storyboard */; };
 		CEAEB9DC29AA9D58005BBF50 /* UserEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9DB29AA9D58005BBF50 /* UserEndPoint.swift */; };
 		CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9DE29AAA446005BBF50 /* AuthModels.swift */; };
@@ -244,6 +248,9 @@
 		CEADC9A42982EC63007A0650 /* TextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidator.swift; sourceTree = "<group>"; };
 		CEADC9B22987D61A007A0650 /* Optional+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+extension.swift"; sourceTree = "<group>"; };
 		CEADC9B4298853E8007A0650 /* BaseButton .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseButton .swift"; sourceTree = "<group>"; };
+		CEAE382E29B768C00046198A /* PropertyEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyEndPoint.swift; sourceTree = "<group>"; };
+		CEAE383029B76BCA0046198A /* PropertyNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyNetworkService.swift; sourceTree = "<group>"; };
+		CEAE383229B772640046198A /* PropertyModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyModels.swift; sourceTree = "<group>"; };
 		CEAEB9CF29A8B7E1005BBF50 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CEAEB9DB29AA9D58005BBF50 /* UserEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndPoint.swift; sourceTree = "<group>"; };
 		CEAEB9DE29AAA446005BBF50 /* AuthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModels.swift; sourceTree = "<group>"; };
@@ -275,6 +282,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9CAF3E29B678BE007DC31B /* Kingfisher in Frameworks */,
 				D9E1B5A48B342C96AE2CE12F /* CombineCocoa in Frameworks */,
 				05CCAA6B809D348CF69C3FB3 /* KeyboardLayoutGuide in Frameworks */,
 				5522D7D73F74CCACD557A672 /* CombineNetworking in Frameworks */,
@@ -549,6 +557,7 @@
 			children = (
 				CE9881AE29A3A3820086F583 /* AuthEndPoint.swift */,
 				CEAEB9DB29AA9D58005BBF50 /* UserEndPoint.swift */,
+				CEAE382E29B768C00046198A /* PropertyEndPoint.swift */,
 			);
 			path = EndPoints;
 			sourceTree = "<group>";
@@ -636,6 +645,7 @@
 			children = (
 				CEAEB9DE29AAA446005BBF50 /* AuthModels.swift */,
 				CEAEB9E029AAA49B005BBF50 /* UserModels.swift */,
+				CEAE383229B772640046198A /* PropertyModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -645,6 +655,7 @@
 			children = (
 				51CFD4204AC5C192A2EB09E5 /* AuthNetworkService.swift */,
 				CEAEB9E329AAA57E005BBF50 /* UserNetworkService.swift */,
+				CEAE383029B76BCA0046198A /* PropertyNetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -675,8 +686,8 @@
 			children = (
 				5B5C3AE1BF141B5158BBB0E9 /* MainTabBar */,
 				76E8843FA342597467112D6C /* Home */,
-				CE9CAF3329B65788007DC31B /* Property */,
 				CCA876F88893001B36189960 /* Settings */,
+				CE9CAF3329B65788007DC31B /* Property */,
 			);
 			path = MainFlow;
 			sourceTree = "<group>";
@@ -764,6 +775,7 @@
 				AEE09D0769AAA052EA1BD7D6 /* CombineNetworking */,
 				C07B7AD09C0EA1553D69D767 /* KeychainAccess */,
 				CEA545E72978016D007F9962 /* SnapKit */,
+				CE9CAF3D29B678BE007DC31B /* Kingfisher */,
 			);
 			productName = RomaMVVM;
 			productReference = E6353D0F1511E20E206B1634 /* RomaMVVM.app */;
@@ -792,6 +804,7 @@
 				A5ECE8FFAA8EC446DC0B7A57 /* XCRemoteSwiftPackageReference "KeyboardLayoutGuide" */,
 				2169446AF206FD83EB85CF8D /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				CEA545E62978016C007F9962 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				CE9CAF3C29B678BE007DC31B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = DE3F1EFB85403EF50F47B481 /* Products */;
 			projectDirPath = "";
@@ -891,6 +904,7 @@
 				CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */,
 				CEA5F588298CE92300B87DD4 /* TestSignUpModuleView.swift in Sources */,
 				656F7BA65C21EC792A53FC1A /* AuthNetworkService.swift in Sources */,
+				CEAE383129B76BCA0046198A /* PropertyNetworkService.swift in Sources */,
 				CE9CAF3A29B657C0007DC31B /* PropertyView.swift in Sources */,
 				CEA5B73329B0B8D30038A29C /* TokenStorageService.swift in Sources */,
 				4E49AFA694CC28CA8EB3D441 /* AxisScrollView.swift in Sources */,
@@ -905,6 +919,7 @@
 				B33A99E3AECD58D23DDA8E79 /* Coordinator.swift in Sources */,
 				CEA545FF297832F6007F9962 /* UIView+layout.swift in Sources */,
 				CEADC9A32981A22E007A0650 /* CGPoint+UniformKeyPathInitializable.swift in Sources */,
+				CEAE382F29B768C00046198A /* PropertyEndPoint.swift in Sources */,
 				501CE75C4EB6601A82AD5409 /* Fonts.swift in Sources */,
 				CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */,
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
@@ -920,6 +935,7 @@
 				CE9881B929A4F3550086F583 /* HTTPMethod.swift in Sources */,
 				C89644FBACE71E197085D1BC /* HomeViewModel.swift in Sources */,
 				16D96EFFF06F84700B92B20F /* LoadingView.swift in Sources */,
+				CEAE383329B772640046198A /* PropertyModels.swift in Sources */,
 				CEA545F1297820A3007F9962 /* ValidatorType.swift in Sources */,
 				CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */,
 				BA4407035F877122802C3D47 /* Localization.swift in Sources */,
@@ -1569,6 +1585,14 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		CE9CAF3C29B678BE007DC31B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		CEA545E62978016C007F9962 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1594,6 +1618,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2169446AF206FD83EB85CF8D /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		CE9CAF3D29B678BE007DC31B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE9CAF3C29B678BE007DC31B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		CEA545E72978016D007F9962 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -15,6 +15,7 @@ protocol AppContainer: AnyObject {
     var userNetworkService: UserNetworkService { get }
     var appSettingsService: AppSettingsService { get }
     var tokenStorageService: TokenStorageService { get }
+    var propertyNetworkService: PropertyNetworkService { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -24,6 +25,7 @@ final class AppContainerImpl: AppContainer {
     let userService: UserService
     let appSettingsService: AppSettingsService
     let tokenStorageService: TokenStorageService
+    let propertyNetworkService: PropertyNetworkService
 
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -49,8 +51,21 @@ final class AppContainerImpl: AppContainer {
         let userNetworkService = UserNetworkServiceImpl(userProvider: userNetworkServiceProvider)
         self.userNetworkService = userNetworkService
 
+        let propertyNetworkServiceProvider =
+            NetworkServiceProviderImpl<PropertyEndPoint>(
+                baseURLStorage: appConfiguration,
+                networkManager: networkManagerImpl,
+                encoder: JSONEncoder(),
+                decoder: JSONDecoder()
+            )
+        let propertyNetworkService = PropertyNetworkServiceImpl(propertyProvider: propertyNetworkServiceProvider)
+        self.propertyNetworkService = propertyNetworkService
+
         self.tokenStorageService = TokenStorageServiceImpl(configuration: appConfiguration)
-        let userService = UserServiceImpl(tokenStorageService: tokenStorageService, userNetworkService: userNetworkService)
+        let userService = UserServiceImpl(
+            tokenStorageService: tokenStorageService,
+            userNetworkService: userNetworkService
+        )
         self.userService = userService
 
         let appSettingsService = AppSettingsServiceImpl()

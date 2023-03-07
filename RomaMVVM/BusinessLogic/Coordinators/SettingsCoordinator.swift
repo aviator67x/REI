@@ -33,9 +33,16 @@ final class SettingsCoordinator: Coordinator {
                 switch transition {
                 case .logout:
                     didFinishSubject.send()
+                case .property:
+                    property()
                 }
             }
             .store(in: &cancellables)
+        setRoot(module.viewController)
+    }
+    
+    private func property() {
+        let module = PropertyModuleBuilder.build(container: container)
         setRoot(module.viewController)
     }
 }

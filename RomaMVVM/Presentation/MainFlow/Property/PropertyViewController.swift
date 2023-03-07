@@ -19,14 +19,33 @@ final class PropertyViewController: BaseViewController<PropertyViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setImage()
+        super.viewWillAppear(animated)
     }
 
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
+                case .filterDidTap:
+                    viewModel.filter()
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel.propertyIdPublisher
+            .sink { [unowned self] id in
+                contentView.setLabel(id: id)
+            }
+            .store(in: &cancellables)
     }
+    
+    func setImage() {
+        contentView.setImage()
+    }
+    
 }

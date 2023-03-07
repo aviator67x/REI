@@ -34,6 +34,7 @@ final class PropertyCoordinator: Coordinator {
                 switch transition {
                 case .home:
                     didFinishSubject.send()
+                    didFinishSubject.send(completion: .finished)
                 }
             }
             .store(in: &cancellables)

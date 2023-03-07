@@ -66,4 +66,13 @@ extension Endpoint {
         }
         return request
     }
+    
+    func buildFilterQuery(queries: inout HTTPQueries) {
+        var queryString = ""
+        queries.forEach { query in
+            queryString = "\(query.key) = \(query.value) and"
+        }
+        queries = [:]
+        queries["where"] = queryString
+    }
 }
