@@ -5,11 +5,10 @@
 //  Created by Roman Savchenko on 20.02.2023.
 //
 
-import Foundation
-
 enum RequestBody {
     case rawData(Data)
     case encodable(Encodable)
+    case multipartBody([MultipartItem])
 }
 
 typealias HTTPQueries = [String: String]
@@ -30,9 +29,9 @@ protocol RequestBuilder {
 
 extension Endpoint {
     var baseURL: URL? { return nil }
-    
+
     var queries: HTTPQueries { [:] }
-    
+
     func build(baseURL: URL, encoder: JSONEncoder) throws -> URLRequest {
         var fullURL = self.baseURL ?? baseURL
         if let path = path {
@@ -51,14 +50,22 @@ extension Endpoint {
         request.httpMethod = method.rawValue
         if let body = body {
             switch body {
-            case .rawData(let data):
+            case let .rawData(data):
                 request.httpBody = data
-                
-            case .encodable(let model):
+
+            case let .encodable(model):
                 guard let data = try? encoder.encode(model) else {
                     throw RequestBuilderError.unableToEncode
                 }
                 request.httpBody = data
+                
+            case let .multipartBody(multipartItems):
+                let multipartData = getMultipartData(multipartItems: multipartItems)
+                request.httpBody = multipartData.data
+                request.addValue(
+                    "multipart/form-data; boundary=\(multipartData.boundary)",
+                    forHTTPHeaderField: "Content-Type"
+                )
             }
         }
         headers.forEach { (key: String, value: String) in
@@ -66,7 +73,25 @@ extension Endpoint {
         }
         return request
     }
-    
+
+    private func getMultipartData(multipartItems: [MultipartItem]) -> MultipartData {
+        let boundary = UUID().uuidString
+
+        guard !multipartItems.isEmpty else { return MultipartData(data: Data(), boundary: boundary) }
+
+        let data = NSMutableData()
+        let boundaryPrefix = "--\(boundary)\r\n"
+
+        for item in multipartItems {
+            data.append(boundaryPrefix)
+            data.append(item.convert())
+        }
+
+        data.append("--\(boundary)--\r\n")
+
+        return MultipartData(data: data as Data, boundary: boundary)
+    }
+
     func buildFilterQuery(queries: inout HTTPQueries) {
         var queryString = ""
         queries.forEach { query in

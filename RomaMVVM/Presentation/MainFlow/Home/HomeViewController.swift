@@ -25,7 +25,10 @@ final class HomeViewController: BaseViewController<HomeViewModel> {
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
-                
+                switch action {
+                case .avatarButtonDidTap:
+                    viewModel.saveAvatar()
+                }
             }
             .store(in: &cancellables)
         

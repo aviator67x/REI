@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 enum HomeViewAction {
-  
+  case avatarButtonDidTap
 }
 
 final class HomeView: BaseView {
@@ -18,6 +18,7 @@ final class HomeView: BaseView {
     private let emailLabel = UILabel()
     private let tokenLabel = UILabel()
     private let idLabel = UILabel()
+    private let avatarButton = BaseButton(buttonState: .avatar)
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<HomeViewAction, Never>()
@@ -39,7 +40,11 @@ final class HomeView: BaseView {
     }
 
     private func bindActions() {
-           
+        avatarButton.tapPublisher
+            .sink { [unowned self] in
+                self.actionSubject.send(.avatarButtonDidTap)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -58,6 +63,8 @@ final class HomeView: BaseView {
         stack.addCentered(emailLabel, inset: 16, size: 50)
         stack.addCentered(tokenLabel, inset: 16, size: 50)
         stack.addCentered(idLabel, inset: 16, size: 50)
+        stack.addSpacer(200)
+        stack.addCentered(avatarButton, inset: 16, size: 50)
         addSubview(stack, withEdgeInsets: UIEdgeInsets(top: 100, left: 0, bottom: 350, right: 0), safeArea: true)
     }
 

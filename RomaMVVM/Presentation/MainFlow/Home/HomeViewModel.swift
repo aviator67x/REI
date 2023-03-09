@@ -8,15 +8,18 @@
 import Combine
 import CombineNetworking
 import Foundation
+import UIKit
 
 final class HomeViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<HomeTransition, Never>()
-    
+
     private(set) lazy var userPublisher = userSubject.eraseToAnyPublisher()
     private let userSubject = CurrentValueSubject<UserModel?, Never>(nil)
 
     private let userService: UserService
+
+    private let avatar = UIImage(named: "girl") ?? UIImage()
 
     init(userService: UserService) {
         self.userService = userService
@@ -25,15 +28,32 @@ final class HomeViewModel: BaseViewModel {
 
     override func onViewDidLoad() {
         super.onViewDidLoad()
-        
+
         getUser()
     }
-    
+
     func getUser() {
         userService.userPublisher
             .sink { [weak self] userModel in
-                guard let userModel =  userModel else { return }
+                guard let userModel = userModel else { return }
                 self?.userSubject.send(userModel)
+            }
+            .store(in: &cancellables)
+    }
+
+    func saveAvatar() {
+        guard let imageData = avatar.pngData() else { return }
+        userService.saveAvatar(image: imageData)
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] completion in
+                switch completion {
+                case .finished:
+                    print("Avatar has been saved")
+                case let .failure(error):
+                    print(error.errorDescription ?? "")
+                }
+            } receiveValue: { [unowned self] avatarUrlDict in
+                print(avatarUrlDict["fileURL"] ?? "")
             }
             .store(in: &cancellables)
     }

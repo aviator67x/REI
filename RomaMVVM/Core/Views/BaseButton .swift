@@ -23,6 +23,7 @@ enum ButtonState {
     case restorePassword
     case signUp
     case filter
+    case avatar
 }
 
 class BaseButton: UIButton {
@@ -188,6 +189,8 @@ extension ButtonState {
             return "Sign Up"
         case .filter:
             return "Filter"
+        case .avatar:
+            return "Add avatar"
         }
     }
 }

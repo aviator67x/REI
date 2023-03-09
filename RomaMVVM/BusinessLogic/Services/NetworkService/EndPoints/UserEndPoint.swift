@@ -6,16 +6,11 @@
 //
 
 import Foundation
-import UIKit
 
 enum UserEndPoint: Endpoint {
     case deleteUser(id: String)
     case logOut(token: String)
-    case addAvatar(image: UIImage)
-    
-    var boundary: String {
-        return UUID().uuidString
-    }
+    case addAvatar(image: [MultipartItem])
 
     var path: String? {
         switch self {
@@ -24,7 +19,7 @@ enum UserEndPoint: Endpoint {
         case .logOut:
             return "/users/logout"
         case .addAvatar:
-            return "/data/Users"
+            return "/files/images"
         }
     }
 
@@ -47,7 +42,7 @@ enum UserEndPoint: Endpoint {
             return ["Content-Type": "application/json",
                     "user-token": token]
         case .addAvatar:
-           return ["Content-Type": "multipart/form-data; boundary=\(boundary)"]
+            return [:]
         }
     }
 
@@ -56,18 +51,8 @@ enum UserEndPoint: Endpoint {
         case .deleteUser, .logOut:
             return nil
         case .addAvatar(image: let image):
-           
-            var data = Data()
-
-            // Add the image data to the raw http request data
-            data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-            data.append("Content-Disposition: form-data; name=\"avatar\"; filename=\"\(image)\"\r\n".data(using: .utf8)!)
-            data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
-            data.append(image.pngData()!)
-
-            data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
             
-            return .rawData(data)
+            return .multipartBody(image)
         }
     }
 }

@@ -112,6 +112,8 @@
 		CEAE382F29B768C00046198A /* PropertyEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE382E29B768C00046198A /* PropertyEndPoint.swift */; };
 		CEAE383129B76BCA0046198A /* PropertyNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383029B76BCA0046198A /* PropertyNetworkService.swift */; };
 		CEAE383329B772640046198A /* PropertyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383229B772640046198A /* PropertyModels.swift */; };
+		CEAE383529BA020D0046198A /* NSMutableData+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383429BA020C0046198A /* NSMutableData+.swift */; };
+		CEAE383729BA720F0046198A /* MultipartItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383629BA720F0046198A /* MultipartItems.swift */; };
 		CEAEB9D029A8B7E1005BBF50 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEAEB9CF29A8B7E1005BBF50 /* Launch Screen.storyboard */; };
 		CEAEB9DC29AA9D58005BBF50 /* UserEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9DB29AA9D58005BBF50 /* UserEndPoint.swift */; };
 		CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9DE29AAA446005BBF50 /* AuthModels.swift */; };
@@ -251,6 +253,8 @@
 		CEAE382E29B768C00046198A /* PropertyEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyEndPoint.swift; sourceTree = "<group>"; };
 		CEAE383029B76BCA0046198A /* PropertyNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyNetworkService.swift; sourceTree = "<group>"; };
 		CEAE383229B772640046198A /* PropertyModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyModels.swift; sourceTree = "<group>"; };
+		CEAE383429BA020C0046198A /* NSMutableData+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableData+.swift"; sourceTree = "<group>"; };
+		CEAE383629BA720F0046198A /* MultipartItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartItems.swift; sourceTree = "<group>"; };
 		CEAEB9CF29A8B7E1005BBF50 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CEAEB9DB29AA9D58005BBF50 /* UserEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndPoint.swift; sourceTree = "<group>"; };
 		CEAEB9DE29AAA446005BBF50 /* AuthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModels.swift; sourceTree = "<group>"; };
@@ -323,6 +327,7 @@
 				CEA5B72429B0A1580038A29C /* Publisher */,
 				33D443A3F68FEB0700F4D3BE /* UIKit */,
 				CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */,
+				CEAE383429BA020C0046198A /* NSMutableData+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -572,6 +577,7 @@
 				CE9881B429A4F3550086F583 /* NetworkManager.swift */,
 				CE9881B629A4F3550086F583 /* Endpoint.swift */,
 				CEFEA50E29A7881F0085AB1D /* NetworkLogger.swift */,
+				CEAE383629BA720F0046198A /* MultipartItems.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -917,9 +923,11 @@
 				CEADC9A22981A22E007A0650 /* UniformKeyPathInitializable.swift in Sources */,
 				CE9CAF3229B6551B007DC31B /* PropertyCoordinator.swift in Sources */,
 				B33A99E3AECD58D23DDA8E79 /* Coordinator.swift in Sources */,
+				CEAE383529BA020D0046198A /* NSMutableData+.swift in Sources */,
 				CEA545FF297832F6007F9962 /* UIView+layout.swift in Sources */,
 				CEADC9A32981A22E007A0650 /* CGPoint+UniformKeyPathInitializable.swift in Sources */,
 				CEAE382F29B768C00046198A /* PropertyEndPoint.swift in Sources */,
+				CEAE383729BA720F0046198A /* MultipartItems.swift in Sources */,
 				501CE75C4EB6601A82AD5409 /* Fonts.swift in Sources */,
 				CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */,
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
