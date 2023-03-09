@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CombineNetworking
 
 enum PropertyEndPoint: Endpoint {
     case filter(queries: [String:String])
@@ -13,8 +14,9 @@ enum PropertyEndPoint: Endpoint {
     var queries: HTTPQueries {
         switch self {
         case var .filter(queries):
-            buildFilterQuery(queries: &queries)
-            return queries
+//            buildFilterQuery(queries: &queries)
+//            return queries
+            return ["where":"propertyType = 'Flat' and area >= 50 and area <= 60"]
         }
     }
     

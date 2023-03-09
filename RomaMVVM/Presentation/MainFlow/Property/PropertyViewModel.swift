@@ -36,7 +36,10 @@ final class PropertyViewModel: BaseViewModel {
                     debugPrint(error.errorDescription ?? "")
                 }
             } receiveValue: { [unowned self] property in
-//                self.propertyId.value = property.ownerId
+                property.forEach { item in
+                    NetworkLogger.log(data: item)
+    //                self.propertyId.value = property.ownerId
+                }                
             }
             .store(in: &cancellables)
     }

@@ -34,41 +34,6 @@ class NetworkManagerImpl: NetworkManager {
                 
                 return data
             }
-//            .mapError { error in
-//                NetworkError.badURL(error)
-//            }
-//            .flatMap { output -> AnyPublisher<Data, NetworkError> in
-//
-//                guard let httpResponse = output.response as? HTTPURLResponse else {
-//                    return Fail(error: NetworkError.noResponse)
-//                        .eraseToAnyPublisher()
-//                }
-//                NetworkLogger.log(response: httpResponse)
-
-//                switch httpResponse.statusCode {
-//                case 200 ... 399:
-//                    return Just(output.data)
-//                        .setFailureType(to: NetworkError.self)
-//                        .eraseToAnyPublisher()
-//                case 400: return Fail(error: NetworkError.badRequest)
-//                    .eraseToAnyPublisher()
-//                case 401: return Fail(error: NetworkError.unauthorized)
-//                    .eraseToAnyPublisher()
-//                case 403: return Fail(error: NetworkError.forbidden)
-//                    .eraseToAnyPublisher()
-//                case 404: return Fail(error: NetworkError.notFound)
-//                    .eraseToAnyPublisher()
-//                case 402, 405 ... 499:
-//                    return Fail(error: NetworkError.badRequest)
-//                        .eraseToAnyPublisher()
-//                case 500 ... 599:
-//                    return Fail(error: NetworkError.serverError)
-//                        .eraseToAnyPublisher()
-//                default:
-//                    return Fail(error: NetworkError.unknown)
-//                        .eraseToAnyPublisher()
-//                }
-//            }
             .eraseToAnyPublisher()
     }
 

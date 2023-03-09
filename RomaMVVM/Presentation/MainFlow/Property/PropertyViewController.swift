@@ -45,7 +45,7 @@ final class PropertyViewController: BaseViewController<PropertyViewModel> {
     }
     
     func setImage() {
-        contentView.setImage()
+//        contentView.setImage()
     }
     
 }

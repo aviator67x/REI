@@ -52,4 +52,10 @@ struct NetworkLogger {
         
         print("HTTPURLResponse status code is \(response.statusCode)")
     }
+    
+    static func log<T>(data: T) {
+        print("\n - - - - - - - - - - DataFromDataTaskPublisher - - - - - - - - - - \n")
+        defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
+        print("\(data) \n")
+    }
 }

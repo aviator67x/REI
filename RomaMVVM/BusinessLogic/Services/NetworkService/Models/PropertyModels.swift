@@ -9,12 +9,12 @@ import Foundation
 
 struct PropertyResponse: Decodable {
     let created: Int
-//    let ownerId: String
-//    let area: Int
-//    let realEstateCategory: String
-//    let propertyType: String
-//    let saleOrRent: String
-//    let toTheAirportAlanya: Int
-//    let toTheAirportGazipasa: Int
+    let ownerId: String?
+    let area: Int?
+    let realEstateCategory: String?
+    let propertyType: String?
+    let saleOrRent: String?
+    let toTheAirportAlanya: Int?
+    let toTheAirportGazipasa: Int?
 
 }

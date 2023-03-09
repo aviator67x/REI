@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct UserRequestModel {
+    let id: String
+    let name: String
+    let email: String
+    let photo: Data
+}
