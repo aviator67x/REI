@@ -4,6 +4,7 @@
 //
 //  Created by Roman Savchenko on 20.02.2023.
 //
+import Foundation
 
 enum RequestBody {
     case rawData(Data)
@@ -58,7 +59,7 @@ extension Endpoint {
                     throw RequestBuilderError.unableToEncode
                 }
                 request.httpBody = data
-                
+
             case let .multipartBody(multipartItems):
                 let multipartData = getMultipartData(multipartItems: multipartItems)
                 request.httpBody = multipartData.data
@@ -92,12 +93,7 @@ extension Endpoint {
         return MultipartData(data: data as Data, boundary: boundary)
     }
 
-    func buildFilterQuery(queries: inout HTTPQueries) {
-        var queryString = ""
-        queries.forEach { query in
-            queryString = "\(query.key) = \(query.value) and"
-        }
-        queries = [:]
-        queries["where"] = queryString
+    func buildQuery(searchParams: [SearchParam]) -> [String: String]? {
+        return Search.searchProperty(searchParams).query
     }
 }

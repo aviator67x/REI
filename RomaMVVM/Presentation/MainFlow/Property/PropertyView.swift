@@ -15,12 +15,18 @@ enum PropertyViewAction {
 
 final class PropertyView: BaseView {
     // MARK: - Subviews
+
+    private let pickerView = UIPickerView()
     private let imageView = UIImageView()
     private let idLabel = UILabel()
     private let filterButton = BaseButton(buttonState: .filter)
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<PropertyViewAction, Never>()
+    
+    private let propertyColumns = PropertyColumn.allCases
+    var index0 = 0
+    var index1 = 1
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +42,8 @@ final class PropertyView: BaseView {
         setupLayout()
         setupUI()
         bindActions()
+        pickerView.delegate = self
+//        setImage()
     }
 
     private func bindActions() {
@@ -48,22 +56,34 @@ final class PropertyView: BaseView {
 
     private func setupUI() {
         backgroundColor = .white
+        pickerView.backgroundColor = .red
         idLabel.textAlignment = .center
+        idLabel.text = "Text of idLabel"
+        idLabel.backgroundColor = .yellow
+        imageView.backgroundColor = .cyan
+      
     }
 
     private func setupLayout() {
-        addSubview(imageView, withEdgeInsets: UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 20))
-        addSubview(idLabel) { _ in
-            idLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30).isActive = true
-            idLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 30).isActive = true
-            idLabel.bottomAnchor.constraint(equalTo: imageView.topAnchor, constant: 20).isActive = true
-            idLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        addSubview(pickerView) {
+            $0.top.equalToSuperview().offset(100)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(200)
         }
-        addSubview(filterButton) { _ in
-            filterButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30).isActive = true
-            filterButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
-            filterButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
-            filterButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        addSubview(idLabel) {
+            $0.top.equalTo(pickerView.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(50)
+        }
+        addSubview(imageView) {
+            $0.top.equalTo(idLabel.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(300)
+        }
+        addSubview(filterButton) {
+            $0.top.equalTo(imageView.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(50)
         }
     }
 
@@ -83,7 +103,7 @@ final class PropertyView: BaseView {
 
         imageView.backgroundColor = .cyan
     }
-    
+
     func setLabel(id: String) {
         idLabel.text = id
     }
@@ -92,11 +112,59 @@ final class PropertyView: BaseView {
 // MARK: - View constants
 private enum Constant {}
 
-#if DEBUG
-    import SwiftUI
-    struct PropertyPreview: PreviewProvider {
-        static var previews: some View {
-            ViewRepresentable(PropertyView())
+extension PropertyView: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return propertyColumns.count
+        } else {
+            switch index0 {
+            case 0:
+                return PropertyColumn.Layout.allCases.count
+            case 1:
+                return PropertyColumn.PropertyType.allCases.count
+              
+            case 2:
+                return PropertyColumn.RealEstateCategoty.allCases.count
+            case 3: return  PropertyColumn.ResidenceType.allCases.count
+            case 4: return PropertyColumn.SaleOrRent.allCases.count
+            default: return 1
+            }
         }
     }
-#endif
+}
+
+extension PropertyView: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let name = PropertyColumn.Layout.allCases[index1].rawValue
+        if component == 0 {
+            return propertyColumns[index0].rawValue
+        } else {
+            return name
+            guard index1 < 4 else { return "Out of range"}
+            switch index0 {
+            case 0:
+                return PropertyColumn.Layout.allCases[index1].rawValue
+            case 1:
+                return PropertyColumn.PropertyType.allCases[index1].rawValue
+              
+            case 2:
+                return PropertyColumn.RealEstateCategoty.allCases[index1].rawValue
+            case 3: return  PropertyColumn.ResidenceType.allCases[index1].rawValue 
+            default: return "Out of range"
+            }
+//            return PropertyColumn.PropertyType.allCases[index].rawValue
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        index0 = pickerView.selectedRow(inComponent: 0)
+        pickerView.reloadComponent(1)
+        pickerView.reloadComponent(0)
+        index1 = pickerView.selectedRow(inComponent: 1)
+    }
+}
+

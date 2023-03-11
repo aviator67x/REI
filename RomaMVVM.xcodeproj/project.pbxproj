@@ -114,6 +114,7 @@
 		CEAE383329B772640046198A /* PropertyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383229B772640046198A /* PropertyModels.swift */; };
 		CEAE383529BA020D0046198A /* NSMutableData+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383429BA020C0046198A /* NSMutableData+.swift */; };
 		CEAE383729BA720F0046198A /* MultipartItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383629BA720F0046198A /* MultipartItems.swift */; };
+		CEAE383929BB19680046198A /* SearchQueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383829BB19680046198A /* SearchQueryBuilder.swift */; };
 		CEAEB9D029A8B7E1005BBF50 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEAEB9CF29A8B7E1005BBF50 /* Launch Screen.storyboard */; };
 		CEAEB9DC29AA9D58005BBF50 /* UserEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9DB29AA9D58005BBF50 /* UserEndPoint.swift */; };
 		CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9DE29AAA446005BBF50 /* AuthModels.swift */; };
@@ -255,6 +256,7 @@
 		CEAE383229B772640046198A /* PropertyModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyModels.swift; sourceTree = "<group>"; };
 		CEAE383429BA020C0046198A /* NSMutableData+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableData+.swift"; sourceTree = "<group>"; };
 		CEAE383629BA720F0046198A /* MultipartItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartItems.swift; sourceTree = "<group>"; };
+		CEAE383829BB19680046198A /* SearchQueryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryBuilder.swift; sourceTree = "<group>"; };
 		CEAEB9CF29A8B7E1005BBF50 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CEAEB9DB29AA9D58005BBF50 /* UserEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndPoint.swift; sourceTree = "<group>"; };
 		CEAEB9DE29AAA446005BBF50 /* AuthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModels.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				33D443A3F68FEB0700F4D3BE /* UIKit */,
 				CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */,
 				CEAE383429BA020C0046198A /* NSMutableData+.swift */,
+				CE9CAF2F29B52163007DC31B /* DecodingError+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -572,12 +575,12 @@
 			children = (
 				CE9881B529A4F3550086F583 /* HTTPMethod.swift */,
 				CEA5F5CD299BECE300B87DD4 /* NetworkError.swift */,
-				CE9CAF2F29B52163007DC31B /* DecodingError+.swift */,
 				CE9881B329A4F3550086F583 /* NetworkServiceProvider.swift */,
 				CE9881B429A4F3550086F583 /* NetworkManager.swift */,
 				CE9881B629A4F3550086F583 /* Endpoint.swift */,
 				CEFEA50E29A7881F0085AB1D /* NetworkLogger.swift */,
 				CEAE383629BA720F0046198A /* MultipartItems.swift */,
+				CEAE383829BB19680046198A /* SearchQueryBuilder.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -898,6 +901,7 @@
 				CEADC9B32987D61A007A0650 /* Optional+extension.swift in Sources */,
 				8EB5C597BDACE86F978D4EDB /* AppSettings.swift in Sources */,
 				70260AA3E13A03EE2B5450FE /* AuthCoordinator.swift in Sources */,
+				CEAE383929BB19680046198A /* SearchQueryBuilder.swift in Sources */,
 				CEA545F3297820A3007F9962 /* ChecmarkView.swift in Sources */,
 				CEAEB9F629AE2609005BBF50 /* Colors.swift in Sources */,
 				CEA545E52977FF04007F9962 /* Creatable.swift in Sources */,

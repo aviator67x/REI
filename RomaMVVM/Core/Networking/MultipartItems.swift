@@ -13,16 +13,16 @@ struct MultipartItem {
 
     // MARK: - Public Properties
     /// The key by which the data can be written to the server.
-     var name: String
+    var name: String
 
     /// Name of the file, which can be transferred to the server.
-     var fileName: String
+    var fileName: String
 
     /// File type. It is an optional variable.
-     var mimeType: String?
+    var mimeType: String?
 
     /// Data to be added as part of the request body.
-     var data: Data
+    var data: Data
 
     // MARK: - Init
     public init(
@@ -38,7 +38,7 @@ struct MultipartItem {
     }
 
     // MARK: - Fileprivate Methods
-    fileprivate func convert() -> Data {
+    func convert() -> Data {
         let formItemData = NSMutableData()
 
         formItemData.append("Content-Disposition: form-data; name=\"\(name)\"")

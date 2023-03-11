@@ -19,7 +19,7 @@ final class PropertyViewController: BaseViewController<PropertyViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
-        
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +46,6 @@ final class PropertyViewController: BaseViewController<PropertyViewModel> {
     
     func setImage() {
 //        contentView.setImage()
-    }
-    
+    }    
 }
+

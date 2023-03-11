@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol PropertyNetworkService {
-    func filter(queries: [String:String]) -> AnyPublisher<[PropertyResponse], NetworkError>
+    func search(with parameters: [SearchParam]) -> AnyPublisher<[PropertyResponse], NetworkError>
 }
 
 final class PropertyNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == PropertyEndPoint {
@@ -21,7 +21,7 @@ final class PropertyNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> 
 }
 
 extension PropertyNetworkServiceImpl: PropertyNetworkService {
-    func filter(queries: [String:String]) -> AnyPublisher<[PropertyResponse], NetworkError> {
-        return propertyProvider.execute(endpoint: .filter(queries: queries))
+    func search(with parameters: [SearchParam]) -> AnyPublisher<[PropertyResponse], NetworkError> {
+        return propertyProvider.execute(endpoint: .filter(with: parameters))
     }
 }

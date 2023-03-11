@@ -13,12 +13,21 @@ final class PropertyViewModel: BaseViewModel {
     private let transitionSubject = PassthroughSubject<PropertyTransition, Never>()
 
     private let propertyNetworkService: PropertyNetworkService
-    
+
     private let propertyId = CurrentValueSubject<String, Never>("")
     private(set) lazy var propertyIdPublisher = propertyId.eraseToAnyPublisher()
-    
-    private var queries: [String:String] = ["area":"58", "propertyType":"'Flat'"]
-    
+
+    private var searchParameters: [SearchParam] =
+        [
+            SearchParam(
+                key: PropertyColumn.layout,//.area,
+                value: SearchType.equalToInt(parameter: 58)
+            ),
+            SearchParam(
+                key: PropertyColumn.propertyType,
+                value: SearchType.equalToString(parameter: "Flat")
+            )
+        ]
 
     init(propertyNetworkService: PropertyNetworkService) {
         self.propertyNetworkService = propertyNetworkService
@@ -26,20 +35,20 @@ final class PropertyViewModel: BaseViewModel {
     }
 
     func filter() {
-        propertyNetworkService.filter(queries: queries)
+        propertyNetworkService.search(with: searchParameters)
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] completion in
                 switch completion {
                 case .finished:
                     print("Finished")
-                case .failure(let error):
+                case let .failure(error):
                     debugPrint(error.errorDescription ?? "")
                 }
             } receiveValue: { [unowned self] property in
                 property.forEach { item in
                     NetworkLogger.log(data: item)
-    //                self.propertyId.value = property.ownerId
-                }                
+                    //                self.propertyId.value = property.ownerId
+                }
             }
             .store(in: &cancellables)
     }
