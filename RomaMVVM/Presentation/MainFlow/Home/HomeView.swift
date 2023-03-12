@@ -14,10 +14,12 @@ enum HomeViewAction {
 
 final class HomeView: BaseView {
     // MARK: - Subviews
+    private let scrollView = AxisScrollView()
     private let nameLabel = UILabel()
     private let emailLabel = UILabel()
     private let tokenLabel = UILabel()
     private let idLabel = UILabel()
+//    private let photoCollection = UICollectionView()
     private let avatarButton = BaseButton(buttonState: .avatar)
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
@@ -57,6 +59,7 @@ final class HomeView: BaseView {
     }
 
     private func setupLayout() {
+        
         let stack = UIStackView()
         stack.setup(axis: .vertical, alignment: .fill, distribution: .fill, spacing: 8)
         stack.addCentered(nameLabel, inset: 16, size: 50)
@@ -65,7 +68,10 @@ final class HomeView: BaseView {
         stack.addCentered(idLabel, inset: 16, size: 50)
         stack.addSpacer(200)
         stack.addCentered(avatarButton, inset: 16, size: 50)
-        addSubview(stack, withEdgeInsets: UIEdgeInsets(top: 100, left: 0, bottom: 350, right: 0), safeArea: true)
+        
+        addSubview(scrollView, withEdgeInsets: .zero, safeArea: false)
+        scrollView.contentView.addSubview(stack, withEdgeInsets: UIEdgeInsets(top: 100, left: 0, bottom: 350, right: 0))
+//        addSubview(stack, withEdgeInsets: UIEdgeInsets(top: 100, left: 0, bottom: 350, right: 0), safeArea: true)
     }
 
     func updateUser(_ user: UserModel) {

@@ -23,7 +23,7 @@ final class PropertyView: BaseView {
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<PropertyViewAction, Never>()
-    
+
     private let propertyColumns = PropertyColumn.allCases
     var index0 = 0
     var index1 = 1
@@ -61,7 +61,6 @@ final class PropertyView: BaseView {
         idLabel.text = "Text of idLabel"
         idLabel.backgroundColor = .yellow
         imageView.backgroundColor = .cyan
-      
     }
 
     private func setupLayout() {
@@ -121,17 +120,23 @@ extension PropertyView: UIPickerViewDataSource {
         if component == 0 {
             return propertyColumns.count
         } else {
-            switch index0 {
-            case 0:
+            let propertyColumnIndex = pickerView.selectedRow(inComponent: 0)
+
+            guard let propertyColumn = propertyColumns[safe: propertyColumnIndex] else { return 0 }
+
+            switch propertyColumn {
+            case .layout:
                 return PropertyColumn.Layout.allCases.count
-            case 1:
+            case .propertyType:
                 return PropertyColumn.PropertyType.allCases.count
-              
-            case 2:
+
+            case .realEstateCategory:
                 return PropertyColumn.RealEstateCategoty.allCases.count
-            case 3: return  PropertyColumn.ResidenceType.allCases.count
-            case 4: return PropertyColumn.SaleOrRent.allCases.count
-            default: return 1
+
+            case .residenceType:
+                return PropertyColumn.ResidenceType.allCases.count
+            case .saleOrRent:
+                return PropertyColumn.SaleOrRent.allCases.count
             }
         }
     }
@@ -139,32 +144,34 @@ extension PropertyView: UIPickerViewDataSource {
 
 extension PropertyView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let name = PropertyColumn.Layout.allCases[index1].rawValue
         if component == 0 {
-            return propertyColumns[index0].rawValue
+            return propertyColumns[safe: row]?.rawValue ?? nil
         } else {
-            return name
-            guard index1 < 4 else { return "Out of range"}
-            switch index0 {
-            case 0:
-                return PropertyColumn.Layout.allCases[index1].rawValue
-            case 1:
-                return PropertyColumn.PropertyType.allCases[index1].rawValue
-              
-            case 2:
-                return PropertyColumn.RealEstateCategoty.allCases[index1].rawValue
-            case 3: return  PropertyColumn.ResidenceType.allCases[index1].rawValue 
-            default: return "Out of range"
+            let propertyColumnIndex = pickerView.selectedRow(inComponent: 0)
+
+            guard let propertyColumn = propertyColumns[safe: propertyColumnIndex] else { return nil }
+
+            switch propertyColumn {
+            case .layout:
+                return PropertyColumn.Layout.allCases[safe: row]?.rawValue
+            case .propertyType:
+                return PropertyColumn.PropertyType.allCases[safe: row]?.rawValue
+
+            case .realEstateCategory:
+                return PropertyColumn.RealEstateCategoty.allCases[safe: row]?.rawValue
+
+            case .residenceType:
+                return PropertyColumn.ResidenceType.allCases[safe: row]?.rawValue
+            case .saleOrRent:
+                return PropertyColumn.SaleOrRent.allCases[safe: row]?.rawValue
             }
-//            return PropertyColumn.PropertyType.allCases[index].rawValue
         }
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        index0 = pickerView.selectedRow(inComponent: 0)
-        pickerView.reloadComponent(1)
-        pickerView.reloadComponent(0)
-        index1 = pickerView.selectedRow(inComponent: 1)
+        switch component {
+        case 0: pickerView.reloadComponent(1)
+        default: return
+        }
     }
 }
-
