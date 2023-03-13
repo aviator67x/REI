@@ -57,7 +57,7 @@ final class SignInView: BaseView {
             x: -UIScreen.main.bounds.width / 1.4,
             y: -UIScreen.main.bounds.height / 1.1
         )
-        UIView.animate(withDuration: 1, delay: 1, animations: {
+        UIView.animate(withDuration: 0, delay: 0, animations: {
             self.logoView.transform = scaledAndTranslatedTransform
         }) {
             _ in

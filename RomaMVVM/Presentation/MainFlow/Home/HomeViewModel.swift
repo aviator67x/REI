@@ -8,6 +8,7 @@
 import Combine
 import CombineNetworking
 import Foundation
+import Photos
 import UIKit
 
 final class HomeViewModel: BaseViewModel {
@@ -16,6 +17,11 @@ final class HomeViewModel: BaseViewModel {
 
     private(set) lazy var userPublisher = userSubject.eraseToAnyPublisher()
     private let userSubject = CurrentValueSubject<UserModel?, Never>(nil)
+
+    private let imageSubject = CurrentValueSubject<Data?, Never>(nil)
+    
+//    @Published var images: [UIImage] = []
+
 
     private let userService: UserService
 
@@ -42,7 +48,7 @@ final class HomeViewModel: BaseViewModel {
     }
 
     func saveAvatar() {
-        guard let imageData = avatar.pngData() else { return }
+        guard let imageData = imageSubject.value else { return }
         userService.saveAvatar(image: imageData)
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] completion in
@@ -56,5 +62,9 @@ final class HomeViewModel: BaseViewModel {
                 print(avatarUrlDict["fileURL"] ?? "")
             }
             .store(in: &cancellables)
+    }
+    
+    func updateImageSubject(with imageData: Data) {
+        imageSubject.value = imageData
     }
 }
