@@ -31,8 +31,12 @@ final class PropertyViewController: BaseViewController<PropertyViewModel> {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .filterDidTap:
+                case .searchDidTap:
                     viewModel.filter()
+                case .pickerKeyDidChose(key: let key):
+                    viewModel.addSearchKey(key)
+                case .pickerValueDidChose(value: let value):
+                    viewModel.addSearchValue(value)
                 }
             }
             .store(in: &cancellables)

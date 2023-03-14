@@ -10,50 +10,50 @@ import Kingfisher
 import UIKit
 
 enum PropertyViewAction {
-    case filterDidTap
+    case searchDidTap
+    case pickerKeyDidChose(key: PropertyColumn)
+    case pickerValueDidChose(value: SearchType)
 }
 
 final class PropertyView: BaseView {
+    
     // MARK: - Subviews
-
     private let pickerView = UIPickerView()
     private let imageView = UIImageView()
     private let idLabel = UILabel()
-    private let filterButton = BaseButton(buttonState: .filter)
-
+    private let searchButton = BaseButton(buttonState: .filter)
+    
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<PropertyViewAction, Never>()
-
+    
     private let propertyColumns = PropertyColumn.allCases
-    var index0 = 0
-    var index1 = 1
-
+    
+    // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func initialSetup() {
         setupLayout()
         setupUI()
         bindActions()
         pickerView.delegate = self
-//        setImage()
     }
-
+    
     private func bindActions() {
-        filterButton.tapPublisher
+        searchButton.tapPublisher
             .sink { [unowned self] in
-                actionSubject.send(.filterDidTap)
+                actionSubject.send(.searchDidTap)
             }
             .store(in: &cancellables)
     }
-
+    
     private func setupUI() {
         backgroundColor = .white
         pickerView.backgroundColor = .red
@@ -62,30 +62,38 @@ final class PropertyView: BaseView {
         idLabel.backgroundColor = .yellow
         imageView.backgroundColor = .cyan
     }
-
+    
     private func setupLayout() {
         addSubview(pickerView) {
             $0.top.equalToSuperview().offset(100)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(Constants.inset)
             $0.height.equalTo(200)
         }
         addSubview(idLabel) {
             $0.top.equalTo(pickerView.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(50)
+            $0.leading.trailing.equalToSuperview().inset(Constants.inset)
+            $0.height.equalTo(Constants.height)
         }
         addSubview(imageView) {
             $0.top.equalTo(idLabel.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(Constants.inset)
             $0.height.equalTo(300)
         }
-        addSubview(filterButton) {
+        addSubview(searchButton) {
             $0.top.equalTo(imageView.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(50)
+            $0.leading.trailing.equalToSuperview().inset(Constants.inset)
+            $0.height.equalTo(Constants.height)
         }
     }
-
+    
+    // MARK: - View constants
+    private enum Constants {
+        static let inset: CGFloat = 16
+        static let height: CGFloat = 50
+    }
+}
+    // MARK: - extension
+    extension PropertyView {
     func setImage() {
         let url =
             URL(
@@ -108,9 +116,8 @@ final class PropertyView: BaseView {
     }
 }
 
-// MARK: - View constants
-private enum Constant {}
 
+// MARK: - extension UIPickerViewDataSource
 extension PropertyView: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
@@ -142,10 +149,11 @@ extension PropertyView: UIPickerViewDataSource {
     }
 }
 
+// MARK: - extension UIPickerViewDelegate
 extension PropertyView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
-            return propertyColumns[safe: row]?.rawValue ?? nil
+            return propertyColumns[safe: row]?.rawValue
         } else {
             let propertyColumnIndex = pickerView.selectedRow(inComponent: 0)
 
@@ -169,8 +177,26 @@ extension PropertyView: UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    
         switch component {
-        case 0: pickerView.reloadComponent(1)
+        case 0:
+            actionSubject.send(.pickerKeyDidChose(key: propertyColumns[row]))
+            pickerView.reloadComponent(1)
+        case 1:
+            let propertyColumn = propertyColumns[pickerView.selectedRow(inComponent: 0)]
+            switch propertyColumn {
+            case .layout:
+                actionSubject.send(.pickerValueDidChose(value: .equalToString(parameter: PropertyColumn.Layout.allCases[row].rawValue)))
+            case .propertyType:
+                actionSubject.send(.pickerValueDidChose(value: .equalToString(parameter: PropertyColumn.PropertyType.allCases[row].rawValue)))
+            case .realEstateCategory:
+                actionSubject.send(.pickerValueDidChose(value: .equalToString(parameter: PropertyColumn.RealEstateCategoty.allCases[row].rawValue)))
+            case .residenceType:
+                actionSubject.send(.pickerValueDidChose(value: .equalToString(parameter: PropertyColumn.ResidenceType.allCases[row].rawValue)))
+            case .saleOrRent:
+                actionSubject.send(.pickerValueDidChose(value: .equalToString(parameter: PropertyColumn.SaleOrRent.allCases[row].rawValue)))
+            }
+           
         default: return
         }
     }

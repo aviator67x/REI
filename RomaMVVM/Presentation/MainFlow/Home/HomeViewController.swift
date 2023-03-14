@@ -8,6 +8,7 @@
 import UIKit
 
 final class HomeViewController: BaseViewController<HomeViewModel> {
+    
     // MARK: - Views
     private let contentView = HomeView()
 
@@ -20,7 +21,6 @@ final class HomeViewController: BaseViewController<HomeViewModel> {
         super.viewDidLoad()
         setupBindings()
         title = Localization.home.uppercased()
-        pickerSetup()
     }
 
     private func setupBindings() {
@@ -29,6 +29,8 @@ final class HomeViewController: BaseViewController<HomeViewModel> {
                 switch action {
                 case .avatarButtonDidTap:
                     viewModel.saveAvatar()
+                case .chosePhotoDidTap:
+                    viewModel.showGallery()
                 }
             }
             .store(in: &cancellables)
@@ -39,9 +41,24 @@ final class HomeViewController: BaseViewController<HomeViewModel> {
                 contentView.updateUser(user)
             }
             .store(in: &cancellables)
+        
+        viewModel.universalImagePublisher
+            .sinkWeakly(self, receiveValue: { (self, image) in
+                guard let image = image else { return }
+                self.contentView.setAvatar(imageResource: image)
+            })
+            .store(in: &cancellables)
+        
+        viewModel.showPhotoPublisher
+            .sink { [unowned self] value in
+                if value {
+                    imagePickerSetup()
+                }
+        }
+            .store(in: &cancellables)
     }
 
-    private func pickerSetup() {
+    private func imagePickerSetup() {
         let imagePicker = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.delegate = self
@@ -65,9 +82,8 @@ extension HomeViewController: UIImagePickerControllerDelegate & UINavigationCont
         } else if let possibleImage = info[.originalImage] as? UIImage {
             image = possibleImage
         } else { return }
-        contentView.updateGalleryImage(image: image)
         guard let imageData = image.pngData() else { return }
-        viewModel.updateImageSubject(with: imageData)
+        viewModel.updateUniversalImageSubject(with: imageData)
         dismiss(animated: true)
     }
 }

@@ -187,10 +187,6 @@ extension SignInView {
         signInButton.isEnabled = enabled
     }
 
-//    func setScrollViewOffSet(offSet: CGFloat) {
-//        scrollView.contentInset.bottom = offSet - safeAreaInsets.bottom
-//    }
-
     func showEmailErrorMessage(message: String) {
         DispatchQueue.main.async {
             self.emailErrorMessageLabel.text = message
