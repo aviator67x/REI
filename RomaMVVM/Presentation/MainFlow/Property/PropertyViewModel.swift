@@ -11,30 +11,35 @@ import Foundation
 final class PropertyViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<PropertyTransition, Never>()
-    
+
     private let propertyNetworkService: PropertyNetworkService
-    
+
     private let propertyId = CurrentValueSubject<String, Never>("")
     private(set) lazy var propertyIdPublisher = propertyId.eraseToAnyPublisher()
-    
+
     private var searchKey: PropertyColumn?
     private var searchValue: SearchType?
-    
+
     private var searchParameters: [SearchParam] =
-    [
-        SearchParam(
-            key: PropertyColumn.layout,//.area,
-            value: SearchType.equalToInt(parameter: 58)
-        ),
-        SearchParam(
-            key: PropertyColumn.propertyType,
-            value: SearchType.equalToString(parameter: "Flat")
-        )
-    ]
+        [
+            SearchParam(
+                key: PropertyColumn.layout, // .area,
+                value: SearchType.equalToInt(parameter: 58)
+            ),
+            SearchParam(
+                key: PropertyColumn.propertyType,
+                value: SearchType.equalToString(parameter: "Flat")
+            ),
+        ]
     // MARK: - Lifecycle
     init(propertyNetworkService: PropertyNetworkService) {
         self.propertyNetworkService = propertyNetworkService
         super.init()
+    }
+
+    override func onViewDidLoad() {
+//        searchParameters = [SearchParam(key: .layout, value: .equalToString(parameter:
+//        "\(PropertyColumn.Layout.allCases[0].rawValue)"))]
     }
 }
 
@@ -43,15 +48,18 @@ extension PropertyViewModel {
     func addSearchKey(_ key: PropertyColumn) {
         searchKey = key
     }
-    
+
     func addSearchValue(_ value: SearchType) {
         searchValue = value
+        guard let searchKey = searchKey,
+              let searchValue = searchValue else { return }
+        searchParameters.append(SearchParam(key: searchKey, value: searchValue))
     }
 
     func filter() {
-        guard let searchKey = searchKey,
-              let searchValue = searchValue else { return }
-        let searchParameters = [SearchParam(key: searchKey, value: searchValue)]
+//        guard let searchKey = searchKey,
+//              let searchValue = searchValue else { return }
+//        let searchParameters = [SearchParam(key: searchKey, value: searchValue)]
         propertyNetworkService.search(with: searchParameters)
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] completion in

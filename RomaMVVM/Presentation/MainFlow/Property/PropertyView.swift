@@ -8,6 +8,7 @@
 import Combine
 import Kingfisher
 import UIKit
+import Foundation
 
 enum PropertyViewAction {
     case searchDidTap
@@ -152,6 +153,7 @@ extension PropertyView: UIPickerViewDataSource {
 // MARK: - extension UIPickerViewDelegate
 extension PropertyView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    
         if component == 0 {
             return propertyColumns[safe: row]?.rawValue
         } else {
