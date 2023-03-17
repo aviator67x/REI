@@ -20,16 +20,21 @@ final class SettingsViewController: BaseViewController<SettingsViewModel> {
         super.viewDidLoad()
         setupBindings()
         title = Localization.settings.uppercased()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(logoutDidTap))
+    }
+    @objc
+    private func logoutDidTap() {
+        viewModel.logout()
     }
 
     private func setupBindings() {
-        contentView.actionPublisher
-            .sink { [unowned self] action in
-                switch action {
-                case .logoutTapped:
-                    viewModel.logout()
-                }
-            }
-            .store(in: &cancellables)
+//        contentView.actionPublisher
+//            .sink { [unowned self] action in
+//                switch action {
+//                case .logoutTapped:
+//                    viewModel.logout()
+//                }
+//            }
+//            .store(in: &cancellables)
     }
 }

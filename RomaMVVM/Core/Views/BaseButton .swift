@@ -25,6 +25,7 @@ enum ButtonState {
     case filter
     case avatar
     case chosePhoto
+    case logout
 }
 
 class BaseButton: UIButton {
@@ -194,6 +195,8 @@ extension ButtonState {
             return "Add avatar"
         case .chosePhoto:
             return "Chose photo from Gallery"
+        case .logout:
+            return "Log Out"
         }
     }
 }

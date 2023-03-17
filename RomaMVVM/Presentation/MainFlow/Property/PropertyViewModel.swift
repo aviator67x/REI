@@ -57,9 +57,6 @@ extension PropertyViewModel {
     }
 
     func filter() {
-//        guard let searchKey = searchKey,
-//              let searchValue = searchValue else { return }
-//        let searchParameters = [SearchParam(key: searchKey, value: searchValue)]
         propertyNetworkService.search(with: searchParameters)
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] completion in
