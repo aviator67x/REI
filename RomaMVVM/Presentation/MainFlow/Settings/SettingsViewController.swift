@@ -28,6 +28,12 @@ final class SettingsViewController: BaseViewController<SettingsViewModel> {
     }
 
     private func setupBindings() {
+        viewModel.$sections
+            .sink { [unowned self] value in
+            contentView.updateSettingsCollection(value)
+        }
+        .store(in: &cancellables)
+        
 //        contentView.actionPublisher
 //            .sink { [unowned self] action in
 //                switch action {

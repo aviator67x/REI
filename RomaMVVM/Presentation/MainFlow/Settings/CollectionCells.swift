@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 final class UserProfileCell: UICollectionViewCell {
     static let identifier = "UserProfileCell"
@@ -34,12 +35,12 @@ final class UserProfileCell: UICollectionViewCell {
             $0.size.equalTo(80)
             $0.leading.equalToSuperview().offset(20)
         }
-
+        nameLabel.numberOfLines = 0
         contentView.addSubview(nameLabel) {
             $0.centerY.equalToSuperview().offset(-10)
             $0.leading.equalTo(photo.snp.trailing).offset(20)
         }
-
+        emailLabel.numberOfLines = 0
         contentView.addSubview(emailLabel) {
             $0.centerY.equalToSuperview().offset(10)
             $0.leading.equalTo(photo.snp.trailing).offset(20)
@@ -47,7 +48,14 @@ final class UserProfileCell: UICollectionViewCell {
     }
 
     func setupCell(model: UserProfileCellModel) {
-        photo.image = UIImage(named: "dude")
+        let imageResouce = model.image
+        if case let ImageResource.imageAsset(imageFromAsset) = imageResouce {
+            photo.image = imageFromAsset.image
+        }  else if case let ImageResource.imageData(imageFromData) = imageResouce {
+            photo.image = UIImage(data: imageFromData)
+        } else if case let ImageResource.imageURL(uRL) = imageResouce {
+            photo.kf.setImage(with: uRL)
+        }
         nameLabel.text = model.name
         emailLabel.text = model.email
     }

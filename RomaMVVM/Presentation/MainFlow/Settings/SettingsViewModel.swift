@@ -21,15 +21,40 @@ final class SettingsViewModel: BaseViewModel {
     private let userNetworkService: UserNetworkService
 
     @Published private(set) var sections: [SettingsCollection] = []
+//    [SettingsCollection(
+//        section: .userProfile,
+//        items: [.userProfile(userModel: UserProfileCellModel(
+//            name: "John",
+//            email: "johnBrown@mail.com",
+//            image: .imageAsset(Assets.girl)
+//        ))]
+//    ),
+//    SettingsCollection(section: .profile, items: [.plain(title: "Profile")]),
+//    SettingsCollection(
+//        section: .terms,
+//        items: [.plain(title: "Terms and Conditions"), .plain(title: "Privacy policy")]
+//    ),
+//    SettingsCollection(
+//        section: .company,
+//        items: [.plain(title: "About the company"), .plain(title: "F.A.Q."), .plain(title: "Contact us")]
+//    ),
+//]
+
 
     init(userService: UserService, userNerworkService: UserNetworkService) {
         self.userService = userService
         self.userNetworkService = userNerworkService
         super.init()
     }
+    
+    override func onViewDidLoad() {
+        updateDataSource()
+    }
 
     func logout() {
-        guard let token = userService.token else { return }
+        guard let token = userService.token else {
+            return
+        }
         userService.logOut(token: token)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -49,30 +74,30 @@ final class SettingsViewModel: BaseViewModel {
 
     func updateDataSource() {
         guard let user = userService.getUser() else { return }
+        guard let url = URL(string: "https://closedoor.backendless.app/api/files/images/84AFC103-250B-49B6-B272-5B045482D06E.png") else {
+            return
+        }
         let userProfileSection: SettingsCollection = {
             let userModel = UserProfileCellModel(
                 name: user.name,
-                email: user.email
-//                image: user.image
+                email: user.email,
+                image: .imageURL(url)
+//                image: .imageAsset(ImageAsset.init(name: "dude"))
             )
             return SettingsCollection(section: .userProfile, items: [.userProfile(userModel: userModel)])
-        }()
-        
+        }()        
         let profileSection: SettingsCollection = {
            
             return SettingsCollection(section: .profile, items: [.plain(title: "Profile")])
         }()
-        
         let termsSection: SettingsCollection = {
           
             return SettingsCollection(section: .terms, items: [.plain(title: "Terms and Conditions"), .plain(title: "Privacy policy")])
         }()
-        
         let companySection: SettingsCollection = {
             
             return SettingsCollection(section: .company, items: [.plain(title: "About us"), .plain(title: "F.A.Q."), .plain(title: "Contact us")])
         }()
-        
         self.sections = [userProfileSection, profileSection, termsSection, companySection]
     }
 }

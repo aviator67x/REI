@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum ImageResource {
+enum ImageResource: Hashable {
     case imageURL(URL)
     case imageData(Data)
     case imageAsset(ImageAsset)

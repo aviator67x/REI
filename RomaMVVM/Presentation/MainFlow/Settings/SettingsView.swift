@@ -15,7 +15,7 @@ enum SettingsViewAction {
 struct UserProfileCellModel: Hashable {
     let name: String
     let email: String
-//    let image: ImageResource
+    let image: ImageResource
 }
 
 enum SettingsSection: CaseIterable {
@@ -37,15 +37,30 @@ final class SettingsView: BaseView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SettingsViewAction, Never>()
 
+    private var settingsCollections = [SettingsCollection]()
+    
     // MARK: - Subviews
-//    var collectionView: UICollectionView!
+    private lazy var collection: UICollectionView = {
+//        let layout = UICollectionViewCompositionalLayout { [unowned self] index, environment in
+//            switch index {
+//            case 0:
+//                var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+//                return .list(using: configuration, layoutEnvironment: environment)
+//            default:
+//                let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+//                return .list(using: configuration, layoutEnvironment: environment)
+//            }
+//        }
+//        The second approach
+        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        configuration.backgroundColor = .systemGroupedBackground
+        configuration.showsSeparators = false
 
-    let settingsCollections = [      
-        SettingsCollection(section: .userProfile,
-            items: [.userProfile(userModel: UserProfileCellModel(name: "John", email: "johnBrown@mail.com"))]),
-        SettingsCollection(section: .profile, items: [.plain(title: "Profile"), .plain(title: "TermsAndConditions")]),
-        SettingsCollection(section: .company, items: [.plain(title: "Company"), .plain(title: "FAQ")]),
-    ]
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+
+        return collection
+    }()
 
     // MARK: - Life cycle
     override init(frame: CGRect) {
@@ -64,36 +79,6 @@ final class SettingsView: BaseView {
         setupCollection()
         bindActions()
     }
-
-    private lazy var collection: UICollectionView = {
-//        let layout = UICollectionViewCompositionalLayout { [unowned self] index, environment in
-//
-//            switch index {
-//            case 0:
-//                var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-//
-//                configuration.headerMode = .supplementary
-//
-//                return .list(using: configuration, layoutEnvironment: environment)
-//
-//            default:
-//                let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-//
-//                return .list(using: configuration, layoutEnvironment: environment)
-//            }
-//
-//        }
-
-//        The second approach
-        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        configuration.backgroundColor = .systemBlue
-        configuration.showsSeparators = true
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-    
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-
-        return collection
-    }()
 
     private func setupCollection() {
         collection.register(UserProfileCell.self, forCellWithReuseIdentifier: UserProfileCell.identifier)
@@ -121,8 +106,11 @@ final class SettingsView: BaseView {
     }
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - extensions
 extension SettingsView {
+    func updateSettingsCollection(_ value: [SettingsCollection]) {
+        setupSnapShot(sections: value)
+    }
     func setupSnapShot(sections: [SettingsCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<SettingsSection, SettingsItem>()
         for section in sections {
