@@ -11,6 +11,7 @@ enum UserEndPoint: Endpoint {
     case deleteUser(id: String)
     case logOut(token: String)
     case addAvatar(image: [MultipartItem])
+    case update(user: UpdateUserRequestModel)
 
     var path: String? {
         switch self {
@@ -20,6 +21,8 @@ enum UserEndPoint: Endpoint {
             return "/users/logout"
         case .addAvatar:
             return "/files/images"
+        case .update(let user):
+            return "/users/\(user.id)"
         }
     }
 
@@ -31,6 +34,8 @@ enum UserEndPoint: Endpoint {
             return .get
         case .addAvatar:
             return .post
+        case .update:
+            return .put
         }
     }
 
@@ -43,6 +48,8 @@ enum UserEndPoint: Endpoint {
                     "user-token": token]
         case .addAvatar:
             return [:]
+        case .update:
+            return ["Content-Type": "text/plain"]
         }
     }
 
@@ -51,8 +58,9 @@ enum UserEndPoint: Endpoint {
         case .deleteUser, .logOut:
             return nil
         case .addAvatar(image: let image):
-            
             return .multipartBody(image)
+        case .update(let user):
+            return .encodable(user)
         }
     }
 }

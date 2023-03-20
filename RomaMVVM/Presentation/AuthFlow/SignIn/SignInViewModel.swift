@@ -83,8 +83,10 @@ final class SignInViewModel: BaseViewModel {
                 }
             } receiveValue: { [weak self] user in
                 self?.isLoadingSubject.send(false)
-                debugPrint("token: ", user.accessToken)
-                self?.userService.save(user: user)
+                let userModel = UserDomainModel(networkModel: user)
+                let token = user.accessToken
+                self?.userService.save(user: userModel)
+                self?.userService.saveAccessToken(token: token)
                 self?.transitionSubject.send(.success)
                 self?.transitionSubject.send(completion: .finished)
             }

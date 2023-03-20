@@ -7,9 +7,20 @@
 
 import Foundation
 
-struct UserRequestModel {
+struct UpdateUserRequestModel: Encodable {
+    let imageURL: String
+    let id: String
+}
+
+struct UpdateUserResponseModel: Decodable {
     let id: String
     let name: String
     let email: String
-    let photo: Data
+    let imageURL: String
+    let userStatus: String
+
+    enum CodingKeys: String, CodingKey {
+        case name, email, imageURL, userStatus
+        case id = "ownerId"
+    }
 }

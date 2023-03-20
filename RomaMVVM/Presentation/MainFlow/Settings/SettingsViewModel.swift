@@ -66,6 +66,7 @@ final class SettingsViewModel: BaseViewModel {
                     self?.errorSubject.send(error)
                 }
             } receiveValue: { _ in
+                self.userService.logOut()
                 self.transitionSubject.send(.logout)
                 self.transitionSubject.send(completion: .finished)
             }
@@ -73,8 +74,11 @@ final class SettingsViewModel: BaseViewModel {
     }
 
     func updateDataSource() {
+        userService.userPublisher
+        
+        
         guard let user = userService.getUser() else { return }
-        guard let url = URL(string: "https://closedoor.backendless.app/api/files/images/84AFC103-250B-49B6-B272-5B045482D06E.png") else {
+        guard let url = URL(string: "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/images/30D6D6CC-899C-4A68-9FE4-B1B61AF84174.png") else {
             return
         }
         let userProfileSection: SettingsCollection = {
@@ -82,7 +86,6 @@ final class SettingsViewModel: BaseViewModel {
                 name: user.name,
                 email: user.email,
                 image: .imageURL(url)
-//                image: .imageAsset(ImageAsset.init(name: "dude"))
             )
             return SettingsCollection(section: .userProfile, items: [.userProfile(userModel: userModel)])
         }()        

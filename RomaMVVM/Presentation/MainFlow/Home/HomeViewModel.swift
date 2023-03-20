@@ -12,32 +12,30 @@ import Photos
 import UIKit
 
 final class HomeViewModel: BaseViewModel {
-    
     // MARK: - Private properties
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<HomeTransition, Never>()
-    
+
     private(set) lazy var userPublisher = userSubject.eraseToAnyPublisher()
-    private let userSubject = CurrentValueSubject<UserModel?, Never>(nil)
-    
+    private let userSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
+
     private(set) lazy var showPhotoPublisher = showPhotoSubject.eraseToAnyPublisher()
     private let showPhotoSubject = CurrentValueSubject<Bool, Never>(false)
-    
+
     private(set) lazy var universalImagePublisher = universalImageSubject.eraseToAnyPublisher()
     private let universalImageSubject = CurrentValueSubject<ImageResource?, Never>(nil)
-    
-    
+
     private let userService: UserService
-    
+
     // MARK: - Lifecycle
     init(userService: UserService) {
         self.userService = userService
         super.init()
     }
-    
+
     override func onViewDidLoad() {
         super.onViewDidLoad()
-        
+
         getUser()
     }
 }
@@ -52,7 +50,7 @@ extension HomeViewModel {
             }
             .store(in: &cancellables)
     }
-    
+
     func showGallery() {
         showPhotoSubject.value = true
     }
@@ -61,11 +59,11 @@ extension HomeViewModel {
         var imageData = Data()
         let imageValue = universalImageSubject.value
         switch imageValue {
-        case .imageData(let data):
+        case let .imageData(data):
             imageData = data
         case .some(.imageURL(_)):
             break
-        case .some(.imageAsset(let asset)):
+        case let .some(.imageAsset(asset)):
             if let data = asset.image.pngData() {
                 imageData = data
             }
@@ -82,24 +80,39 @@ extension HomeViewModel {
                     print(error.errorDescription ?? "")
                 }
             } receiveValue: { [unowned self] avatarUrlDict in
-                print(avatarUrlDict["fileURL"] ?? "")
+                let imageURL = avatarUrlDict["fileURL"] ?? ""
+                let userId = userService.getUser()?.id ?? ""
+                let updateUserRequestModel = UpdateUserRequestModel(imageURL: imageURL, id: userId)
+                update(user: updateUserRequestModel)
             }
             .store(in: &cancellables)
     }
-    
-    func updateUniversalImageSubject(with imageData: Data) {
-        universalImageSubject.value = .imageData(imageData)
+
+   private func update(user: UpdateUserRequestModel) {
+        userService.update(user: user)
+           .receive(on: DispatchQueue.main)
+           .sink{ [unowned self] completion in
+               switch completion {
+               case .finished:
+                   print("User has been updated")
+               case .failure(let error):
+                   errorSubject.send(error)
+               }
+           } receiveValue: { [unowned self] user in
+               let userModel = UserDomainModel(networkModel: user)
+               self.userService.save(user: userModel)
+           }
+           .store(in: &cancellables)
     }
-    
+
     func updateUniversalImageSubject(with resource: ImageResource) {
         switch resource {
-        case .imageURL(let url):
+        case let .imageURL(url):
             universalImageSubject.value = .imageURL(url)
-        case .imageData(let data):
+        case let .imageData(data):
             universalImageSubject.value = .imageData(data)
-        case .imageAsset(let imageAsset):
+        case let .imageAsset(imageAsset):
             universalImageSubject.value = .imageAsset(imageAsset)
         }
-        
     }
 }

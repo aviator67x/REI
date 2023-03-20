@@ -83,7 +83,7 @@ extension HomeViewController: UIImagePickerControllerDelegate & UINavigationCont
             image = possibleImage
         } else { return }
         guard let imageData = image.pngData() else { return }
-        viewModel.updateUniversalImageSubject(with: imageData)
+        viewModel.updateUniversalImageSubject(with: .imageData(imageData))
         dismiss(animated: true)
     }
 }

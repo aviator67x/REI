@@ -190,10 +190,9 @@ private enum Constants {
 
 // MARK: - extension
 extension HomeView {
-    func updateUser(_ user: UserModel) {
+    func updateUser(_ user: UserDomainModel) {
         nameLabel.text = user.name
         emailLabel.text = user.email
-        tokenLabel.text = user.accessToken
         idLabel.text = user.id
     }
 

@@ -82,12 +82,15 @@ final class SignUpViewModel: BaseViewModel {
             } receiveValue: { [weak self] signUpInfo in
                 debugPrint("signUpInfo", signUpInfo.name)
                 guard let self = self else { return }
-                let requestModel = SignInRequest(login: self.email, password: self.password)
+                let requestModel = SignInRequest(
+                    login: self.email,
+                    password: self.password
+                )
                 self.signIn(requestModel: requestModel)
             }
             .store(in: &cancellables)
     }
-    
+
     private func signIn(requestModel: SignInRequest) {
         authService.signIn(requestModel)
             .receive(on: DispatchQueue.main)
@@ -100,9 +103,11 @@ final class SignUpViewModel: BaseViewModel {
                     print(error.localizedDescription)
                     self?.errorSubject.send(error)
                 }
-            } receiveValue: { [weak self] signInInfo in
-                debugPrint("signInInfo", signInInfo.name)
-                self?.userService.save(user: signInInfo)
+            } receiveValue: { [weak self] signinResponse in
+                let userModel = UserDomainModel(networkModel: signinResponse)
+                let token = signinResponse.accessToken
+                self?.userService.save(user: userModel)
+                self?.userService.saveAccessToken(token: token)
                 self?.transitionSubject.send(.success)
                 self?.transitionSubject.send(completion: .finished)
             }

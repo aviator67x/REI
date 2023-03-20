@@ -15,26 +15,28 @@ enum UserServiceError: Error {
 }
 
 protocol UserService {
-    var userPublisher: AnyPublisher<UserModel?, Never> { get }
+    var userPublisher: AnyPublisher<UserDomainModel?, Never> { get }
     var isAuthorized: Bool { get }
     var token: String? { get }
 
     func logOut(token: String) -> AnyPublisher<Void, NetworkError>
-    func save(user: SignInResponse)
-    func getUser() -> UserModel?
+    func logOut()
+    func save(user: UserDomainModel)
+    func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError>
+    func getUser() -> UserDomainModel?
     func saveAccessToken(token: String)
     func getAccessToken() -> String?
     func clearAccessToken()
-    func saveAvatar(image: Data) -> AnyPublisher<[String:String], NetworkError>
+    func saveAvatar(image: Data) -> AnyPublisher<[String: String], NetworkError>
     func saveObjectToKeychain(_ object: String, forKey: String)
     func getObjectFromKeychain(forKey: String) -> String?
-    func clearObjectInKeychain (forKey: String)
+    func clearObjectInKeychain(forKey: String)
 }
 
 final class UserServiceImpl: UserService {
-    private var userValueSubject = CurrentValueSubject<UserModel?, Never>(nil)
+    private var userValueSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
     private(set) lazy var userPublisher = userValueSubject.eraseToAnyPublisher()
-    
+
     private let tokenStorageService: TokenStorageService
     private let keychain: Keychain
     private let userNetworkService: UserNetworkService
@@ -53,23 +55,29 @@ final class UserServiceImpl: UserService {
         self.keychain = tokenStorageService.keychain
         self.userNetworkService = userNetworkService
     }
-    
+
     func logOut(token: String) -> AnyPublisher<Void, NetworkError> {
-        clearAccessToken()
-        userDefaults.removeObject(forKey: Keys.user)
         return userNetworkService.logOut(token: token)
     }
-
-    func save(user: SignInResponse) {
-        let userModel = UserModel(networkModel: user)
-        userDefaults.encode(data: userModel, key: Keys.user)
-        tokenStorageService.saveAccessToken(token: userModel.accessToken)
-        userValueSubject.send(userModel)
+    
+    func logOut() {
+        clearAccessToken()
+        userDefaults.removeObject(forKey: Keys.user)
     }
 
-    func getUser() -> UserModel? {
+    func save(user: UserDomainModel) {
+        userDefaults.encode(data: user, key: Keys.user)
+        userValueSubject.send(user)
+    }
+
+    func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError> {
+       return userNetworkService.updateUser(user)
+    }
+
+    func getUser() -> UserDomainModel? {
         guard let savedUser = userDefaults.object(forKey: Keys.user) as? Data,
-              let user = userDefaults.decode(type: UserModel.self, data: savedUser) else { return nil
+              let user = userDefaults.decode(type: UserDomainModel.self, data: savedUser)
+        else { return nil
         }
         return user
     }
@@ -77,21 +85,21 @@ final class UserServiceImpl: UserService {
     func saveAccessToken(token: String) {
         tokenStorageService.saveAccessToken(token: token)
     }
-    
+
     func getAccessToken() -> String? {
-       return tokenStorageService.getAccessToken()
+        return tokenStorageService.getAccessToken()
     }
 
     func clearAccessToken() {
         tokenStorageService.clearAccessToken()
     }
-    
-    func saveAvatar(image: Data) -> AnyPublisher<[String:String], NetworkError> {        
+
+    func saveAvatar(image: Data) -> AnyPublisher<[String: String], NetworkError> {
         let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
-        
-       return userNetworkService.saveAvatar(image: multipartItems)
+
+        return userNetworkService.saveAvatar(image: multipartItems)
     }
-    
+
     func saveObjectToKeychain(_ object: String, forKey: String) {
         keychain[forKey] = object
     }
@@ -100,7 +108,7 @@ final class UserServiceImpl: UserService {
         return keychain[forKey]
     }
 
-    func clearObjectInKeychain (forKey: String) {
+    func clearObjectInKeychain(forKey: String) {
         do {
             try keychain.remove(forKey)
         } catch {
