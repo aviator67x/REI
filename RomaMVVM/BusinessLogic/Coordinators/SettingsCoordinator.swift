@@ -31,10 +31,12 @@ final class SettingsCoordinator: Coordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .logout:
-                    didFinishSubject.send()
                 case .property:
                     property()
+                case .profile:
+                    profile()
+                case .terms:
+                    terms()
                 }
             }
             .store(in: &cancellables)
@@ -44,5 +46,51 @@ final class SettingsCoordinator: Coordinator {
     private func property() {
         let module = PropertyModuleBuilder.build(container: container)
         setRoot(module.viewController)
+    }
+    
+    private func  profile() {
+        let module = ProfileModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .logout:
+                    didFinishSubject.send()
+                case .showName:
+                    name()
+                case .showEmail:
+                    email()
+                case .showBirth:
+                    birth()
+                case .showPassword:
+                    password()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    private func terms() {
+        let module = TermsModuleBuilder.build(container: container)
+        push(module.viewController)
+    }
+    
+    private func name() {
+        let module = NameModuleBuilder.build(container: container)
+        push(module.viewController)
+    }
+    
+    private func email() {
+        let module = EmailModuleBuilder.build(container: container)
+        push(module.viewController)
+    }
+    
+    private func birth() {
+        let module = BirthModuleBuilder.build(container: container)
+        push(module.viewController)
+    }
+    
+    private func password() {
+        let module = PasswordModuleBuilder.build(container: container)
+        push(module.viewController)
     }
 }

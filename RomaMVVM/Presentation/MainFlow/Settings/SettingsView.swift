@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 enum SettingsViewAction {
-    case logoutTapped
+    case selectedItem(SettingsItem)
 }
 
 struct UserProfileCellModel: Hashable {
@@ -38,20 +38,9 @@ final class SettingsView: BaseView {
     private let actionSubject = PassthroughSubject<SettingsViewAction, Never>()
 
     private var settingsCollections = [SettingsCollection]()
-    
+
     // MARK: - Subviews
     private lazy var collection: UICollectionView = {
-//        let layout = UICollectionViewCompositionalLayout { [unowned self] index, environment in
-//            switch index {
-//            case 0:
-//                var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-//                return .list(using: configuration, layoutEnvironment: environment)
-//            default:
-//                let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-//                return .list(using: configuration, layoutEnvironment: environment)
-//            }
-//        }
-//        The second approach
         var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         configuration.backgroundColor = .systemGroupedBackground
         configuration.showsSeparators = false
@@ -87,7 +76,13 @@ final class SettingsView: BaseView {
         setupSnapShot(sections: settingsCollections)
     }
 
-    private func bindActions() {}
+    private func bindActions() {
+        collection.didSelectItemPublisher
+            .compactMap { self.dataSource?.itemIdentifier(for: $0) }
+            .map { SettingsViewAction.selectedItem($0) }
+            .sink { [unowned self] in actionSubject.send($0) }
+            .store(in: &cancellables)
+    }
 
     private func setupUI() {
         backgroundColor = .white
@@ -111,6 +106,7 @@ extension SettingsView {
     func updateSettingsCollection(_ value: [SettingsCollection]) {
         setupSnapShot(sections: value)
     }
+
     func setupSnapShot(sections: [SettingsCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<SettingsSection, SettingsItem>()
         for section in sections {

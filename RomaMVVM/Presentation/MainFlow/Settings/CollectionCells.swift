@@ -49,13 +49,7 @@ final class UserProfileCell: UICollectionViewCell {
 
     func setupCell(model: UserProfileCellModel) {
         let imageResouce = model.image
-        if case let ImageResource.imageAsset(imageFromAsset) = imageResouce {
-            photo.image = imageFromAsset.image
-        }  else if case let ImageResource.imageData(imageFromData) = imageResouce {
-            photo.image = UIImage(data: imageFromData)
-        } else if case let ImageResource.imageURL(uRL) = imageResouce {
-            photo.kf.setImage(with: uRL)
-        }
+        photo.setIMage(imageResource: imageResouce)
         nameLabel.text = model.name
         emailLabel.text = model.email
     }
@@ -93,5 +87,35 @@ final class PlainCell: UICollectionViewCell {
     func setupCell(title: String) {
         arrowView.image = UIImage(systemName: "chevron.right")
         titleLable.text = title
+    }
+}
+
+final class ButtonCell: UICollectionViewCell {
+    static let identifier = "ButtonCell"
+    let titleLable = UILabel()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .white
+        setupLayout()
+        setupCell()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupLayout() {
+        contentView.addSubview(titleLable) {
+            $0.center.equalToSuperview()
+//            $0.leading.equalToSuperview().offset(20)
+        }
+    }
+
+    func setupCell() {
+        titleLable.text = "Log Out"
+        titleLable.font = UIFont.systemFont(ofSize: 20)
+        titleLable.textColor = .red
     }
 }

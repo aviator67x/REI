@@ -35,6 +35,8 @@ internal enum Localization {
   internal static let ok = Localization.tr("Localizable", "ok", fallback: "OK")
   /// Password
   internal static let password = Localization.tr("Localizable", "password", fallback: "Password")
+  /// Profile
+  internal static let profile = Localization.tr("Localizable", "profile", fallback: "Profile")
   /// Search
   internal static let search = Localization.tr("Localizable", "search", fallback: "Search")
   /// Settings

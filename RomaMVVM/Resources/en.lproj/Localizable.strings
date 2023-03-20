@@ -24,6 +24,7 @@
 "settings" = "Settings";
 "logout" = "Logout";
 "search" = "Search";
+"profile" = "Profile";
 
 // Application
 "Global.emptyString" = "";
