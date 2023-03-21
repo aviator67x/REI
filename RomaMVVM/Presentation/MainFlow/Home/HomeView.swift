@@ -159,8 +159,8 @@ final class HomeView: BaseView {
         stack.addCentered(chosePhotoButton, inset: Constants.inset, size: Constants.height)
         stack.addCentered(galleryImage, inset: Constants.inset, size: 100)
         stack.addSpacer(20)
-        stack.addCentered(imagesCollectionView, inset: Constants.inset, size: 200)
-        stack.addSpacer(20)
+//        stack.addCentered(imagesCollectionView, inset: Constants.inset, size: 200)
+//        stack.addSpacer(20)
         stack.addCentered(avatarButton, inset: Constants.inset, size: Constants.height)
 
         addSubview(scrollView, withEdgeInsets: .zero, safeArea: false)
@@ -247,7 +247,7 @@ extension HomeView: UICollectionViewDataSource {
             ) as? SectionHeaderView else {
                 return SectionHeaderView()
             }
-            headerView.nameLabel.text = "Section \(indexPath.section)"
+//            headerView.nameLabel.text = "Section \(indexPath.section)"
             return headerView
         case "footer":
             guard let footerView = collectionView.dequeueReusableSupplementaryView(

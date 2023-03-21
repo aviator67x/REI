@@ -26,21 +26,30 @@ final class ProfileView: BaseView {
     var dataSource: UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>?
     
     // MARK: - Subviews
-    private let scrollView = UIScrollView()
-    private let userView = UIView()
-    private let photo = UIImageView()
-    private let nameLabel = UILabel()
-    private let emailLabel = UILabel()
     private lazy var collectionView: UICollectionView = {
-        let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(150))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: "header", alignment: .top, absoluteOffset: CGPoint(x: 0, y: 0))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(150))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top, absoluteOffset: CGPoint(x: 0, y: 0))
         
-        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        configuration.backgroundColor = .systemGroupedBackground
-        configuration.showsSeparators = false
+        let sectionProvider = { [weak self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+                var section: NSCollectionLayoutSection
+                var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+                if sectionIndex == 0 {
+                    listConfiguration.headerMode = .supplementary
+                } else {
+                    listConfiguration.headerMode = .none
+                }
+                section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
+                return section
+            }
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
+//        collectionView.setCollectionViewLayout(layout, animated: true)
+        
+//        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+//        configuration.backgroundColor = .systemGroupedBackground
+//        configuration.showsSeparators = true
 //        configuration.headerMode = .supplementary
-        
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+//
+//        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
         return collection
@@ -78,15 +87,6 @@ final class ProfileView: BaseView {
 
     private func setupUI() {
         backgroundColor = .systemGroupedBackground
-        
-        photo.layer.cornerRadius = 60
-        photo.clipsToBounds = true
-        photo.image = UIImage(named: "girl")
-        
-        nameLabel.font = UIFont.systemFont(ofSize: 20)
-        nameLabel.text = "NameLabel"
-        
-        emailLabel.text = "EmailLabel"
     }
     
     private func setupCollectionView() {
@@ -94,51 +94,31 @@ final class ProfileView: BaseView {
         collectionView.register(ButtonCell.self, forCellWithReuseIdentifier: ButtonCell.identifier)
         collectionView.register(
             SectionHeaderView.self,
-            forSupplementaryViewOfKind: "header",
-            withReuseIdentifier: "SectionHeader"
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: SectionHeaderView.reuseidentifier
         )
         setupDataSource()
         setupSnapShot(sections: profileCollections)
     }
 
-    private func setupLayout() {
-        addSubview(scrollView) {
-            $0.edges.equalTo(safeAreaLayoutGuide.snp.edges)
-        }
-        
-        scrollView.addSubview(userView) {
-            $0.top.width.equalToSuperview()
-        }
-        
-        userView.addSubview(photo) {
-            $0.centerX.equalToSuperview()
-            $0.size.equalTo(120)
-            $0.top.equalToSuperview().offset(20)
-        }
-        
-        userView.addSubview(nameLabel) {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(photo.snp.bottom).offset(10)
-        }
-        
-        userView.addSubview(emailLabel) {
-            $0.centerX.bottom.equalToSuperview()
-            $0.top.equalTo(nameLabel.snp.bottom).offset(5)
-        }
-        
-        scrollView.addSubview(collectionView) {
-            $0.width.bottom.equalToSuperview()
-            $0.height.equalTo(500)
-            $0.top.equalTo(userView.snp.bottom)
+    private func setupLayout() {        
+     addSubview(collectionView) {
+         $0.edges.equalToSuperview()
         }
     }
 }
 
 // MARK: - extension
 extension ProfileView {
+    func updateUserView(_ user: UserDomainModel) {
+//        nameLabel.text = user.name
+//        emailLabel.text = user.email
+    }
+    
     func updateProfileCollection(_ value: [ProfileCollection]) {
         setupSnapShot(sections: value)
     }
+    
     func setupSnapShot(sections: [ProfileCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<ProfileSection, ProfileItem>()
         for section in sections {
@@ -174,6 +154,19 @@ extension ProfileView {
                     }
             }
         )
+        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            // 2
+//            guard kind == UICollectionView.elementKindSectionHeader else {
+//              return nil
+//            }
+            let view = collectionView.dequeueReusableSupplementaryView(
+              ofKind: kind,
+              withReuseIdentifier: SectionHeaderView.reuseidentifier,
+              for: indexPath) as? SectionHeaderView
+//            let section = self.dataSource?.snapshot()
+//              .sectionIdentifiers[indexPath.section]
+            return view
+          }
     }
 }
 

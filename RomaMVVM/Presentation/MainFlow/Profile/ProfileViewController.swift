@@ -47,6 +47,13 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel.userPublisher
+            .sink { [unowned self] user in
+                guard let user = user else { return }
+                contentView.updateUserView(user)
+            }
+            .store(in: &cancellables)
 
         viewModel.$sections
             .sink { [unowned self] sectins in

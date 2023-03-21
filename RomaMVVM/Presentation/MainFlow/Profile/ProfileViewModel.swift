@@ -17,6 +17,9 @@ final class ProfileViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<ProfileTransition, Never>()
     
+    private(set) lazy var userPublisher = userActionSubject.eraseToAnyPublisher()
+    private lazy var userActionSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
+    
     private let userService: UserService
     
     @Published private(set) var sections: [ProfileCollection] = []
@@ -32,12 +35,13 @@ final class ProfileViewModel: BaseViewModel {
     
     func updateDataSource() {
         userService.userPublisher
-            .sink { [unowned self] _ in
+            .sink { [unowned self] user in
+                userActionSubject.value = user
                 let detailsSection: ProfileCollection = {
                     ProfileCollection(section: .details, items: [
                         .plain("Name"),
                         .plain("Email"),
-                        .plain("Date of Birth"),
+                        .plain("Date of birth"),
                         .plain("Password"),
                     ])
                 }()
@@ -73,8 +77,16 @@ final class ProfileViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
     }
-    func showName() {}
-    func showEmail() {}
-    func showBirth() {}
-    func showPassword() {}
+    func showName() {
+        transitionSubject.send(.showName)
+    }
+    func showEmail() {
+        transitionSubject.send(.showEmail)
+    }
+    func showBirth() {
+        transitionSubject.send(.showBirth)
+    }
+    func showPassword() {
+        transitionSubject.send(.showPassword)
+    }
 }
