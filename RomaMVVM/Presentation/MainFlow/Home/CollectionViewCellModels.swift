@@ -37,7 +37,6 @@ final class SectionHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
-        setupUI()
     }
 
     @available(*, unavailable)
@@ -69,7 +68,7 @@ final class SectionHeaderView: UICollectionReusableView {
         }
     }
     
-    private func setupUI() {
+    func setupUI(_ user: UserDomainModel) {
         backgroundColor = .systemGroupedBackground
         
         photo.layer.cornerRadius = 60
@@ -77,9 +76,9 @@ final class SectionHeaderView: UICollectionReusableView {
         photo.image = UIImage(named: "girl")
         
         nameLabel.font = UIFont.systemFont(ofSize: 20)
-        nameLabel.text = "NameLabel"
+        nameLabel.text = user.name
         
-        emailLabel.text = "EmailLabel"
+        emailLabel.text = user.email
     }
 }
 

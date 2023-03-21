@@ -32,7 +32,7 @@ final class ProfileViewModel: BaseViewModel {
     override func onViewDidLoad() {
         updateDataSource()
     }
-    
+
     func updateDataSource() {
         userService.userPublisher
             .sink { [unowned self] user in

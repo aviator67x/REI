@@ -54,6 +54,11 @@ final class UserServiceImpl: UserService {
         self.tokenStorageService = tokenStorageService
         self.keychain = tokenStorageService.keychain
         self.userNetworkService = userNetworkService
+        startUserValueSubject()
+    }
+    
+    func startUserValueSubject() {
+        userValueSubject.value = getUser()
     }
 
     func logOut(token: String) -> AnyPublisher<Void, NetworkError> {

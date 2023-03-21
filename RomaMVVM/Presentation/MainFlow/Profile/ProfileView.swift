@@ -24,13 +24,21 @@ enum ProfileViewAction {
 
 final class ProfileView: BaseView {
     var dataSource: UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>?
-    
+
+    var user: UserDomainModel?
+
     // MARK: - Subviews
     private lazy var collectionView: UICollectionView = {
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(150))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top, absoluteOffset: CGPoint(x: 0, y: 0))
-        
-        let sectionProvider = { [weak self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top,
+            absoluteOffset: CGPoint(x: 0, y: 0)
+        )
+
+        let sectionProvider =
+            { [weak self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection
                 var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
                 if sectionIndex == 0 {
@@ -42,14 +50,6 @@ final class ProfileView: BaseView {
                 return section
             }
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
-//        collectionView.setCollectionViewLayout(layout, animated: true)
-        
-//        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-//        configuration.backgroundColor = .systemGroupedBackground
-//        configuration.showsSeparators = true
-//        configuration.headerMode = .supplementary
-//
-//        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
         return collection
@@ -57,7 +57,7 @@ final class ProfileView: BaseView {
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<ProfileViewAction, Never>()
-    
+
     private var profileCollections = [ProfileCollection]()
 
     override init(frame: CGRect) {
@@ -79,16 +79,16 @@ final class ProfileView: BaseView {
 
     private func bindActions() {
         collectionView.didSelectItemPublisher
-            .compactMap { self.dataSource?.itemIdentifier(for: $0)}
-            .map { ProfileViewAction.selectedItem($0)}
-            .sink { [unowned self] in actionSubject.send($0)}
+            .compactMap { self.dataSource?.itemIdentifier(for: $0) }
+            .map { ProfileViewAction.selectedItem($0) }
+            .sink { [unowned self] in actionSubject.send($0) }
             .store(in: &cancellables)
     }
 
     private func setupUI() {
         backgroundColor = .systemGroupedBackground
     }
-    
+
     private func setupCollectionView() {
         collectionView.register(PlainCell.self, forCellWithReuseIdentifier: PlainCell.identifier)
         collectionView.register(ButtonCell.self, forCellWithReuseIdentifier: ButtonCell.identifier)
@@ -101,24 +101,23 @@ final class ProfileView: BaseView {
         setupSnapShot(sections: profileCollections)
     }
 
-    private func setupLayout() {        
-     addSubview(collectionView) {
-         $0.edges.equalToSuperview()
+    private func setupLayout() {
+        addSubview(collectionView) {
+            $0.edges.equalToSuperview()
         }
     }
 }
 
 // MARK: - extension
 extension ProfileView {
-    func updateUserView(_ user: UserDomainModel) {
-//        nameLabel.text = user.name
-//        emailLabel.text = user.email
+    func updateUser(_ user: UserDomainModel) {
+        self.user = user
     }
-    
+
     func updateProfileCollection(_ value: [ProfileCollection]) {
         setupSnapShot(sections: value)
     }
-    
+
     func setupSnapShot(sections: [ProfileCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<ProfileSection, ProfileItem>()
         for section in sections {
@@ -127,7 +126,7 @@ extension ProfileView {
         }
         dataSource?.apply(snapshot)
     }
-        
+
     func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>(
             collectionView: collectionView,
@@ -155,18 +154,19 @@ extension ProfileView {
             }
         )
         dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            // 2
-//            guard kind == UICollectionView.elementKindSectionHeader else {
-//              return nil
-//            }
+            guard kind == UICollectionView.elementKindSectionHeader,
+                  let user = self.user
+            else {
+                return UICollectionReusableView()
+            }
             let view = collectionView.dequeueReusableSupplementaryView(
-              ofKind: kind,
-              withReuseIdentifier: SectionHeaderView.reuseidentifier,
-              for: indexPath) as? SectionHeaderView
-//            let section = self.dataSource?.snapshot()
-//              .sectionIdentifiers[indexPath.section]
+                ofKind: kind,
+                withReuseIdentifier: SectionHeaderView.reuseidentifier,
+                for: indexPath
+            ) as? SectionHeaderView
+            view?.setupUI(user)
             return view
-          }
+        }
     }
 }
 

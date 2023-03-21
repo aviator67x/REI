@@ -51,7 +51,7 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
         viewModel.userPublisher
             .sink { [unowned self] user in
                 guard let user = user else { return }
-                contentView.updateUserView(user)
+                contentView.updateUser(user)
             }
             .store(in: &cancellables)
 
