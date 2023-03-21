@@ -8,44 +8,38 @@
 import Combine
 import UIKit
 
+enum ProfileViewAction {
+    case selectedItem(ProfileItem)
+}
+
+struct UserDataCellModel: Hashable {
+    let name: String
+    let email: String
+    let image: ImageResource
+}
+
 enum ProfileSection: Hashable {
+    case userData
     case details
     case button
 }
 
 enum ProfileItem: Hashable {
+    case userData(UserDataCellModel)
     case plain(String)
     case button
-}
-
-enum ProfileViewAction {
-    case selectedItem(ProfileItem)
 }
 
 final class ProfileView: BaseView {
     var dataSource: UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>?
 
-    var user: UserDomainModel?
 
     // MARK: - Subviews
     private lazy var collectionView: UICollectionView = {
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(150))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: headerSize,
-            elementKind: UICollectionView.elementKindSectionHeader,
-            alignment: .top,
-            absoluteOffset: CGPoint(x: 0, y: 0)
-        )
-
         let sectionProvider =
-            { [weak self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            { [weak self] (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection
                 var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-                if sectionIndex == 0 {
-                    listConfiguration.headerMode = .supplementary
-                } else {
-                    listConfiguration.headerMode = .none
-                }
                 section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
                 return section
             }
@@ -93,9 +87,8 @@ final class ProfileView: BaseView {
         collectionView.register(PlainCell.self, forCellWithReuseIdentifier: PlainCell.identifier)
         collectionView.register(ButtonCell.self, forCellWithReuseIdentifier: ButtonCell.identifier)
         collectionView.register(
-            SectionHeaderView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: SectionHeaderView.reuseidentifier
+            UserDataCell.self,
+            forCellWithReuseIdentifier: UserDataCell.reuseidentifier
         )
         setupDataSource()
         setupSnapShot(sections: profileCollections)
@@ -110,10 +103,6 @@ final class ProfileView: BaseView {
 
 // MARK: - extension
 extension ProfileView {
-    func updateUser(_ user: UserDomainModel) {
-        self.user = user
-    }
-
     func updateProfileCollection(_ value: [ProfileCollection]) {
         setupSnapShot(sections: value)
     }
@@ -150,23 +139,16 @@ extension ProfileView {
                             return UICollectionViewCell()
                         }
                         return cell
+                    case let .userData(user):
+                        guard let cell = collectionView.dequeueReusableCell(
+                            withReuseIdentifier: UserDataCell.reuseidentifier,
+                            for: indexPath
+                        ) as? UserDataCell else { return UICollectionViewCell() }
+                        cell.setup(user)
+                        return cell
                     }
             }
         )
-        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            guard kind == UICollectionView.elementKindSectionHeader,
-                  let user = self.user
-            else {
-                return UICollectionReusableView()
-            }
-            let view = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: SectionHeaderView.reuseidentifier,
-                for: indexPath
-            ) as? SectionHeaderView
-            view?.setupUI(user)
-            return view
-        }
     }
 }
 

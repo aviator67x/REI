@@ -43,15 +43,10 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
                         default:
                             break
                         }
+                    case .userData:
+                    print("Open UIImage picker view")
                     }
                 }
-            }
-            .store(in: &cancellables)
-        
-        viewModel.userPublisher
-            .sink { [unowned self] user in
-                guard let user = user else { return }
-                contentView.updateUser(user)
             }
             .store(in: &cancellables)
 

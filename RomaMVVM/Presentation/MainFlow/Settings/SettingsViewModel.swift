@@ -27,14 +27,18 @@ final class SettingsViewModel: BaseViewModel {
         self.userNetworkService = userNerworkService
         super.init()
     }
-    
+
     override func onViewDidLoad() {
         updateDataSource()
     }
-  
+
     func updateDataSource() {
         guard let user = userService.getUser() else { return }
-        guard let url = URL(string: "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/images/30D6D6CC-899C-4A68-9FE4-B1B61AF84174.png") else {
+        guard let url =
+            URL(
+                string: "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/images/30D6D6CC-899C-4A68-9FE4-B1B61AF84174.png"
+            )
+        else {
             return
         }
         let userProfileSection: SettingsCollection = {
@@ -44,26 +48,28 @@ final class SettingsViewModel: BaseViewModel {
                 image: .imageURL(url)
             )
             return SettingsCollection(section: .userProfile, items: [.userProfile(userModel: userModel)])
-        }()        
+        }()
         let profileSection: SettingsCollection = {
-           
-            return SettingsCollection(section: .profile, items: [.plain(title: "Profile")])
+            SettingsCollection(section: .profile, items: [.plain(title: "Profile")])
         }()
         let termsSection: SettingsCollection = {
-          
-            return SettingsCollection(section: .terms, items: [.plain(title: "Terms and Conditions"), .plain(title: "Privacy policy")])
+            SettingsCollection(section: .terms, items: [
+                .plain(title: "Terms and Conditions"), .plain(title: "Privacy policy"),
+            ])
         }()
         let companySection: SettingsCollection = {
-            
-            return SettingsCollection(section: .company, items: [.plain(title: "About us"), .plain(title: "F.A.Q."), .plain(title: "Contact us")])
+            SettingsCollection(
+                section: .company,
+                items: [.plain(title: "About us"), .plain(title: "F.A.Q."), .plain(title: "Contact us")]
+            )
         }()
-        self.sections = [userProfileSection, profileSection, termsSection, companySection]
+        sections = [userProfileSection, profileSection, termsSection, companySection]
     }
-    
+
     func showProfile() {
         transitionSubject.send(.profile)
     }
-    
+
     func showTerms() {
         transitionSubject.send(.terms)
     }
