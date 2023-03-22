@@ -75,7 +75,7 @@ final class SettingsCoordinator: Coordinator {
     }
     
     private func name() {
-        let module = NameModuleBuilder.build(container: container)
+        let module = EditProfileModuleBuilder.build(container: container)
         push(module.viewController)
     }
     
