@@ -99,6 +99,7 @@
 		CE990E9529CB623100120D6F /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9129CB623100120D6F /* EditProfileViewController.swift */; };
 		CE990E9629CB623100120D6F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9229CB623100120D6F /* EditProfileView.swift */; };
 		CE990E9729CB623100120D6F /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9329CB623100120D6F /* EditProfileViewModel.swift */; };
+		CE990E9929CB820D00120D6F /* UIImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9829CB820C00120D6F /* UIImage+resize.swift */; };
 		CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */; };
 		CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2F29B52163007DC31B /* DecodingError+.swift */; };
 		CE9CAF3229B6551B007DC31B /* PropertyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3129B6551B007DC31B /* PropertyCoordinator.swift */; };
@@ -273,6 +274,7 @@
 		CE990E9129CB623100120D6F /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		CE990E9229CB623100120D6F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		CE990E9329CB623100120D6F /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		CE990E9829CB820C00120D6F /* UIImage+resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+resize.swift"; sourceTree = "<group>"; };
 		CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+coding.swift"; sourceTree = "<group>"; };
 		CE9CAF2F29B52163007DC31B /* DecodingError+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingError+.swift"; sourceTree = "<group>"; };
 		CE9CAF3129B6551B007DC31B /* PropertyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyCoordinator.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				CEA5F58A298CEBA200B87DD4 /* UISegmentControl.swift */,
 				CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */,
 				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
+				CE990E9829CB820C00120D6F /* UIImage+resize.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1159,6 +1162,7 @@
 				8EE80BCD4FB1B0CFFC81B625 /* UserService.swift in Sources */,
 				CE990E7629C8E80800120D6F /* BirthView.swift in Sources */,
 				4BBC1C6C73AD3474B558E18F /* ViewRepresentable.swift in Sources */,
+				CE990E9929CB820D00120D6F /* UIImage+resize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

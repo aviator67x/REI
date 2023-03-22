@@ -55,55 +55,6 @@ extension HomeViewModel {
         showPhotoSubject.value = true
     }
 
-    func saveAvatar() {
-        var imageData = Data()
-        let imageValue = universalImageSubject.value
-        switch imageValue {
-        case let .imageData(data):
-            imageData = data
-        case .some(.imageURL(_)):
-            break
-        case let .some(.imageAsset(asset)):
-            if let data = asset.image.pngData() {
-                imageData = data
-            }
-        case .none:
-            break
-        }
-        userService.saveAvatar(image: imageData)
-            .receive(on: DispatchQueue.main)
-            .sink { [unowned self] completion in
-                switch completion {
-                case .finished:
-                    print("Avatar has been saved")
-                case let .failure(error):
-                    print(error.errorDescription ?? "")
-                }
-            } receiveValue: { [unowned self] avatarUrlDict in
-                let imageURL = avatarUrlDict["fileURL"] ?? ""
-                let userId = userService.getUser()?.id ?? ""
-                let updateUserRequestModel = UpdateUserRequestModel(imageURL: imageURL, id: userId)
-                update(user: updateUserRequestModel)
-            }
-            .store(in: &cancellables)
-    }
-
-   private func update(user: UpdateUserRequestModel) {
-        userService.update(user: user)
-           .receive(on: DispatchQueue.main)
-           .sink{ [unowned self] completion in
-               switch completion {
-               case .finished:
-                   print("User has been updated")
-               case .failure(let error):
-                   errorSubject.send(error)
-               }
-           } receiveValue: { [unowned self] user in
-               let userModel = UserDomainModel(networkModel: user)
-               self.userService.save(user: userModel)
-           }
-           .store(in: &cancellables)
-    }
 
     func updateUniversalImageSubject(with resource: ImageResource) {
         switch resource {

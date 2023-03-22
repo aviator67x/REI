@@ -11,9 +11,9 @@ struct UserDomainModel: Codable {
     let id: String
     let name: String
     let email: String
-    let imageURL: String?
+    let imageURL: URL?
     
-    init(networkModel: SignInResponse, imageURL: String? = nil) {
+    init(networkModel: SignInResponse, imageURL: URL? = nil) {
         self.id = networkModel.id
         self.name = networkModel.name
         self.email = networkModel.email

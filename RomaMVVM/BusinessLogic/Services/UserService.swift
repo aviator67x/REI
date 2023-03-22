@@ -27,7 +27,7 @@ protocol UserService {
     func saveAccessToken(token: String)
     func getAccessToken() -> String?
     func clearAccessToken()
-    func saveAvatar(image: Data) -> AnyPublisher<[String: String], NetworkError>
+    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError>//AnyPublisher<[String: String], NetworkError>
     func saveObjectToKeychain(_ object: String, forKey: String)
     func getObjectFromKeychain(forKey: String) -> String?
     func clearObjectInKeychain(forKey: String)
@@ -99,7 +99,7 @@ final class UserServiceImpl: UserService {
         tokenStorageService.clearAccessToken()
     }
 
-    func saveAvatar(image: Data) -> AnyPublisher<[String: String], NetworkError> {
+    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {//AnyPublisher<[String: String], NetworkError> {
         let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
 
         return userNetworkService.saveAvatar(image: multipartItems)

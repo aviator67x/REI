@@ -11,7 +11,7 @@ import Combine
 protocol UserNetworkService {
     func deleteUser(id: String) -> AnyPublisher<Void, NetworkError>
     func logOut(token: String) -> AnyPublisher<Void, NetworkError>
-    func saveAvatar(image: [MultipartItem]) -> AnyPublisher<[String:String], NetworkError>
+    func saveAvatar(image: [MultipartItem]) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError>//AnyPublisher<[String:String], NetworkError>
     func updateUser(_ updateUserRequetModel: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError>
 }
 
@@ -31,7 +31,7 @@ extension UserNetworkServiceImpl: UserNetworkService {
         return userProvider.execute(endpoint: .logOut(token: token))
     }
     
-    func saveAvatar(image: [MultipartItem]) -> AnyPublisher<[String:String], NetworkError> {
+    func saveAvatar(image: [MultipartItem]) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {//AnyPublisher<[String:String], NetworkError> {
         return userProvider.execute(endpoint: .addAvatar(image: image))
     }
      

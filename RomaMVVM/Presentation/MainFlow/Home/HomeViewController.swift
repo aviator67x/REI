@@ -28,7 +28,7 @@ final class HomeViewController: BaseViewController<HomeViewModel> {
             .sink { [unowned self] action in
                 switch action {
                 case .avatarButtonDidTap:
-                    viewModel.saveAvatar()
+                    print("button did tap")
                 case .chosePhotoDidTap:
                     viewModel.showGallery()
                 }

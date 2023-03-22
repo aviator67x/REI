@@ -40,20 +40,14 @@ final class ProfileViewModel: BaseViewModel {
     }
 
     private func updateDataSource() {
-//        userService.userPublisher
-//            .sink { [unowned self] user in
-        guard let user = userService.getUser(),
-             let url = URL(string: "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/images/F52C5D8D-27B6-4518-9A2B-C6F149FACC9A.png")
-//              let url =
-//              URL(string: user.imageURL ?? "")
-        else {
-            return
-        }
+        userService.userPublisher
+            .sink { [unowned self] user in
+                guard let user = user else { return }
         let userDataSection: ProfileCollection = {
             let userDataCellModel = UserDataCellModel(
                 name: user.name,
                 email: user.email,
-                image: .imageURL(url)
+                image: .imageURL(user.imageURL)
             )
 
             return ProfileCollection(section: .userData, items: [.userData(userDataCellModel)])
@@ -74,11 +68,10 @@ final class ProfileViewModel: BaseViewModel {
             ])
         }()
         sections = [userDataSection, detailsSection, buttonSection]
-//            }
-//            .store(in: &cancellables)
+            }
+            .store(in: &cancellables)
     }
 
-//    func saveAvatar() {
     func saveAvatar(avatar: Data) {
         userService.saveAvatar(image: avatar)
             .receive(on: DispatchQueue.main)
@@ -89,8 +82,8 @@ final class ProfileViewModel: BaseViewModel {
                 case let .failure(error):
                     print(error.errorDescription ?? "")
                 }
-            } receiveValue: { [unowned self] avatarUrlDict in
-                let imageURL = avatarUrlDict["fileURL"] ?? ""
+            } receiveValue: { [unowned self] avatarUrl in
+                let imageURL = avatarUrl.imageURL
                 let userId = userService.getUser()?.id ?? ""
                 let updateUserRequestModel = UpdateUserRequestModel(imageURL: imageURL, id: userId)
                 update(user: updateUserRequestModel)
@@ -115,17 +108,6 @@ final class ProfileViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
     }
-
-//    func updateUniversalImageSubject(with resource: ImageResource) {
-//        switch resource {
-//        case let .imageURL(url):
-//            universalImageSubject.value = .imageURL(url)
-//        case let .imageData(data):
-//            universalImageSubject.value = .imageData(data)
-//        case let .imageAsset(imageAsset):
-//            universalImageSubject.value = .imageAsset(imageAsset)
-//        }
-//    }
 
     func logout() {
         guard let token = userService.token else {

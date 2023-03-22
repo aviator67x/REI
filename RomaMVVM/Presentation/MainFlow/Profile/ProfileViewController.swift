@@ -108,7 +108,8 @@ extension ProfileViewController: UIImagePickerControllerDelegate & UINavigationC
         } else if let possibleImage = info[.originalImage] as? UIImage {
             image = possibleImage
         } else { return }
-        guard let imageData = image.pngData() else { return }
+        let resizedImage = image.scalePreservingAspectRatio(targetSize: CGSize(width: 120, height: 120))
+        guard let imageData = resizedImage.pngData() else { return }
         viewModel.saveAvatar(avatar: imageData)
         dismiss(animated: true)
     }

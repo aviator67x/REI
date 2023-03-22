@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 enum ImageResource: Hashable {
-    case imageURL(URL)
+    case imageURL(URL?)
     case imageData(Data)
     case imageAsset(ImageAsset)
 }
@@ -18,6 +18,7 @@ extension UIImageView {
     func setIMage(imageResource: ImageResource) {
         switch imageResource {
         case .imageURL(let url):
+            
             self.kf.setImage(with: url)
         case .imageData(let data):
             self.image = UIImage(data: data)
