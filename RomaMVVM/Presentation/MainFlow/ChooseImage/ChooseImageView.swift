@@ -1,23 +1,23 @@
 //
-//  NameView.swift
+//  ChooseImageView.swift
 //  RomaMVVM
 //
-//  Created by User on 20.03.2023.
+//  Created by User on 21.03.2023.
 //
 
 import UIKit
 import Combine
 
-enum NameViewAction {
+enum ChooseImageViewAction {
 
 }
 
-final class NameView: BaseView {
+final class ChooseImageView: BaseView {
     // MARK: - Subviews
 
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<NameViewAction, Never>()
+    private let actionSubject = PassthroughSubject<ChooseImageViewAction, Never>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,10 +51,10 @@ private enum Constant {
 
 #if DEBUG
 import SwiftUI
-struct NamePreview: PreviewProvider {
+struct ChooseImagePreview: PreviewProvider {
     
     static var previews: some View {
-        ViewRepresentable(NameView())
+        ViewRepresentable(ChooseImageView())
     }
 }
 #endif

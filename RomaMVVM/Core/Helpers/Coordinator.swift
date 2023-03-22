@@ -40,4 +40,8 @@ extension Coordinator {
     func pop(animated: Bool = true) {
         self.navigationController.popViewController(animated: animated)
     }
+    
+    func present(_ viewComtroller: UIViewController, animated: Bool = true) {
+        self.navigationController.present(viewComtroller, animated: animated)
+    }
 }

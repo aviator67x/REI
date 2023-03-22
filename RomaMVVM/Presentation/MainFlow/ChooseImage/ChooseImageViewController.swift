@@ -1,15 +1,15 @@
 //
-//  NameViewController.swift
+//  ChooseImageViewController.swift
 //  RomaMVVM
 //
-//  Created by User on 20.03.2023.
+//  Created by User on 21.03.2023.
 //
 
 import UIKit
 
-final class NameViewController: BaseViewController<NameViewModel> {
+final class ChooseImageViewController: BaseViewController<ChooseImageViewModel> {
     // MARK: - Views
-    private let contentView = NameView()
+    private let contentView = ChooseImageView()
     
     // MARK: - Lifecycle
     override func loadView() {

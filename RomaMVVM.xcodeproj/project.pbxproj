@@ -82,10 +82,6 @@
 		CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B429A4F3550086F583 /* NetworkManager.swift */; };
 		CE9881B929A4F3550086F583 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B529A4F3550086F583 /* HTTPMethod.swift */; };
 		CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B629A4F3550086F583 /* Endpoint.swift */; };
-		CE990E6229C8E79400120D6F /* NameModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E5E29C8E79400120D6F /* NameModuleBuilder.swift */; };
-		CE990E6329C8E79400120D6F /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E5F29C8E79400120D6F /* NameViewController.swift */; };
-		CE990E6429C8E79400120D6F /* NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E6029C8E79400120D6F /* NameView.swift */; };
-		CE990E6529C8E79400120D6F /* NameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E6129C8E79400120D6F /* NameViewModel.swift */; };
 		CE990E6B29C8E7D900120D6F /* EmailModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E6729C8E7D900120D6F /* EmailModuleBuilder.swift */; };
 		CE990E6C29C8E7D900120D6F /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E6829C8E7D900120D6F /* EmailViewController.swift */; };
 		CE990E6D29C8E7D900120D6F /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E6929C8E7D900120D6F /* EmailView.swift */; };
@@ -256,10 +252,6 @@
 		CE9881B429A4F3550086F583 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CE9881B529A4F3550086F583 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		CE9881B629A4F3550086F583 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		CE990E5E29C8E79400120D6F /* NameModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameModuleBuilder.swift; sourceTree = "<group>"; };
-		CE990E5F29C8E79400120D6F /* NameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
-		CE990E6029C8E79400120D6F /* NameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameView.swift; sourceTree = "<group>"; };
-		CE990E6129C8E79400120D6F /* NameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewModel.swift; sourceTree = "<group>"; };
 		CE990E6729C8E7D900120D6F /* EmailModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailModuleBuilder.swift; sourceTree = "<group>"; };
 		CE990E6829C8E7D900120D6F /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		CE990E6929C8E7D900120D6F /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
@@ -672,15 +664,11 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		CE990E5D29C8E77400120D6F /* Name */ = {
+		CE990E5D29C8E77400120D6F /* EditProfile */ = {
 			isa = PBXGroup;
 			children = (
-				CE990E5E29C8E79400120D6F /* NameModuleBuilder.swift */,
-				CE990E5F29C8E79400120D6F /* NameViewController.swift */,
-				CE990E6029C8E79400120D6F /* NameView.swift */,
-				CE990E6129C8E79400120D6F /* NameViewModel.swift */,
 			);
-			path = Name;
+			path = EditProfile;
 			sourceTree = "<group>";
 		};
 		CE990E6629C8E7A500120D6F /* Email */ = {
@@ -830,7 +818,7 @@
 				76E8843FA342597467112D6C /* Home */,
 				CCA876F88893001B36189960 /* Settings */,
 				CE9430C729C8732E00FFB94C /* Profile */,
-				CE990E5D29C8E77400120D6F /* Name */,
+				CE990E5D29C8E77400120D6F /* EditProfile */,
 				CE990E6F29C8E7E400120D6F /* Birth */,
 				CE990E6629C8E7A500120D6F /* Email */,
 				CE990E7829C8E81300120D6F /* Password */,
@@ -1103,17 +1091,14 @@
 				CE9881B929A4F3550086F583 /* HTTPMethod.swift in Sources */,
 				C89644FBACE71E197085D1BC /* HomeViewModel.swift in Sources */,
 				16D96EFFF06F84700B92B20F /* LoadingView.swift in Sources */,
-				CE990E6529C8E79400120D6F /* NameViewModel.swift in Sources */,
 				CEAE383329B772640046198A /* PropertyModels.swift in Sources */,
 				CEA545F1297820A3007F9962 /* ValidatorType.swift in Sources */,
 				CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */,
-				CE990E6229C8E79400120D6F /* NameModuleBuilder.swift in Sources */,
 				BA4407035F877122802C3D47 /* Localization.swift in Sources */,
 				EDFD24AA92041FD400F9F11D /* MainTabBarCoordinator.swift in Sources */,
 				936E18287F780641A997D742 /* MainTabBarModuleBuilder.swift in Sources */,
 				CE990E7D29C8E83800120D6F /* PasswordModuleBuilder.swift in Sources */,
 				CEAEB9F729AE2609005BBF50 /* Assets.swift in Sources */,
-				CE990E6429C8E79400120D6F /* NameView.swift in Sources */,
 				CEA5B72829B0A1B80038A29C /* Publisher+Sink.swift in Sources */,
 				C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */,
 				8DEAEE4E8A532047AAF41423 /* MainTabBarViewModel.swift in Sources */,
@@ -1130,7 +1115,6 @@
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,
 				1F2825C6E85F4B0D9F8DAC85 /* SignInModuleBuilder.swift in Sources */,
-				CE990E6329C8E79400120D6F /* NameViewController.swift in Sources */,
 				CEAEB9ED29ACA6B1005BBF50 /* PasswordRestoreViewController.swift in Sources */,
 				CE990E7529C8E80800120D6F /* BirthViewController.swift in Sources */,
 				CE9CAF3829B657C0007DC31B /* PropertyModuleBuilder.swift in Sources */,

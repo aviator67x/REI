@@ -44,10 +44,18 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
                             break
                         }
                     case .userData:
-                    print("Open UIImage picker view")
+                        showPopup()
                     }
                 }
             }
+            .store(in: &cancellables)
+        
+        viewModel.openGalleryPublisher
+            .sink { [unowned self] value in
+                if value {
+                    imagePickerViewSetup()
+                }
+        }
             .store(in: &cancellables)
 
         viewModel.$sections
@@ -55,5 +63,53 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
                 contentView.updateProfileCollection(sectins)
             }
             .store(in: &cancellables)
+    }
+    
+    private func imagePickerViewSetup() {
+        let imagePicker = UIImagePickerController()
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.allowsEditing = true
+
+            present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    private func showPopup() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+           
+           alert.addAction(UIAlertAction(title: "Take Photo", style: .default , handler:{ (UIAlertAction)in
+//               self.viewModel.openCamera()
+//               self.present(PhotoViewController(screenState: .photo), animated: true)
+           }))
+           
+           alert.addAction(UIAlertAction(title: "Choose Photo", style: .default , handler:{ (UIAlertAction)in
+               self.viewModel.openGallery()
+           }))
+
+           alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction)in
+               print("User click Dismiss button")
+           }))
+        
+        self.present(alert, animated: true)
+    }
+}
+
+// MARK: - extension UIImagePickerControllerDelegate & UINavigationControllerDelegate
+extension ProfileViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
+        var image = UIImage()
+        if let possibleImage = info[.editedImage] as? UIImage {
+            image = possibleImage
+        } else if let possibleImage = info[.originalImage] as? UIImage {
+            image = possibleImage
+        } else { return }
+        guard let imageData = image.pngData() else { return }
+        viewModel.saveAvatar(avatar: imageData)
+        dismiss(animated: true)
     }
 }

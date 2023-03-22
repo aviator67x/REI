@@ -31,16 +31,17 @@ final class SettingsViewModel: BaseViewModel {
     override func onViewDidLoad() {
         updateDataSource()
     }
+    
+    override func onViewWillAppear() {
+        updateDataSource()
+    }
 
     func updateDataSource() {
-        guard let user = userService.getUser() else { return }
-        guard let url =
-            URL(
-                string: "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/images/30D6D6CC-899C-4A68-9FE4-B1B61AF84174.png"
-            )
-        else {
-            return
+        guard let user = userService.getUser() else {
+            return 
         }
+        guard let url = URL(string: "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/images/F52C5D8D-27B6-4518-9A2B-C6F149FACC9A.png") else { return }
+        
         let userProfileSection: SettingsCollection = {
             let userModel = UserProfileCellModel(
                 name: user.name,
