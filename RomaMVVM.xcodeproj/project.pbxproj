@@ -64,6 +64,10 @@
 		C89644FBACE71E197085D1BC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A101D5F618D54C4FD3C7C1A0 /* HomeViewModel.swift */; };
 		C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B987BF6DF71C9B592152ADD5 /* MainTabBarViewController.swift */; };
 		CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F16D0E37163C320B0E6859 /* UIView+Constraints.swift */; };
+		CE0E27A629CE1C4E001EDFCD /* SearchModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27A229CE1C4E001EDFCD /* SearchModuleBuilder.swift */; };
+		CE0E27A729CE1C4E001EDFCD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27A329CE1C4E001EDFCD /* SearchViewController.swift */; };
+		CE0E27A829CE1C4E001EDFCD /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27A429CE1C4E001EDFCD /* SearchView.swift */; };
+		CE0E27A929CE1C4E001EDFCD /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27A529CE1C4E001EDFCD /* SearchViewModel.swift */; };
 		CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FE929BC9CEA0042C2F8 /* Array.swift */; };
 		CE4E7FEC29BDDDEA0042C2F8 /* CollectionViewCellModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FEB29BDDDEA0042C2F8 /* CollectionViewCellModels.swift */; };
 		CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */; };
@@ -223,6 +227,10 @@
 		CA3BC08D121DE730EFC08F65 /* Config-STG.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-STG.xcconfig"; sourceTree = "<group>"; };
 		CA51E79F6908337E1B14DE70 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		CDC26BABD5C06A4C5B789348 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		CE0E27A229CE1C4E001EDFCD /* SearchModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleBuilder.swift; sourceTree = "<group>"; };
+		CE0E27A329CE1C4E001EDFCD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CE0E27A429CE1C4E001EDFCD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		CE0E27A529CE1C4E001EDFCD /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		CE4E7FE929BC9CEA0042C2F8 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		CE4E7FEB29BDDDEA0042C2F8 /* CollectionViewCellModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellModels.swift; sourceTree = "<group>"; };
 		CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
@@ -594,6 +602,17 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		CE0E27A129CE1C2A001EDFCD /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				CE0E27A229CE1C4E001EDFCD /* SearchModuleBuilder.swift */,
+				CE0E27A329CE1C4E001EDFCD /* SearchViewController.swift */,
+				CE0E27A429CE1C4E001EDFCD /* SearchView.swift */,
+				CE0E27A529CE1C4E001EDFCD /* SearchViewModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		CE9430C729C8732E00FFB94C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,6 +770,7 @@
 		CEAEB9F229AD0BA5005BBF50 /* MainFlow */ = {
 			isa = PBXGroup;
 			children = (
+				CE0E27A129CE1C2A001EDFCD /* Search */,
 				CE9430D029C8870F00FFB94C /* Terms */,
 				5B5C3AE1BF141B5158BBB0E9 /* MainTabBar */,
 				76E8843FA342597467112D6C /* Home */,
@@ -971,6 +991,7 @@
 				CE9430C429C3121900FFB94C /* SettingsCollectionCells.swift in Sources */,
 				69FC756CA7A3ECBB0ADBB994 /* AuthPlugin.swift in Sources */,
 				CEA5F5D0299BECE300B87DD4 /* NetworkError.swift in Sources */,
+				CE0E27A729CE1C4E001EDFCD /* SearchViewController.swift in Sources */,
 				CEA5B72C29B0A2650038A29C /* Publisher+Unwrap.swift in Sources */,
 				CEAEB9DC29AA9D58005BBF50 /* UserEndPoint.swift in Sources */,
 				CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */,
@@ -987,6 +1008,7 @@
 				4E49AFA694CC28CA8EB3D441 /* AxisScrollView.swift in Sources */,
 				5143110F52CB4AE108E6832F /* BaseView.swift in Sources */,
 				CEA545F0297820A3007F9962 /* TextFieldView.swift in Sources */,
+				CE0E27A629CE1C4E001EDFCD /* SearchModuleBuilder.swift in Sources */,
 				CE990E9529CB623100120D6F /* EditProfileViewController.swift in Sources */,
 				CEADC9B5298853E8007A0650 /* BaseButton .swift in Sources */,
 				5085332B1A5B06C8C213ECDB /* BaseViewController.swift in Sources */,
@@ -1024,6 +1046,7 @@
 				CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */,
 				BA4407035F877122802C3D47 /* Localization.swift in Sources */,
 				EDFD24AA92041FD400F9F11D /* MainTabBarCoordinator.swift in Sources */,
+				CE0E27A829CE1C4E001EDFCD /* SearchView.swift in Sources */,
 				936E18287F780641A997D742 /* MainTabBarModuleBuilder.swift in Sources */,
 				CEAEB9F729AE2609005BBF50 /* Assets.swift in Sources */,
 				CEA5B72829B0A1B80038A29C /* Publisher+Sink.swift in Sources */,
@@ -1038,6 +1061,7 @@
 				5E9FA1F198504A7E904ABBCA /* SettingsView.swift in Sources */,
 				CE990E9429CB623100120D6F /* EditProfileModuleBuilder.swift in Sources */,
 				CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */,
+				CE0E27A929CE1C4E001EDFCD /* SearchViewModel.swift in Sources */,
 				03EA4466B3EA6DF4583F862E /* SettingsViewController.swift in Sources */,
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,
