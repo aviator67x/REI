@@ -33,11 +33,11 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
                     case let .plain(title):
                         switch title {
                         case "Name":
-                            viewModel.showName()
+                            viewModel.showEditPrifile()
                         case "Email":
-                            viewModel.showEmail()
+                            viewModel.showEditPrifile()
                         case "Date of birth":
-                            viewModel.showBirth()
+                            viewModel.showEditPrifile()
                         case "Password":
                             viewModel.showPassword()
                         default:
@@ -53,7 +53,7 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
         viewModel.openGalleryPublisher
             .sink { [unowned self] value in
                 if value {
-                    imagePickerViewSetup()
+                    imageFromGallery()
                 }
         }
             .store(in: &cancellables)
@@ -65,7 +65,7 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
             .store(in: &cancellables)
     }
     
-    private func imagePickerViewSetup() {
+    private func imageFromGallery() {
         let imagePicker = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.delegate = self
@@ -76,12 +76,22 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
         }
     }
     
+    private func imageFromCamera() {
+        let cameraVC = UIImagePickerController()
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {           
+            cameraVC.delegate = self
+            cameraVC.sourceType = .camera
+            cameraVC.allowsEditing = true
+
+            present(cameraVC, animated: true, completion: nil)
+        }
+    }
+    
     private func showPopup() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
            
            alert.addAction(UIAlertAction(title: "Take Photo", style: .default , handler:{ (UIAlertAction)in
-//               self.viewModel.openCamera()
-//               self.present(PhotoViewController(screenState: .photo), animated: true)
+               self.imageFromCamera()
            }))
            
            alert.addAction(UIAlertAction(title: "Choose Photo", style: .default , handler:{ (UIAlertAction)in

@@ -108,7 +108,7 @@ final class EditProfileView: BaseView {
         case .name:
             setupNameConfiguration()
         case .email:
-            break
+            setupEmailConfifguration()
         case .dateOfBirth:
             break
         case .password:
@@ -139,6 +139,10 @@ final class EditProfileView: BaseView {
         nickNameStack.addArranged(nickNameTextField)
 
         stackView.addArrangedSubviews([firstNameStack, lastNameStack, nickNameStack])
+    }
+    
+    func setupEmailConfifguration() {
+        
     }
 }
 

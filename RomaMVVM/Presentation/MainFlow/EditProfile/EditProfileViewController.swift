@@ -62,8 +62,10 @@ final class EditProfileViewController: BaseViewController<EditProfileViewModel> 
                     self.navigationItem.rightBarButtonItem?.isEnabled = true
                     viewModel.update(firstName: text)
                 case let .lastNameDidChange(text):
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
                     viewModel.update(lastName: text)
                 case let .nickNameDidChange(text):
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
                     viewModel.update(nickName: text)
                 }
             }
@@ -78,6 +80,14 @@ final class EditProfileViewController: BaseViewController<EditProfileViewModel> 
                     nickName: user.nickName
                 )
                 self.contentView.updateUI(userViewModel)
+            })
+            .store(in: &cancellables)
+
+        viewModel.popEditPublisher
+            .sinkWeakly(self, receiveValue: { _, value in
+                if value {
+                    self.navigationController?.popViewController(animated: true)
+                }
             })
             .store(in: &cancellables)
     }

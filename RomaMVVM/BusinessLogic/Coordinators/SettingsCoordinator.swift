@@ -55,12 +55,8 @@ final class SettingsCoordinator: Coordinator {
                 switch transition {
                 case .logout:
                     didFinishSubject.send()
-                case .showName:
+                case .showEditProfile:
                     name()
-                case .showEmail:
-                    email()
-                case .showBirth:
-                    birth()
                 case .showPassword:
                     password()
                 }
@@ -79,18 +75,8 @@ final class SettingsCoordinator: Coordinator {
         push(module.viewController)
     }
     
-    private func email() {
-        let module = EmailModuleBuilder.build(container: container)
-        push(module.viewController)
-    }
-    
-    private func birth() {
-        let module = BirthModuleBuilder.build(container: container)
-        push(module.viewController)
-    }
-    
     private func password() {
-        let module = PasswordModuleBuilder.build(container: container)
+        let module = PasswordRestoreModuleBuilder.build(container: container)
         push(module.viewController)
     }
 }

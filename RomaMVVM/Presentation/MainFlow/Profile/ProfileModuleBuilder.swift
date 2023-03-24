@@ -10,9 +10,7 @@ import Combine
 
 enum ProfileTransition: Transition {
     case logout
-    case showName
-    case showEmail
-    case showBirth
+    case showEditProfile
     case showPassword
 }
 

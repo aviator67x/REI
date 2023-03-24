@@ -17,6 +17,9 @@ final class EditProfileViewModel: BaseViewModel {
     private(set) lazy var userPublisher = userSubject.eraseToAnyPublisher()
     private lazy var userSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
     
+    private(set) lazy var popEditPublisher = popEditSubject.eraseToAnyPublisher()
+    private lazy var popEditSubject = PassthroughSubject<Bool, Never>()
+    
     private var firstName = ""
     private var lastName = ""
     private var nickName = ""
@@ -26,20 +29,20 @@ final class EditProfileViewModel: BaseViewModel {
         super.init()
     }
     
-    override func onViewDidLoad() {
+    override func onViewWillAppear() {
         userService.userPublisher
-            .sinkWeakly(self, receiveValue: {(self, user) in
-                self.userSubject.value = user
-            })
+            .sink { [unowned self] user in
+                userSubject.value = user
+            }
             .store(in: &cancellables)
     }
     
     func updateUser() {
         let userId = userService.getUser()?.id ?? ""
         let userModel = UpdateUserRequestModel(
-            firstName: firstName == "" ? nil : firstName,
-            lastName: lastName == "" ? nil : lastName,
-            nickName: nickName == "" ? nil : nickName,
+            firstName: self.firstName == "" ? nil : self.firstName,
+            lastName: self.lastName == "" ? nil : self.lastName,
+            nickName: self.nickName == "" ? nil : self.nickName,
             imageURL: nil,
             id: userId)
         userService.update(user: userModel)
@@ -54,10 +57,14 @@ final class EditProfileViewModel: BaseViewModel {
             }, receiveValue: { [unowned self] updatedUser in
                 let model = UserDomainModel(networkModel: updatedUser)
                 self.userService.save(user: model)
+                popEditSubject.send(true)
             })
             .store(in: &cancellables)
     }
-    
+    deinit {
+        print("Edit prifile deinit")
+    }
+
     func update(firstName: String) {
         self.firstName = firstName
     }

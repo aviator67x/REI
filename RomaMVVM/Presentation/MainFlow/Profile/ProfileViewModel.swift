@@ -140,24 +140,14 @@ final class ProfileViewModel: BaseViewModel {
             .store(in: &cancellables)
     }
 
-    func openCamera() {}
-
     func openGallery() {
         isLoadingSubject.send(true)
         openGallerySubject.value = true
         isLoadingSubject.send(false)
     }
 
-    func showName() {
-        transitionSubject.send(.showName)
-    }
-
-    func showEmail() {
-        transitionSubject.send(.showEmail)
-    }
-
-    func showBirth() {
-        transitionSubject.send(.showBirth)
+    func showEditPrifile() {
+        transitionSubject.send(.showEditProfile)
     }
 
     func showPassword() {
