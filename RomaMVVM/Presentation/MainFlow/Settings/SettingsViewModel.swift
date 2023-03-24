@@ -38,6 +38,7 @@ final class SettingsViewModel: BaseViewModel {
 
     func updateDataSource() {
         userService.userPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [unowned self] user in
             guard let user = user else { return }
             let userProfileSection: SettingsCollection = {

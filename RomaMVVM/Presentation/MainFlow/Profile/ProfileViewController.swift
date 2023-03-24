@@ -18,7 +18,7 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = Localization.profile.uppercased()
+        title = Localization.profile
         setupBindings()
     }
 

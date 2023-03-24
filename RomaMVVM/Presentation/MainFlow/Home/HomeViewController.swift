@@ -31,6 +31,8 @@ final class HomeViewController: BaseViewController<HomeViewModel> {
                     print("button did tap")
                 case .chosePhotoDidTap:
                     viewModel.showGallery()
+                case .logoutDidTap:
+                    viewModel.logOut()
                 }
             }
             .store(in: &cancellables)

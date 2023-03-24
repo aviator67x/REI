@@ -54,6 +54,28 @@ extension HomeViewModel {
     func showGallery() {
         showPhotoSubject.value = true
     }
+    
+    func logOut() {
+        guard let token = userService.token else {
+            return
+        }
+        userService.logOut(token: token)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.transitionSubject.send(.logout)
+                case let .failure(error):
+                    debugPrint(error.localizedDescription)
+                    self?.errorSubject.send(error)
+                }
+            } receiveValue: { _ in
+                self.userService.logOut()
+                self.transitionSubject.send(.logout)
+                self.transitionSubject.send(completion: .finished)
+            }
+            .store(in: &cancellables)
+    }
 
 
     func updateUniversalImageSubject(with resource: ImageResource) {

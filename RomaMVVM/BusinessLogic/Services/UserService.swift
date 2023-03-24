@@ -27,7 +27,7 @@ protocol UserService {
     func saveAccessToken(token: String)
     func getAccessToken() -> String?
     func clearAccessToken()
-    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError>//AnyPublisher<[String: String], NetworkError>
+    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError>
     func saveObjectToKeychain(_ object: String, forKey: String)
     func getObjectFromKeychain(forKey: String) -> String?
     func clearObjectInKeychain(forKey: String)

@@ -41,33 +41,36 @@ final class ProfileViewModel: BaseViewModel {
 
     private func updateDataSource() {
         userService.userPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [unowned self] user in
-                guard let user = user else { return }
-        let userDataSection: ProfileCollection = {
-            let userDataCellModel = UserDataCellModel(
-                name: user.name,
-                email: user.email,
-                image: .imageURL(user.imageURL)
-            )
+                guard let user = user else {
+                    return
+                }
+                let userDataSection: ProfileCollection = {
+                    let userDataCellModel = UserDataCellModel(
+                        name: user.name,
+                        email: user.email,
+                        image: .imageURL(user.imageURL)
+                    )
 
-            return ProfileCollection(section: .userData, items: [.userData(userDataCellModel)])
-        }()
+                    return ProfileCollection(section: .userData, items: [.userData(userDataCellModel)])
+                }()
 
-        let detailsSection: ProfileCollection = {
-            ProfileCollection(section: .details, items: [
-                .plain("Name"),
-                .plain("Email"),
-                .plain("Date of birth"),
-                .plain("Password"),
-            ])
-        }()
+                let detailsSection: ProfileCollection = {
+                    ProfileCollection(section: .details, items: [
+                        .plain("Name"),
+                        .plain("Email"),
+                        .plain("Date of birth"),
+                        .plain("Password"),
+                    ])
+                }()
 
-        let buttonSection: ProfileCollection = {
-            ProfileCollection(section: .button, items: [
-                .button,
-            ])
-        }()
-        sections = [userDataSection, detailsSection, buttonSection]
+                let buttonSection: ProfileCollection = {
+                    ProfileCollection(section: .button, items: [
+                        .button,
+                    ])
+                }()
+                sections = [userDataSection, detailsSection, buttonSection]
             }
             .store(in: &cancellables)
     }
@@ -85,7 +88,13 @@ final class ProfileViewModel: BaseViewModel {
             } receiveValue: { [unowned self] avatarUrl in
                 let imageURL = avatarUrl.imageURL
                 let userId = userService.getUser()?.id ?? ""
-                let updateUserRequestModel = UpdateUserRequestModel(imageURL: imageURL, id: userId)
+                let updateUserRequestModel = UpdateUserRequestModel(
+                    firstName: nil,
+                    lastName: nil,
+                    nickName: nil,
+                    imageURL: imageURL,
+                    id: userId
+                )
                 update(user: updateUserRequestModel)
             }
             .store(in: &cancellables)

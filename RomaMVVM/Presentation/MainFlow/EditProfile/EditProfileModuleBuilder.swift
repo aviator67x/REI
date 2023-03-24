@@ -14,8 +14,8 @@ enum EditProfileTransition: Transition {
 
 final class EditProfileModuleBuilder {
     class func build(container: AppContainer) -> Module<EditProfileTransition, UIViewController> {
-        let viewModel = EditProfileViewModel()
-        let viewController = EditProfileViewController(viewModel: viewModel)
+        let viewModel = EditProfileViewModel(userService: container.userService)
+        let viewController = EditProfileViewController(configuration: Configuration.name, viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }
 }
