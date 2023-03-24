@@ -11,7 +11,7 @@ final class SearchViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SearchTransition, Never>()
     
-    init() {
+   override init() {
 
         super.init()
     }
