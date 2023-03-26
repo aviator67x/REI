@@ -31,9 +31,9 @@ final class HomeCoordinator: Coordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .screen1: debugPrint("perform transition 1")
-                case .screen2: debugPrint("perform transition 2")
-                case .screen3: debugPrint("perform transition 3")
+//                case .screen1: debugPrint("perform transition 1")
+//                case .screen2: debugPrint("perform transition 2")
+//                case .screen3: debugPrint("perform transition 3")
                 }
             }
             .store(in: &cancellables)
