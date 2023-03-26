@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 final class SearchViewController: BaseViewController<SearchViewModel> {
     // MARK: - Views
     private let contentView = SearchView()
+    private let segmentControl = UISegmentedControl()
 
     // MARK: - Lifecycle
     override func loadView() {
@@ -22,8 +24,10 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
         setupBindings()
     }
 
-    private func setupNavigation() {       
-        let segmentControl = UISegmentedControl(items: ["Photo", "List", "Map"])
+    private func setupNavigation() {
+        segmentControl.setTitle("Photo", forSegmentAt: 0)
+        segmentControl.setTitle("List", forSegmentAt: 1)
+        segmentControl.setTitle("Map", forSegmentAt: 2)
         segmentControl.sizeToFit()
         segmentControl.selectedSegmentIndex = 0
         segmentControl.setTitleTextAttributes(
@@ -37,8 +41,15 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
+                
                 switch action {}
             }
+            .store(in: &cancellables)
+        
+        segmentControl.selectedSegmentIndexPublisher
+            .sinkWeakly(self, receiveValue: {(self, index) in
+                self.viewModel.configureScreen(for: index)
+            })
             .store(in: &cancellables)
     }
 }
