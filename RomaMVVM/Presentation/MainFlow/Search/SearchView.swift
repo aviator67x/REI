@@ -52,8 +52,6 @@ final class SearchView: BaseView {
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchViewAction, Never>()
-    
-    private var searchCollections = [SearchCollection]()
 
     // MARK: - Life cycle
     override init(frame: CGRect) {
@@ -68,6 +66,7 @@ final class SearchView: BaseView {
     private func initialSetup() {
         setupLayout()
         setupUI()
+        setupCollection()
         bindActions()
     }
 
@@ -79,12 +78,20 @@ final class SearchView: BaseView {
     }
     
     private func setupCollection() {
-        setupDataSource()
         collection.register(DistanceCell.self, forCellWithReuseIdentifier: DistanceCell.reusedidentifier)
-        setupSnapshot(sections: searchCollections)
+        collection.register(PriceCell.self, forCellWithReuseIdentifier: PriceCell.reusedidentifier)
+        collection.register(TypeCell.self, forCellWithReuseIdentifier: TypeCell.reusedidentifier)
+        collection.register(SquareCell.self, forCellWithReuseIdentifier: SquareCell.reusedidentifier)
+        collection.register(RoomsNumberCell.self, forCellWithReuseIdentifier: RoomsNumberCell.reusedidentifier)
+        collection.register(YearCell.self, forCellWithReuseIdentifier: YearCell.reusedidentifier)
+        collection.register(GarageCell.self, forCellWithReuseIdentifier: GarageCell.reusedidentifier)
+        setupDataSource()
     }
 
     private func setupLayout() {
+        addSubview(collection) {
+            $0.edges.equalToSuperview()
+        }
     }
 }
 
@@ -114,7 +121,7 @@ extension SearchView {
     }
     
     func setupDataSource() {
-        UICollectionViewDiffableDataSource<SearchSection, SearchItem>(collectionView: collection, cellProvider: { [unowned self] collection, indexPath, item -> UICollectionViewCell in
+       dataSource = UICollectionViewDiffableDataSource<SearchSection, SearchItem>(collectionView: collection, cellProvider: { [unowned self] collection, indexPath, item -> UICollectionViewCell in
             switch item {
             case .distance:
                 guard let cell = collection.dequeueReusableCell(withReuseIdentifier: DistanceCell.reusedidentifier, for: indexPath) as? DistanceCell else { return UICollectionViewCell()}

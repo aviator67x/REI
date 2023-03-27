@@ -20,7 +20,7 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigation()
+//        setupNavigation()
         setupBindings()
     }
 
@@ -49,6 +49,12 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
         segmentControl.selectedSegmentIndexPublisher
             .sinkWeakly(self, receiveValue: {(self, index) in
                 self.viewModel.configureScreen(for: index)
+            })
+            .store(in: &cancellables)
+        
+        viewModel.$sections
+            .sinkWeakly(self, receiveValue: { (self, sections) in
+                self.contentView.setupSnapshot(sections: sections)
             })
             .store(in: &cancellables)
     }

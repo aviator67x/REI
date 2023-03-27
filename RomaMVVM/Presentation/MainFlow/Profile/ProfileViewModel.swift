@@ -116,17 +116,6 @@ final class ProfileViewModel: BaseViewModel {
             .store(in: &cancellables)
     }
 
-//    func updateUniversalImageSubject(with resource: ImageResource) {
-//        switch resource {
-//        case let .imageURL(url):
-//            universalImageSubject.value = .imageURL(url)
-//        case let .imageData(data):
-//            universalImageSubject.value = .imageData(data)
-//        case let .imageAsset(imageAsset):
-//            universalImageSubject.value = .imageAsset(imageAsset)
-//        }
-//    }
-
     func logout() {
         guard let token = userService.token else {
             return
