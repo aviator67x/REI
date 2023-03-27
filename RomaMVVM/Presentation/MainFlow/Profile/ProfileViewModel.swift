@@ -146,8 +146,8 @@ final class ProfileViewModel: BaseViewModel {
         isLoadingSubject.send(false)
     }
 
-    func showEditPrifile() {
-        transitionSubject.send(.showEditProfile)
+    func showEditPrifile(configuration: EditProfileConfiguration) {
+        transitionSubject.send(.showEditProfile(configuration))
     }
 
     func showPassword() {

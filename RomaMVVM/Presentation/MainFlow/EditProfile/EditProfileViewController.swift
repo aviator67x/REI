@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Configuration {
+enum EditProfileConfiguration {
     case name
     case email
     case dateOfBirth
@@ -19,9 +19,9 @@ final class EditProfileViewController: BaseViewController<EditProfileViewModel> 
     private let contentView = EditProfileView()
 
     // MARK: - Lifecycle
-    init(configuration: Configuration, viewModel: EditProfileViewModel) {
+    init(configuration: EditProfileConfiguration, viewModel: EditProfileViewModel) {
         super.init(viewModel: viewModel)
-        contentView.configuration = configuration
+        contentView.setupLayout(configuration)
     }
 
     @available(*, unavailable)

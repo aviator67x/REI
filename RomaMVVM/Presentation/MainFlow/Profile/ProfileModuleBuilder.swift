@@ -10,7 +10,7 @@ import Combine
 
 enum ProfileTransition: Transition {
     case logout
-    case showEditProfile
+    case showEditProfile(EditProfileConfiguration)
     case showPassword
 }
 

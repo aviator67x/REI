@@ -22,7 +22,7 @@ enum EditProfileViewAction {
 }
 
 final class EditProfileView: BaseView {
-    var configuration: Configuration = .name
+//    var configuration: EditProfileConfiguration = .name
 
     // MARK: - Subviews
     private var scrollView = AxisScrollView()
@@ -52,7 +52,7 @@ final class EditProfileView: BaseView {
     }
 
     private func initialSetup() {
-        setupLayout(configuration)
+//        setupLayout(configuration)
         setupUI()
         bindActions()
     }
@@ -89,7 +89,7 @@ final class EditProfileView: BaseView {
         nickNameTextField.text = "nickNameTextField"
     }
 
-    private func setupLayout(_ configuration: Configuration) {
+     func setupLayout(_ configuration: EditProfileConfiguration) {
         stackView.setup(axis: .vertical, alignment: .fill, distribution: .fill, spacing: Constants.stackSpacing)
         addSubview(scrollView) {
             $0.edges.equalTo(safeAreaLayoutGuide.snp.edges)

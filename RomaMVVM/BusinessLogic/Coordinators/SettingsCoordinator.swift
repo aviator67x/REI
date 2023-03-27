@@ -55,8 +55,8 @@ final class SettingsCoordinator: Coordinator {
                 switch transition {
                 case .logout:
                     didFinishSubject.send()
-                case .showEditProfile:
-                    name()
+                case .showEditProfile(let configuration):
+                    editProfile(configuration)
                 case .showPassword:
                     password()
                 }
@@ -70,8 +70,8 @@ final class SettingsCoordinator: Coordinator {
         push(module.viewController)
     }
     
-    private func name() {
-        let module = EditProfileModuleBuilder.build(container: container)
+    private func editProfile(_ configuration: EditProfileConfiguration) {
+        let module = EditProfileModuleBuilder.build(container: container, configuration: configuration)
         push(module.viewController)
     }
     

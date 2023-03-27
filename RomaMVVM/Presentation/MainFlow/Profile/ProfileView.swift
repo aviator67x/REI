@@ -52,8 +52,7 @@ final class ProfileView: BaseView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<ProfileViewAction, Never>()
 
-    private var profileCollections = [ProfileCollection]()
-
+    // MARK: - Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
@@ -91,7 +90,6 @@ final class ProfileView: BaseView {
             forCellWithReuseIdentifier: UserDataCell.reuseidentifier
         )
         setupDataSource()
-        setupSnapShot(sections: profileCollections)
     }
 
     private func setupLayout() {
@@ -103,10 +101,6 @@ final class ProfileView: BaseView {
 
 // MARK: - extension
 extension ProfileView {
-    func updateProfileCollection(_ value: [ProfileCollection]) {
-        setupSnapShot(sections: value)
-    }
-
     func setupSnapShot(sections: [ProfileCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<ProfileSection, ProfileItem>()
         for section in sections {

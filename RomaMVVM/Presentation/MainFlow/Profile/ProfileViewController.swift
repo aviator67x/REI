@@ -33,11 +33,11 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
                     case let .plain(title):
                         switch title {
                         case "Name":
-                            viewModel.showEditPrifile()
+                            viewModel.showEditPrifile(configuration: .name)
                         case "Email":
-                            viewModel.showEditPrifile()
+                            viewModel.showEditPrifile(configuration: .email)
                         case "Date of birth":
-                            viewModel.showEditPrifile()
+                            viewModel.showEditPrifile(configuration: .dateOfBirth)
                         case "Password":
                             viewModel.showPassword()
                         default:
@@ -59,8 +59,8 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
             .store(in: &cancellables)
 
         viewModel.$sections
-            .sink { [unowned self] sectins in
-                contentView.updateProfileCollection(sectins)
+            .sink { [unowned self] sections in
+                self.contentView.setupSnapShot(sections: sections)
             }
             .store(in: &cancellables)
     }
