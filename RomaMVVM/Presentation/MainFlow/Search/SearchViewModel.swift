@@ -34,32 +34,13 @@ final class SearchViewModel: BaseViewModel {
     
     private func updateDataSource() {
         let distanceSection: SearchCollection = {
-           SearchCollection(sections: .distance, items: [.distance])
+           SearchCollection(sections: .distance, items: [.distance("+ 1"), .distance("+ 2"), .distance("+ 5"), .distance("+ 10"), .distance("+ 15"), .distance("+ 30"), .distance("+ 50"), .distance("+ 100")])
         }()
         
         let priceSection: SearchCollection = {
             SearchCollection(sections: .price, items: [.price])
         }()
         
-        let typeSection: SearchCollection = {
-            SearchCollection(sections: .type, items: [.type])
-        }()
-        
-        let squareSection: SearchCollection = {
-            SearchCollection(sections: .square, items: [.square])
-        }()
-        
-        let roomsNumberSection: SearchCollection = {
-            SearchCollection(sections: .roomsNumber, items: [.roomsNumber])
-        }()
-        
-        let yearSection: SearchCollection = {
-            SearchCollection(sections: .year, items: [.year])
-        }()
-        
-        let garageSection: SearchCollection = {
-            SearchCollection(sections: .garage, items: [.garage])
-        }()
-        sections = [distanceSection, priceSection, typeSection, squareSection, roomsNumberSection, yearSection, garageSection]
+        sections = [distanceSection, priceSection]
     }
 }
