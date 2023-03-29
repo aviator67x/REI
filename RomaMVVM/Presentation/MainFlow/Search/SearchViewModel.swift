@@ -45,6 +45,10 @@ final class SearchViewModel: BaseViewModel {
             SearchCollection(sections: .price, items: [.price])
         }()
         
-        sections = [segmentControlSection, distanceSection, priceSection]
+        let yearSection: SearchCollection = {
+            SearchCollection(sections: .year, items: [.year])
+        }()
+        
+        sections = [segmentControlSection, distanceSection, priceSection, yearSection]
     }
 }

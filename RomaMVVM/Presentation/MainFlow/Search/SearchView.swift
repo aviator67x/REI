@@ -1,4 +1,4 @@
-//
+
 //  SearchView.swift
 //  RomaMVVM
 //
@@ -9,7 +9,9 @@ import Combine
 import Foundation
 import UIKit
 
-enum SearchViewAction {}
+enum SearchViewAction {
+//    case minPrice(String)
+}
 
 enum SearchSection: Hashable, CaseIterable {
     case segmentControl
@@ -18,7 +20,7 @@ enum SearchSection: Hashable, CaseIterable {
 //    case type
 //    case square
 //    case roomsNumber
-//    case year
+    case year
 //    case garage
 }
 
@@ -29,7 +31,7 @@ enum SearchItem: Hashable {
 //    case type
 //    case square
 //    case roomsNumber
-//    case year
+    case year
 //    case garage
 }
 
@@ -52,6 +54,8 @@ final class SearchView: BaseView {
                     section = self?.priceSectionLayout()
 //                case .type:
 //                    section = self?.typeSectionaLayout()
+                case .year:
+                    section = self?.yearSectionLayout()
                 }
 
                 return section
@@ -177,6 +181,39 @@ final class SearchView: BaseView {
 
         return section
     }
+    
+    private func yearSectionLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalHeight(1)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .absolute(60)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
+        
+        let backgroundFooterSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .absolute(4)
+        )
+        let backgroundFooter = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: backgroundFooterSize,
+            elementKind: "BackgroundFooter",
+            alignment: .bottom
+        )
+
+        section.boundarySupplementaryItems = [backgroundFooter]
+
+        return section
+    }
 
 
     private func initialSetup() {
@@ -205,6 +242,7 @@ final class SearchView: BaseView {
         collection.register(DistanceCell.self, forCellWithReuseIdentifier: DistanceCell.reusedidentifier)
         collection.register(PriceCell.self, forCellWithReuseIdentifier: PriceCell.reusedidentifier)
         collection.register(TypeCell.self, forCellWithReuseIdentifier: TypeCell.reusedidentifier)
+        collection.register(UniversalCell.self, forCellWithReuseIdentifier: UniversalCell.reusedidentifier)
         setupDataSource()
     }
 
@@ -263,7 +301,7 @@ extension SearchView {
                         withReuseIdentifier: PriceCell.reusedidentifier,
                         for: indexPath
                     ) as? PriceCell else { return UICollectionViewCell() }
-
+            
                     return cell
 //                case .type:
 //                    guard let cell = collection.dequeueReusableCell(
@@ -272,6 +310,11 @@ extension SearchView {
 //                    ) as? TypeCell else { return UICollectionViewCell() }
 //
 //                    return cell
+                case .year:
+                    guard let cell = collection.dequeueReusableCell(withReuseIdentifier: UniversalCell.reusedidentifier, for: indexPath) as? UniversalCell else { return UICollectionViewCell() }
+                    let model = UniversalCellModel(image: UIImage(systemName: "square.split.bottomrightquarter"), itemText: "Period of building", infoText: "since 1875")
+                    cell.setupCell(model: model)
+                    return cell
                 }
             }
         )
@@ -292,6 +335,8 @@ extension SearchView {
                     header.setupUI(text: "Price category", imageName: "eurosign")
                 case .segmentControl:
                     header.setupUI(text: "Price category", imageName: "eurosign")
+                case .year:
+                   break
                 }
                 
                 return header
