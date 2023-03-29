@@ -12,6 +12,7 @@ import Foundation
 enum SearchViewAction {}
 
 enum SearchSection: Hashable, CaseIterable {
+    case segmentControl
     case distance
     case price
 //    case type
@@ -22,6 +23,7 @@ enum SearchSection: Hashable, CaseIterable {
 }
 
 enum SearchItem: Hashable {
+    case segmentControl
     case distance(String)
     case price
 //    case type
@@ -42,10 +44,13 @@ final class SearchView: BaseView {
                 var section: NSCollectionLayoutSection?
                 let sectionType = SearchSection.allCases
                 switch sectionType[sectionNumber] {
+                case .segmentControl:
+                    section =  self?.segmentControlSectionLayout()
                 case .distance:
                    section =  self?.distanceSectionLayout()
                 case .price:
                     section =  self?.priceSectionLayout()
+
                 }
 
                 return section
@@ -68,25 +73,45 @@ final class SearchView: BaseView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    private func distanceSectionLayout() -> NSCollectionLayoutSection {
-
+    
+    private func segmentControlSectionLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(1),
-            heightDimension: .absolute(30)
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalHeight(1)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(35)
+            heightDimension: .absolute(70)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = .init(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+
+        return section
+    }
+
+    private func distanceSectionLayout() -> NSCollectionLayoutSection {
+
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .estimated(1),
+            heightDimension: .fractionalHeight(1)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .absolute(36)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = .init(EdgeInsets(top: 0, leading: 23, bottom: 0, trailing: 20))
-        group.interItemSpacing = .fixed(5)
+        group.interItemSpacing = .fixed(6)
 
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = .init(EdgeInsets(top: 5, leading: 0, bottom: 10, trailing: 0))
+        section.contentInsets = .init(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .top)
@@ -113,6 +138,11 @@ final class SearchView: BaseView {
         group.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 2)
 
         let section = NSCollectionLayoutSection(group: group)
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(4))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "BackgroundHeader", alignment: .top)
+
+        section.boundarySupplementaryItems = [header]
 
         return section
     }
@@ -127,12 +157,14 @@ final class SearchView: BaseView {
     private func bindActions() {}
 
     private func setupUI() {
-        backgroundColor = .systemGroupedBackground
+    
     }
 
     private func setupCollection() {
+        collection.register(BackgroundHeaderView.self, forSupplementaryViewOfKind: "BackgroundHeader", withReuseIdentifier: "BackgroundHeader")
         collection.register(DistanceHeaderView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: "DistanceHeader")
         collection.register(PriceHeaderView.self, forSupplementaryViewOfKind: PriceHeaderView.identifier, withReuseIdentifier: PriceHeaderView.identifier)
+        collection.register(SegmentControlCell.self, forCellWithReuseIdentifier: SegmentControlCell.reusedidentifier)
         collection.register(DistanceCell.self, forCellWithReuseIdentifier: DistanceCell.reusedidentifier)
         collection.register(PriceCell.self, forCellWithReuseIdentifier: PriceCell.reusedidentifier)
         setupDataSource()
@@ -173,21 +205,36 @@ extension SearchView {
             collectionView: collection,
             cellProvider: { [unowned self] collectionView, indexPath, item -> UICollectionViewCell in
                 switch item {
+                case .segmentControl:
+                    guard let cell = collection.dequeueReusableCell(withReuseIdentifier: SegmentControlCell.reusedidentifier, for: indexPath) as? SegmentControlCell else { return UICollectionViewCell() }
+                    
+                    return cell
                 case .distance(let km):
                     guard let cell = collection.dequeueReusableCell(withReuseIdentifier: DistanceCell.reusedidentifier, for: indexPath) as? DistanceCell else { return UICollectionViewCell()}
                     cell.setupCell(with: km)
+                    
                     return cell
                 case .price:
                     guard let cell = collection.dequeueReusableCell(withReuseIdentifier: PriceCell.reusedidentifier, for: indexPath) as? PriceCell else { return UICollectionViewCell()}
                     
-                    return cell
+                    return cell               
                 }
             }
         )
         dataSource?.supplementaryViewProvider = {(collectionView, kind, indexPath) -> UICollectionReusableView? in
-            guard let header: DistanceHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: "DistanceHeader", for: indexPath) as? DistanceHeaderView else {return UICollectionReusableView()}
+            switch kind {
+            case "header":
+                guard let header: DistanceHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: "DistanceHeader", for: indexPath) as? DistanceHeaderView else {return UICollectionReusableView()}
 
-            return header
+                return header
+            case "BackgroundHeader":
+                guard let header: BackgroundHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: "BackgroundHeader", withReuseIdentifier: "BackgroundHeader", for: indexPath) as? BackgroundHeaderView else {return UICollectionReusableView()}
+
+                return header
+            default:
+                return UICollectionReusableView()
+            }
+            
         }
     }
 }

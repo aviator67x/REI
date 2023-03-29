@@ -33,6 +33,10 @@ final class SearchViewModel: BaseViewModel {
     }
     
     private func updateDataSource() {
+        let segmentControlSection: SearchCollection = {
+            SearchCollection(sections: .segmentControl, items: [.segmentControl])
+        }()
+        
         let distanceSection: SearchCollection = {
            SearchCollection(sections: .distance, items: [.distance("+ 1"), .distance("+ 2"), .distance("+ 5"), .distance("+ 10"), .distance("+ 15"), .distance("+ 30"), .distance("+ 50"), .distance("+ 100")])
         }()
@@ -41,6 +45,6 @@ final class SearchViewModel: BaseViewModel {
             SearchCollection(sections: .price, items: [.price])
         }()
         
-        sections = [distanceSection, priceSection]
+        sections = [segmentControlSection, distanceSection, priceSection]
     }
 }

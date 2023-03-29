@@ -43,17 +43,6 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
         let crossButton = UIBarButtonItem(customView: cross)
         
         navigationItem.rightBarButtonItems = [crossButton, bellButton]
-//        segmentControl.setTitle("Photo", forSegmentAt: 0)
-//        segmentControl.setTitle("List", forSegmentAt: 1)
-//        segmentControl.setTitle("Map", forSegmentAt: 2)
-//        segmentControl.sizeToFit()
-//        segmentControl.selectedSegmentIndex = 0
-//        segmentControl.setTitleTextAttributes(
-//            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)],
-//            for: .normal
-//        )
-//        segmentControl.backgroundColor = .systemBackground
-//        navigationItem.titleView = segmentControl
     }
 
     @objc
