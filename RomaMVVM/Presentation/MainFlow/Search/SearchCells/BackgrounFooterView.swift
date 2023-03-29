@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-final class BackgroundHeaderView: UICollectionReusableView {
-    static let identifier = String(describing: BackgroundHeaderView.self)
+final class BackgroundFooterView: UICollectionReusableView {
+    static let identifier = String(describing: BackgroundFooterView.self)
 
     override init(frame: CGRect) {
         super.init(frame: frame)

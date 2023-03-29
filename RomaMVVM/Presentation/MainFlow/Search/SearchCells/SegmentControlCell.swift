@@ -40,8 +40,8 @@ final class SegmentControlCell: UICollectionViewCell {
 
     private func setupLayout() {
         contentView.addSubview(segmentControl) {
-            $0.top.bottom.equalToSuperview().inset(20)
-            $0.leading.trailing.equalToSuperview().inset(80)
+            $0.top.bottom.equalToSuperview().inset(10)
+            $0.leading.trailing.equalToSuperview().inset(30)
         }
     }
 }

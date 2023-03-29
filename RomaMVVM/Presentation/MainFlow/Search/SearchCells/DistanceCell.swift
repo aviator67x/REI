@@ -26,10 +26,9 @@ final class DistanceCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-        distanceLabel.backgroundColor = .groupTableViewBackground
+        distanceLabel.backgroundColor = .secondarySystemBackground
         distanceLabel.bordered(width: 1, color: .lightGray)
         distanceLabel.layer.cornerRadius = 6
-        distanceLabel.text = "distance"
         distanceLabel.textAlignment = .center
     }
 
@@ -47,4 +46,3 @@ final class DistanceCell: UICollectionViewCell {
         distanceLabel.text = km
     }
 }
-

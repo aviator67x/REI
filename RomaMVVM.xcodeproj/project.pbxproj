@@ -69,10 +69,9 @@
 		CE0E27B129CE1DA9001EDFCD /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AD29CE1DA9001EDFCD /* SearchView.swift */; };
 		CE0E27B229CE1DA9001EDFCD /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AE29CE1DA9001EDFCD /* SearchViewModel.swift */; };
 		CE0E27B729D43B96001EDFCD /* SegmentControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27B629D43B96001EDFCD /* SegmentControlCell.swift */; };
-		CE0E27B929D43C1A001EDFCD /* DistanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27B829D43C1A001EDFCD /* DistanceHeaderView.swift */; };
 		CE0E27BB29D43C81001EDFCD /* DistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27BA29D43C81001EDFCD /* DistanceCell.swift */; };
-		CE0E27BD29D43CBD001EDFCD /* BackgroundHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27BC29D43CBD001EDFCD /* BackgroundHeaderView.swift */; };
-		CE0E27BF29D43D06001EDFCD /* PriceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27BE29D43D06001EDFCD /* PriceHeaderView.swift */; };
+		CE0E27BD29D43CBD001EDFCD /* BackgrounFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27BC29D43CBD001EDFCD /* BackgrounFooterView.swift */; };
+		CE0E27BF29D43D06001EDFCD /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27BE29D43D06001EDFCD /* HeaderView.swift */; };
 		CE0E27C129D43D49001EDFCD /* PriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27C029D43D49001EDFCD /* PriceCell.swift */; };
 		CE0E27C329D43D8F001EDFCD /* TypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27C229D43D8E001EDFCD /* TypeCell.swift */; };
 		CE0E27C529D43DC4001EDFCD /* SquareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27C429D43DC4001EDFCD /* SquareCell.swift */; };
@@ -258,10 +257,9 @@
 		CE0E27AD29CE1DA9001EDFCD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		CE0E27AE29CE1DA9001EDFCD /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		CE0E27B629D43B96001EDFCD /* SegmentControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlCell.swift; sourceTree = "<group>"; };
-		CE0E27B829D43C1A001EDFCD /* DistanceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceHeaderView.swift; sourceTree = "<group>"; };
 		CE0E27BA29D43C81001EDFCD /* DistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCell.swift; sourceTree = "<group>"; };
-		CE0E27BC29D43CBD001EDFCD /* BackgroundHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundHeaderView.swift; sourceTree = "<group>"; };
-		CE0E27BE29D43D06001EDFCD /* PriceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHeaderView.swift; sourceTree = "<group>"; };
+		CE0E27BC29D43CBD001EDFCD /* BackgrounFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgrounFooterView.swift; sourceTree = "<group>"; };
+		CE0E27BE29D43D06001EDFCD /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		CE0E27C029D43D49001EDFCD /* PriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCell.swift; sourceTree = "<group>"; };
 		CE0E27C229D43D8E001EDFCD /* TypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCell.swift; sourceTree = "<group>"; };
 		CE0E27C429D43DC4001EDFCD /* SquareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareCell.swift; sourceTree = "<group>"; };
@@ -670,10 +668,9 @@
 			isa = PBXGroup;
 			children = (
 				CE0E27B629D43B96001EDFCD /* SegmentControlCell.swift */,
-				CE0E27B829D43C1A001EDFCD /* DistanceHeaderView.swift */,
 				CE0E27BA29D43C81001EDFCD /* DistanceCell.swift */,
-				CE0E27BC29D43CBD001EDFCD /* BackgroundHeaderView.swift */,
-				CE0E27BE29D43D06001EDFCD /* PriceHeaderView.swift */,
+				CE0E27BC29D43CBD001EDFCD /* BackgrounFooterView.swift */,
+				CE0E27BE29D43D06001EDFCD /* HeaderView.swift */,
 				CE0E27C029D43D49001EDFCD /* PriceCell.swift */,
 				CE0E27C229D43D8E001EDFCD /* TypeCell.swift */,
 				CE0E27C429D43DC4001EDFCD /* SquareCell.swift */,
@@ -1155,7 +1152,6 @@
 				501CE75C4EB6601A82AD5409 /* Fonts.swift in Sources */,
 				CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */,
 				CE9430D529C8873200FFB94C /* TermsModuleBuilder.swift in Sources */,
-				CE0E27B929D43C1A001EDFCD /* DistanceHeaderView.swift in Sources */,
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
 				CE9CAF3B29B657C0007DC31B /* PropertyViewModel.swift in Sources */,
 				CEAEB9E429AAA57E005BBF50 /* UserNetworkService.swift in Sources */,
@@ -1176,7 +1172,7 @@
 				C89644FBACE71E197085D1BC /* HomeViewModel.swift in Sources */,
 				16D96EFFF06F84700B92B20F /* LoadingView.swift in Sources */,
 				CE990E9729CB623100120D6F /* EditProfileViewModel.swift in Sources */,
-				CE0E27BF29D43D06001EDFCD /* PriceHeaderView.swift in Sources */,
+				CE0E27BF29D43D06001EDFCD /* HeaderView.swift in Sources */,
 				CEAE383329B772640046198A /* PropertyModels.swift in Sources */,
 				CEA545F1297820A3007F9962 /* ValidatorType.swift in Sources */,
 				CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */,
@@ -1189,7 +1185,7 @@
 				CEA5B72829B0A1B80038A29C /* Publisher+Sink.swift in Sources */,
 				C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */,
 				8DEAEE4E8A532047AAF41423 /* MainTabBarViewModel.swift in Sources */,
-				CE0E27BD29D43CBD001EDFCD /* BackgroundHeaderView.swift in Sources */,
+				CE0E27BD29D43CBD001EDFCD /* BackgrounFooterView.swift in Sources */,
 				8B92C57154F6E7BCFE57E7B1 /* Module.swift in Sources */,
 				CEA5F587298CE92300B87DD4 /* TestSignUpModuleViewController.swift in Sources */,
 				B355206A6EA2EE9B20C77B89 /* SceneDelegate.swift in Sources */,
