@@ -21,7 +21,7 @@ enum SearchSection: Hashable, CaseIterable {
 //    case square
 //    case roomsNumber
     case year
-//    case garage
+    case garage
 }
 
 enum SearchItem: Hashable {
@@ -32,7 +32,7 @@ enum SearchItem: Hashable {
 //    case square
 //    case roomsNumber
     case year
-//    case garage
+    case garage
 }
 
 final class SearchView: BaseView {
@@ -56,6 +56,9 @@ final class SearchView: BaseView {
 //                    section = self?.typeSectionaLayout()
                 case .year:
                     section = self?.yearSectionLayout()
+                case .garage:
+                    section = self?.garagSectionLayout()
+                    break
                 }
 
                 return section
@@ -80,42 +83,11 @@ final class SearchView: BaseView {
     }
 
     private func segmentControlSectionLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalHeight(1)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(70)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = .init(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = .init(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-
-        return section
+        return sectionLayoutBuilder(section: .segmentControl)
     }
 
     private func distanceSectionLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(1),
-            heightDimension: .fractionalHeight(1)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(36)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = .init(EdgeInsets(top: 0, leading: 35, bottom: 0, trailing: 20))
-        group.interItemSpacing = .fixed(6)
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = .init(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
+        let section = sectionLayoutBuilder(section: .distance)
 
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
         let header = NSCollectionLayoutBoundarySupplementaryItem(
@@ -123,68 +95,68 @@ final class SearchView: BaseView {
             elementKind: "header",
             alignment: .top
         )
-
-        let backgroundFooterSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(4)
-        )
-        let backgroundFooter = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: backgroundFooterSize,
-            elementKind: "BackgroundFooter",
-            alignment: .bottom
-        )
-
-        section.boundarySupplementaryItems = [header, backgroundFooter]
+        section.boundarySupplementaryItems.append(header)
 
         return section
     }
 
     private func priceSectionLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalHeight(1)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
-
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(60)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = .init(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
+        let section = sectionLayoutBuilder(section: .price)
         
-        let backgroundFooterSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(4)
-        )
-        let backgroundFooter = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: backgroundFooterSize,
-            elementKind: "BackgroundFooter",
-            alignment: .bottom
-        )
-
-        let priceHeaderSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(44)
-        )
+        let priceHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
         let priceHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: priceHeaderSize,
             elementKind: "header",
             alignment: .top
         )
-
-        section.boundarySupplementaryItems = [backgroundFooter, priceHeader]
+        section.boundarySupplementaryItems.append(priceHeader)
 
         return section
     }
     
     private func yearSectionLayout() -> NSCollectionLayoutSection {
+        return sectionLayoutBuilder(section: .year)
+        
+    }
+    
+        private func garagSectionLayout() -> NSCollectionLayoutSection {
+            return sectionLayoutBuilder(section: .garage)
+        }
+    
+    private func sectionLayoutBuilder(section: SearchSection) -> NSCollectionLayoutSection {
+        let itemWidthDimension: NSCollectionLayoutDimension
+        let groupHeight: CGFloat
+        let groupLeadingInset: CGFloat
+        let groupInterItemSpacing: NSCollectionLayoutSpacing?
+        switch section {
+        case .segmentControl:
+            itemWidthDimension = .fractionalWidth(1)
+            groupHeight = 70
+            groupLeadingInset = 0
+            groupInterItemSpacing = nil
+        case .distance:
+            itemWidthDimension = .estimated(1)
+            groupHeight = 36
+            groupLeadingInset = 35
+            groupInterItemSpacing = .fixed(6)
+        case .price:
+            itemWidthDimension = .fractionalWidth(1)
+            groupHeight = 60
+            groupLeadingInset = 0
+            groupInterItemSpacing = nil
+        case .year:
+            itemWidthDimension = .fractionalWidth(1)
+            groupHeight = 60
+            groupLeadingInset = 0
+            groupInterItemSpacing = nil
+        case .garage:
+            itemWidthDimension = .fractionalWidth(1)
+            groupHeight = 60
+            groupLeadingInset = 0
+            groupInterItemSpacing = nil
+        }
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
+            widthDimension: itemWidthDimension,
             heightDimension: .fractionalHeight(1)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -192,10 +164,11 @@ final class SearchView: BaseView {
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(60)
+            heightDimension: .absolute(groupHeight)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+        group.contentInsets = .init(top: 0, leading: groupLeadingInset, bottom: 0, trailing: 0)
+        group.interItemSpacing = groupInterItemSpacing
 
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .init(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
@@ -209,7 +182,6 @@ final class SearchView: BaseView {
             elementKind: "BackgroundFooter",
             alignment: .bottom
         )
-
         section.boundarySupplementaryItems = [backgroundFooter]
 
         return section
@@ -315,6 +287,11 @@ extension SearchView {
                     let model = UniversalCellModel(image: UIImage(systemName: "square.split.bottomrightquarter"), itemText: "Period of building", infoText: "since 1875")
                     cell.setupCell(model: model)
                     return cell
+                case .garage:
+                    guard let cell = collection.dequeueReusableCell(withReuseIdentifier: UniversalCell.reusedidentifier, for: indexPath) as? UniversalCell else { return UICollectionViewCell() }
+                    let model = UniversalCellModel(image: UIImage(systemName: "car"), itemText: "Garage", infoText: "type of parking slot")
+                    cell.setupCell(model: model)
+                    return cell
                 }
             }
         )
@@ -337,6 +314,8 @@ extension SearchView {
                     header.setupUI(text: "Price category", imageName: "eurosign")
                 case .year:
                    break
+                case .garage:
+                    break
                 }
                 
                 return header

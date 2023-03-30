@@ -43,7 +43,7 @@ final class UniversalCell: UICollectionViewCell {
         contentView.addSubview(itemImage) {
             $0.leading.equalToSuperview().offset(10)
             $0.top.equalToSuperview().offset(10)
-            $0.size.equalTo(30)
+            $0.size.equalTo(20)
         }
         
         contentView.addSubview(chevromImage) {
