@@ -28,7 +28,6 @@ final class HeaderView: UICollectionReusableView {
         addSubview(stack) {
             $0.top.equalToSuperview().offset(20)
             $0.leading.equalToSuperview().offset(10)
-            $0.width.equalTo(150)
             $0.bottom.equalToSuperview()
         }
         
@@ -48,7 +47,7 @@ final class HeaderView: UICollectionReusableView {
         
         stack.axis = .horizontal
         stack.alignment = .leading
-        stack.distribution = .fillProportionally
+        stack.distribution = .fill
         stack.spacing = 6
     }
 }

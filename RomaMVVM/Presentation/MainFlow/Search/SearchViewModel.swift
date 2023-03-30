@@ -59,11 +59,27 @@ final class SearchViewModel: BaseViewModel {
         let yearSection: SearchCollection = {
             SearchCollection(sections: .year, items: [.year])
         }()
+        
+        let squareSection: SearchCollection = {
+            SearchCollection(sections: .square, items: [.square])
+        }()
 
         let garageSection: SearchCollection = {
             SearchCollection(sections: .garage, items: [.garage])
         }()
+        
+        let roomsNumberSection: SearchCollection = {
+            SearchCollection(
+                sections: .roomsNumber,
+                items: [
+                    .roomsNumber("+1"),
+                    .roomsNumber("+2"),
+                    .roomsNumber("+3"),
+                    .roomsNumber("+4"),
+                    .roomsNumber("+5")])
+        }()
+        
 
-        sections = [segmentControlSection, distanceSection, priceSection, yearSection, garageSection]
+        sections = [segmentControlSection, distanceSection, priceSection, squareSection, roomsNumberSection, yearSection,  garageSection]
     }
 }

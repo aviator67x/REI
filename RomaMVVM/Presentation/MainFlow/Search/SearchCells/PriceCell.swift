@@ -10,6 +10,7 @@ import UIKit
 
 final class PriceCell: UICollectionViewCell {
     static let reusedidentifier = String(String(describing: PriceCell.self))
+    
     private let stack = UIStackView()
     private let minTextField = UITextField()
     private let maxTextField = UITextField()

@@ -76,8 +76,6 @@
 		CE0E27C329D43D8F001EDFCD /* TypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27C229D43D8E001EDFCD /* TypeCell.swift */; };
 		CE0E27C529D43DC4001EDFCD /* SquareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27C429D43DC4001EDFCD /* SquareCell.swift */; };
 		CE0E27C729D43DE9001EDFCD /* RoomsNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27C629D43DE9001EDFCD /* RoomsNumberCell.swift */; };
-		CE0E27C929D43E11001EDFCD /* YearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27C829D43E11001EDFCD /* YearCell.swift */; };
-		CE0E27CB29D43E3C001EDFCD /* GarageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27CA29D43E3C001EDFCD /* GarageCell.swift */; };
 		CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FE929BC9CEA0042C2F8 /* Array.swift */; };
 		CE4E7FEC29BDDDEA0042C2F8 /* CollectionViewCellModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FEB29BDDDEA0042C2F8 /* CollectionViewCellModels.swift */; };
 		CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */; };
@@ -265,8 +263,6 @@
 		CE0E27C229D43D8E001EDFCD /* TypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCell.swift; sourceTree = "<group>"; };
 		CE0E27C429D43DC4001EDFCD /* SquareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareCell.swift; sourceTree = "<group>"; };
 		CE0E27C629D43DE9001EDFCD /* RoomsNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsNumberCell.swift; sourceTree = "<group>"; };
-		CE0E27C829D43E11001EDFCD /* YearCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCell.swift; sourceTree = "<group>"; };
-		CE0E27CA29D43E3C001EDFCD /* GarageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageCell.swift; sourceTree = "<group>"; };
 		CE4E7FE929BC9CEA0042C2F8 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		CE4E7FEB29BDDDEA0042C2F8 /* CollectionViewCellModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellModels.swift; sourceTree = "<group>"; };
 		CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
@@ -678,8 +674,6 @@
 				CE63F85F29D4B0F600268B7E /* UniversalCell.swift */,
 				CE0E27C429D43DC4001EDFCD /* SquareCell.swift */,
 				CE0E27C629D43DE9001EDFCD /* RoomsNumberCell.swift */,
-				CE0E27C829D43E11001EDFCD /* YearCell.swift */,
-				CE0E27CA29D43E3C001EDFCD /* GarageCell.swift */,
 			);
 			path = SearchCells;
 			sourceTree = "<group>";
@@ -1209,7 +1203,6 @@
 				BC83B275D377DACEB60714C8 /* SignInView.swift in Sources */,
 				CEA546032978379B007F9962 /* RegEx.swift in Sources */,
 				CEA545EF297820A3007F9962 /* TextFieldType.swift in Sources */,
-				CE0E27C929D43E11001EDFCD /* YearCell.swift in Sources */,
 				E0783FEAD4F64D8929109DF5 /* SignInViewController.swift in Sources */,
 				62A24654EC339481A9A42790 /* SignInViewModel.swift in Sources */,
 				36F21C3E89939F36F60109C7 /* SignUpModuleBuilder.swift in Sources */,
@@ -1221,7 +1214,6 @@
 				6B94A232025E22860F7165F2 /* UIEdgeInsets+Ext.swift in Sources */,
 				CE63F86029D4B0F600268B7E /* UniversalCell.swift in Sources */,
 				CE0E27B029CE1DA9001EDFCD /* SearchViewController.swift in Sources */,
-				CE0E27CB29D43E3C001EDFCD /* GarageCell.swift in Sources */,
 				CEFEA50F29A7881F0085AB1D /* NetworkLogger.swift in Sources */,
 				CE4E7FEC29BDDDEA0042C2F8 /* CollectionViewCellModels.swift in Sources */,
 				E4CB518683283ED390099429 /* UIStackView+Ext.swift in Sources */,

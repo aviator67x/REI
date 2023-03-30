@@ -18,8 +18,8 @@ enum SearchSection: Hashable, CaseIterable {
     case distance
     case price
 //    case type
-//    case square
-//    case roomsNumber
+    case square
+    case roomsNumber
     case year
     case garage
 }
@@ -29,8 +29,8 @@ enum SearchItem: Hashable {
     case distance(String)
     case price
 //    case type
-//    case square
-//    case roomsNumber
+    case square
+    case roomsNumber(String)
     case year
     case garage
 }
@@ -59,6 +59,10 @@ final class SearchView: BaseView {
                 case .garage:
                     section = self?.garagSectionLayout()
                     break
+                case .square:
+                    section = self?.squareSectionLayout()
+                case .roomsNumber:
+                    section = self?.roomsNumberSectionLayout()
                 }
 
                 return section
@@ -123,6 +127,32 @@ final class SearchView: BaseView {
             return sectionLayoutBuilder(section: .garage)
         }
     
+    private func squareSectionLayout() -> NSCollectionLayoutSection {
+        let section = sectionLayoutBuilder(section: .square)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
+        let squareHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: "header",
+            alignment: .top
+        )
+        section.boundarySupplementaryItems.append(squareHeader)
+
+        return section
+    }
+    
+    private func roomsNumberSectionLayout() -> NSCollectionLayoutSection {
+        let section = sectionLayoutBuilder(section: .roomsNumber)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
+        let rooomsNumberHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: "header",
+            alignment: .top
+        )
+        section.boundarySupplementaryItems.append(rooomsNumberHeader)
+
+        return section
+    }
+    
     private func sectionLayoutBuilder(section: SearchSection) -> NSCollectionLayoutSection {
         let itemWidthDimension: NSCollectionLayoutDimension
         let groupHeight: CGFloat
@@ -134,22 +164,12 @@ final class SearchView: BaseView {
             groupHeight = 70
             groupLeadingInset = 0
             groupInterItemSpacing = nil
-        case .distance:
+        case .distance, .roomsNumber:
             itemWidthDimension = .estimated(1)
             groupHeight = 36
             groupLeadingInset = 35
             groupInterItemSpacing = .fixed(6)
-        case .price:
-            itemWidthDimension = .fractionalWidth(1)
-            groupHeight = 60
-            groupLeadingInset = 0
-            groupInterItemSpacing = nil
-        case .year:
-            itemWidthDimension = .fractionalWidth(1)
-            groupHeight = 60
-            groupLeadingInset = 0
-            groupInterItemSpacing = nil
-        case .garage:
+        case .price, .year, .garage, .square:
             itemWidthDimension = .fractionalWidth(1)
             groupHeight = 60
             groupLeadingInset = 0
@@ -215,6 +235,8 @@ final class SearchView: BaseView {
         collection.register(PriceCell.self, forCellWithReuseIdentifier: PriceCell.reusedidentifier)
         collection.register(TypeCell.self, forCellWithReuseIdentifier: TypeCell.reusedidentifier)
         collection.register(UniversalCell.self, forCellWithReuseIdentifier: UniversalCell.reusedidentifier)
+        collection.register(SquareCell.self, forCellWithReuseIdentifier: SquareCell.reusedidentifier)
+        collection.register(RoomsNumberCell.self, forCellWithReuseIdentifier: RoomsNumberCell.reusedidentifier)
         setupDataSource()
     }
 
@@ -292,6 +314,20 @@ extension SearchView {
                     let model = UniversalCellModel(image: UIImage(systemName: "car"), itemText: "Garage", infoText: "type of parking slot")
                     cell.setupCell(model: model)
                     return cell
+                case .square:
+                    guard let cell = collection.dequeueReusableCell(
+                        withReuseIdentifier: SquareCell.reusedidentifier,
+                        for: indexPath
+                    ) as? SquareCell else { return UICollectionViewCell() }
+
+                    return cell
+                case .roomsNumber(let title):
+                    guard let cell = collection.dequeueReusableCell(
+                        withReuseIdentifier: RoomsNumberCell.reusedidentifier,
+                        for: indexPath
+                    ) as? RoomsNumberCell else { return UICollectionViewCell() }
+                    cell.setupCell(with: title)
+                    return cell
                 }
             }
         )
@@ -312,10 +348,12 @@ extension SearchView {
                     header.setupUI(text: "Price category", imageName: "eurosign")
                 case .segmentControl:
                     header.setupUI(text: "Price category", imageName: "eurosign")
-                case .year:
+                case .square:
+                    header.setupUI(text: "Square of the property in sqm", imageName: "light.panel")
+                case .year, .garage:
                    break
-                case .garage:
-                    break
+                case .roomsNumber:
+                    header.setupUI(text: "Number of rooms", imageName: "door.right.hand.open")
                 }
                 
                 return header
