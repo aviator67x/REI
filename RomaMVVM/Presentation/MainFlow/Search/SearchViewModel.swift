@@ -79,7 +79,16 @@ final class SearchViewModel: BaseViewModel {
                     .roomsNumber("+5")])
         }()
         
+        let typeSection: SearchCollection = {
+            SearchCollection(
+                sections: .type,
+                items: [
+                .type("appartment"),
+                .type("house"),
+                .type("land")])
+        }()
+        
 
-        sections = [segmentControlSection, distanceSection, priceSection, squareSection, roomsNumberSection, yearSection,  garageSection]
+        sections = [segmentControlSection, distanceSection, priceSection, typeSection, squareSection, roomsNumberSection, yearSection, garageSection]
     }
 }
