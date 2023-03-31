@@ -12,15 +12,18 @@ import KeychainAccess
 enum UserServiceError: Error {
     case userDefaults
     case tokenStorage
+    case networking(NetworkError)
 }
 
 protocol UserService {
+    var user: UserDomainModel? { get }
     var userPublisher: AnyPublisher<UserDomainModel?, Never> { get }
     var isAuthorized: Bool { get }
     var token: String? { get }
 
     func logOut(token: String) -> AnyPublisher<Void, NetworkError>
     func logOut()
+    func logoutCorrect() -> AnyPublisher<Void, UserServiceError>
     func save(user: UserDomainModel)
     func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError>
     func getUser() -> UserDomainModel?
@@ -41,6 +44,10 @@ final class UserServiceImpl: UserService {
     private let keychain: Keychain
     private let userNetworkService: UserNetworkService
     private let userDefaults = UserDefaults.standard
+    
+    var user: UserDomainModel? {
+        userValueSubject.value
+    }
 
     var isAuthorized: Bool {
         tokenStorageService.getAccessToken() != nil
@@ -69,6 +76,27 @@ final class UserServiceImpl: UserService {
         clearAccessToken()
         userDefaults.removeObject(forKey: Keys.user)
     }
+    
+    func logoutCorrect() -> AnyPublisher<Void, UserServiceError> {
+        guard let token = tokenStorageService.getAccessToken() else {
+            return Fail(error: UserServiceError.tokenStorage).eraseToAnyPublisher()
+            
+        }
+        return userNetworkService.logOut(token: token)
+            .mapError { UserServiceError.networking($0) }
+            .handleEvents(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    // this will remove user from storage
+                    self?.clearAccessToken()
+                    self?.userDefaults.removeObject(forKey: Keys.user)
+                    debugPrint("DATA REMOVED")
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                }
+            })
+            .eraseToAnyPublisher()
+    }
 
     func save(user: UserDomainModel) {
         userDefaults.encode(data: user, key: Keys.user)
@@ -82,7 +110,8 @@ final class UserServiceImpl: UserService {
     func getUser() -> UserDomainModel? {
         guard let savedUser = userDefaults.object(forKey: Keys.user) as? Data,
               let user = userDefaults.decode(type: UserDomainModel.self, data: savedUser)
-        else { return nil
+        else {
+            return nil
         }
         return user
     }
@@ -99,7 +128,7 @@ final class UserServiceImpl: UserService {
         tokenStorageService.clearAccessToken()
     }
 
-    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {//AnyPublisher<[String: String], NetworkError> {
+    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {
         let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
 
         return userNetworkService.saveAvatar(image: multipartItems)

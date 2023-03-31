@@ -16,7 +16,7 @@ struct SignInResponse: Decodable {
     let id: String
     let name: String
     let email: String
-    let imageURL: URL
+    let imageURL: URL?
     let accessToken: String
 
     enum CodingKeys: String, CodingKey {

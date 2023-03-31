@@ -12,42 +12,11 @@ enum ProfileViewAction {
     case selectedItem(ProfileItem)
 }
 
-struct UserDataCellModel: Hashable {
-    let name: String
-    let email: String
-    let image: ImageResource
-}
-
-enum ProfileSection: Hashable {
-    case userData
-    case details
-    case button
-}
-
-enum ProfileItem: Hashable {
-    case userData(UserDataCellModel)
-    case plain(String)
-    case button
-}
-
 final class ProfileView: BaseView {
     var dataSource: UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>?
 
-
     // MARK: - Subviews
-    private lazy var collectionView: UICollectionView = {
-        let sectionProvider =
-            { [weak self] (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-                var section: NSCollectionLayoutSection
-                var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-                section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
-                return section
-            }
-        let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-
-        return collection
-    }()
+    private lazy var collectionView: UICollectionView = createCollectionView()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<ProfileViewAction, Never>()
@@ -61,6 +30,20 @@ final class ProfileView: BaseView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func createCollectionView() -> UICollectionView {
+        let sectionProvider =
+        { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            var section: NSCollectionLayoutSection
+            var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
+            return section
+        }
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        return collection
     }
 
     private func initialSetup() {

@@ -82,16 +82,19 @@ final class SignUpView: BaseView {
 
     private func setupUI() {
         backgroundColor = .white
-        backgroundView.image = UIImage(named: "launchBackground")
+        backgroundView.image = Assets.launchBackground.image// UIImage(named: "launchBackground")
         logoView.image = UIImage(named: "loggogo")
         nameTextField.placeholder = Localization.name
-        nameTextField.text = "Bluberry"
         emailTextField.placeholder = Localization.email
-        emailTextField.text = "bluberry@mail.co"
         passwordTextField.placeholder = Localization.password
-        passwordTextField.text = "Tasty@123"
         confirmPasswordTextField.placeholder = Localization.confirmPassword
+        
+        #if DEBUG
+        nameTextField.text = "Bluberry"
+        emailTextField.text = "bluberry@mail.co"
+        passwordTextField.text = "Tasty@123"
         confirmPasswordTextField.text = "Tasty@123"
+        #endif
 
         [nameTextField, emailTextField, passwordTextField, confirmPasswordTextField].forEach {
             $0.borderStyle = .roundedRect
@@ -99,7 +102,7 @@ final class SignUpView: BaseView {
         }
         
         [nameErrorMessageLabel, emailErrorMessageLabel, passwordErrorMessageLabel].forEach { item in
-            item.font = UIFont(name: "SFProText-Regular", size: 13)
+            item.font = FontFamily.SFProText.regular.font(size: 13)// UIFont(name: "SFProText-Regular", size: 13)
             item.textColor = UIColor(named: "error")
             item.numberOfLines = 0
         }

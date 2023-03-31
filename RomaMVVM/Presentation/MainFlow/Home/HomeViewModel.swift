@@ -56,36 +56,43 @@ extension HomeViewModel {
     }
     
     func logOut() {
-        guard let token = userService.token else {
-            return
-        }
-        userService.logOut(token: token)
+        isLoadingSubject.send(true)
+        userService.logoutCorrect()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.transitionSubject.send(.logout)
-                case let .failure(error):
-                    debugPrint(error.localizedDescription)
-                    self?.errorSubject.send(error)
+            .print("logout viewmodel")
+            .sink { [unowned self] completion in
+                isLoadingSubject.send(false)
+                if case .failure(let error) = completion {
+                    errorSubject.send(error)
                 }
-            } receiveValue: { _ in
-                self.userService.logOut()
-                self.transitionSubject.send(.logout)
-                self.transitionSubject.send(completion: .finished)
+            } receiveValue: { [unowned self] _ in
+                transitionSubject.send(.logout)
             }
             .store(in: &cancellables)
+
+//        guard let token = userService.token else {
+//            return
+//        }
+//        userService.logOut(token: token)
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] completion in
+//                switch completion {
+//                case .finished:
+//                    self?.transitionSubject.send(.logout)
+//                case let .failure(error):
+//                    debugPrint(error.localizedDescription)
+//                    self?.errorSubject.send(error)
+//                }
+//            } receiveValue: { _ in
+//                self.userService.logOut()
+//                self.transitionSubject.send(.logout)
+//                self.transitionSubject.send(completion: .finished)
+//            }
+//            .store(in: &cancellables)
     }
 
 
     func updateUniversalImageSubject(with resource: ImageResource) {
-        switch resource {
-        case let .imageURL(url):
-            universalImageSubject.value = .imageURL(url)
-        case let .imageData(data):
-            universalImageSubject.value = .imageData(data)
-        case let .imageAsset(imageAsset):
-            universalImageSubject.value = .imageAsset(imageAsset)
-        }
+        universalImageSubject.value = resource
     }
 }

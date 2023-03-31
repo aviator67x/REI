@@ -7,11 +7,7 @@
 
 import Combine
 import Foundation
-
-struct ProfileCollection {
-    var section: ProfileSection
-    var items: [ProfileItem]
-}
+import Kingfisher
 
 final class ProfileViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -29,6 +25,8 @@ final class ProfileViewModel: BaseViewModel {
     private let userService: UserService
 
     @Published private(set) var sections: [ProfileCollection] = []
+    
+    private var uploadingImageData: Data?
 
     init(userService: UserService) {
         self.userService = userService
@@ -47,12 +45,20 @@ final class ProfileViewModel: BaseViewModel {
                     return
                 }
                 let userDataSection: ProfileCollection = {
-                    let userDataCellModel = UserDataCellModel(
-                        name: user.name,
-                        email: user.email,
-                        image: .imageURL(user.imageURL)
-                    )
-
+                    let userDataCellModel: UserDataCellModel
+                    if let uploadingImageData = uploadingImageData {
+                        userDataCellModel = UserDataCellModel(
+                            name: user.name,
+                            email: user.email,
+                            image: .imageData(uploadingImageData)
+                        )
+                    } else {
+                        userDataCellModel = UserDataCellModel(
+                            name: user.name,
+                            email: user.email,
+                            image: .imageURL(user.imageURL)
+                        )
+                    }
                     return ProfileCollection(section: .userData, items: [.userData(userDataCellModel)])
                 }()
 
@@ -76,9 +82,13 @@ final class ProfileViewModel: BaseViewModel {
     }
 
     func saveAvatar(avatar: Data) {
+        uploadingImageData = avatar
+        updateDataSource()
+        isLoadingSubject.send(true)
         userService.saveAvatar(image: avatar)
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] completion in
+                isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
                     print("Avatar has been saved")
@@ -95,15 +105,21 @@ final class ProfileViewModel: BaseViewModel {
                     imageURL: imageURL,
                     id: userId
                 )
+                KingfisherManager.shared.retrieveImage(
+                    with: Kingfisher.ImageResource(downloadURL: URL(string: imageURL)!),
+                    options: [.cacheOriginalImage],
+                    completionHandler: nil)
                 update(user: updateUserRequestModel)
             }
             .store(in: &cancellables)
     }
 
     private func update(user: UpdateUserRequestModel) {
+        isLoadingSubject.send(true)
         userService.update(user: user)
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] completion in
+                isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
                     print("User has been updated")
