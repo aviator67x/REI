@@ -11,7 +11,7 @@ import UIKit
 final class TypeCell: UICollectionViewListCell {
     static let reusedidentifier = String(String(describing: TypeCell.self))
     
-    private let typeButton = UIButton()
+    private let typeLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,14 +26,14 @@ final class TypeCell: UICollectionViewListCell {
     }
 
     private func setupUI() {
-        typeButton.backgroundColor = .secondarySystemBackground
-        typeButton.bordered(width: 1, color: .lightGray)
-        typeButton.layer.cornerRadius = 6
-        typeButton.setTitleColor(.black, for: .normal)
+        typeLabel.backgroundColor = .secondarySystemBackground
+        typeLabel.bordered(width: 1, color: .lightGray)
+        typeLabel.layer.cornerRadius = 6
+        typeLabel.textAlignment = .center
     }
 
     private func setupLayout() {
-        contentView.addSubview(typeButton) {
+        contentView.addSubview(typeLabel) {
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview().inset(3)
             $0.width.equalTo(100)
@@ -43,7 +43,7 @@ final class TypeCell: UICollectionViewListCell {
     private func setupBinding() {}
 
     func setupCell(with title: String) {
-        typeButton.setTitle(title, for: .normal)
+        typeLabel.text = title
     }
 }
 

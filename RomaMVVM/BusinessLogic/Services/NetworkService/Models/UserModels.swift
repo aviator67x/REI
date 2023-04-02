@@ -24,3 +24,11 @@ struct UpdateUserResponseModel: Decodable {
         case id = "ownerId"
     }
 }
+
+struct UpdateAvatarResponceModel: Decodable {
+    let imageURL: String
+    
+    enum CodingKeys: String, CodingKey {
+        case imageURL = "fileURL"
+    }
+}

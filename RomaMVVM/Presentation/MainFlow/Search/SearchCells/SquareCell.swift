@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 final class SquareCell: UICollectionViewListCell {
     static let reusedidentifier = String(String(describing: SquareCell.self))
@@ -15,6 +16,8 @@ final class SquareCell: UICollectionViewListCell {
     private let minTextField = UITextField()
     private let maxTextField = UITextField()
     private let middleLabel = UILabel()
+    
+    private var cancellables = Set<AnyCancellable>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +29,11 @@ final class SquareCell: UICollectionViewListCell {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cancellables = []
     }
 
     private func setupUI() {
@@ -67,5 +75,13 @@ final class SquareCell: UICollectionViewListCell {
 
     private func setupBinding() {}
 
-    func setupCell(with price: Int) {}
+    func setupCell(with model: SquareCellModel) {
+        minTextField.textPublisher
+            .assign(to: \.value, on: model.minSquare)
+            .store(in: &cancellables)
+        
+        maxTextField.textPublisher
+            .assign(to: \.value, on: model.maxSquare)
+            .store(in: &cancellables)
+    }
 }

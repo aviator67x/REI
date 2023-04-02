@@ -6,29 +6,81 @@
 //
 
 import Combine
-
-struct SearchCollection {
-    let sections: SearchSection
-    let items: [SearchItem]
-}
+import Foundation
 
 final class SearchViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SearchTransition, Never>()
-
+    
     @Published var screenConfiguration = 0
     @Published private(set) var sections: [SearchCollection] = []
-
+    
+    private lazy var minPriceSubject = CurrentValueSubject<String?, Never>(nil)
+    private lazy var maxPriceSubject = CurrentValueSubject<String?, Never>(nil)
+    private lazy var minSquareSubject = CurrentValueSubject<String?, Never>(nil)
+    private lazy var maxSquareSubject = CurrentValueSubject<String?, Never>(nil)
+    
+    private var searchRequest = SearchRequestModel()
+    
     override init() {
         super.init()
+        setupBinding()
     }
-
+    
     override func onViewDidLoad() {
         updateDataSource()
     }
-
+    
+    func setupBinding() {
+        minPriceSubject
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, price) in
+                self.searchRequest.minPrice = price
+            })
+            .store(in: &cancellables)
+        
+        maxPriceSubject
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, price) in
+                self.searchRequest.maxPrice
+                 = price
+            })
+            .store(in: &cancellables)
+        
+        minSquareSubject
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, square) in
+                self.searchRequest.minSquare = square
+                print(square)
+            })
+            .store(in: &cancellables)
+        
+        maxSquareSubject
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, square) in
+                self.searchRequest.maxSquare = square
+                print(square)
+            })
+            .store(in: &cancellables)
+    }
+    
     func configureScreen(for index: Int) {
         screenConfiguration = index
+    }
+
+    func updateDistance(_ distance: String) {
+        print(distance)
+        searchRequest.distance = distance
+    }
+
+    func updateType(_ type: String) {
+        searchRequest.propertyType = type
+        print(type)
+    }
+
+    func updateNumberOfRooms(_ number: String) {
+        searchRequest.roomsNumber = number
+        print(number)
     }
 
     private func updateDataSource() {
@@ -53,21 +105,23 @@ final class SearchViewModel: BaseViewModel {
         }()
 
         let priceSection: SearchCollection = {
-            SearchCollection(sections: .price, items: [.price])
+            let model = PriceCellModel(minPrice: minPriceSubject, maxPrice: maxPriceSubject)
+            return SearchCollection(sections: .price, items: [.price(model: model)])
         }()
 
         let yearSection: SearchCollection = {
             SearchCollection(sections: .year, items: [.year])
         }()
-        
+
         let squareSection: SearchCollection = {
-            SearchCollection(sections: .square, items: [.square])
+            let model = SquareCellModel(minSquare: minSquareSubject, maxSquare: maxSquareSubject)
+            return SearchCollection(sections: .square, items: [.square(model: model)])
         }()
 
         let garageSection: SearchCollection = {
             SearchCollection(sections: .garage, items: [.garage])
         }()
-        
+
         let roomsNumberSection: SearchCollection = {
             SearchCollection(
                 sections: .roomsNumber,
@@ -76,19 +130,31 @@ final class SearchViewModel: BaseViewModel {
                     .roomsNumber("+2"),
                     .roomsNumber("+3"),
                     .roomsNumber("+4"),
-                    .roomsNumber("+5")])
+                    .roomsNumber("+5"),
+                ]
+            )
         }()
-        
+
         let typeSection: SearchCollection = {
             SearchCollection(
                 sections: .type,
                 items: [
-                .type("appartment"),
-                .type("house"),
-                .type("land")])
+                    .type("appartment"),
+                    .type("house"),
+                    .type("land"),
+                ]
+            )
         }()
-        
 
-        sections = [segmentControlSection, distanceSection, priceSection, typeSection, squareSection, roomsNumberSection, yearSection, garageSection]
+        sections = [
+            segmentControlSection,
+            distanceSection,
+            priceSection,
+            typeSection,
+            squareSection,
+            roomsNumberSection,
+            yearSection,
+            garageSection,
+        ]
     }
 }

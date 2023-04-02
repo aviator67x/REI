@@ -10,30 +10,10 @@ import Foundation
 import UIKit
 
 enum SearchViewAction {
-//    case minPrice(String)
+    case selectedItem(SearchItem)
+    case segmentControl(Int)
 }
 
-enum SearchSection: Hashable, CaseIterable {
-    case segmentControl
-    case distance
-    case price
-    case type
-    case square
-    case roomsNumber
-    case year
-    case garage
-}
-
-enum SearchItem: Hashable {
-    case segmentControl
-    case distance(String)
-    case price
-    case type(String)
-    case square
-    case roomsNumber(String)
-    case year
-    case garage
-}
 
 final class SearchView: BaseView {
     var dataSource: UICollectionViewDiffableDataSource<SearchSection, SearchItem>?
@@ -209,7 +189,16 @@ final class SearchView: BaseView {
         bindActions()
     }
 
-    private func bindActions() {}
+    private func bindActions() {
+        collection.didSelectItemPublisher
+            .compactMap { self.dataSource?.itemIdentifier(for: $0)}
+            .map { SearchViewAction.selectedItem($0)}
+            .sink { [unowned self] in
+                actionSubject.send($0)
+                print($0)
+            }
+            .store(in: &cancellables)
+    }
 
     private func setupUI() {}
 
@@ -275,7 +264,11 @@ extension SearchView {
                         withReuseIdentifier: SegmentControlCell.reusedidentifier,
                         for: indexPath
                     ) as? SegmentControlCell else { return UICollectionViewCell() }
-
+                    cell.segmentPublisher
+                        .sinkWeakly(self, receiveValue: { (self, value) in
+                            self.actionSubject.send(.segmentControl(value))
+                        })
+                        .store(in: &cancellables)
                     return cell
                 case let .distance(km):
                     guard let cell = collection.dequeueReusableCell(
@@ -285,11 +278,12 @@ extension SearchView {
                     cell.setupCell(with: km)
 
                     return cell
-                case .price:
+                case .price(var model):
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: PriceCell.reusedidentifier,
                         for: indexPath
                     ) as? PriceCell else { return UICollectionViewCell() }
+                    cell.setupCell(with: model)
 
                     return cell
                 case let .type(title):
@@ -323,11 +317,12 @@ extension SearchView {
                     )
                     cell.setupCell(model: model)
                     return cell
-                case .square:
+                case .square(let model):
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: SquareCell.reusedidentifier,
                         for: indexPath
                     ) as? SquareCell else { return UICollectionViewCell() }
+                    cell.setupCell(with: model)
 
                     return cell
                 case let .roomsNumber(title):

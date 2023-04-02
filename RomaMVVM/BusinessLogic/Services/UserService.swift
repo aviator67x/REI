@@ -27,10 +27,7 @@ protocol UserService {
     func saveAccessToken(token: String)
     func getAccessToken() -> String?
     func clearAccessToken()
-    func saveAvatar(image: Data) -> AnyPublisher<[String: String], NetworkError>
-    func saveObjectToKeychain(_ object: String, forKey: String)
-    func getObjectFromKeychain(forKey: String) -> String?
-    func clearObjectInKeychain(forKey: String)
+    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError>
 }
 
 final class UserServiceImpl: UserService {
@@ -38,7 +35,7 @@ final class UserServiceImpl: UserService {
     private(set) lazy var userPublisher = userValueSubject.eraseToAnyPublisher()
 
     private let tokenStorageService: TokenStorageService
-    private let keychain: Keychain
+    private let keychainService: KeychainService
     private let userNetworkService: UserNetworkService
     private let userDefaults = UserDefaults.standard
 
@@ -50,9 +47,9 @@ final class UserServiceImpl: UserService {
         tokenStorageService.getAccessToken()
     }
 
-    init(tokenStorageService: TokenStorageService, userNetworkService: UserNetworkService) {
+    init(tokenStorageService: TokenStorageService, userNetworkService: UserNetworkService, keychainService: KeychainService) {
         self.tokenStorageService = tokenStorageService
-        self.keychain = tokenStorageService.keychain
+        self.keychainService = keychainService
         self.userNetworkService = userNetworkService
         startUserValueSubject()
     }
@@ -99,26 +96,10 @@ final class UserServiceImpl: UserService {
         tokenStorageService.clearAccessToken()
     }
 
-    func saveAvatar(image: Data) -> AnyPublisher<[String: String], NetworkError> {
+    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {
         let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
 
         return userNetworkService.saveAvatar(image: multipartItems)
-    }
-
-    func saveObjectToKeychain(_ object: String, forKey: String) {
-        keychain[forKey] = object
-    }
-
-    func getObjectFromKeychain(forKey: String) -> String? {
-        return keychain[forKey]
-    }
-
-    func clearObjectInKeychain(forKey: String) {
-        do {
-            try keychain.remove(forKey)
-        } catch {
-            print(error.localizedDescription)
-        }
     }
 }
 

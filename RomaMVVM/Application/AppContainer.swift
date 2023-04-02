@@ -15,6 +15,7 @@ protocol AppContainer: AnyObject {
     var userNetworkService: UserNetworkService { get }
     var appSettingsService: AppSettingsService { get }
     var tokenStorageService: TokenStorageService { get }
+    var keychainService: KeychainService { get }
     var propertyNetworkService: PropertyNetworkService { get }
 }
 
@@ -25,6 +26,7 @@ final class AppContainerImpl: AppContainer {
     let userService: UserService
     let appSettingsService: AppSettingsService
     let tokenStorageService: TokenStorageService
+    var keychainService: KeychainService
     let propertyNetworkService: PropertyNetworkService
 
     init() {
@@ -62,9 +64,11 @@ final class AppContainerImpl: AppContainer {
         self.propertyNetworkService = propertyNetworkService
 
         self.tokenStorageService = TokenStorageServiceImpl(configuration: appConfiguration)
+        self.keychainService = KeychainService()
         let userService = UserServiceImpl(
             tokenStorageService: tokenStorageService,
-            userNetworkService: userNetworkService
+            userNetworkService: userNetworkService,
+            keychainService: keychainService
         )
         self.userService = userService
 

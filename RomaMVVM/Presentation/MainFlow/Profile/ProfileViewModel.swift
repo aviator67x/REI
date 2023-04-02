@@ -90,7 +90,7 @@ final class ProfileViewModel: BaseViewModel {
                     print(error.errorDescription ?? "")
                 }
             } receiveValue: { [unowned self] avatarUrlDict in
-                let imageURL = avatarUrlDict["fileURL"] ?? ""
+                let imageURL = avatarUrlDict.imageURL
                 let userId = userService.getUser()?.id ?? ""
                 let updateUserRequestModel = UpdateUserRequestModel(imageURL: imageURL, id: userId)
                 update(user: updateUserRequestModel)

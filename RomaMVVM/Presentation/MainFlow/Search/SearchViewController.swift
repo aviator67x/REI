@@ -54,8 +54,31 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
-
-                switch action {}
+                switch action {
+                case .selectedItem(let item):
+                    switch item {                        
+                    case .segmentControl:
+                       break
+                    case .distance(let distance):
+                        viewModel.updateDistance(distance)
+                    case .price:
+                        break
+                    case .type(let type):
+                        viewModel.updateType(type)
+                    case .square:
+                        break
+                    case .roomsNumber(let number):
+                        viewModel.updateNumberOfRooms(number)
+                    case .year:
+                        break
+                    case .garage:
+                        break
+                    }
+                case .segmentControl(let index):
+                    viewModel.configureScreen(for: index)
+//                case .minTextDidChange(let text):
+//                    viewModel.updateMinPrice(text)
+                }
             }
             .store(in: &cancellables)
 

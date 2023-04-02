@@ -11,7 +11,7 @@ import UIKit
 final class RoomsNumberCell: UICollectionViewListCell {
     static let reusedidentifier = String(String(describing: RoomsNumberCell.self))
     
-    private let roomsNumberButton = UIButton()
+    private let roomsNumberLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,14 +26,14 @@ final class RoomsNumberCell: UICollectionViewListCell {
     }
 
     private func setupUI() {
-        roomsNumberButton.backgroundColor = .secondarySystemBackground
-        roomsNumberButton.bordered(width: 1, color: .lightGray)
-        roomsNumberButton.layer.cornerRadius = 6
-        roomsNumberButton.setTitleColor(.black, for: .normal)
+        roomsNumberLabel.backgroundColor = .secondarySystemBackground
+        roomsNumberLabel.bordered(width: 1, color: .lightGray)
+        roomsNumberLabel.layer.cornerRadius = 6
+        roomsNumberLabel.textAlignment = .center
     }
 
     private func setupLayout() {
-        contentView.addSubview(roomsNumberButton) {
+        contentView.addSubview(roomsNumberLabel) {
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview().inset(3)
             $0.width.equalTo(60)
@@ -43,6 +43,6 @@ final class RoomsNumberCell: UICollectionViewListCell {
     private func setupBinding() {}
 
     func setupCell(with title: String) {
-        roomsNumberButton.setTitle(title, for: .normal)
+        roomsNumberLabel.text = title
     }
 }

@@ -7,33 +7,48 @@
 
 import Foundation
 import UIKit
+import Combine
 
 final class SegmentControlCell: UICollectionViewCell {
     static let reusedidentifier = String(String(describing: SegmentControlCell.self))
 
-    let segmentControl = UISegmentedControl()
+    private let segmentControl = UISegmentedControl()
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    private(set) lazy var segmentPublisher = segmentSubject.eraseToAnyPublisher()
+    private lazy var segmentSubject = PassthroughSubject<Int, Never>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemTeal
         setupLayout()
         setupUI()
+        setupBinding()
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func setupBinding() {
+        segmentControl.selectedSegmentIndexPublisher
+            .sinkWeakly(self, receiveValue: { (self, value) in
+                print(value)
+            })
+            .store(in: &cancellables)
+    }
 
     private func setupUI() {
-        segmentControl.backgroundColor = .groupTableViewBackground
-        segmentControl.insertSegment(withTitle: "Photo", at: 0, animated: true)
-        segmentControl.insertSegment(withTitle: "List", at: 1, animated: true)
-        segmentControl.insertSegment(withTitle: "Map", at: 2, animated: true)
+        segmentControl.backgroundColor = .systemBackground
+        segmentControl.insertSegment(withTitle: "Buy", at: 0, animated: true)
+        segmentControl.insertSegment(withTitle: "Rent", at: 1, animated: true)
+        segmentControl.insertSegment(withTitle: "New built", at: 2, animated: true)
         segmentControl.sizeToFit()
         segmentControl.selectedSegmentIndex = 0
         segmentControl.setTitleTextAttributes(
-            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)],
+            [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)],
             for: .normal
         )
     }

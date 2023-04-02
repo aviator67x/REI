@@ -7,14 +7,17 @@
 
 import Foundation
 import UIKit
+import Combine
 
 final class PriceCell: UICollectionViewCell {
     static let reusedidentifier = String(String(describing: PriceCell.self))
     
     private let stack = UIStackView()
-    private let minTextField = UITextField()
+    private(set) var minTextField = UITextField()
     private let maxTextField = UITextField()
     private let middleLabel = UILabel()
+    
+    private var cancellables = Set<AnyCancellable>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,6 +29,11 @@ final class PriceCell: UICollectionViewCell {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cancellables = []
     }
 
     private func setupUI() {
@@ -65,8 +73,16 @@ final class PriceCell: UICollectionViewCell {
         stack.addArrangedSubviews([minTextField, middleLabel, maxTextField])
     }
 
-    private func setupBinding() {}
+    private func setupBinding() {
+    }
 
-    func setupCell(with price: Int) {}
+    func setupCell(with model: PriceCellModel) {
+       minTextField.textPublisher
+            .assignWeakly(to: \.value, on: model.minPrice)
+            .store(in: &cancellables)
+        maxTextField.textPublisher
+            .assignWeakly(to: \.value, on: model.maxPrice)
+            .store(in: &cancellables)
+    }
 }
 

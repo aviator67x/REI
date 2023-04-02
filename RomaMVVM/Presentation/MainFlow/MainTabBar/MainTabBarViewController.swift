@@ -23,8 +23,6 @@ final class MainTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tabBar.barTintColor = .white
-//        tabBar.isTranslucent = false
         viewControllers?.enumerated().reversed().forEach({ [unowned self] (ind, _) in
             selectedIndex = ind
         })

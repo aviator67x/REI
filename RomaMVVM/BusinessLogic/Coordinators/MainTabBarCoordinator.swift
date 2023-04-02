@@ -37,8 +37,8 @@ final class MainTabBarCoordinator: Coordinator {
         let navController = UINavigationController()
         navController.tabBarItem = .init(
             title: Localization.home,
-            image: UIImage(systemName: "house"),
-            selectedImage: UIImage(systemName: "house.fill")
+            image: UIImage(systemName: "magnifyingglass"),
+            selectedImage: UIImage(systemName: "magnifyingglass.circle")
         )
         let coordinator = HomeCoordinator(navigationController: navController, container: container)
         childCoordinators.append(coordinator)

@@ -11,7 +11,7 @@ import UIKit
 final class DistanceCell: UICollectionViewCell {
     static let reusedidentifier = String(String(describing: DistanceCell.self))
 
-    private let distanceButton = UIButton()
+    private let distanceLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,14 +26,14 @@ final class DistanceCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-        distanceButton.backgroundColor = .secondarySystemBackground
-        distanceButton.bordered(width: 1, color: .lightGray)
-        distanceButton.layer.cornerRadius = 6
-        distanceButton.setTitleColor(.black, for: .normal)
+        distanceLabel.backgroundColor = .secondarySystemBackground
+        distanceLabel.bordered(width: 1, color: .lightGray)
+        distanceLabel.layer.cornerRadius = 6
+        distanceLabel.textAlignment = .center
     }
 
     private func setupLayout() {
-        contentView.addSubview(distanceButton) {
+        contentView.addSubview(distanceLabel) {
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview().inset(3)
             $0.width.equalTo(60)
@@ -43,6 +43,6 @@ final class DistanceCell: UICollectionViewCell {
     private func setupBinding() {}
 
     func setupCell(with km: String) {
-        distanceButton.setTitle(km, for: .normal)
+        distanceLabel.text = km
     }
 }
