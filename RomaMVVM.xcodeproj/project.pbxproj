@@ -77,6 +77,11 @@
 		CE0E27C329D43D8F001EDFCD /* TypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27C229D43D8E001EDFCD /* TypeCell.swift */; };
 		CE0E27C529D43DC4001EDFCD /* SquareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27C429D43DC4001EDFCD /* SquareCell.swift */; };
 		CE0E27C729D43DE9001EDFCD /* RoomsNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27C629D43DE9001EDFCD /* RoomsNumberCell.swift */; };
+		CE13E3AB29DAFE5600B948C9 /* ConstructionYearModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3A729DAFE5600B948C9 /* ConstructionYearModuleBuilder.swift */; };
+		CE13E3AC29DAFE5600B948C9 /* ConstructionYearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3A829DAFE5600B948C9 /* ConstructionYearViewController.swift */; };
+		CE13E3AD29DAFE5600B948C9 /* ConstructionYearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3A929DAFE5600B948C9 /* ConstructionYearView.swift */; };
+		CE13E3AE29DAFE5600B948C9 /* ConstructionYearViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3AA29DAFE5600B948C9 /* ConstructionYearViewModel.swift */; };
+		CE13E3B929DB195B00B948C9 /* YearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3B829DB195B00B948C9 /* YearCell.swift */; };
 		CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FE929BC9CEA0042C2F8 /* Array.swift */; };
 		CE4E7FEC29BDDDEA0042C2F8 /* CollectionViewCellModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FEB29BDDDEA0042C2F8 /* CollectionViewCellModels.swift */; };
 		CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */; };
@@ -252,6 +257,11 @@
 		CE0E27C229D43D8E001EDFCD /* TypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCell.swift; sourceTree = "<group>"; };
 		CE0E27C429D43DC4001EDFCD /* SquareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareCell.swift; sourceTree = "<group>"; };
 		CE0E27C629D43DE9001EDFCD /* RoomsNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsNumberCell.swift; sourceTree = "<group>"; };
+		CE13E3A729DAFE5600B948C9 /* ConstructionYearModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionYearModuleBuilder.swift; sourceTree = "<group>"; };
+		CE13E3A829DAFE5600B948C9 /* ConstructionYearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionYearViewController.swift; sourceTree = "<group>"; };
+		CE13E3A929DAFE5600B948C9 /* ConstructionYearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionYearView.swift; sourceTree = "<group>"; };
+		CE13E3AA29DAFE5600B948C9 /* ConstructionYearViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionYearViewModel.swift; sourceTree = "<group>"; };
+		CE13E3B829DB195B00B948C9 /* YearCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCell.swift; sourceTree = "<group>"; };
 		CE4E7FE929BC9CEA0042C2F8 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		CE4E7FEB29BDDDEA0042C2F8 /* CollectionViewCellModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellModels.swift; sourceTree = "<group>"; };
 		CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
@@ -640,12 +650,12 @@
 		CCA876F88893001B36189960 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				744F123229D6DD670015A4D3 /* Subviews */,
 				3692E04E2CE427CDCB9FC4B2 /* SettingsModuleBuilder.swift */,
 				09D54B0D2668984CC055A531 /* SettingsView.swift */,
 				3747AD710A21D0546EAA6DFE /* SettingsViewController.swift */,
 				9F63E4604E2232035B0BC622 /* SettingsViewModel.swift */,
 				CE9430C329C3121900FFB94C /* SettingsCollectionCells.swift */,
+				744F123229D6DD670015A4D3 /* Subviews */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -658,12 +668,12 @@
 				CE0E27AD29CE1DA9001EDFCD /* SearchView.swift */,
 				CE0E27AE29CE1DA9001EDFCD /* SearchViewModel.swift */,
 				CEDDF29C29D6F9FC003BF639 /* Models */,
-				CE0E27B529D43B4F001EDFCD /* SearchCells */,
+				CE0E27B529D43B4F001EDFCD /* Subviews */,
 			);
 			path = Search;
 			sourceTree = "<group>";
 		};
-		CE0E27B529D43B4F001EDFCD /* SearchCells */ = {
+		CE0E27B529D43B4F001EDFCD /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
 				CE0E27B629D43B96001EDFCD /* SegmentControlCell.swift */,
@@ -676,18 +686,38 @@
 				CE0E27C429D43DC4001EDFCD /* SquareCell.swift */,
 				CE0E27C629D43DE9001EDFCD /* RoomsNumberCell.swift */,
 			);
-			path = SearchCells;
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		CE13E3A629DAFDE100B948C9 /* ConstructionYear */ = {
+			isa = PBXGroup;
+			children = (
+				CE13E3A729DAFE5600B948C9 /* ConstructionYearModuleBuilder.swift */,
+				CE13E3A829DAFE5600B948C9 /* ConstructionYearViewController.swift */,
+				CE13E3A929DAFE5600B948C9 /* ConstructionYearView.swift */,
+				CE13E3AA29DAFE5600B948C9 /* ConstructionYearViewModel.swift */,
+				CE13E3AF29DB18DC00B948C9 /* Subviews */,
+			);
+			path = ConstructionYear;
+			sourceTree = "<group>";
+		};
+		CE13E3AF29DB18DC00B948C9 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				CE13E3B829DB195B00B948C9 /* YearCell.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		CE9430C729C8732E00FFB94C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				744F122F29D6DC860015A4D3 /* Subviews */,
-				744F122E29D6DC7D0015A4D3 /* Models */,
 				CE9430C829C8736400FFB94C /* ProfileModuleBuilder.swift */,
 				CE9430C929C8736400FFB94C /* ProfileViewController.swift */,
 				CE9430CA29C8736400FFB94C /* ProfileView.swift */,
 				CE9430CB29C8736400FFB94C /* ProfileViewModel.swift */,
+				744F122F29D6DC860015A4D3 /* Subviews */,
+				744F122E29D6DC7D0015A4D3 /* Models */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -837,7 +867,6 @@
 		CEAEB9F229AD0BA5005BBF50 /* MainFlow */ = {
 			isa = PBXGroup;
 			children = (
-				CE0E27A129CE1C2A001EDFCD /* Search */,
 				CE9430D029C8870F00FFB94C /* Terms */,
 				5B5C3AE1BF141B5158BBB0E9 /* MainTabBar */,
 				76E8843FA342597467112D6C /* Home */,
@@ -845,9 +874,7 @@
 				CE9430C729C8732E00FFB94C /* Profile */,
 				CE990E5D29C8E77400120D6F /* EditProfile */,
 				CE0E27AA29CE1D90001EDFCD /* Search */,
-				CE990E6F29C8E7E400120D6F /* Birth */,
-				CE990E6629C8E7A500120D6F /* Email */,
-				CE990E7829C8E81300120D6F /* Password */,
+				CE13E3A629DAFDE100B948C9 /* ConstructionYear */,
 				CE9CAF3329B65788007DC31B /* Property */,
 			);
 			path = MainFlow;
@@ -1056,6 +1083,7 @@
 				CEA5F58B298CEBA200B87DD4 /* UISegmentControl.swift in Sources */,
 				08EEB3184A8082B0C0C25EC4 /* AppCoordinator.swift in Sources */,
 				82CC8E4ECAA1B873DDFB95AB /* AppDelegate.swift in Sources */,
+				CE13E3AE29DAFE5600B948C9 /* ConstructionYearViewModel.swift in Sources */,
 				CEAEB9E129AAA49B005BBF50 /* UserModels.swift in Sources */,
 				CE0E27AF29CE1DA9001EDFCD /* SearchModuleBuilder.swift in Sources */,
 				CEA5B72E29B0A2B70038A29C /* Publisher+WithLatestFrom.swift in Sources */,
@@ -1065,16 +1093,17 @@
 				CEAEB9EF29ACA6B1005BBF50 /* PasswordRestoreViewModel.swift in Sources */,
 				3F262958B2CE34CD77EC9A8D /* AppEnvironment.swift in Sources */,
 				CEADC9B32987D61A007A0650 /* Optional+extension.swift in Sources */,
+				CE13E3B929DB195B00B948C9 /* YearCell.swift in Sources */,
 				8EB5C597BDACE86F978D4EDB /* AppSettings.swift in Sources */,
 				70260AA3E13A03EE2B5450FE /* AuthCoordinator.swift in Sources */,
 				CEAE383929BB19680046198A /* SearchQueryBuilder.swift in Sources */,
 				CEA545F3297820A3007F9962 /* ChecmarkView.swift in Sources */,
 				CEAEB9F629AE2609005BBF50 /* Colors.swift in Sources */,
 				CEA545E52977FF04007F9962 /* Creatable.swift in Sources */,
+				CE13E3AB29DAFE5600B948C9 /* ConstructionYearModuleBuilder.swift in Sources */,
 				CE9430C429C3121900FFB94C /* SettingsCollectionCells.swift in Sources */,
 				69FC756CA7A3ECBB0ADBB994 /* AuthPlugin.swift in Sources */,
 				CEA5F5D0299BECE300B87DD4 /* NetworkError.swift in Sources */,
-				CE0E27A729CE1C4E001EDFCD /* SearchViewController.swift in Sources */,
 				CEA5B72C29B0A2650038A29C /* Publisher+Unwrap.swift in Sources */,
 				CEAEB9DC29AA9D58005BBF50 /* UserEndPoint.swift in Sources */,
 				CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */,
@@ -1092,7 +1121,6 @@
 				4E49AFA694CC28CA8EB3D441 /* AxisScrollView.swift in Sources */,
 				5143110F52CB4AE108E6832F /* BaseView.swift in Sources */,
 				CEA545F0297820A3007F9962 /* TextFieldView.swift in Sources */,
-				CE0E27A629CE1C4E001EDFCD /* SearchModuleBuilder.swift in Sources */,
 				CE990E9529CB623100120D6F /* EditProfileViewController.swift in Sources */,
 				CEADC9B5298853E8007A0650 /* BaseButton.swift in Sources */,
 				5085332B1A5B06C8C213ECDB /* BaseViewController.swift in Sources */,
@@ -1138,7 +1166,6 @@
 				744F123129D6DC930015A4D3 /* UserDataCellModel.swift in Sources */,
 				BA4407035F877122802C3D47 /* Localization.swift in Sources */,
 				EDFD24AA92041FD400F9F11D /* MainTabBarCoordinator.swift in Sources */,
-				CE0E27A829CE1C4E001EDFCD /* SearchView.swift in Sources */,
 				936E18287F780641A997D742 /* MainTabBarModuleBuilder.swift in Sources */,
 				CEAEB9F729AE2609005BBF50 /* Assets.swift in Sources */,
 				CEA5B72829B0A1B80038A29C /* Publisher+Sink.swift in Sources */,
@@ -1148,6 +1175,7 @@
 				CE0E27BD29D43CBD001EDFCD /* BackgrounFooterView.swift in Sources */,
 				8B92C57154F6E7BCFE57E7B1 /* Module.swift in Sources */,
 				B355206A6EA2EE9B20C77B89 /* SceneDelegate.swift in Sources */,
+				CE13E3AD29DAFE5600B948C9 /* ConstructionYearView.swift in Sources */,
 				FE1FD4B33EFBF38BB3F20858 /* SettingsCoordinator.swift in Sources */,
 				0F42C83C9EF50CE2D9816660 /* SettingsModuleBuilder.swift in Sources */,
 				CEA545F2297820A3007F9962 /* TextField.swift in Sources */,
@@ -1155,9 +1183,9 @@
 				5E9FA1F198504A7E904ABBCA /* SettingsView.swift in Sources */,
 				CE990E9429CB623100120D6F /* EditProfileModuleBuilder.swift in Sources */,
 				CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */,
-				CE0E27A929CE1C4E001EDFCD /* SearchViewModel.swift in Sources */,
 				03EA4466B3EA6DF4583F862E /* SettingsViewController.swift in Sources */,
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
+				CE13E3AC29DAFE5600B948C9 /* ConstructionYearViewController.swift in Sources */,
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,
 				1F2825C6E85F4B0D9F8DAC85 /* SignInModuleBuilder.swift in Sources */,
 				CEAEB9ED29ACA6B1005BBF50 /* PasswordRestoreViewController.swift in Sources */,

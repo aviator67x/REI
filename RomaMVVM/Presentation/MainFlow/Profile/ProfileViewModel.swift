@@ -34,16 +34,22 @@ final class ProfileViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
-        updateDataSource()
+        trackUser()
     }
-
-    private func updateDataSource() {
+    
+    private func trackUser() {
         userService.userPublisher
             .receive(on: DispatchQueue.main)
-            .sink { [unowned self] user in
+            .sinkWeakly(self, receiveValue: { (self, user) in
                 guard let user = user else {
                     return
                 }
+                self.updateDataSource(user: user)
+            })
+            .store(in: &cancellables)
+    }
+
+    private func updateDataSource(user: UserDomainModel) {
                 let userDataSection: ProfileCollection = {
                     let userDataCellModel: UserDataCellModel
                     if let uploadingImageData = uploadingImageData {
@@ -78,12 +84,10 @@ final class ProfileViewModel: BaseViewModel {
                 }()
                 sections = [userDataSection, detailsSection, buttonSection]
             }
-            .store(in: &cancellables)
-    }
 
     func saveAvatar(avatar: Data) {
         uploadingImageData = avatar
-        updateDataSource()
+        trackUser()
         isLoadingSubject.send(true)
         userService.saveAvatar(image: avatar)
             .receive(on: DispatchQueue.main)
@@ -129,7 +133,7 @@ final class ProfileViewModel: BaseViewModel {
             } receiveValue: { [unowned self] user in
                 let userModel = UserDomainModel(networkModel: user)
                 self.userService.save(user: userModel)
-                updateDataSource()
+                trackUser()
             }
             .store(in: &cancellables)
     }

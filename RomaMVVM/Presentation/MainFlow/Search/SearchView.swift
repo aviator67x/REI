@@ -14,13 +14,29 @@ enum SearchViewAction {
     case segmentControl(Int)
 }
 
-
 final class SearchView: BaseView {
     var dataSource: UICollectionViewDiffableDataSource<SearchSection, SearchItem>?
 
     // MARK: - Subviews
 
-    private lazy var collection: UICollectionView = {
+    private var collection: UICollectionView!
+       
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<SearchViewAction, Never>()
+
+    // MARK: - Life cycle
+    override init(frame: CGRect) {
+        super.init(frame: frame)       
+        collection = createCollection()
+        initialSetup()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func createCollection() -> UICollectionView {
         let sectionProvider =
             { [weak self] (sectionNumber: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection?
@@ -49,20 +65,6 @@ final class SearchView: BaseView {
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collection
-    }()
-
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<SearchViewAction, Never>()
-
-    // MARK: - Life cycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        initialSetup()
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     private func segmentControlSectionLayout() -> NSCollectionLayoutSection {

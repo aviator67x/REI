@@ -35,6 +35,7 @@ final class EditProfileViewController: BaseViewController<EditProfileViewModel> 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Edit Profile"
         setupNavigationButton()
         setupBindings()
     }

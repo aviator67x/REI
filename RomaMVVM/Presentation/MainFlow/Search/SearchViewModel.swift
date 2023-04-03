@@ -82,6 +82,10 @@ final class SearchViewModel: BaseViewModel {
         searchRequest.roomsNumber = number
         print(number)
     }
+    
+    func showYear() {
+        transitionSubject.send(.year(searchRequest))
+    }
 
     private func updateDataSource() {
         let segmentControlSection: SearchCollection = {

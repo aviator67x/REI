@@ -32,10 +32,6 @@ final class SettingsViewModel: BaseViewModel {
         updateDataSource()
     }
 
-    override func onViewWillAppear() {
-        updateDataSource()
-    }
-
     func updateDataSource() {
         userService.userPublisher
             .receive(on: DispatchQueue.main)

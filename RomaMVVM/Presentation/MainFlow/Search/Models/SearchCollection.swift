@@ -35,7 +35,7 @@ enum SearchItem: Hashable {
     case garage
 }
 
-struct SearchRequestModel {
+final class SearchRequestModel {
     var distance: String?
     var propertyType: String?
     var minPrice: String?
@@ -43,6 +43,7 @@ struct SearchRequestModel {
     var roomsNumber: String?
     var minSquare: String?
     var maxSquare: String?
+    var constructionYear: String?
 }
 
 struct PriceCellModel: Hashable {

@@ -31,7 +31,6 @@ protocol UserService {
     func getAccessToken() -> String?
     func clearAccessToken()
     func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError>
-   func clearObjectInKeychain(forKey: String)
 }
 
 final class UserServiceImpl: UserService {

@@ -10,6 +10,7 @@ import Combine
 
 enum SearchTransition: Transition {
     case logout
+    case year(SearchRequestModel)
 }
 
 final class SearchModuleBuilder {

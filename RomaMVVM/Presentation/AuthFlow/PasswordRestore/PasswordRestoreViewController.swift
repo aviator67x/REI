@@ -18,6 +18,7 @@ final class PasswordRestoreViewController: BaseViewController<PasswordRestoreVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Restore password"
         setupBindings()
     }
 

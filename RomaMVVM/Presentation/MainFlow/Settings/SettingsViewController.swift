@@ -25,7 +25,7 @@ final class SettingsViewController: BaseViewController<SettingsViewModel> {
     private func setupBindings() {
         viewModel.$sections
             .sink { [unowned self] value in
-            contentView.updateSettingsCollection(value)
+            contentView.setupSnapShot(sections: value)
         }
         .store(in: &cancellables)
         

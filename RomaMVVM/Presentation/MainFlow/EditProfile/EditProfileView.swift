@@ -52,7 +52,6 @@ final class EditProfileView: BaseView {
     }
 
     private func initialSetup() {
-//        setupLayout(configuration)
         setupUI()
         bindActions()
     }

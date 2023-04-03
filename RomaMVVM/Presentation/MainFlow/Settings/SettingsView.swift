@@ -37,8 +37,6 @@ final class SettingsView: BaseView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SettingsViewAction, Never>()
 
-    private var settingsCollections = [SettingsCollection]()
-
     // MARK: - Subviews
     private lazy var collection: UICollectionView = {
         var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
@@ -73,7 +71,6 @@ final class SettingsView: BaseView {
         collection.register(UserProfileCell.self, forCellWithReuseIdentifier: UserProfileCell.identifier)
         collection.register(PlainCell.self, forCellWithReuseIdentifier: PlainCell.identifier)
         setupDataSource()
-        setupSnapShot(sections: settingsCollections)
     }
 
     private func bindActions() {
@@ -103,10 +100,6 @@ final class SettingsView: BaseView {
 
 // MARK: - extensions
 extension SettingsView {
-    func updateSettingsCollection(_ value: [SettingsCollection]) {
-        setupSnapShot(sections: value)
-    }
-
     func setupSnapShot(sections: [SettingsCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<SettingsSection, SettingsItem>()
         for section in sections {
