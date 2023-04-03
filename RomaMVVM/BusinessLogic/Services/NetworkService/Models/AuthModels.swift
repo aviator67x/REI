@@ -16,12 +16,12 @@ struct SignInResponse: Decodable {
     let id: String
     let name: String
     let email: String
+    let imageURL: URL?
     let accessToken: String
 
     enum CodingKeys: String, CodingKey {
         case id = "ownerId"
-        case name
-        case email
+        case name, email, imageURL
         case accessToken = "user-token"
     }
 }

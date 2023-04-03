@@ -15,6 +15,7 @@ struct Section {
 enum HomeViewAction {
     case avatarButtonDidTap
     case chosePhotoDidTap
+    case logoutDidTap
 }
 
 final class HomeView: BaseView {
@@ -30,81 +31,14 @@ final class HomeView: BaseView {
     private let chosePhotoButton = BaseButton(buttonState: .chosePhoto)
     private let galleryImage = UIImageView()
     private let avatarButton = BaseButton(buttonState: .avatar)
-
+    private let logoutButton = BaseButton(buttonState: .logout)
+    
     // MARK: - Private properties
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<HomeViewAction, Never>()
 
-    private var compositionalLayout =
-        UICollectionViewCompositionalLayout { _, environment -> NSCollectionLayoutSection? in
-            let badgeSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(20))
-            let containerAnchor = NSCollectionLayoutAnchor(edges: [.bottom], absoluteOffset: CGPoint(x: 0, y: 10))
-            let badge = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: badgeSize,
-                elementKind: "badge",
-                containerAnchor: containerAnchor
-            )
-
-            let itemsPerRow = environment.traitCollection.horizontalSizeClass == .compact ? 3 : 6
-            let fraction: CGFloat = 1 / CGFloat(itemsPerRow)
-            let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(fraction),
-                heightDimension: .fractionalHeight(1)
-            )
-            let item = NSCollectionLayoutItem(layoutSize: itemSize, supplementaryItems: [badge])
-            let contentInset: CGFloat = 3
-            item.contentInsets = NSDirectionalEdgeInsets(
-                top: contentInset,
-                leading: contentInset,
-                bottom: contentInset,
-                trailing: contentInset
-            )
-
-            let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalWidth(1 / 2)
-            )
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
-
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerSize,
-                elementKind: "header",
-                alignment: .top
-            )
-            let footer = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerSize,
-                elementKind: "footer",
-                alignment: .bottom
-            )
-            section.boundarySupplementaryItems = [header, footer]
-            section.orthogonalScrollingBehavior = .groupPaging
-
-            return section
-        }
-
-    private lazy var imagesCollectionView: UICollectionView = {
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout)
-        collection.backgroundColor = .gray
-        collection.register(PhotoCell.self, forCellWithReuseIdentifier: "PhotoCell")
-        collection.register(
-            SectionHeaderView.self,
-            forSupplementaryViewOfKind: "header",
-            withReuseIdentifier: "SectionHeader"
-        )
-        collection.register(
-            SectionFooterView.self,
-            forSupplementaryViewOfKind: "footer",
-            withReuseIdentifier: "SectionFooter"
-        )
-        collection.register(BadgeView.self, forSupplementaryViewOfKind: "badge", withReuseIdentifier: "BadgeView")
-        collection.dataSource = self
-        return collection
-    }()
-
+  
+  
     // MARK: - LifeCycle
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -135,6 +69,12 @@ final class HomeView: BaseView {
                 self.actionSubject.send(.chosePhotoDidTap)
             }
             .store(in: &cancellables)
+        
+        logoutButton.tapPublisher
+            .sink { [unowned self] in
+                self.actionSubject.send(.logoutDidTap)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -159,9 +99,9 @@ final class HomeView: BaseView {
         stack.addCentered(chosePhotoButton, inset: Constants.inset, size: Constants.height)
         stack.addCentered(galleryImage, inset: Constants.inset, size: 100)
         stack.addSpacer(20)
-//        stack.addCentered(imagesCollectionView, inset: Constants.inset, size: 200)
-//        stack.addSpacer(20)
         stack.addCentered(avatarButton, inset: Constants.inset, size: Constants.height)
+        stack.addSpacer(20)
+        stack.addCentered(logoutButton, inset: Constants.inset, size: 50)
 
         addSubview(scrollView, withEdgeInsets: .zero, safeArea: false)
         scrollView.contentView.addSubview(stack, withEdgeInsets: UIEdgeInsets(top: 50, left: 0, bottom: 50, right: 0))

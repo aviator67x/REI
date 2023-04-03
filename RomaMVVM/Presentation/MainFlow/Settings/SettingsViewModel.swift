@@ -31,41 +31,43 @@ final class SettingsViewModel: BaseViewModel {
     override func onViewDidLoad() {
         updateDataSource()
     }
-    
+
     override func onViewWillAppear() {
         updateDataSource()
     }
 
     func updateDataSource() {
-        guard let user = userService.getUser() else {
-            return 
+        userService.userPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] user in
+            guard let user = user else { return }
+            let userProfileSection: SettingsCollection = {
+                let userModel = UserProfileCellModel(
+                    name: user.name,
+                    email: user.email,
+                    image: .imageURL(user.imageURL)
+                )
+                return SettingsCollection(section: .userProfile, items: [.userProfile(userModel: userModel)])
+            }()
+            let profileSection: SettingsCollection = {
+                SettingsCollection(section: .profile, items: [.plain(title: "Profile")])
+            }()
+            let termsSection: SettingsCollection = {
+                SettingsCollection(section: .terms, items: [
+                    .plain(title: "Terms and Conditions"), .plain(title: "Privacy policy"),
+                ])
+            }()
+            let companySection: SettingsCollection = {
+                SettingsCollection(
+                    section: .company,
+                    items: [.plain(title: "About us"), .plain(title: "F.A.Q."), .plain(title: "Contact us")]
+                )
+            }()
+            sections = [userProfileSection, profileSection, termsSection, companySection]
         }
-        guard let url = URL(string: "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/images/F52C5D8D-27B6-4518-9A2B-C6F149FACC9A.png") else { return }
-        
-        let userProfileSection: SettingsCollection = {
-            let userModel = UserProfileCellModel(
-                name: user.name,
-                email: user.email,
-                image: .imageURL(url)
-            )
-            return SettingsCollection(section: .userProfile, items: [.userProfile(userModel: userModel)])
-        }()
-        let profileSection: SettingsCollection = {
-            SettingsCollection(section: .profile, items: [.plain(title: "Profile")])
-        }()
-        let termsSection: SettingsCollection = {
-            SettingsCollection(section: .terms, items: [
-                .plain(title: "Terms and Conditions"), .plain(title: "Privacy policy"),
-            ])
-        }()
-        let companySection: SettingsCollection = {
-            SettingsCollection(
-                section: .company,
-                items: [.plain(title: "About us"), .plain(title: "F.A.Q."), .plain(title: "Contact us")]
-            )
-        }()
-        sections = [userProfileSection, profileSection, termsSection, companySection]
+        .store(in: &cancellables)
     }
+        
 
     func showProfile() {
         transitionSubject.send(.profile)

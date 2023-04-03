@@ -39,11 +39,13 @@ final class UserProfileCell: UICollectionViewCell {
         contentView.addSubview(nameLabel) {
             $0.centerY.equalToSuperview().offset(-10)
             $0.leading.equalTo(photo.snp.trailing).offset(20)
+            $0.width.equalTo(200)
         }
         emailLabel.numberOfLines = 0
         contentView.addSubview(emailLabel) {
-            $0.centerY.equalToSuperview().offset(10)
+            $0.centerY.equalToSuperview().offset(20)
             $0.leading.equalTo(photo.snp.trailing).offset(20)
+            $0.width.equalTo(200)
         }
     }
 

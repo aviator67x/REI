@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum SearchTransition: Transition {
-    
+    case logout
 }
 
 final class SearchModuleBuilder {

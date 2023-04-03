@@ -43,6 +43,7 @@
 		6E4C7AAA8893AF9C2AB5AE1A /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B542AAF3A03E44310DAFB906 /* AppConfiguration.swift */; };
 		6FACC4AEFF34025115641857 /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 46B001527DE0C8233D769738 /* Montserrat-Italic.ttf */; };
 		70260AA3E13A03EE2B5450FE /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9E493181ACAF4283DF6A60 /* AuthCoordinator.swift */; };
+		744F123129D6DC930015A4D3 /* UserDataCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744F123029D6DC930015A4D3 /* UserDataCellModel.swift */; };
 		7599087924FB37E199D9CC73 /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2D3ADB7CAC722526AEC1507 /* Montserrat-LightItalic.ttf */; };
 		75EAFD1623ED144901066A91 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62ECC27EC590FCB50676909 /* HomeView.swift */; };
 		7DAA912435CD1FA23F2A86CD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883CA9ADAA6088191B792D10 /* SignUpViewController.swift */; };
@@ -95,23 +96,12 @@
 		CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B429A4F3550086F583 /* NetworkManager.swift */; };
 		CE9881B929A4F3550086F583 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B529A4F3550086F583 /* HTTPMethod.swift */; };
 		CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9881B629A4F3550086F583 /* Endpoint.swift */; };
-		CE990E6B29C8E7D900120D6F /* EmailModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E6729C8E7D900120D6F /* EmailModuleBuilder.swift */; };
-		CE990E6C29C8E7D900120D6F /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E6829C8E7D900120D6F /* EmailViewController.swift */; };
-		CE990E6D29C8E7D900120D6F /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E6929C8E7D900120D6F /* EmailView.swift */; };
-		CE990E6E29C8E7D900120D6F /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E6A29C8E7D900120D6F /* EmailViewModel.swift */; };
-		CE990E7429C8E80800120D6F /* BirthModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E7029C8E80800120D6F /* BirthModuleBuilder.swift */; };
-		CE990E7529C8E80800120D6F /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E7129C8E80800120D6F /* BirthViewController.swift */; };
-		CE990E7629C8E80800120D6F /* BirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E7229C8E80800120D6F /* BirthView.swift */; };
-		CE990E7729C8E80800120D6F /* BirthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E7329C8E80800120D6F /* BirthViewModel.swift */; };
-		CE990E7D29C8E83800120D6F /* PasswordModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E7929C8E83800120D6F /* PasswordModuleBuilder.swift */; };
-		CE990E7E29C8E83800120D6F /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E7A29C8E83800120D6F /* PasswordViewController.swift */; };
-		CE990E7F29C8E83800120D6F /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E7B29C8E83800120D6F /* PasswordView.swift */; };
-		CE990E8029C8E83800120D6F /* PasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E7C29C8E83800120D6F /* PasswordViewModel.swift */; };
 		CE990E8229CA1A7100120D6F /* ProfileCollectionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E8129CA1A7100120D6F /* ProfileCollectionCells.swift */; };
 		CE990E9429CB623100120D6F /* EditProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9029CB623100120D6F /* EditProfileModuleBuilder.swift */; };
 		CE990E9529CB623100120D6F /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9129CB623100120D6F /* EditProfileViewController.swift */; };
 		CE990E9629CB623100120D6F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9229CB623100120D6F /* EditProfileView.swift */; };
 		CE990E9729CB623100120D6F /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9329CB623100120D6F /* EditProfileViewModel.swift */; };
+		CE990E9929CB820D00120D6F /* UIImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9829CB820C00120D6F /* UIImage+resize.swift */; };
 		CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */; };
 		CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2F29B52163007DC31B /* DecodingError+.swift */; };
 		CE9CAF3229B6551B007DC31B /* PropertyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3129B6551B007DC31B /* PropertyCoordinator.swift */; };
@@ -139,10 +129,6 @@
 		CEA5B72C29B0A2650038A29C /* Publisher+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5B72B29B0A2650038A29C /* Publisher+Unwrap.swift */; };
 		CEA5B72E29B0A2B70038A29C /* Publisher+WithLatestFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5B72D29B0A2B70038A29C /* Publisher+WithLatestFrom.swift */; };
 		CEA5B73329B0B8D30038A29C /* TokenStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5B73029B0B8D30038A29C /* TokenStorageService.swift */; };
-		CEA5F586298CE92300B87DD4 /* TestSignUpModuleModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F582298CE92300B87DD4 /* TestSignUpModuleModuleBuilder.swift */; };
-		CEA5F587298CE92300B87DD4 /* TestSignUpModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F583298CE92300B87DD4 /* TestSignUpModuleViewController.swift */; };
-		CEA5F588298CE92300B87DD4 /* TestSignUpModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F584298CE92300B87DD4 /* TestSignUpModuleView.swift */; };
-		CEA5F589298CE92300B87DD4 /* TestSignUpModuleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F585298CE92300B87DD4 /* TestSignUpModuleViewModel.swift */; };
 		CEA5F58B298CEBA200B87DD4 /* UISegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F58A298CEBA200B87DD4 /* UISegmentControl.swift */; };
 		CEA5F5D0299BECE300B87DD4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F5CD299BECE300B87DD4 /* NetworkError.swift */; };
 		CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99C2981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift */; };
@@ -220,6 +206,7 @@
 		660B9D647D37E0FD93F458FA /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 		6762178FA4D0491FD2845E15 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		6FFC2DD5FFE47C33E643AC73 /* MainTabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewModel.swift; sourceTree = "<group>"; };
+		744F123029D6DC930015A4D3 /* UserDataCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataCellModel.swift; sourceTree = "<group>"; };
 		74501A5C219863E0CB83DC94 /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
 		769D97159DCA1E4F7AED29AB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		808D0239321E5346A79AAF3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -284,23 +271,12 @@
 		CE9881B429A4F3550086F583 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CE9881B529A4F3550086F583 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		CE9881B629A4F3550086F583 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		CE990E6729C8E7D900120D6F /* EmailModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailModuleBuilder.swift; sourceTree = "<group>"; };
-		CE990E6829C8E7D900120D6F /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
-		CE990E6929C8E7D900120D6F /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
-		CE990E6A29C8E7D900120D6F /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
-		CE990E7029C8E80800120D6F /* BirthModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthModuleBuilder.swift; sourceTree = "<group>"; };
-		CE990E7129C8E80800120D6F /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
-		CE990E7229C8E80800120D6F /* BirthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthView.swift; sourceTree = "<group>"; };
-		CE990E7329C8E80800120D6F /* BirthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewModel.swift; sourceTree = "<group>"; };
-		CE990E7929C8E83800120D6F /* PasswordModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordModuleBuilder.swift; sourceTree = "<group>"; };
-		CE990E7A29C8E83800120D6F /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
-		CE990E7B29C8E83800120D6F /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
-		CE990E7C29C8E83800120D6F /* PasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModel.swift; sourceTree = "<group>"; };
 		CE990E8129CA1A7100120D6F /* ProfileCollectionCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionCells.swift; sourceTree = "<group>"; };
 		CE990E9029CB623100120D6F /* EditProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileModuleBuilder.swift; sourceTree = "<group>"; };
 		CE990E9129CB623100120D6F /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		CE990E9229CB623100120D6F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		CE990E9329CB623100120D6F /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		CE990E9829CB820C00120D6F /* UIImage+resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+resize.swift"; sourceTree = "<group>"; };
 		CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+coding.swift"; sourceTree = "<group>"; };
 		CE9CAF2F29B52163007DC31B /* DecodingError+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingError+.swift"; sourceTree = "<group>"; };
 		CE9CAF3129B6551B007DC31B /* PropertyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyCoordinator.swift; sourceTree = "<group>"; };
@@ -326,10 +302,6 @@
 		CEA5B72B29B0A2650038A29C /* Publisher+Unwrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Unwrap.swift"; sourceTree = "<group>"; };
 		CEA5B72D29B0A2B70038A29C /* Publisher+WithLatestFrom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+WithLatestFrom.swift"; sourceTree = "<group>"; };
 		CEA5B73029B0B8D30038A29C /* TokenStorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenStorageService.swift; sourceTree = "<group>"; };
-		CEA5F582298CE92300B87DD4 /* TestSignUpModuleModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignUpModuleModuleBuilder.swift; sourceTree = "<group>"; };
-		CEA5F583298CE92300B87DD4 /* TestSignUpModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignUpModuleViewController.swift; sourceTree = "<group>"; };
-		CEA5F584298CE92300B87DD4 /* TestSignUpModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignUpModuleView.swift; sourceTree = "<group>"; };
-		CEA5F585298CE92300B87DD4 /* TestSignUpModuleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSignUpModuleViewModel.swift; sourceTree = "<group>"; };
 		CEA5F58A298CEBA200B87DD4 /* UISegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentControl.swift; sourceTree = "<group>"; };
 		CEA5F5CD299BECE300B87DD4 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		CEADC99C2981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+UniformKeyPathInitializable.swift"; sourceTree = "<group>"; };
@@ -441,7 +413,6 @@
 				CEAEB9CF29A8B7E1005BBF50 /* Launch Screen.storyboard */,
 				CEAEB9F129AD0B59005BBF50 /* AuthFlow */,
 				CEAEB9F229AD0BA5005BBF50 /* MainFlow */,
-				CEA5F581298CE89400B87DD4 /* TestSignUp */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -469,6 +440,7 @@
 				CEA5F58A298CEBA200B87DD4 /* UISegmentControl.swift */,
 				CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */,
 				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
+				CE990E9829CB820C00120D6F /* UIImage+resize.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -554,6 +526,29 @@
 				D3E05768D2868D61967BA0E4 /* SignInViewModel.swift */,
 			);
 			path = SignIn;
+			sourceTree = "<group>";
+		};
+		744F122E29D6DC7D0015A4D3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				744F123029D6DC930015A4D3 /* UserDataCellModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		744F122F29D6DC860015A4D3 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				CE990E8129CA1A7100120D6F /* ProfileCollectionCells.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		744F123229D6DD670015A4D3 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		76E8843FA342597467112D6C /* Home */ = {
@@ -645,6 +640,7 @@
 		CCA876F88893001B36189960 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				744F123229D6DD670015A4D3 /* Subviews */,
 				3692E04E2CE427CDCB9FC4B2 /* SettingsModuleBuilder.swift */,
 				09D54B0D2668984CC055A531 /* SettingsView.swift */,
 				3747AD710A21D0546EAA6DFE /* SettingsViewController.swift */,
@@ -686,11 +682,12 @@
 		CE9430C729C8732E00FFB94C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				744F122F29D6DC860015A4D3 /* Subviews */,
+				744F122E29D6DC7D0015A4D3 /* Models */,
 				CE9430C829C8736400FFB94C /* ProfileModuleBuilder.swift */,
 				CE9430C929C8736400FFB94C /* ProfileViewController.swift */,
 				CE9430CA29C8736400FFB94C /* ProfileView.swift */,
 				CE9430CB29C8736400FFB94C /* ProfileViewModel.swift */,
-				CE990E8129CA1A7100120D6F /* ProfileCollectionCells.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -742,39 +739,6 @@
 			path = EditProfile;
 			sourceTree = "<group>";
 		};
-		CE990E6629C8E7A500120D6F /* Email */ = {
-			isa = PBXGroup;
-			children = (
-				CE990E6729C8E7D900120D6F /* EmailModuleBuilder.swift */,
-				CE990E6829C8E7D900120D6F /* EmailViewController.swift */,
-				CE990E6929C8E7D900120D6F /* EmailView.swift */,
-				CE990E6A29C8E7D900120D6F /* EmailViewModel.swift */,
-			);
-			path = Email;
-			sourceTree = "<group>";
-		};
-		CE990E6F29C8E7E400120D6F /* Birth */ = {
-			isa = PBXGroup;
-			children = (
-				CE990E7029C8E80800120D6F /* BirthModuleBuilder.swift */,
-				CE990E7129C8E80800120D6F /* BirthViewController.swift */,
-				CE990E7229C8E80800120D6F /* BirthView.swift */,
-				CE990E7329C8E80800120D6F /* BirthViewModel.swift */,
-			);
-			path = Birth;
-			sourceTree = "<group>";
-		};
-		CE990E7829C8E81300120D6F /* Password */ = {
-			isa = PBXGroup;
-			children = (
-				CE990E7929C8E83800120D6F /* PasswordModuleBuilder.swift */,
-				CE990E7A29C8E83800120D6F /* PasswordViewController.swift */,
-				CE990E7B29C8E83800120D6F /* PasswordView.swift */,
-				CE990E7C29C8E83800120D6F /* PasswordViewModel.swift */,
-			);
-			path = Password;
-			sourceTree = "<group>";
-		};
 		CE9CAF3329B65788007DC31B /* Property */ = {
 			isa = PBXGroup;
 			children = (
@@ -806,17 +770,6 @@
 				CEA5B72D29B0A2B70038A29C /* Publisher+WithLatestFrom.swift */,
 			);
 			path = Publisher;
-			sourceTree = "<group>";
-		};
-		CEA5F581298CE89400B87DD4 /* TestSignUp */ = {
-			isa = PBXGroup;
-			children = (
-				CEA5F582298CE92300B87DD4 /* TestSignUpModuleModuleBuilder.swift */,
-				CEA5F584298CE92300B87DD4 /* TestSignUpModuleView.swift */,
-				CEA5F583298CE92300B87DD4 /* TestSignUpModuleViewController.swift */,
-				CEA5F585298CE92300B87DD4 /* TestSignUpModuleViewModel.swift */,
-			);
-			path = TestSignUp;
 			sourceTree = "<group>";
 		};
 		CEADC99B2981A22E007A0650 /* KeyPathInitializable */ = {
@@ -884,6 +837,7 @@
 		CEAEB9F229AD0BA5005BBF50 /* MainFlow */ = {
 			isa = PBXGroup;
 			children = (
+				CE0E27A129CE1C2A001EDFCD /* Search */,
 				CE9430D029C8870F00FFB94C /* Terms */,
 				5B5C3AE1BF141B5158BBB0E9 /* MainTabBar */,
 				76E8843FA342597467112D6C /* Home */,
@@ -1099,7 +1053,6 @@
 				93D6390C1941B36D603900B0 /* AppContainer.swift in Sources */,
 				CE0E27C129D43D49001EDFCD /* PriceCell.swift in Sources */,
 				CEAEB9EE29ACA6B1005BBF50 /* PasswordRestoreView.swift in Sources */,
-				CE990E6B29C8E7D900120D6F /* EmailModuleBuilder.swift in Sources */,
 				CEA5F58B298CEBA200B87DD4 /* UISegmentControl.swift in Sources */,
 				08EEB3184A8082B0C0C25EC4 /* AppCoordinator.swift in Sources */,
 				82CC8E4ECAA1B873DDFB95AB /* AppDelegate.swift in Sources */,
@@ -1121,6 +1074,7 @@
 				CE9430C429C3121900FFB94C /* SettingsCollectionCells.swift in Sources */,
 				69FC756CA7A3ECBB0ADBB994 /* AuthPlugin.swift in Sources */,
 				CEA5F5D0299BECE300B87DD4 /* NetworkError.swift in Sources */,
+				CE0E27A729CE1C4E001EDFCD /* SearchViewController.swift in Sources */,
 				CEA5B72C29B0A2650038A29C /* Publisher+Unwrap.swift in Sources */,
 				CEAEB9DC29AA9D58005BBF50 /* UserEndPoint.swift in Sources */,
 				CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */,
@@ -1129,7 +1083,6 @@
 				CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */,
 				CEAEB9F929AE34EC005BBF50 /* UserDomainModel.swift in Sources */,
 				CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */,
-				CEA5F588298CE92300B87DD4 /* TestSignUpModuleView.swift in Sources */,
 				656F7BA65C21EC792A53FC1A /* AuthNetworkService.swift in Sources */,
 				CEAE383129B76BCA0046198A /* PropertyNetworkService.swift in Sources */,
 				CE9CAF3A29B657C0007DC31B /* PropertyView.swift in Sources */,
@@ -1137,11 +1090,9 @@
 				CE9430CF29C8736400FFB94C /* ProfileViewModel.swift in Sources */,
 				CEA5B73329B0B8D30038A29C /* TokenStorageService.swift in Sources */,
 				4E49AFA694CC28CA8EB3D441 /* AxisScrollView.swift in Sources */,
-				CEA5F589298CE92300B87DD4 /* TestSignUpModuleViewModel.swift in Sources */,
-				CE990E7429C8E80800120D6F /* BirthModuleBuilder.swift in Sources */,
 				5143110F52CB4AE108E6832F /* BaseView.swift in Sources */,
 				CEA545F0297820A3007F9962 /* TextFieldView.swift in Sources */,
-				CE990E6D29C8E7D900120D6F /* EmailView.swift in Sources */,
+				CE0E27A629CE1C4E001EDFCD /* SearchModuleBuilder.swift in Sources */,
 				CE990E9529CB623100120D6F /* EditProfileViewController.swift in Sources */,
 				CEADC9B5298853E8007A0650 /* BaseButton.swift in Sources */,
 				5085332B1A5B06C8C213ECDB /* BaseViewController.swift in Sources */,
@@ -1150,9 +1101,7 @@
 				CEADC9A22981A22E007A0650 /* UniformKeyPathInitializable.swift in Sources */,
 				CE9CAF3229B6551B007DC31B /* PropertyCoordinator.swift in Sources */,
 				B33A99E3AECD58D23DDA8E79 /* Coordinator.swift in Sources */,
-				CE990E7E29C8E83800120D6F /* PasswordViewController.swift in Sources */,
 				CEAE383529BA020D0046198A /* NSMutableData+.swift in Sources */,
-				CE990E7729C8E80800120D6F /* BirthViewModel.swift in Sources */,
 				CEA545FF297832F6007F9962 /* UIView+layout.swift in Sources */,
 				CEADC9A32981A22E007A0650 /* CGPoint+UniformKeyPathInitializable.swift in Sources */,
 				CEAE382F29B768C00046198A /* PropertyEndPoint.swift in Sources */,
@@ -1170,13 +1119,10 @@
 				CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */,
 				E8A38D357261F60F542286DF /* HomeCoordinator.swift in Sources */,
 				48B8837C3689F3F1F6D1C94A /* HomeModuleBuilder.swift in Sources */,
-				CE990E7F29C8E83800120D6F /* PasswordView.swift in Sources */,
 				CE990E9629CB623100120D6F /* EditProfileView.swift in Sources */,
 				CE0E27B129CE1DA9001EDFCD /* SearchView.swift in Sources */,
 				CEADC9A52982EC63007A0650 /* TextFieldValidator.swift in Sources */,
 				75EAFD1623ED144901066A91 /* HomeView.swift in Sources */,
-				CE990E6E29C8E7D900120D6F /* EmailViewModel.swift in Sources */,
-				CE990E8029C8E83800120D6F /* PasswordViewModel.swift in Sources */,
 				F76F80F523567F473C397554 /* HomeViewController.swift in Sources */,
 				CE9881B729A4F3550086F583 /* NetworkServiceProvider.swift in Sources */,
 				CE9881B929A4F3550086F583 /* HTTPMethod.swift in Sources */,
@@ -1189,10 +1135,11 @@
 				CEA545F1297820A3007F9962 /* ValidatorType.swift in Sources */,
 				CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */,
 				CE0E27BB29D43C81001EDFCD /* DistanceCell.swift in Sources */,
+				744F123129D6DC930015A4D3 /* UserDataCellModel.swift in Sources */,
 				BA4407035F877122802C3D47 /* Localization.swift in Sources */,
 				EDFD24AA92041FD400F9F11D /* MainTabBarCoordinator.swift in Sources */,
+				CE0E27A829CE1C4E001EDFCD /* SearchView.swift in Sources */,
 				936E18287F780641A997D742 /* MainTabBarModuleBuilder.swift in Sources */,
-				CE990E7D29C8E83800120D6F /* PasswordModuleBuilder.swift in Sources */,
 				CEAEB9F729AE2609005BBF50 /* Assets.swift in Sources */,
 				CEA5B72829B0A1B80038A29C /* Publisher+Sink.swift in Sources */,
 				C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */,
@@ -1200,7 +1147,6 @@
 				CEDDF2A229D87B65003BF639 /* KeychainService.swift in Sources */,
 				CE0E27BD29D43CBD001EDFCD /* BackgrounFooterView.swift in Sources */,
 				8B92C57154F6E7BCFE57E7B1 /* Module.swift in Sources */,
-				CEA5F587298CE92300B87DD4 /* TestSignUpModuleViewController.swift in Sources */,
 				B355206A6EA2EE9B20C77B89 /* SceneDelegate.swift in Sources */,
 				FE1FD4B33EFBF38BB3F20858 /* SettingsCoordinator.swift in Sources */,
 				0F42C83C9EF50CE2D9816660 /* SettingsModuleBuilder.swift in Sources */,
@@ -1209,12 +1155,12 @@
 				5E9FA1F198504A7E904ABBCA /* SettingsView.swift in Sources */,
 				CE990E9429CB623100120D6F /* EditProfileModuleBuilder.swift in Sources */,
 				CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */,
+				CE0E27A929CE1C4E001EDFCD /* SearchViewModel.swift in Sources */,
 				03EA4466B3EA6DF4583F862E /* SettingsViewController.swift in Sources */,
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,
 				1F2825C6E85F4B0D9F8DAC85 /* SignInModuleBuilder.swift in Sources */,
 				CEAEB9ED29ACA6B1005BBF50 /* PasswordRestoreViewController.swift in Sources */,
-				CE990E7529C8E80800120D6F /* BirthViewController.swift in Sources */,
 				CE9CAF3829B657C0007DC31B /* PropertyModuleBuilder.swift in Sources */,
 				BC83B275D377DACEB60714C8 /* SignInView.swift in Sources */,
 				CEA546032978379B007F9962 /* RegEx.swift in Sources */,
@@ -1223,7 +1169,6 @@
 				62A24654EC339481A9A42790 /* SignInViewModel.swift in Sources */,
 				36F21C3E89939F36F60109C7 /* SignUpModuleBuilder.swift in Sources */,
 				D34253F8086536BA886A792C /* SignUpView.swift in Sources */,
-				CEA5F586298CE92300B87DD4 /* TestSignUpModuleModuleBuilder.swift in Sources */,
 				7DAA912435CD1FA23F2A86CD /* SignUpViewController.swift in Sources */,
 				CE9881AF29A3A3820086F583 /* AuthEndPoint.swift in Sources */,
 				2D8D86BCCE7F2E10C1C9F335 /* SignUpViewModel.swift in Sources */,
@@ -1237,12 +1182,11 @@
 				CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */,
 				CE9CAF3929B657C0007DC31B /* PropertyViewController.swift in Sources */,
 				360A002C89ECA7CB25436514 /* UIView+Ext.swift in Sources */,
-				CE990E6C29C8E7D900120D6F /* EmailViewController.swift in Sources */,
 				CEADC9A12981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift in Sources */,
 				CE9430CD29C8736400FFB94C /* ProfileViewController.swift in Sources */,
 				8EE80BCD4FB1B0CFFC81B625 /* UserService.swift in Sources */,
-				CE990E7629C8E80800120D6F /* BirthView.swift in Sources */,
 				4BBC1C6C73AD3474B558E18F /* ViewRepresentable.swift in Sources */,
+				CE990E9929CB820D00120D6F /* UIImage+resize.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1266,9 +1210,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1418,9 +1362,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1443,9 +1387,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1655,9 +1599,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1680,9 +1624,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1705,9 +1649,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (

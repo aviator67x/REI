@@ -7,11 +7,7 @@
 
 import Combine
 import Foundation
-
-struct ProfileCollection {
-    var section: ProfileSection
-    var items: [ProfileItem]
-}
+import Kingfisher
 
 final class ProfileViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -29,6 +25,8 @@ final class ProfileViewModel: BaseViewModel {
     private let userService: UserService
 
     @Published private(set) var sections: [ProfileCollection] = []
+    
+    private var uploadingImageData: Data?
 
     init(userService: UserService) {
         self.userService = userService
@@ -40,68 +38,88 @@ final class ProfileViewModel: BaseViewModel {
     }
 
     private func updateDataSource() {
-//        userService.userPublisher
-//            .sink { [unowned self] user in
-        guard let user = userService.getUser(),
-             let url = URL(string: "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/images/F52C5D8D-27B6-4518-9A2B-C6F149FACC9A.png")
-//              let url =
-//              URL(string: user.imageURL ?? "")
-        else {
-            return
-        }
-        let userDataSection: ProfileCollection = {
-            let userDataCellModel = UserDataCellModel(
-                name: user.name,
-                email: user.email,
-                image: .imageURL(url)
-            )
+        userService.userPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] user in
+                guard let user = user else {
+                    return
+                }
+                let userDataSection: ProfileCollection = {
+                    let userDataCellModel: UserDataCellModel
+                    if let uploadingImageData = uploadingImageData {
+                        userDataCellModel = UserDataCellModel(
+                            name: user.name,
+                            email: user.email,
+                            image: .imageData(uploadingImageData)
+                        )
+                    } else {
+                        userDataCellModel = UserDataCellModel(
+                            name: user.name,
+                            email: user.email,
+                            image: .imageURL(user.imageURL)
+                        )
+                    }
+                    return ProfileCollection(section: .userData, items: [.userData(userDataCellModel)])
+                }()
 
-            return ProfileCollection(section: .userData, items: [.userData(userDataCellModel)])
-        }()
+                let detailsSection: ProfileCollection = {
+                    ProfileCollection(section: .details, items: [
+                        .plain("Name"),
+                        .plain("Email"),
+                        .plain("Date of birth"),
+                        .plain("Password"),
+                    ])
+                }()
 
-        let detailsSection: ProfileCollection = {
-            ProfileCollection(section: .details, items: [
-                .plain("Name"),
-                .plain("Email"),
-                .plain("Date of birth"),
-                .plain("Password"),
-            ])
-        }()
-
-        let buttonSection: ProfileCollection = {
-            ProfileCollection(section: .button, items: [
-                .button,
-            ])
-        }()
-        sections = [userDataSection, detailsSection, buttonSection]
-//            }
-//            .store(in: &cancellables)
+                let buttonSection: ProfileCollection = {
+                    ProfileCollection(section: .button, items: [
+                        .button,
+                    ])
+                }()
+                sections = [userDataSection, detailsSection, buttonSection]
+            }
+            .store(in: &cancellables)
     }
 
-//    func saveAvatar() {
     func saveAvatar(avatar: Data) {
+        uploadingImageData = avatar
+        updateDataSource()
+        isLoadingSubject.send(true)
         userService.saveAvatar(image: avatar)
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] completion in
+                isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
                     print("Avatar has been saved")
                 case let .failure(error):
                     print(error.errorDescription ?? "")
                 }
-            } receiveValue: { [unowned self] avatarUrlDict in
-                let imageURL = avatarUrlDict.imageURL
+            } receiveValue: { [unowned self] avatarUrl in
+                let imageURL = avatarUrl.imageURL
                 let userId = userService.getUser()?.id ?? ""
-                let updateUserRequestModel = UpdateUserRequestModel(imageURL: imageURL, id: userId)
+                let updateUserRequestModel = UpdateUserRequestModel(
+                    firstName: nil,
+                    lastName: nil,
+                    nickName: nil,
+                    imageURL: imageURL,
+                    id: userId
+                )
+                KingfisherManager.shared.retrieveImage(
+                    with: Kingfisher.ImageResource(downloadURL: URL(string: imageURL)!),
+                    options: [.cacheOriginalImage],
+                    completionHandler: nil)
                 update(user: updateUserRequestModel)
             }
             .store(in: &cancellables)
     }
 
     private func update(user: UpdateUserRequestModel) {
+        isLoadingSubject.send(true)
         userService.update(user: user)
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] completion in
+                isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
                     print("User has been updated")
@@ -138,24 +156,14 @@ final class ProfileViewModel: BaseViewModel {
             .store(in: &cancellables)
     }
 
-    func openCamera() {}
-
     func openGallery() {
         isLoadingSubject.send(true)
         openGallerySubject.value = true
         isLoadingSubject.send(false)
     }
 
-    func showName() {
-        transitionSubject.send(.showName)
-    }
-
-    func showEmail() {
-        transitionSubject.send(.showEmail)
-    }
-
-    func showBirth() {
-        transitionSubject.send(.showBirth)
+    func showEditPrifile(configuration: EditProfileConfiguration) {
+        transitionSubject.send(.showEditProfile(configuration))
     }
 
     func showPassword() {

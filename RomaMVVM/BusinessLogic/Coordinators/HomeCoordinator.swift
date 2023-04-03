@@ -34,6 +34,8 @@ final class HomeCoordinator: Coordinator {
 //                case .screen1: debugPrint("perform transition 1")
 //                case .screen2: debugPrint("perform transition 2")
 //                case .screen3: debugPrint("perform transition 3")
+                case .logout:
+                    didFinishSubject.send()
                 }
             }
             .store(in: &cancellables)

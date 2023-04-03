@@ -6,14 +6,74 @@
 //
 
 import Combine
+import Foundation
 
 final class EditProfileViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<EditProfileTransition, Never>()
     
-   override init() {
-
+    private let userService: UserService
+    
+    private(set) lazy var userPublisher = userSubject.eraseToAnyPublisher()
+    private lazy var userSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
+    
+    private(set) lazy var popEditPublisher = popEditSubject.eraseToAnyPublisher()
+    private lazy var popEditSubject = PassthroughSubject<Bool, Never>()
+    
+    private var firstName = ""
+    private var lastName = ""
+    private var nickName = ""
+    
+    init(userService: UserService) {
+        self.userService = userService
         super.init()
     }
     
+    override func onViewWillAppear() {
+        userService.userPublisher
+            .sink { [unowned self] user in
+                userSubject.value = user
+            }
+            .store(in: &cancellables)
+    }
+    
+    func updateUser() {
+        let userId = userService.getUser()?.id ?? ""
+        let userModel = UpdateUserRequestModel(
+            firstName: self.firstName == "" ? nil : self.firstName,
+            lastName: self.lastName == "" ? nil : self.lastName,
+            nickName: self.nickName == "" ? nil : self.nickName,
+            imageURL: nil,
+            id: userId)
+        userService.update(user: userModel)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [unowned self]completion in
+                switch completion {
+                case .finished:
+                    print("User has been update with new value")
+                case .failure(let error):
+                    self.errorSubject.send(error)
+                }
+            }, receiveValue: { [unowned self] updatedUser in
+                let model = UserDomainModel(networkModel: updatedUser)
+                self.userService.save(user: model)
+                popEditSubject.send(true)
+            })
+            .store(in: &cancellables)
+    }
+    deinit {
+        print("Edit prifile deinit")
+    }
+
+    func update(firstName: String) {
+        self.firstName = firstName
+    }
+    
+    func update(lastName: String) {
+        self.lastName = lastName
+    }
+    
+    func update(nickName: String) {
+        self.nickName = nickName
+    }
 }

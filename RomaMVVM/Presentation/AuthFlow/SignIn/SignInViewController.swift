@@ -27,7 +27,6 @@ final class SignInViewController: BaseViewController<SignInViewModel> {
                 switch action {
                 case .signInDidTap:
                     viewModel.logInForAccessToken()
-//                    viewModel.signUP()
                 case .emailDidChange(let inputText):
                     viewModel.setEmail(inputText)
                 case .phoneOrEmailTextFieldDidReturn:

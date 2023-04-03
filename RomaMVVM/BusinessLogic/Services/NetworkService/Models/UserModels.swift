@@ -8,19 +8,25 @@
 import Foundation
 
 struct UpdateUserRequestModel: Encodable {
-    let imageURL: String
+    let firstName: String?
+    let lastName: String?
+    let nickName: String?
+    let imageURL: String?
     let id: String
 }
 
 struct UpdateUserResponseModel: Decodable {
     let id: String
     let name: String
+    let firstName: String?
+    let lastName: String?
+    let nickName: String?
     let email: String
-    let imageURL: String
+    let imageURL: URL?
     let userStatus: String
 
     enum CodingKeys: String, CodingKey {
-        case name, email, imageURL, userStatus
+        case name, firstName, lastName, nickName, email, imageURL, userStatus
         case id = "ownerId"
     }
 }

@@ -12,6 +12,7 @@ enum HomeTransition: Transition {
     case screen1
     case screen2
     case screen3
+    case logout
 }
 
 final class HomeModuleBuilder {

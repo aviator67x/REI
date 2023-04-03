@@ -9,25 +9,6 @@ import Foundation
 
 import UIKit
 
-enum ButtonState {
-    case login
-    case next
-    case sendCode
-    case confirm
-    case createNewAccount
-    case editProfile
-    case saveChanges
-    case follow
-    case message
-    case exit
-    case restorePassword
-    case signUp
-    case filter
-    case avatar
-    case chosePhoto
-    case logout
-}
-
 class BaseButton: UIButton {
     var buttonState: ButtonState
     var activityIndicator: UIActivityIndicatorView!
@@ -64,7 +45,7 @@ class BaseButton: UIButton {
     }
 
     func initialSetup() {
-        setTitle(buttonState.titleForButton, for: .normal)
+        setTitle(buttonState.title, for: .normal)
         layer.cornerRadius = 6
         layer.borderWidth = 0
         layer.borderColor = UIColor.clear.cgColor
@@ -84,7 +65,7 @@ class BaseButton: UIButton {
 
     func hideLoading() {
         DispatchQueue.main.async { [weak self] in
-            self?.setTitle(self?.buttonState.titleForButton, for: .normal)
+            self?.setTitle(self?.buttonState.title, for: .normal)
             self?.activityIndicator.stopAnimating()
             self?.isUserInteractionEnabled = true
         }
@@ -162,8 +143,25 @@ class BaseButton: UIButton {
     }
 }
 
-extension ButtonState {
-    var titleForButton: String {
+enum ButtonState {
+    case login
+    case next
+    case sendCode
+    case confirm
+    case createNewAccount
+    case editProfile
+    case saveChanges
+    case follow
+    case message
+    case exit
+    case restorePassword
+    case signUp
+    case filter
+    case avatar
+    case chosePhoto
+    case logout
+    
+    var title: String {
         switch self {
         case .login:
             return "Login"

@@ -54,65 +54,45 @@ extension HomeViewModel {
     func showGallery() {
         showPhotoSubject.value = true
     }
-
-    func saveAvatar() {
-        var imageData = Data()
-        let imageValue = universalImageSubject.value
-        switch imageValue {
-        case let .imageData(data):
-            imageData = data
-        case .some(.imageURL(_)):
-            break
-        case let .some(.imageAsset(asset)):
-            if let data = asset.image.pngData() {
-                imageData = data
-            }
-        case .none:
-            break
-        }
-        userService.saveAvatar(image: imageData)
+    
+    func logOut() {
+        isLoadingSubject.send(true)
+        userService.logoutCorrect()
             .receive(on: DispatchQueue.main)
+            .print("logout viewmodel")
             .sink { [unowned self] completion in
-                switch completion {
-                case .finished:
-                    print("Avatar has been saved")
-                case let .failure(error):
-                    print(error.errorDescription ?? "")
+                isLoadingSubject.send(false)
+                if case .failure(let error) = completion {
+                    errorSubject.send(error)
                 }
-            } receiveValue: { [unowned self] avatarUrlDict in
-                let imageURL = avatarUrlDict.imageURL
-                let userId = userService.getUser()?.id ?? ""
-                let updateUserRequestModel = UpdateUserRequestModel(imageURL: imageURL, id: userId)
-                update(user: updateUserRequestModel)
+            } receiveValue: { [unowned self] _ in
+                transitionSubject.send(.logout)
             }
             .store(in: &cancellables)
+
+//        guard let token = userService.token else {
+//            return
+//        }
+//        userService.logOut(token: token)
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] completion in
+//                switch completion {
+//                case .finished:
+//                    self?.transitionSubject.send(.logout)
+//                case let .failure(error):
+//                    debugPrint(error.localizedDescription)
+//                    self?.errorSubject.send(error)
+//                }
+//            } receiveValue: { _ in
+//                self.userService.logOut()
+//                self.transitionSubject.send(.logout)
+//                self.transitionSubject.send(completion: .finished)
+//            }
+//            .store(in: &cancellables)
     }
 
-   private func update(user: UpdateUserRequestModel) {
-        userService.update(user: user)
-           .receive(on: DispatchQueue.main)
-           .sink{ [unowned self] completion in
-               switch completion {
-               case .finished:
-                   print("User has been updated")
-               case .failure(let error):
-                   errorSubject.send(error)
-               }
-           } receiveValue: { [unowned self] user in
-               let userModel = UserDomainModel(networkModel: user)
-               self.userService.save(user: userModel)
-           }
-           .store(in: &cancellables)
-    }
 
     func updateUniversalImageSubject(with resource: ImageResource) {
-        switch resource {
-        case let .imageURL(url):
-            universalImageSubject.value = .imageURL(url)
-        case let .imageData(data):
-            universalImageSubject.value = .imageData(data)
-        case let .imageAsset(imageAsset):
-            universalImageSubject.value = .imageAsset(imageAsset)
-        }
+        universalImageSubject.value = resource
     }
 }
