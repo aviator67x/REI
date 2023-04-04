@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class YearCell: UICollectionViewCell {
+final class DetailedCell: UICollectionViewCell {
     static let identifier = "YearCell"
     let titleLable = UILabel()
 

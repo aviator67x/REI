@@ -33,8 +33,8 @@ final class HomeCoordinator: Coordinator {
                 switch transition {
                 case .logout:
                     didFinishSubject.send()
-                case .year(let requestModel):
-                    year(model: requestModel)
+                case .year(let requestModel, let state):
+                    year(model: requestModel, screenState: state)
                     didFinishSubject.send()
                 }
             }
@@ -42,8 +42,8 @@ final class HomeCoordinator: Coordinator {
         setRoot(module.viewController)
     }
     
-    private func year(model: SearchRequestModel) {
-        let module = ConstructionYearModuleBuilder.build(container: container, searchRequestModel: model)
+    private func year(model: SearchRequestModel, screenState: ScreenState) {
+        let module = ConstructionYearModuleBuilder.build(container: container, searchRequestModel: model, screenState: screenState)
         push(module.viewController)
     }
 }

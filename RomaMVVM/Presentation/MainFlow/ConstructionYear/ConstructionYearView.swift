@@ -64,7 +64,7 @@ final class ConstructionYearView: BaseView {
     }
     
     private func setupCollection() {
-        collection.register(YearCell.self, forCellWithReuseIdentifier: YearCell.identifier)
+        collection.register(DetailedCell.self, forCellWithReuseIdentifier: DetailedCell.identifier)
         setupDataSource()
     }
 
@@ -119,32 +119,32 @@ extension ConstructionYearView {
             collectionView, indexPath, item -> UICollectionViewCell in
             switch item {
             case .plain(let year1850):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: YearCell.identifier, for: indexPath) as? YearCell else { return UICollectionViewCell()}
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
                 cell.setupCell(title: year1850)
                 
                 return cell
             case .plain(let year1900):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: YearCell.identifier, for: indexPath) as? YearCell else { return UICollectionViewCell()}
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
                 cell.setupCell(title: year1900)
                 
                 return cell
             case .plain(let year1950):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: YearCell.identifier, for: indexPath) as? YearCell else { return UICollectionViewCell()}
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
                 cell.setupCell(title: year1950)
                 
                 return cell
             case .plain(let year2000):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: YearCell.identifier, for: indexPath) as? YearCell else { return UICollectionViewCell()}
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
                 cell.setupCell(title: year2000)
                 
                 return cell
             case .plain(let year2010):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: YearCell.identifier, for: indexPath) as? YearCell else { return UICollectionViewCell()}
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
                 cell.setupCell(title: year2010)
                 
                 return cell
             case .plain(let year2020):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: YearCell.identifier, for: indexPath) as? YearCell else { return UICollectionViewCell()}
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
                 cell.setupCell(title: year2020)
                 
                 return cell

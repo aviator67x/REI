@@ -17,6 +17,7 @@ protocol AppContainer: AnyObject {
     var tokenStorageService: TokenStorageService { get }
     var keychainService: KeychainService { get }
     var propertyNetworkService: PropertyNetworkService { get }
+    var searchRequestModel: SearchRequestModel { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -28,6 +29,7 @@ final class AppContainerImpl: AppContainer {
     let tokenStorageService: TokenStorageService
     var keychainService: KeychainService
     let propertyNetworkService: PropertyNetworkService
+    var searchRequestModel: SearchRequestModel
 
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -76,5 +78,10 @@ final class AppContainerImpl: AppContainer {
         self.appSettingsService = appSettingsService
 
         let authPlugin = AuthPlugin(token: appConfiguration.environment.apiKey)
+        
+        var searchRequestModel: SearchRequestModel { SearchRequestModel()
+        }
+        self.searchRequestModel = searchRequestModel
+        
     }
 }

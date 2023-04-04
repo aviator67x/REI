@@ -70,9 +70,9 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
                     case .roomsNumber(let number):
                         viewModel.updateNumberOfRooms(number)
                     case .year:
-                        viewModel.showYear()
+                        viewModel.showDetailed(state: .year)
                     case .garage:
-                        break
+                        viewModel.showDetailed(state: .garage)
                     }
                 case .segmentControl(let index):
                     viewModel.configureScreen(for: index)

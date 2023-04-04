@@ -20,9 +20,10 @@ final class SearchViewModel: BaseViewModel {
     private lazy var minSquareSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var maxSquareSubject = CurrentValueSubject<String?, Never>(nil)
     
-    private var searchRequest = SearchRequestModel()
+    private var searchRequest: SearchRequestModel
     
-    override init() {
+    init(searchRequest: SearchRequestModel) {
+        self.searchRequest = searchRequest
         super.init()
         setupBinding()
     }
@@ -83,8 +84,8 @@ final class SearchViewModel: BaseViewModel {
         print(number)
     }
     
-    func showYear() {
-        transitionSubject.send(.year(searchRequest))
+    func showDetailed(state: ScreenState) {
+        transitionSubject.send(.year(searchRequest, state))
     }
 
     private func updateDataSource() {

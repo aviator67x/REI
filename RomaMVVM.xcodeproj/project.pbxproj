@@ -81,7 +81,7 @@
 		CE13E3AC29DAFE5600B948C9 /* ConstructionYearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3A829DAFE5600B948C9 /* ConstructionYearViewController.swift */; };
 		CE13E3AD29DAFE5600B948C9 /* ConstructionYearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3A929DAFE5600B948C9 /* ConstructionYearView.swift */; };
 		CE13E3AE29DAFE5600B948C9 /* ConstructionYearViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3AA29DAFE5600B948C9 /* ConstructionYearViewModel.swift */; };
-		CE13E3B929DB195B00B948C9 /* YearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3B829DB195B00B948C9 /* YearCell.swift */; };
+		CE13E3B929DB195B00B948C9 /* DetailedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3B829DB195B00B948C9 /* DetailedCell.swift */; };
 		CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FE929BC9CEA0042C2F8 /* Array.swift */; };
 		CE4E7FEC29BDDDEA0042C2F8 /* CollectionViewCellModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FEB29BDDDEA0042C2F8 /* CollectionViewCellModels.swift */; };
 		CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */; };
@@ -261,7 +261,7 @@
 		CE13E3A829DAFE5600B948C9 /* ConstructionYearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionYearViewController.swift; sourceTree = "<group>"; };
 		CE13E3A929DAFE5600B948C9 /* ConstructionYearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionYearView.swift; sourceTree = "<group>"; };
 		CE13E3AA29DAFE5600B948C9 /* ConstructionYearViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructionYearViewModel.swift; sourceTree = "<group>"; };
-		CE13E3B829DB195B00B948C9 /* YearCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCell.swift; sourceTree = "<group>"; };
+		CE13E3B829DB195B00B948C9 /* DetailedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedCell.swift; sourceTree = "<group>"; };
 		CE4E7FE929BC9CEA0042C2F8 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		CE4E7FEB29BDDDEA0042C2F8 /* CollectionViewCellModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellModels.swift; sourceTree = "<group>"; };
 		CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
@@ -704,7 +704,7 @@
 		CE13E3AF29DB18DC00B948C9 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				CE13E3B829DB195B00B948C9 /* YearCell.swift */,
+				CE13E3B829DB195B00B948C9 /* DetailedCell.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1093,7 +1093,7 @@
 				CEAEB9EF29ACA6B1005BBF50 /* PasswordRestoreViewModel.swift in Sources */,
 				3F262958B2CE34CD77EC9A8D /* AppEnvironment.swift in Sources */,
 				CEADC9B32987D61A007A0650 /* Optional+extension.swift in Sources */,
-				CE13E3B929DB195B00B948C9 /* YearCell.swift in Sources */,
+				CE13E3B929DB195B00B948C9 /* DetailedCell.swift in Sources */,
 				8EB5C597BDACE86F978D4EDB /* AppSettings.swift in Sources */,
 				70260AA3E13A03EE2B5450FE /* AuthCoordinator.swift in Sources */,
 				CEAE383929BB19680046198A /* SearchQueryBuilder.swift in Sources */,
