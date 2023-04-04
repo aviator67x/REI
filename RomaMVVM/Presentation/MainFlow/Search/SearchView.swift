@@ -20,14 +20,15 @@ final class SearchView: BaseView {
     // MARK: - Subviews
 
     private var collection: UICollectionView!
-       
+    private let resultLabel = UILabel()
+
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchViewAction, Never>()
 
     // MARK: - Life cycle
     override init(frame: CGRect) {
-        super.init(frame: frame)       
-        collection = createCollection()
+        super.init(frame: frame)
+        self.collection = createCollection()
         initialSetup()
     }
 
@@ -35,7 +36,7 @@ final class SearchView: BaseView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func createCollection() -> UICollectionView {
         let sectionProvider =
             { [weak self] (sectionNumber: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
@@ -58,6 +59,8 @@ final class SearchView: BaseView {
                     section = self?.squareSectionLayout()
                 case .roomsNumber:
                     section = self?.roomsNumberSectionLayout()
+                case .backgroundItem:
+                    section = self?.backgroundLayout()
                 }
 
                 return section
@@ -119,6 +122,10 @@ final class SearchView: BaseView {
         return section
     }
 
+    private func backgroundLayout() -> NSCollectionLayoutSection {
+        return sectionLayoutBuilder(section: .backgroundItem)
+    }
+
     private func sectionLayoutBuilder(section: SearchSection) -> NSCollectionLayoutSection {
         let itemWidthDimension: NSCollectionLayoutDimension
         let groupHeight: CGFloat
@@ -140,7 +147,13 @@ final class SearchView: BaseView {
             groupHeight = 60
             groupLeadingInset = 0
             groupInterItemSpacing = nil
+        case .backgroundItem:
+            itemWidthDimension = .fractionalWidth(1)
+            groupHeight = 200
+            groupLeadingInset = 0
+            groupInterItemSpacing = nil
         }
+
         let itemSize = NSCollectionLayoutSize(
             widthDimension: itemWidthDimension,
             heightDimension: .fractionalHeight(1)
@@ -193,8 +206,8 @@ final class SearchView: BaseView {
 
     private func bindActions() {
         collection.didSelectItemPublisher
-            .compactMap { self.dataSource?.itemIdentifier(for: $0)}
-            .map { SearchViewAction.selectedItem($0)}
+            .compactMap { self.dataSource?.itemIdentifier(for: $0) }
+            .map { SearchViewAction.selectedItem($0) }
             .sink { [unowned self] in
                 actionSubject.send($0)
                 print($0)
@@ -202,7 +215,13 @@ final class SearchView: BaseView {
             .store(in: &cancellables)
     }
 
-    private func setupUI() {}
+    private func setupUI() {
+        backgroundColor = .systemTeal
+        resultLabel.backgroundColor = .systemBlue
+        resultLabel.text = "Result"
+        resultLabel.textColor = .white
+        resultLabel.textAlignment = .center
+    }
 
     private func setupCollection() {
         collection.register(
@@ -223,12 +242,20 @@ final class SearchView: BaseView {
         collection.register(SquareCell.self, forCellWithReuseIdentifier: SquareCell.reusedidentifier)
         collection.register(RoomsNumberCell.self, forCellWithReuseIdentifier: RoomsNumberCell.reusedidentifier)
         collection.register(TypeCell.self, forCellWithReuseIdentifier: TypeCell.reusedidentifier)
+        collection.register(BackgroundCell.self, forCellWithReuseIdentifier: BackgroundCell.reusedidentifier)
         setupDataSource()
     }
 
     private func setupLayout() {
         addSubview(collection) {
             $0.edges.equalToSuperview()
+        }
+
+        addSubview(resultLabel) {
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(50)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(30)
         }
     }
 }
@@ -280,7 +307,7 @@ extension SearchView {
                     cell.setupCell(with: km)
 
                     return cell
-                case .price(var model):
+                case var .price(model):
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: PriceCell.reusedidentifier,
                         for: indexPath
@@ -319,7 +346,7 @@ extension SearchView {
                     )
                     cell.setupCell(model: model)
                     return cell
-                case .square(let model):
+                case let .square(model):
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: SquareCell.reusedidentifier,
                         for: indexPath
@@ -333,6 +360,14 @@ extension SearchView {
                         for: indexPath
                     ) as? RoomsNumberCell else { return UICollectionViewCell() }
                     cell.setupCell(with: title)
+
+                    return cell
+                case .backgroundItem:
+                    guard let cell = collection.dequeueReusableCell(
+                        withReuseIdentifier: BackgroundCell.reusedidentifier,
+                        for: indexPath
+                    ) as? BackgroundCell else { return UICollectionViewCell() }
+
                     return cell
                 }
             }
@@ -348,20 +383,18 @@ extension SearchView {
 
                 let sectionType = SearchSection.allCases
                 switch sectionType[indexPath.section] {
+                case .segmentControl, .year, .garage, .backgroundItem:
+                   break
                 case .distance:
                     header.setupUI(text: "Distance", imageName: "plus")
                 case .price:
                     header.setupUI(text: "Price category", imageName: "eurosign")
-                case .segmentControl:
-                    header.setupUI(text: "Price category", imageName: "eurosign")
-                case .square:
-                    header.setupUI(text: "Square of the property in sqm", imageName: "light.panel")
-                case .year, .garage:
-                    break
-                case .roomsNumber:
-                    header.setupUI(text: "Number of rooms", imageName: "door.right.hand.open")
                 case .type:
                     header.setupUI(text: "Type of property", imageName: "homekit")
+                case .square:
+                    header.setupUI(text: "Square of the property in sqm", imageName: "light.panel")
+                case .roomsNumber:
+                    header.setupUI(text: "Number of rooms", imageName: "door.right.hand.open")
                 }
 
                 return header

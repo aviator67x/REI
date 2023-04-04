@@ -15,7 +15,6 @@ enum TermsViewAction {
 final class TermsView: BaseView {
     // MARK: - Subviews
 
-
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<TermsViewAction, Never>()
 

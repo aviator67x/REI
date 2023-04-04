@@ -23,9 +23,8 @@ final class TermsViewController: BaseViewController<TermsViewModel> {
 
     private func setupBindings() {
         contentView.actionPublisher
-            .sink { [unowned self] action in
-                switch action {
-                }
+            .sink { action in
+              
             }
             .store(in: &cancellables)
     }

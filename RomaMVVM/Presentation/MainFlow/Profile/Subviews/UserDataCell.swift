@@ -1,8 +1,8 @@
 //
-//  CollectionCells.swift
+//  UserDataCell.swift
 //  RomaMVVM
 //
-//  Created by User on 21.03.2023.
+//  Created by User on 04.04.2023.
 //
 
 import Foundation
@@ -61,31 +61,3 @@ final class UserDataCell: UICollectionViewCell {
     }
 }
 
-final class ButtonCell: UICollectionViewCell {
-    static let identifier = "ButtonCell"
-    let titleLable = UILabel()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .white
-        setupLayout()
-        setupCell()
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupLayout() {
-        contentView.addSubview(titleLable) {
-            $0.center.equalToSuperview()
-        }
-    }
-    
-    func setupCell() {
-        titleLable.text = "Log Out"
-        titleLable.font = UIFont.systemFont(ofSize: 20)
-        titleLable.textColor = .red
-    }
-}

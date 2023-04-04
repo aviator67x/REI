@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class HomeCoordinator: Coordinator {
+final class SearchCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
     var navigationController: UINavigationController
@@ -23,17 +23,17 @@ final class HomeCoordinator: Coordinator {
     }
 
     func start() {
-        homeRoot()
+        searchRoot()
     }
 
-    private func homeRoot() {
-        let module = HomeModuleBuilder.build(container: container)
+    private func searchRoot() {
+        let module = SearchModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
                 case .logout:
                     didFinishSubject.send()
-                case .year(let requestModel, let state):
+                case .detailed(let requestModel, let state):
                     year(model: requestModel, screenState: state)
                     didFinishSubject.send()
                 }
@@ -43,7 +43,7 @@ final class HomeCoordinator: Coordinator {
     }
     
     private func year(model: SearchRequestModel, screenState: ScreenState) {
-        let module = ConstructionYearModuleBuilder.build(container: container, searchRequestModel: model, screenState: screenState)
+        let module = DetailedModuleBuilder.build(container: container, searchRequestModel: model, screenState: screenState)
         push(module.viewController)
     }
 }

@@ -45,13 +45,13 @@ final class EditProfileViewController: BaseViewController<EditProfileViewModel> 
             title: "Done",
             style: .plain,
             target: self,
-            action: #selector(addTapped)
+            action: #selector(doneDidTap)
         )
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
 
     @objc
-    private func addTapped() {
+    private func doneDidTap() {
         viewModel.updateUser()
     }
 

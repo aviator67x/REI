@@ -40,7 +40,7 @@ final class MainTabBarCoordinator: Coordinator {
             image: UIImage(systemName: "magnifyingglass"),
             selectedImage: UIImage(systemName: "magnifyingglass.circle")
         )
-        let coordinator = HomeCoordinator(navigationController: navController, container: container)
+        let coordinator = SearchCoordinator(navigationController: navController, container: container)
         childCoordinators.append(coordinator)
         coordinator.start()
     }

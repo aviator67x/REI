@@ -73,6 +73,8 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
                         viewModel.showDetailed(state: .year)
                     case .garage:
                         viewModel.showDetailed(state: .garage)
+                    case .backgroundItem:
+                        break
                     }
                 case .segmentControl(let index):
                     viewModel.configureScreen(for: index)

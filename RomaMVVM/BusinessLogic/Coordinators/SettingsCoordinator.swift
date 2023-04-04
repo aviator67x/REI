@@ -31,8 +31,6 @@ final class SettingsCoordinator: Coordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .property:
-                    property()
                 case .profile:
                     profile()
                 case .terms:
@@ -40,11 +38,6 @@ final class SettingsCoordinator: Coordinator {
                 }
             }
             .store(in: &cancellables)
-        setRoot(module.viewController)
-    }
-    
-    private func property() {
-        let module = PropertyModuleBuilder.build(container: container)
         setRoot(module.viewController)
     }
     

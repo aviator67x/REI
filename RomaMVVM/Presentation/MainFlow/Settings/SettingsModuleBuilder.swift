@@ -9,7 +9,6 @@ import UIKit
 import Combine
 
 enum SettingsTransition: Transition {
-    case property
     case profile
     case terms
 }

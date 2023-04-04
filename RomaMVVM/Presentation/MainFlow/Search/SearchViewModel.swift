@@ -20,7 +20,9 @@ final class SearchViewModel: BaseViewModel {
     private lazy var minSquareSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var maxSquareSubject = CurrentValueSubject<String?, Never>(nil)
     
-    private var searchRequest: SearchRequestModel
+    private var searchRequest: SearchRequestModel {didSet {
+        print(oldValue.self)
+    }}
     
     init(searchRequest: SearchRequestModel) {
         self.searchRequest = searchRequest
@@ -37,6 +39,7 @@ final class SearchViewModel: BaseViewModel {
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
                 self.searchRequest.minPrice = price
+                print(price)
             })
             .store(in: &cancellables)
         
@@ -85,7 +88,7 @@ final class SearchViewModel: BaseViewModel {
     }
     
     func showDetailed(state: ScreenState) {
-        transitionSubject.send(.year(searchRequest, state))
+        transitionSubject.send(.detailed(searchRequest, state))
     }
 
     private func updateDataSource() {
@@ -150,6 +153,10 @@ final class SearchViewModel: BaseViewModel {
                 ]
             )
         }()
+        
+        let backgroundSection: SearchCollection = {
+            SearchCollection(sections: .backgroundItem, items: [.backgroundItem])
+        }()
 
         sections = [
             segmentControlSection,
@@ -160,6 +167,7 @@ final class SearchViewModel: BaseViewModel {
             roomsNumberSection,
             yearSection,
             garageSection,
+            backgroundSection
         ]
     }
 }

@@ -22,6 +22,7 @@ enum SearchSection: Hashable, CaseIterable {
     case roomsNumber
     case year
     case garage
+    case backgroundItem
 }
 
 enum SearchItem: Hashable {
@@ -33,6 +34,7 @@ enum SearchItem: Hashable {
     case roomsNumber(String)
     case year
     case garage
+    case backgroundItem
 }
 
 final class SearchRequestModel {
@@ -44,6 +46,7 @@ final class SearchRequestModel {
     var minSquare: String?
     var maxSquare: String?
     var constructionYear: String?
+    var garage: String?
 }
 
 struct PriceCellModel: Hashable {

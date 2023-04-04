@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class ConstructionYearViewController: BaseViewController<ConstructionYearViewModel> {
+final class DetailedViewController: BaseViewController<DetailedViewModel> {
     // MARK: - Views
-    private let contentView = ConstructionYearView()
+    private let contentView = DetailedView()
     
     // MARK: - Lifecycle
     override func loadView() {
@@ -37,6 +37,14 @@ final class ConstructionYearViewController: BaseViewController<ConstructionYearV
         viewModel.$sections
             .sinkWeakly(self, receiveValue: { (self, sections) in
                 self.contentView.setupSnapShot(sections: sections)
+            })
+            .store(in: &cancellables)
+        
+        viewModel.popDetailedPublisher
+            .sinkWeakly(self, receiveValue: { (_, value) in
+                if value {
+                    self.navigationController?.popViewController(animated: true)
+                }
             })
             .store(in: &cancellables)
     }

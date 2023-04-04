@@ -8,21 +8,13 @@
 import Combine
 import UIKit
 
-struct EditUserViewModel {
-    let firstName: String
-    let lastName: String
-    let nickName: String
-}
-
 enum EditProfileViewAction {
     case firstNameDidChange(String)
     case lastNameDidChange(String)
-    case nickNameDidChange(String)
-    
+    case nickNameDidChange(String)    
 }
 
 final class EditProfileView: BaseView {
-//    var configuration: EditProfileConfiguration = .name
 
     // MARK: - Subviews
     private var scrollView = AxisScrollView()

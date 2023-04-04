@@ -23,7 +23,6 @@ final class AuthCoordinator: Coordinator {
 
     func start() {
         signIn()
-//        signUp()
     }
 
     deinit {
@@ -45,7 +44,6 @@ final class AuthCoordinator: Coordinator {
                 }
             }
             .store(in: &cancellables)
-//        push(module.viewController)
         setRoot([module.viewController])
     }
 

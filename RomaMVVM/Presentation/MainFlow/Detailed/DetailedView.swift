@@ -9,31 +9,19 @@ import UIKit
 import Combine
 import Foundation
 
-enum ConstructionYearViewAction {
-    case selectedItem(ConstructionYearItem)
+enum DetailedViewAction {
+    case selectedItem(DetailedItem)
 
 }
-struct ConstructionYearCollection {
-    var section: ConstructionYearSection
-    var items: [ConstructionYearItem]
-}
 
-enum ConstructionYearSection: Hashable {
-    case plain
-}
-
-enum ConstructionYearItem: Hashable {
-    case plain(String)
-}
-
-final class ConstructionYearView: BaseView {
-    var dataSource: UICollectionViewDiffableDataSource<ConstructionYearSection, ConstructionYearItem>?
+final class DetailedView: BaseView {
+    var dataSource: UICollectionViewDiffableDataSource<DetailedSection, DetailedItem>?
     // MARK: - Subviews
 
     private var collection: UICollectionView!
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<ConstructionYearViewAction, Never>()
+    private let actionSubject = PassthroughSubject<DetailedViewAction, Never>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,7 +59,7 @@ final class ConstructionYearView: BaseView {
     private func bindActions() {
         collection.didSelectItemPublisher
             .compactMap {self.dataSource?.itemIdentifier(for: $0)}
-            .map {ConstructionYearViewAction.selectedItem($0)}
+            .map {DetailedViewAction.selectedItem($0)}
             .sink { [unowned self] in
                 actionSubject.send($0)}
             .store(in: &cancellables)
@@ -95,18 +83,18 @@ private enum Constant {
 
 #if DEBUG
 import SwiftUI
-struct ConstructionYearPreview: PreviewProvider {
+struct DetailedPreview: PreviewProvider {
     
     static var previews: some View {
-        ViewRepresentable(ConstructionYearView())
+        ViewRepresentable(DetailedView())
     }
 }
 #endif
 
 // MARK: - extensions
-extension ConstructionYearView {
-    func setupSnapShot(sections: [ConstructionYearCollection]) {
-        var snapshot = NSDiffableDataSourceSnapshot<ConstructionYearSection, ConstructionYearItem>()
+extension DetailedView {
+    func setupSnapShot(sections: [DetailedCollection]) {
+        var snapshot = NSDiffableDataSourceSnapshot<DetailedSection, DetailedItem>()
         for section in sections {
             snapshot.appendSections([section.section])
             snapshot.appendItems(section.items, toSection: section.section)
@@ -115,7 +103,7 @@ extension ConstructionYearView {
     }
     
     func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<ConstructionYearSection, ConstructionYearItem>(collectionView: collection, cellProvider: {
+        dataSource = UICollectionViewDiffableDataSource<DetailedSection, DetailedItem>(collectionView: collection, cellProvider: {
             collectionView, indexPath, item -> UICollectionViewCell in
             switch item {
             case .plain(let year1850):

@@ -50,7 +50,7 @@ final class EditProfileViewModel: BaseViewModel {
             .sink(receiveCompletion: { [unowned self]completion in
                 switch completion {
                 case .finished:
-                    print("User has been update with new value")
+                    print("User has been updated with a new value")
                 case .failure(let error):
                     self.errorSubject.send(error)
                 }

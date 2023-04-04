@@ -12,24 +12,6 @@ enum SettingsViewAction {
     case selectedItem(SettingsItem)
 }
 
-struct UserProfileCellModel: Hashable {
-    let name: String
-    let email: String
-    let image: ImageResource
-}
-
-enum SettingsSection: CaseIterable {
-    case userProfile
-    case profile
-    case terms
-    case company
-}
-
-enum SettingsItem: Hashable {
-    case userProfile(userModel: UserProfileCellModel)
-    case plain(title: String)
-}
-
 final class SettingsView: BaseView {
     var dataSource: UICollectionViewDiffableDataSource<SettingsSection, SettingsItem>?
 
@@ -112,7 +94,7 @@ extension SettingsView {
     func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<SettingsSection, SettingsItem>(
             collectionView: collection,
-            cellProvider: { [unowned self]
+            cellProvider: { 
                 collectionView, indexPath, item -> UICollectionViewCell in
                     switch item {
                     case let .plain(title):
