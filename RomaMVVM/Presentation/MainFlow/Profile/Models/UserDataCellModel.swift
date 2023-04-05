@@ -13,6 +13,11 @@ struct UserDataCellModel: Hashable {
     let image: ImageResource
 }
 
+struct ProfileCollection {
+    var section: ProfileSection
+    var items: [ProfileItem]
+}
+
 enum ProfileSection: Hashable {
     case userData
     case details
@@ -21,11 +26,15 @@ enum ProfileSection: Hashable {
 
 enum ProfileItem: Hashable {
     case userData(UserDataCellModel)
-    case plain(String)
+    case plain(Titles)
     case button
 }
 
-struct ProfileCollection {
-    var section: ProfileSection
-    var items: [ProfileItem]
+enum Titles: String, Hashable {
+    case name = "Name"
+    case email = "Email"
+    case dateOfBirth = "Date of Birth"
+    case password = "Password"
 }
+
+

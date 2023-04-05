@@ -86,7 +86,7 @@ final class SignInViewModel: BaseViewModel {
                 let userModel = UserDomainModel(networkModel: user)
                 let token = user.accessToken
                 self?.userService.save(user: userModel)
-                self?.userService.saveAccessToken(token: token)
+                self?.userService.tokenStorageService.saveAccessToken(token: token)
                 self?.transitionSubject.send(.success)
                 self?.transitionSubject.send(completion: .finished)
             }

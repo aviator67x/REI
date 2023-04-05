@@ -70,10 +70,10 @@ final class ProfileViewModel: BaseViewModel {
 
                 let detailsSection: ProfileCollection = {
                     ProfileCollection(section: .details, items: [
-                        .plain("Name"),
-                        .plain("Email"),
-                        .plain("Date of birth"),
-                        .plain("Password"),
+                        .plain(.name),
+                        .plain(.email),
+                        .plain(.dateOfBirth),
+                        .plain(.password),
                     ])
                 }()
 
@@ -100,7 +100,7 @@ final class ProfileViewModel: BaseViewModel {
                     print(error.errorDescription ?? "")
                 }
             } receiveValue: { [unowned self] avatarUrl in
-                let imageURL = avatarUrl.imageURL
+                guard let imageURL = URL(string: avatarUrl.imageURL) else { return }
                 let userId = userService.getUser()?.id ?? ""
                 let updateUserRequestModel = UpdateUserRequestModel(
                     firstName: nil,
@@ -110,7 +110,7 @@ final class ProfileViewModel: BaseViewModel {
                     id: userId
                 )
                 KingfisherManager.shared.retrieveImage(
-                    with: Kingfisher.ImageResource(downloadURL: URL(string: imageURL)!),
+                    with: Kingfisher.ImageResource(downloadURL: imageURL),//URL(string: imageURL)!),
                     options: [.cacheOriginalImage],
                     completionHandler: nil)
                 update(user: updateUserRequestModel)
@@ -139,24 +139,21 @@ final class ProfileViewModel: BaseViewModel {
     }
 
     func logout() {
-        guard let token = userService.token else {
-            return
-        }
-        userService.logOut(token: token)
+        isLoadingSubject.send(true)
+        userService.logout()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
+            .sink(receiveCompletion: { [unowned self] completion in
+                self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
-                    self?.transitionSubject.send(.logout)
-                case let .failure(error):
-                    debugPrint(error.localizedDescription)
-                    self?.errorSubject.send(error)
+                    self.transitionSubject.send(.logout)
+                    self.transitionSubject.send(completion: .finished)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.errorSubject.send(error)
                 }
-            } receiveValue: { _ in
-                self.userService.logOut()
-                self.transitionSubject.send(.logout)
-                self.transitionSubject.send(completion: .finished)
-            }
+                
+            }, receiveValue: { value in})
             .store(in: &cancellables)
     }
 

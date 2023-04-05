@@ -11,7 +11,7 @@ struct UpdateUserRequestModel: Encodable {
     let firstName: String?
     let lastName: String?
     let nickName: String?
-    let imageURL: String?
+    let imageURL: URL?
     let id: String
 }
 

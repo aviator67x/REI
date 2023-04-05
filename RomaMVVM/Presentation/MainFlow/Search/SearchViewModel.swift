@@ -120,7 +120,7 @@ final class SearchViewModel: BaseViewModel {
         let yearSection: SearchCollection = {
             SearchCollection(sections: .year, items: [.year])
         }()
-
+        
         let squareSection: SearchCollection = {
             let model = SquareCellModel(minSquare: minSquareSubject, maxSquare: maxSquareSubject)
             return SearchCollection(sections: .square, items: [.square(model: model)])

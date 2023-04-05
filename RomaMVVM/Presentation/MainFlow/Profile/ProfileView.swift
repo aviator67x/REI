@@ -26,24 +26,24 @@ final class ProfileView: BaseView {
         super.init(frame: frame)
         initialSetup()
     }
-    
-// MARK: - Life cycle
+
+    // MARK: - Life cycle
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func createCollectionView() -> UICollectionView {
         let sectionProvider =
-        { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-            var section: NSCollectionLayoutSection
-            var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-            section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
-            return section
-        }
+            { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+                var section: NSCollectionLayoutSection
+                var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+                section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
+                return section
+            }
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
+
         return collection
     }
 
@@ -97,34 +97,36 @@ extension ProfileView {
     func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>(
             collectionView: collectionView,
-            cellProvider: { [unowned self]
+            cellProvider: {
                 collectionView, indexPath, item -> UICollectionViewCell in
-                    switch item {
-                    case let .plain(title):
-                        guard let cell = collectionView.dequeueReusableCell(
-                            withReuseIdentifier: PlainCell.identifier,
-                            for: indexPath
-                        ) as? PlainCell else {
-                            return UICollectionViewCell()
-                        }
-                        cell.setupCell(title: title)
-                        return cell
-                    case .button:
-                        guard let cell = collectionView.dequeueReusableCell(
-                            withReuseIdentifier: ButtonCell.identifier,
-                            for: indexPath
-                        ) as? ButtonCell else {
-                            return UICollectionViewCell()
-                        }
-                        return cell
-                    case let .userData(user):
-                        guard let cell = collectionView.dequeueReusableCell(
-                            withReuseIdentifier: UserDataCell.reuseidentifier,
-                            for: indexPath
-                        ) as? UserDataCell else { return UICollectionViewCell() }
-                        cell.setup(user)
-                        return cell
+                switch item {
+                case let .plain(title):
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: PlainCell.identifier,
+                        for: indexPath
+                    ) as? PlainCell else {
+                        return UICollectionViewCell()
                     }
+                    cell.setupCell(title: title.rawValue)
+                    return cell
+                case .button:
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: ButtonCell.identifier,
+                        for: indexPath
+                    ) as? ButtonCell else {
+                        return UICollectionViewCell()
+                    }
+                    return cell
+                case let .userData(user):
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: UserDataCell.reuseidentifier,
+                        for: indexPath
+                    ) as? UserDataCell else {
+                        return UICollectionViewCell()
+                    }
+                    cell.setup(user)
+                    return cell
+                }
             }
         )
     }

@@ -32,16 +32,14 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
                         viewModel.logout()
                     case let .plain(title):
                         switch title {
-                        case "Name":
+                        case .name:
                             viewModel.showEditPrifile(configuration: .name)
-                        case "Email":
+                        case .email:
                             viewModel.showEditPrifile(configuration: .email)
-                        case "Date of birth":
+                        case .dateOfBirth:
                             viewModel.showEditPrifile(configuration: .dateOfBirth)
-                        case "Password":
+                        case .password:
                             viewModel.showPassword()
-                        default:
-                            break
                         }
                     case .userData:
                         showPopup()
@@ -49,13 +47,13 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
                 }
             }
             .store(in: &cancellables)
-        
+
         viewModel.openGalleryPublisher
             .sink { [unowned self] value in
                 if value {
                     imageFromGallery()
                 }
-        }
+            }
             .store(in: &cancellables)
 
         viewModel.$sections
@@ -64,7 +62,7 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
             }
             .store(in: &cancellables)
     }
-    
+
     private func imageFromGallery() {
         let imagePicker = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
@@ -75,10 +73,10 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
             present(imagePicker, animated: true, completion: nil)
         }
     }
-    
+
     private func imageFromCamera() {
         let cameraVC = UIImagePickerController()
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {           
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
             cameraVC.delegate = self
             cameraVC.sourceType = .camera
             cameraVC.allowsEditing = true
@@ -86,23 +84,23 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
             present(cameraVC, animated: true, completion: nil)
         }
     }
-    
+
     private func showPopup() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-           
-           alert.addAction(UIAlertAction(title: "Take Photo", style: .default , handler:{ (UIAlertAction)in
-               self.imageFromCamera()
-           }))
-           
-           alert.addAction(UIAlertAction(title: "Choose Photo", style: .default , handler:{ (UIAlertAction)in
-               self.viewModel.openGallery()
-           }))
 
-           alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:{ (UIAlertAction)in
-               print("User click Dismiss button")
-           }))
-        
-        self.present(alert, animated: true)
+        alert.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { _ in
+            self.imageFromCamera()
+        }))
+
+        alert.addAction(UIAlertAction(title: "Choose Photo", style: .default, handler: { _ in
+            self.viewModel.openGallery()
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            print("User click Dismiss button")
+        }))
+
+        present(alert, animated: true)
     }
 }
 

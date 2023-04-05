@@ -41,28 +41,35 @@ final class SearchView: BaseView {
         let sectionProvider =
             { [weak self] (sectionNumber: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection?
-                let sectionType = SearchSection.allCases
-                switch sectionType[sectionNumber] {
-                case .segmentControl:
-                    section = self?.segmentControlSectionLayout()
-                case .distance:
-                    section = self?.distanceSectionLayout()
-                case .price:
-                    section = self?.priceSectionLayout()
-                case .type:
-                    section = self?.typeSectionLayout()
-                case .year:
-                    section = self?.yearSectionLayout()
-                case .garage:
-                    section = self?.garagSectionLayout()
-                case .square:
-                    section = self?.squareSectionLayout()
-                case .roomsNumber:
-                    section = self?.roomsNumberSectionLayout()
-                case .backgroundItem:
-                    section = self?.backgroundLayout()
+                if #available(iOS 15.0, *) {
+                    guard let sectionType = self?.dataSource?.sectionIdentifier(for: sectionNumber) else {
+                        return nil
+                    }
+                    switch sectionType {
+                    case .segmentControl:
+                        section = self?.segmentControlSectionLayout()
+                    case .distance:
+                        section = self?.distanceSectionLayout()
+                    case .price:
+                        section = self?.priceSectionLayout()
+                    case .type:
+                        section = self?.typeSectionLayout()
+                    case .year:
+                        section = self?.yearSectionLayout()
+                    case .garage:
+                        section = self?.garagSectionLayout()
+                    case .square:
+                        section = self?.squareSectionLayout()
+                    case .roomsNumber:
+                        section = self?.roomsNumberSectionLayout()
+                    case .backgroundItem:
+                        section = self?.backgroundLayout()
+                    }
+                } else {
+                    // Fallback on earlier versions
+                    return nil
                 }
-
+    
                 return section
             }
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
@@ -292,7 +299,9 @@ extension SearchView {
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: SegmentControlCell.reusedidentifier,
                         for: indexPath
-                    ) as? SegmentControlCell else { return UICollectionViewCell() }
+                    ) as? SegmentControlCell else {
+                        return UICollectionViewCell()
+                    }
                     cell.segmentPublisher
                         .sinkWeakly(self, receiveValue: { (self, value) in
                             self.actionSubject.send(.segmentControl(value))
@@ -303,7 +312,9 @@ extension SearchView {
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: DistanceCell.reusedidentifier,
                         for: indexPath
-                    ) as? DistanceCell else { return UICollectionViewCell() }
+                    ) as? DistanceCell else {
+                        return UICollectionViewCell()
+                    }
                     cell.setupCell(with: km)
 
                     return cell
@@ -311,7 +322,9 @@ extension SearchView {
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: PriceCell.reusedidentifier,
                         for: indexPath
-                    ) as? PriceCell else { return UICollectionViewCell() }
+                    ) as? PriceCell else {
+                        return UICollectionViewCell()
+                    }
                     cell.setupCell(with: model)
 
                     return cell
@@ -319,14 +332,18 @@ extension SearchView {
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: TypeCell.reusedidentifier,
                         for: indexPath
-                    ) as? TypeCell else { return UICollectionViewCell() }
+                    ) as? TypeCell else {
+                        return UICollectionViewCell()
+                    }
                     cell.setupCell(with: title)
                     return cell
                 case .year:
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: UniversalCell.reusedidentifier,
                         for: indexPath
-                    ) as? UniversalCell else { return UICollectionViewCell() }
+                    ) as? UniversalCell else {
+                        return UICollectionViewCell()
+                    }
                     let model = UniversalCellModel(
                         image: UIImage(systemName: "square.split.bottomrightquarter"),
                         itemText: "Period of building",
@@ -338,7 +355,9 @@ extension SearchView {
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: UniversalCell.reusedidentifier,
                         for: indexPath
-                    ) as? UniversalCell else { return UICollectionViewCell() }
+                    ) as? UniversalCell else {
+                        return UICollectionViewCell()
+                    }
                     let model = UniversalCellModel(
                         image: UIImage(systemName: "car"),
                         itemText: "Garage",
@@ -350,7 +369,9 @@ extension SearchView {
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: SquareCell.reusedidentifier,
                         for: indexPath
-                    ) as? SquareCell else { return UICollectionViewCell() }
+                    ) as? SquareCell else {
+                        return UICollectionViewCell()
+                    }
                     cell.setupCell(with: model)
 
                     return cell
@@ -358,7 +379,9 @@ extension SearchView {
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: RoomsNumberCell.reusedidentifier,
                         for: indexPath
-                    ) as? RoomsNumberCell else { return UICollectionViewCell() }
+                    ) as? RoomsNumberCell else {
+                        return UICollectionViewCell()
+                    }
                     cell.setupCell(with: title)
 
                     return cell
@@ -366,7 +389,9 @@ extension SearchView {
                     guard let cell = collection.dequeueReusableCell(
                         withReuseIdentifier: BackgroundCell.reusedidentifier,
                         for: indexPath
-                    ) as? BackgroundCell else { return UICollectionViewCell() }
+                    ) as? BackgroundCell else {
+                        return UICollectionViewCell()
+                    }
 
                     return cell
                 }
@@ -379,35 +404,48 @@ extension SearchView {
                     ofKind: "header",
                     withReuseIdentifier: "Header",
                     for: indexPath
-                ) as? HeaderView else { return UICollectionReusableView() }
+                ) as? HeaderView else {
+                    return nil
+                }
+                if #available(iOS 15.0, *) {
+                    guard
+                        let section = self.dataSource?.sectionIdentifier(for: indexPath.section),
+                        let title = section.headerTitle,
+                        let imageName = section.headerImageName
+                    else {
+                        return nil
+                    }
+                    header.setupUI(text: title, imageName: imageName)
+                    return header
 
-                let sectionType = SearchSection.allCases
-                switch sectionType[indexPath.section] {
-                case .segmentControl, .year, .garage, .backgroundItem:
-                   break
-                case .distance:
-                    header.setupUI(text: "Distance", imageName: "plus")
-                case .price:
-                    header.setupUI(text: "Price category", imageName: "eurosign")
-                case .type:
-                    header.setupUI(text: "Type of property", imageName: "homekit")
-                case .square:
-                    header.setupUI(text: "Square of the property in sqm", imageName: "light.panel")
-                case .roomsNumber:
-                    header.setupUI(text: "Number of rooms", imageName: "door.right.hand.open")
+                } else {
+                    // Fallback on earlier versions
+                    return nil
                 }
 
-                return header
             case "BackgroundFooter":
                 guard let footer: BackgroundFooterView = collectionView.dequeueReusableSupplementaryView(
                     ofKind: "BackgroundFooter",
                     withReuseIdentifier: "BackgroundFooter",
                     for: indexPath
-                ) as? BackgroundFooterView else { return UICollectionReusableView() }
-
-                return footer
+                ) as? BackgroundFooterView else {
+                    return nil
+                }
+                if #available(iOS 15.0, *) {
+                    guard let section = self.dataSource?.sectionIdentifier(for: indexPath.section) else {
+                        return nil
+                    }
+                    if section.isFooterNeeded {
+                        return footer
+                    } else {
+                        return footer//UICollectionReusableView()//nil
+                    }
+                } else {
+                    // Fallback on earlier versions
+                    return nil
+                }
             default:
-                return UICollectionReusableView()
+                return nil
             }
         }
     }
