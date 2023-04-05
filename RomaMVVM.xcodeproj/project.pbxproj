@@ -138,6 +138,12 @@
 		CEA5B73329B0B8D30038A29C /* TokenStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5B73029B0B8D30038A29C /* TokenStorageService.swift */; };
 		CEA5F58B298CEBA200B87DD4 /* UISegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F58A298CEBA200B87DD4 /* UISegmentControl.swift */; };
 		CEA5F5D0299BECE300B87DD4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA5F5CD299BECE300B87DD4 /* NetworkError.swift */; };
+		CEAA10EA29DDBA5200340401 /* FindModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10E629DDBA5200340401 /* FindModuleBuilder.swift */; };
+		CEAA10EB29DDBA5200340401 /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10E729DDBA5200340401 /* FindViewController.swift */; };
+		CEAA10EC29DDBA5200340401 /* FindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10E829DDBA5200340401 /* FindView.swift */; };
+		CEAA10ED29DDBA5200340401 /* FindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10E929DDBA5200340401 /* FindViewModel.swift */; };
+		CEAA10F029DDBC5600340401 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10EF29DDBC5600340401 /* PhotoCell.swift */; };
+		CEAA10F329DDBDB700340401 /* FindCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F229DDBDB700340401 /* FindCollection.swift */; };
 		CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99C2981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift */; };
 		CEADC9A12981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99D2981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift */; };
 		CEADC9A22981A22E007A0650 /* UniformKeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99E2981A22E007A0650 /* UniformKeyPathInitializable.swift */; };
@@ -317,6 +323,12 @@
 		CEA5B73029B0B8D30038A29C /* TokenStorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenStorageService.swift; sourceTree = "<group>"; };
 		CEA5F58A298CEBA200B87DD4 /* UISegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentControl.swift; sourceTree = "<group>"; };
 		CEA5F5CD299BECE300B87DD4 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		CEAA10E629DDBA5200340401 /* FindModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindModuleBuilder.swift; sourceTree = "<group>"; };
+		CEAA10E729DDBA5200340401 /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
+		CEAA10E829DDBA5200340401 /* FindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindView.swift; sourceTree = "<group>"; };
+		CEAA10E929DDBA5200340401 /* FindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewModel.swift; sourceTree = "<group>"; };
+		CEAA10EF29DDBC5600340401 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		CEAA10F229DDBDB700340401 /* FindCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindCollection.swift; sourceTree = "<group>"; };
 		CEADC99C2981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+UniformKeyPathInitializable.swift"; sourceTree = "<group>"; };
 		CEADC99D2981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+KeyPathInitializable.swift"; sourceTree = "<group>"; };
 		CEADC99E2981A22E007A0650 /* UniformKeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniformKeyPathInitializable.swift; sourceTree = "<group>"; };
@@ -822,6 +834,35 @@
 			path = Publisher;
 			sourceTree = "<group>";
 		};
+		CEAA10E529DDBA0200340401 /* Find */ = {
+			isa = PBXGroup;
+			children = (
+				CEAA10E629DDBA5200340401 /* FindModuleBuilder.swift */,
+				CEAA10E729DDBA5200340401 /* FindViewController.swift */,
+				CEAA10E829DDBA5200340401 /* FindView.swift */,
+				CEAA10E929DDBA5200340401 /* FindViewModel.swift */,
+				CEAA10EE29DDBC3D00340401 /* Subviews */,
+				CEAA10F129DDBD7900340401 /* Models */,
+			);
+			path = Find;
+			sourceTree = "<group>";
+		};
+		CEAA10EE29DDBC3D00340401 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				CEAA10EF29DDBC5600340401 /* PhotoCell.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		CEAA10F129DDBD7900340401 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CEAA10F229DDBDB700340401 /* FindCollection.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CEADC99B2981A22E007A0650 /* KeyPathInitializable */ = {
 			isa = PBXGroup;
 			children = (
@@ -887,6 +928,7 @@
 		CEAEB9F229AD0BA5005BBF50 /* MainFlow */ = {
 			isa = PBXGroup;
 			children = (
+				CEAA10E529DDBA0200340401 /* Find */,
 				CE9430D029C8870F00FFB94C /* Terms */,
 				5B5C3AE1BF141B5158BBB0E9 /* MainTabBar */,
 				CCA876F88893001B36189960 /* Settings */,
@@ -1096,21 +1138,26 @@
 			files = (
 				CE13E3BD29DC81A900B948C9 /* UserProfileCell.swift in Sources */,
 				CE9430D729C8873200FFB94C /* TermsView.swift in Sources */,
+				CEAA10EA29DDBA5200340401 /* FindModuleBuilder.swift in Sources */,
 				6E4C7AAA8893AF9C2AB5AE1A /* AppConfiguration.swift in Sources */,
 				93D6390C1941B36D603900B0 /* AppContainer.swift in Sources */,
+				CEAA10EC29DDBA5200340401 /* FindView.swift in Sources */,
 				CE0E27C129D43D49001EDFCD /* PriceCell.swift in Sources */,
 				CEAEB9EE29ACA6B1005BBF50 /* PasswordRestoreView.swift in Sources */,
 				CEA5F58B298CEBA200B87DD4 /* UISegmentControl.swift in Sources */,
 				08EEB3184A8082B0C0C25EC4 /* AppCoordinator.swift in Sources */,
 				82CC8E4ECAA1B873DDFB95AB /* AppDelegate.swift in Sources */,
 				CE13E3AE29DAFE5600B948C9 /* DetailedViewModel.swift in Sources */,
+				CEAA10F029DDBC5600340401 /* PhotoCell.swift in Sources */,
 				CEAEB9E129AAA49B005BBF50 /* UserModels.swift in Sources */,
+				CEAA10ED29DDBA5200340401 /* FindViewModel.swift in Sources */,
 				CE0E27AF29CE1DA9001EDFCD /* SearchModuleBuilder.swift in Sources */,
 				CEA5B72E29B0A2B70038A29C /* Publisher+WithLatestFrom.swift in Sources */,
 				CEA5B72A29B0A2060038A29C /* Publisher+Assign.swift in Sources */,
 				CE0E27C329D43D8F001EDFCD /* TypeCell.swift in Sources */,
 				CE990E8229CA1A7100120D6F /* ButtonCell.swift in Sources */,
 				CEAEB9EF29ACA6B1005BBF50 /* PasswordRestoreViewModel.swift in Sources */,
+				CEAA10EB29DDBA5200340401 /* FindViewController.swift in Sources */,
 				3F262958B2CE34CD77EC9A8D /* AppEnvironment.swift in Sources */,
 				CEADC9B32987D61A007A0650 /* Optional+extension.swift in Sources */,
 				CE13E3B929DB195B00B948C9 /* DetailedCell.swift in Sources */,
@@ -1133,6 +1180,7 @@
 				CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */,
 				656F7BA65C21EC792A53FC1A /* AuthNetworkService.swift in Sources */,
 				CEAE383129B76BCA0046198A /* PropertyNetworkService.swift in Sources */,
+				CEAA10F329DDBDB700340401 /* FindCollection.swift in Sources */,
 				CE9CAF3A29B657C0007DC31B /* PropertyView.swift in Sources */,
 				CE0E27C529D43DC4001EDFCD /* SquareCell.swift in Sources */,
 				CE9430CF29C8736400FFB94C /* ProfileViewModel.swift in Sources */,
