@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum FindTransition: Transition {
-    
+    case home
 }
 
 final class FindModuleBuilder {

@@ -144,6 +144,10 @@
 		CEAA10ED29DDBA5200340401 /* FindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10E929DDBA5200340401 /* FindViewModel.swift */; };
 		CEAA10F029DDBC5600340401 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10EF29DDBC5600340401 /* PhotoCell.swift */; };
 		CEAA10F329DDBDB700340401 /* FindCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F229DDBDB700340401 /* FindCollection.swift */; };
+		CEAA10F529DEDAD700340401 /* HouseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F429DEDAD700340401 /* HouseModel.swift */; };
+		CEAA10F729DEDBBE00340401 /* HouseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F629DEDBBE00340401 /* HouseModels.swift */; };
+		CEAA10F929DEDC2A00340401 /* HouseEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F829DEDC2A00340401 /* HouseEndPoint.swift */; };
+		CEAA10FB29DEE01000340401 /* HouseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10FA29DEE01000340401 /* HouseNetworkService.swift */; };
 		CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99C2981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift */; };
 		CEADC9A12981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99D2981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift */; };
 		CEADC9A22981A22E007A0650 /* UniformKeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99E2981A22E007A0650 /* UniformKeyPathInitializable.swift */; };
@@ -329,6 +333,10 @@
 		CEAA10E929DDBA5200340401 /* FindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewModel.swift; sourceTree = "<group>"; };
 		CEAA10EF29DDBC5600340401 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		CEAA10F229DDBDB700340401 /* FindCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindCollection.swift; sourceTree = "<group>"; };
+		CEAA10F429DEDAD700340401 /* HouseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseModel.swift; sourceTree = "<group>"; };
+		CEAA10F629DEDBBE00340401 /* HouseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseModels.swift; sourceTree = "<group>"; };
+		CEAA10F829DEDC2A00340401 /* HouseEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseEndPoint.swift; sourceTree = "<group>"; };
+		CEAA10FA29DEE01000340401 /* HouseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseNetworkService.swift; sourceTree = "<group>"; };
 		CEADC99C2981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+UniformKeyPathInitializable.swift"; sourceTree = "<group>"; };
 		CEADC99D2981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+KeyPathInitializable.swift"; sourceTree = "<group>"; };
 		CEADC99E2981A22E007A0650 /* UniformKeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniformKeyPathInitializable.swift; sourceTree = "<group>"; };
@@ -770,6 +778,7 @@
 				CE9881AE29A3A3820086F583 /* AuthEndPoint.swift */,
 				CEAEB9DB29AA9D58005BBF50 /* UserEndPoint.swift */,
 				CEAE382E29B768C00046198A /* PropertyEndPoint.swift */,
+				CEAA10F829DEDC2A00340401 /* HouseEndPoint.swift */,
 			);
 			path = EndPoints;
 			sourceTree = "<group>";
@@ -859,6 +868,7 @@
 			isa = PBXGroup;
 			children = (
 				CEAA10F229DDBDB700340401 /* FindCollection.swift */,
+				CEAA10F429DEDAD700340401 /* HouseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -890,6 +900,7 @@
 				CEAEB9DE29AAA446005BBF50 /* AuthModels.swift */,
 				CEAEB9E029AAA49B005BBF50 /* UserModels.swift */,
 				CEAE383229B772640046198A /* PropertyModels.swift */,
+				CEAA10F629DEDBBE00340401 /* HouseModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -900,6 +911,7 @@
 				51CFD4204AC5C192A2EB09E5 /* AuthNetworkService.swift */,
 				CEAEB9E329AAA57E005BBF50 /* UserNetworkService.swift */,
 				CEAE383029B76BCA0046198A /* PropertyNetworkService.swift */,
+				CEAA10FA29DEE01000340401 /* HouseNetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1166,6 +1178,7 @@
 				CEAE383929BB19680046198A /* SearchQueryBuilder.swift in Sources */,
 				CEA545F3297820A3007F9962 /* ChecmarkView.swift in Sources */,
 				CEAEB9F629AE2609005BBF50 /* Colors.swift in Sources */,
+				CEAA10FB29DEE01000340401 /* HouseNetworkService.swift in Sources */,
 				CEA545E52977FF04007F9962 /* Creatable.swift in Sources */,
 				CE13E3AB29DAFE5600B948C9 /* DetailedModuleBuilder.swift in Sources */,
 				69FC756CA7A3ECBB0ADBB994 /* AuthPlugin.swift in Sources */,
@@ -1181,6 +1194,7 @@
 				656F7BA65C21EC792A53FC1A /* AuthNetworkService.swift in Sources */,
 				CEAE383129B76BCA0046198A /* PropertyNetworkService.swift in Sources */,
 				CEAA10F329DDBDB700340401 /* FindCollection.swift in Sources */,
+				CEAA10F929DEDC2A00340401 /* HouseEndPoint.swift in Sources */,
 				CE9CAF3A29B657C0007DC31B /* PropertyView.swift in Sources */,
 				CE0E27C529D43DC4001EDFCD /* SquareCell.swift in Sources */,
 				CE9430CF29C8736400FFB94C /* ProfileViewModel.swift in Sources */,
@@ -1200,6 +1214,7 @@
 				CEA545FF297832F6007F9962 /* UIView+layout.swift in Sources */,
 				CEADC9A32981A22E007A0650 /* CGPoint+UniformKeyPathInitializable.swift in Sources */,
 				CEAE382F29B768C00046198A /* PropertyEndPoint.swift in Sources */,
+				CEAA10F729DEDBBE00340401 /* HouseModels.swift in Sources */,
 				CE0E27B729D43B96001EDFCD /* SegmentControlCell.swift in Sources */,
 				CEAE383729BA720F0046198A /* MultipartItems.swift in Sources */,
 				CE0E27B229CE1DA9001EDFCD /* SearchViewModel.swift in Sources */,
@@ -1240,6 +1255,7 @@
 				CEDDF2A229D87B65003BF639 /* KeychainService.swift in Sources */,
 				CE0E27BD29D43CBD001EDFCD /* BackgrounFooterView.swift in Sources */,
 				8B92C57154F6E7BCFE57E7B1 /* Module.swift in Sources */,
+				CEAA10F529DEDAD700340401 /* HouseModel.swift in Sources */,
 				B355206A6EA2EE9B20C77B89 /* SceneDelegate.swift in Sources */,
 				CE13E3AD29DAFE5600B948C9 /* DetailedView.swift in Sources */,
 				CE13E3BF29DC81FF00B948C9 /* PlainCell.swift in Sources */,

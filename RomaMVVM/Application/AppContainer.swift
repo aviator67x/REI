@@ -79,8 +79,7 @@ final class AppContainerImpl: AppContainer {
 
         let authPlugin = AuthPlugin(token: appConfiguration.environment.apiKey)
         
-        var searchRequestModel: SearchRequestModel { SearchRequestModel()
-        }
+        var searchRequestModel: SearchRequestModel { SearchRequestModel() }
         self.searchRequestModel = searchRequestModel
         
     }

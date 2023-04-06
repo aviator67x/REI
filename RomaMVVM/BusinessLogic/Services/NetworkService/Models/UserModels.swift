@@ -32,7 +32,7 @@ struct UpdateUserResponseModel: Decodable {
 }
 
 struct UpdateAvatarResponceModel: Decodable {
-    let imageURL: String
+    let imageURL: URL
     
     enum CodingKeys: String, CodingKey {
         case imageURL = "fileURL"

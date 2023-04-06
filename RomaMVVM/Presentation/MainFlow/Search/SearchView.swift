@@ -41,10 +41,8 @@ final class SearchView: BaseView {
         let sectionProvider =
             { [weak self] (sectionNumber: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection?
-                if #available(iOS 15.0, *) {
-                    guard let sectionType = self?.dataSource?.sectionIdentifier(for: sectionNumber) else {
-                        return nil
-                    }
+                    guard let dataSource = self?.dataSource else { return nil }
+                let sectionType = dataSource.snapshot().sectionIdentifiers[sectionNumber]
                     switch sectionType {
                     case .segmentControl:
                         section = self?.segmentControlSectionLayout()
@@ -65,11 +63,7 @@ final class SearchView: BaseView {
                     case .backgroundItem:
                         section = self?.backgroundLayout()
                     }
-                } else {
-                    // Fallback on earlier versions
-                    return nil
-                }
-    
+
                 return section
             }
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
@@ -78,13 +72,18 @@ final class SearchView: BaseView {
     }
 
     private func segmentControlSectionLayout() -> NSCollectionLayoutSection {
-        return sectionLayoutBuilder(section: .segmentControl)
+        let section = sectionLayoutBuilder(section: .segmentControl)
+        let footer = sectionFooterBuilder()
+        section.boundarySupplementaryItems = [footer]
+
+        return section
     }
 
     private func distanceSectionLayout() -> NSCollectionLayoutSection {
         let section = sectionLayoutBuilder(section: .distance)
         let header = sectionHeaderBuilder()
-        section.boundarySupplementaryItems.append(header)
+        let footer = sectionFooterBuilder()
+        section.boundarySupplementaryItems = [header, footer]
 
         return section
     }
@@ -92,7 +91,8 @@ final class SearchView: BaseView {
     private func priceSectionLayout() -> NSCollectionLayoutSection {
         let section = sectionLayoutBuilder(section: .price)
         let header = sectionHeaderBuilder()
-        section.boundarySupplementaryItems.append(header)
+        let footer = sectionFooterBuilder()
+        section.boundarySupplementaryItems = [header, footer]
 
         return section
     }
@@ -100,23 +100,33 @@ final class SearchView: BaseView {
     private func typeSectionLayout() -> NSCollectionLayoutSection {
         let section = sectionLayoutBuilder(section: .type)
         let header = sectionHeaderBuilder()
-        section.boundarySupplementaryItems.append(header)
+        let footer = sectionFooterBuilder()
+        section.boundarySupplementaryItems = [header, footer]
 
         return section
     }
 
     private func yearSectionLayout() -> NSCollectionLayoutSection {
-        return sectionLayoutBuilder(section: .year)
+        let section = sectionLayoutBuilder(section: .year)
+        let footer = sectionFooterBuilder()
+        section.boundarySupplementaryItems = [footer]
+
+        return section
     }
 
     private func garagSectionLayout() -> NSCollectionLayoutSection {
-        return sectionLayoutBuilder(section: .garage)
+        let section = sectionLayoutBuilder(section: .garage)
+        let footer = sectionFooterBuilder()
+        section.boundarySupplementaryItems = [footer]
+
+        return section
     }
 
     private func squareSectionLayout() -> NSCollectionLayoutSection {
         let section = sectionLayoutBuilder(section: .square)
         let header = sectionHeaderBuilder()
-        section.boundarySupplementaryItems.append(header)
+        let footer = sectionFooterBuilder()
+        section.boundarySupplementaryItems = [header, footer]
 
         return section
     }
@@ -124,7 +134,8 @@ final class SearchView: BaseView {
     private func roomsNumberSectionLayout() -> NSCollectionLayoutSection {
         let section = sectionLayoutBuilder(section: .roomsNumber)
         let header = sectionHeaderBuilder()
-        section.boundarySupplementaryItems.append(header)
+        let footer = sectionFooterBuilder()
+        section.boundarySupplementaryItems = [header, footer]
 
         return section
     }
@@ -179,17 +190,6 @@ final class SearchView: BaseView {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .init(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
 
-        let backgroundFooterSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(4)
-        )
-        let backgroundFooter = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: backgroundFooterSize,
-            elementKind: "BackgroundFooter",
-            alignment: .bottom
-        )
-        section.boundarySupplementaryItems = [backgroundFooter]
-
         return section
     }
 
@@ -202,6 +202,20 @@ final class SearchView: BaseView {
         )
 
         return sectionHeader
+    }
+
+    private func sectionFooterBuilder() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let backgroundFooterSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .absolute(4)
+        )
+        let backgroundFooter = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: backgroundFooterSize,
+            elementKind: "BackgroundFooter",
+            alignment: .bottom
+        )
+
+        return backgroundFooter
     }
 
     private func initialSetup() {
@@ -289,7 +303,7 @@ extension SearchView {
         }
         dataSource?.apply(snapshot)
     }
-
+    
     func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<SearchSection, SearchItem>(
             collectionView: collection,
@@ -316,7 +330,7 @@ extension SearchView {
                         return UICollectionViewCell()
                     }
                     cell.setupCell(with: km)
-
+                    
                     return cell
                 case var .price(model):
                     guard let cell = collection.dequeueReusableCell(
@@ -326,7 +340,7 @@ extension SearchView {
                         return UICollectionViewCell()
                     }
                     cell.setupCell(with: model)
-
+                    
                     return cell
                 case let .type(title):
                     guard let cell = collection.dequeueReusableCell(
@@ -373,7 +387,7 @@ extension SearchView {
                         return UICollectionViewCell()
                     }
                     cell.setupCell(with: model)
-
+                    
                     return cell
                 case let .roomsNumber(title):
                     guard let cell = collection.dequeueReusableCell(
@@ -383,7 +397,7 @@ extension SearchView {
                         return UICollectionViewCell()
                     }
                     cell.setupCell(with: title)
-
+                    
                     return cell
                 case .backgroundItem:
                     guard let cell = collection.dequeueReusableCell(
@@ -392,7 +406,7 @@ extension SearchView {
                     ) as? BackgroundCell else {
                         return UICollectionViewCell()
                     }
-
+                    
                     return cell
                 }
             }
@@ -417,12 +431,12 @@ extension SearchView {
                     }
                     header.setupUI(text: title, imageName: imageName)
                     return header
-
+                    
                 } else {
                     // Fallback on earlier versions
                     return nil
                 }
-
+                
             case "BackgroundFooter":
                 guard let footer: BackgroundFooterView = collectionView.dequeueReusableSupplementaryView(
                     ofKind: "BackgroundFooter",
@@ -431,19 +445,8 @@ extension SearchView {
                 ) as? BackgroundFooterView else {
                     return nil
                 }
-                if #available(iOS 15.0, *) {
-                    guard let section = self.dataSource?.sectionIdentifier(for: indexPath.section) else {
-                        return nil
-                    }
-                    if section.isFooterNeeded {
-                        return footer
-                    } else {
-                        return footer//UICollectionReusableView()//nil
-                    }
-                } else {
-                    // Fallback on earlier versions
-                    return nil
-                }
+                
+                return footer                
             default:
                 return nil
             }

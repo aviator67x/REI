@@ -8,7 +8,7 @@
 import Foundation
 
 struct FindCollection {
-    var sections: FindSection
+    var section: FindSection
     var items: [FindItem]
 }
 
@@ -25,9 +25,10 @@ struct PhotoCellModel: Hashable {
     let image: URL?
     let street: String
     let ort: String
+    let livingArea: Int
+    let square: Int
     let numberOfRooms: String
-    let square: Float
-    let price: Float    
+    let price: Int
     
     static func == (lhs: PhotoCellModel, rhs: PhotoCellModel) -> Bool {
         return lhs.uuid == rhs.uuid

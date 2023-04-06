@@ -84,39 +84,39 @@ final class ProfileViewModel: BaseViewModel {
                 }()
                 sections = [userDataSection, detailsSection, buttonSection]
             }
-
-    func saveAvatar(avatar: Data) {
-        uploadingImageData = avatar
-        trackUser()
-        isLoadingSubject.send(true)
-        userService.saveAvatar(image: avatar)
-            .receive(on: DispatchQueue.main)
-            .sink { [unowned self] completion in
-                isLoadingSubject.send(false)
-                switch completion {
-                case .finished:
-                    print("Avatar has been saved")
-                case let .failure(error):
-                    print(error.errorDescription ?? "")
-                }
-            } receiveValue: { [unowned self] avatarUrl in
-                guard let imageURL = URL(string: avatarUrl.imageURL) else { return }
-                let userId = userService.getUser()?.id ?? ""
-                let updateUserRequestModel = UpdateUserRequestModel(
-                    firstName: nil,
-                    lastName: nil,
-                    nickName: nil,
-                    imageURL: imageURL,
-                    id: userId
-                )
-                KingfisherManager.shared.retrieveImage(
-                    with: Kingfisher.ImageResource(downloadURL: imageURL),//URL(string: imageURL)!),
-                    options: [.cacheOriginalImage],
-                    completionHandler: nil)
-                update(user: updateUserRequestModel)
-            }
-            .store(in: &cancellables)
-    }
+    func saveAvatar(avatar: Data) {}
+//    func saveAvatar(avatar: Data) {
+//        uploadingImageData = avatar
+//        trackUser()
+//        isLoadingSubject.send(true)
+//        userService.saveAvatar(image: avatar)
+//            .receive(on: DispatchQueue.main)
+//            .sink { [unowned self] completion in
+//                isLoadingSubject.send(false)
+//                switch completion {
+//                case .finished:
+//                    print("Avatar has been saved")
+//                case let .failure(error):
+//                    print(error.localizedDescription)
+//                }
+//            } receiveValue: { [unowned self] avatarUrl in
+//                guard let imageURL = avatarUrl.imageURL else { return }
+//                let userId = userService.getUser()?.id ?? ""
+//                let updateUserRequestModel = UpdateUserRequestModel(
+//                    firstName: nil,
+//                    lastName: nil,
+//                    nickName: nil,
+//                    imageURL: imageURL,
+//                    id: userId
+//                )
+//                KingfisherManager.shared.retrieveImage(
+//                    with: Kingfisher.ImageResource(downloadURL: imageURL),//URL(string: imageURL)!),
+//                    options: [.cacheOriginalImage],
+//                    completionHandler: nil)
+//                update(user: updateUserRequestModel)
+//            }
+//            .store(in: &cancellables)
+//    }
 
     private func update(user: UpdateUserRequestModel) {
         isLoadingSubject.send(true)

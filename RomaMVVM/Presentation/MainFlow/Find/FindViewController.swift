@@ -28,5 +28,11 @@ final class FindViewController: BaseViewController<FindViewModel> {
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel.$sections
+            .sinkWeakly(self, receiveValue: { (self, sections) in
+                self.contentView.setupSnapShot(sections: sections)
+            })
+            .store(in: &cancellables)
     }
 }

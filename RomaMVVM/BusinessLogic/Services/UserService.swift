@@ -14,6 +14,7 @@ enum UserServiceError: Error {
     case userDefaults
     case tokenStorage
     case networking(NetworkError)
+    case noUser
 }
 
 protocol UserService {
@@ -25,20 +26,20 @@ protocol UserService {
 
     func logout() -> AnyPublisher<Void, UserServiceError>
     func save(user: UserDomainModel)
-    func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError>
+    func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, UserServiceError>
     func getUser() -> UserDomainModel?
-    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError>
+//    func saveAvatar(image: Data) -> AnyPublisher<UpdateUserResponseModel, UserServiceError>
 }
 
 final class UserServiceImpl: UserService {
     private var userValueSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
     private(set) lazy var userPublisher = userValueSubject.eraseToAnyPublisher()
 
-     let tokenStorageService: TokenStorageService
+    let tokenStorageService: TokenStorageService
     private let keychainService: KeychainService
     private let userNetworkService: UserNetworkService
     private let userDefaults = UserDefaults.standard
-    
+
     var user: UserDomainModel? {
         userValueSubject.value
     }
@@ -51,21 +52,24 @@ final class UserServiceImpl: UserService {
         tokenStorageService.getAccessToken()
     }
 
-    init(tokenStorageService: TokenStorageService, userNetworkService: UserNetworkService, keychainService: KeychainService) {
+    init(
+        tokenStorageService: TokenStorageService,
+        userNetworkService: UserNetworkService,
+        keychainService: KeychainService
+    ) {
         self.tokenStorageService = tokenStorageService
         self.keychainService = keychainService
         self.userNetworkService = userNetworkService
         startUserValueSubject()
     }
-    
+
     func startUserValueSubject() {
         userValueSubject.value = getUser()
     }
-    
+
     func logout() -> AnyPublisher<Void, UserServiceError> {
         guard let token = tokenStorageService.getAccessToken() else {
             return Fail(error: UserServiceError.tokenStorage).eraseToAnyPublisher()
-            
         }
         return userNetworkService.logOut(token: token)
             .mapError { UserServiceError.networking($0) }
@@ -75,7 +79,7 @@ final class UserServiceImpl: UserService {
                     self?.tokenStorageService.clearAccessToken()
                     self?.userDefaults.removeObject(forKey: Keys.user)
                     debugPrint("DATA REMOVED")
-                case .failure(let error):
+                case let .failure(error):
                     debugPrint(error.localizedDescription)
                 }
             })
@@ -87,9 +91,10 @@ final class UserServiceImpl: UserService {
         userValueSubject.send(user)
     }
 
-    func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError> {
-       return userNetworkService.updateUser(user)
-            
+    func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, UserServiceError> {
+        userNetworkService.updateUser(user)
+            .mapError { UserServiceError.networking($0)}
+            .eraseToAnyPublisher()
     }
 
     func getUser() -> UserDomainModel? {
@@ -100,26 +105,18 @@ final class UserServiceImpl: UserService {
         }
         return user
     }
-    
-//    func saveAvatar(image: Data) -> AnyPublisher<UpdateUserResponseModel, NetworkError> {
+
+//    func saveAvatar(image: Data) -> AnyPublisher<UpdateUserResponseModel, UserServiceError> {
 //        let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
 //
 //        return userNetworkService.saveAvatar(image: multipartItems)
-//            .mapError { UserServiceError.networking($0) }
-//            .flatMap { (UpdateAvatarResponceModel, NetworkError) -> (UpdateUserResponseModel, NetworkError) value in
-//
-//            }
-////            .eraseToAnyPublisher()
-//    }
-    
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished: print("Finished")
-//                case .failure(let error): debugPrint(error.errorDescription ?? "")
+//            .flatMap { [unowned self] avatarUrl -> AnyPublisher<UpdateUserResponseModel, UserServiceError> in
+//                guard let userId = user?.id else {
+//                    return Fail(error: UserServiceError.noUser)
+//                        .eraseToAnyPublisher()
 //                }
-//            }, receiveValue: { avatar in
-//                let imageURL = avatar.imageURL
-//                let userId = self.user?.id ?? ""
+//
+//                let imageURL = avatarUrl.imageURL
 //                let updateUserRequestModel = UpdateUserRequestModel(
 //                    firstName: nil,
 //                    lastName: nil,
@@ -127,19 +124,27 @@ final class UserServiceImpl: UserService {
 //                    imageURL: imageURL,
 //                    id: userId
 //                )
+//
 //                KingfisherManager.shared.retrieveImage(
-//                    with: Kingfisher.ImageResource(downloadURL: URL(string: imageURL)!),
+//                    with: Kingfisher.ImageResource(downloadURL: imageURL), // URL(string: imageURL)!),
 //                    options: [.cacheOriginalImage],
-//                    completionHandler: nil)
-//                self.update(user: updateUserRequestModel)
-//            })
+//                    completionHandler: nil
+//                )
+//
+//               return update(user: updateUserRequestModel)
+//
+//            }
+//            .handleEvents(receiveOutput: { [unowned self] user in
+//                                let userModel = UserDomainModel(networkModel: user)
+//                                save(user: userModel) })
+//
 //    }
 
-    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {
-        let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
-
-        return userNetworkService.saveAvatar(image: multipartItems)
-    }
+//    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {
+//        let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
+//
+//        return userNetworkService.saveAvatar(image: multipartItems)
+//    }
 }
 
 extension UserServiceImpl {

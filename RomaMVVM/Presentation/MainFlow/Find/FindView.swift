@@ -35,7 +35,7 @@ final class FindView: BaseView {
         let sectionProvider =
             { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection
-                var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+                let listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
                 section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
                 return section
             }
@@ -46,7 +46,7 @@ final class FindView: BaseView {
     }
     
     private func setupCollectionView() {
-        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PlainCell.identifier)
+        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reusedidentifier)
         
         setupDataSource()
     }
@@ -56,6 +56,7 @@ final class FindView: BaseView {
     private func initialSetup() {
         setupLayout()
         setupUI()
+        setupCollectionView()
         bindActions()
     }
 
@@ -64,9 +65,18 @@ final class FindView: BaseView {
 
     private func setupUI() {
         backgroundColor = .white
+        stackView.axis = .vertical
+        stackView.distribution = .fill
     }
 
     private func setupLayout() {
+        addSubview(stackView) {
+            $0.edges.equalToSuperview()
+        }
+        
+        stackView.addArrangedSubview(collectionView) {
+            $0.edges.equalToSuperview()
+        }
     }
 }
 
@@ -89,8 +99,8 @@ extension FindView {
     func setupSnapShot(sections: [FindCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<FindSection, FindItem>()
         for section in sections {
-//            snapshot.appendSections([section.section])
-//            snapshot.appendItems(section.items, toSection: section.section)
+            snapshot.appendSections([section.section])
+            snapshot.appendItems(section.items, toSection: section.section)
         }
         dataSource?.apply(snapshot)
     }
@@ -102,13 +112,10 @@ extension FindView {
                 collectionView, indexPath, item -> UICollectionViewCell in
                 switch item {
                 case .photo(let model):
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: PhotoCell.identifier,
-                        for: indexPath
-                    ) as? PlainCell else {
+                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reusedidentifier, for: indexPath) as? PhotoCell else {
                         return UICollectionViewCell()
                     }
-//                    cell.setupCell(model)
+                    cell.setupCell(model)
                     return cell
                 }
             }

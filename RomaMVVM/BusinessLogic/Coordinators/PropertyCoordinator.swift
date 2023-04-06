@@ -28,7 +28,8 @@ final class PropertyCoordinator: Coordinator {
     }
     
     private func  propertyRoot() {
-        let module = PropertyModuleBuilder.build(container: container)
+//        let module = PropertyModuleBuilder.build(container: container)
+        let module = FindModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
