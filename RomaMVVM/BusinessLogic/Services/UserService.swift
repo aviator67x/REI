@@ -110,7 +110,7 @@ final class UserServiceImpl: UserService {
 //        let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
 //
 //        return userNetworkService.saveAvatar(image: multipartItems)
-//            .flatMap { [unowned self] avatarUrl -> AnyPublisher<UpdateUserResponseModel, UserServiceError> in
+//             .flatMap { [unowned self] avatarUrl -> AnyPublisher<UpdateUserResponseModel, UserServiceError> in
 //                guard let userId = user?.id else {
 //                    return Fail(error: UserServiceError.noUser)
 //                        .eraseToAnyPublisher()
@@ -132,19 +132,21 @@ final class UserServiceImpl: UserService {
 //                )
 //
 //               return update(user: updateUserRequestModel)
+////                     .eraseToAnyPublisher()
 //
 //            }
 //            .handleEvents(receiveOutput: { [unowned self] user in
 //                                let userModel = UserDomainModel(networkModel: user)
 //                                save(user: userModel) })
+//            .eraseToAnyPublisher()
 //
 //    }
 
-//    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {
-//        let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
-//
-//        return userNetworkService.saveAvatar(image: multipartItems)
-//    }
+    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {
+        let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
+
+        return userNetworkService.saveAvatar(image: multipartItems)
+    }
 }
 
 extension UserServiceImpl {

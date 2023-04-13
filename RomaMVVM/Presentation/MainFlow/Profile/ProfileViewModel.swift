@@ -34,16 +34,15 @@ final class ProfileViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
-        trackUser()
+        setupBinding()
     }
     
-    private func trackUser() {
+    
+    private func setupBinding() {
         userService.userPublisher
             .receive(on: DispatchQueue.main)
+            .unwrap()
             .sinkWeakly(self, receiveValue: { (self, user) in
-                guard let user = user else {
-                    return
-                }
                 self.updateDataSource(user: user)
             })
             .store(in: &cancellables)
@@ -133,7 +132,7 @@ final class ProfileViewModel: BaseViewModel {
             } receiveValue: { [unowned self] user in
                 let userModel = UserDomainModel(networkModel: user)
                 self.userService.save(user: userModel)
-                trackUser()
+                setupBinding()
             }
             .store(in: &cancellables)
     }

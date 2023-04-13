@@ -18,6 +18,7 @@ protocol AppContainer: AnyObject {
     var keychainService: KeychainService { get }
     var propertyNetworkService: PropertyNetworkService { get }
     var searchRequestModel: SearchRequestModel { get }
+    var houseMetworkService: HousesNetworkService { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -27,9 +28,10 @@ final class AppContainerImpl: AppContainer {
     let userService: UserService
     let appSettingsService: AppSettingsService
     let tokenStorageService: TokenStorageService
-    var keychainService: KeychainService
+    let keychainService: KeychainService
     let propertyNetworkService: PropertyNetworkService
-    var searchRequestModel: SearchRequestModel
+   let searchRequestModel: SearchRequestModel
+    let houseMetworkService: HousesNetworkService
 
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -82,5 +84,14 @@ final class AppContainerImpl: AppContainer {
         var searchRequestModel: SearchRequestModel { SearchRequestModel() }
         self.searchRequestModel = searchRequestModel
         
+        let housesNetworkServiceProvider =
+            NetworkServiceProviderImpl<HouseEndPoint>(
+                baseURLStorage: appConfiguration,
+                networkManager: networkManagerImpl,
+                encoder: JSONEncoder(),
+                decoder: JSONDecoder()
+            )
+        let housesNetworkService = HousesNetworkServiceImpl(housesProvider: housesNetworkServiceProvider)
+        self.houseMetworkService = housesNetworkService        
     }
 }

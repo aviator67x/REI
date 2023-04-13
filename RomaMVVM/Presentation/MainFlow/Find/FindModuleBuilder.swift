@@ -14,7 +14,7 @@ enum FindTransition: Transition {
 
 final class FindModuleBuilder {
     class func build(container: AppContainer) -> Module<FindTransition, UIViewController> {
-        let viewModel = FindViewModel()
+        let viewModel = FindViewModel(houseNetworkService: container.houseMetworkService)
         let viewController = FindViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

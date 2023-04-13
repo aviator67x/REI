@@ -147,7 +147,7 @@
 		CEAA10F529DEDAD700340401 /* HouseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F429DEDAD700340401 /* HouseModel.swift */; };
 		CEAA10F729DEDBBE00340401 /* HouseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F629DEDBBE00340401 /* HouseModels.swift */; };
 		CEAA10F929DEDC2A00340401 /* HouseEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F829DEDC2A00340401 /* HouseEndPoint.swift */; };
-		CEAA10FB29DEE01000340401 /* HouseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10FA29DEE01000340401 /* HouseNetworkService.swift */; };
+		CEAA10FB29DEE01000340401 /* HousesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10FA29DEE01000340401 /* HousesNetworkService.swift */; };
 		CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99C2981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift */; };
 		CEADC9A12981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99D2981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift */; };
 		CEADC9A22981A22E007A0650 /* UniformKeyPathInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC99E2981A22E007A0650 /* UniformKeyPathInitializable.swift */; };
@@ -336,7 +336,7 @@
 		CEAA10F429DEDAD700340401 /* HouseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseModel.swift; sourceTree = "<group>"; };
 		CEAA10F629DEDBBE00340401 /* HouseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseModels.swift; sourceTree = "<group>"; };
 		CEAA10F829DEDC2A00340401 /* HouseEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseEndPoint.swift; sourceTree = "<group>"; };
-		CEAA10FA29DEE01000340401 /* HouseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseNetworkService.swift; sourceTree = "<group>"; };
+		CEAA10FA29DEE01000340401 /* HousesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesNetworkService.swift; sourceTree = "<group>"; };
 		CEADC99C2981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+UniformKeyPathInitializable.swift"; sourceTree = "<group>"; };
 		CEADC99D2981A22E007A0650 /* UIEdgeInsets+KeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+KeyPathInitializable.swift"; sourceTree = "<group>"; };
 		CEADC99E2981A22E007A0650 /* UniformKeyPathInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniformKeyPathInitializable.swift; sourceTree = "<group>"; };
@@ -911,7 +911,7 @@
 				51CFD4204AC5C192A2EB09E5 /* AuthNetworkService.swift */,
 				CEAEB9E329AAA57E005BBF50 /* UserNetworkService.swift */,
 				CEAE383029B76BCA0046198A /* PropertyNetworkService.swift */,
-				CEAA10FA29DEE01000340401 /* HouseNetworkService.swift */,
+				CEAA10FA29DEE01000340401 /* HousesNetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1178,7 +1178,7 @@
 				CEAE383929BB19680046198A /* SearchQueryBuilder.swift in Sources */,
 				CEA545F3297820A3007F9962 /* ChecmarkView.swift in Sources */,
 				CEAEB9F629AE2609005BBF50 /* Colors.swift in Sources */,
-				CEAA10FB29DEE01000340401 /* HouseNetworkService.swift in Sources */,
+				CEAA10FB29DEE01000340401 /* HousesNetworkService.swift in Sources */,
 				CEA545E52977FF04007F9962 /* Creatable.swift in Sources */,
 				CE13E3AB29DAFE5600B948C9 /* DetailedModuleBuilder.swift in Sources */,
 				69FC756CA7A3ECBB0ADBB994 /* AuthPlugin.swift in Sources */,
