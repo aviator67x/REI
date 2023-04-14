@@ -96,4 +96,10 @@ extension Endpoint {
     func buildQuery(searchParams: [SearchParam]) -> [String: String]? {
         return Search.searchProperty(searchParams).query
     }
+    
+    func buildQuery(pageSize: Int, skip: Int) -> [String: String]? {
+        return [
+            "pageSize":"\(pageSize)",
+            "offset":"\(skip)"]
+    }
 }

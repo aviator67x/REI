@@ -8,7 +8,14 @@
 import Foundation
 
 enum HouseEndPoint: Endpoint {
-    case getHouses
+    case getHouses(pageSize: Int, skip: Int)
+    
+    var queries: HTTPQueries {
+        switch self {
+        case .getHouses(let pageSize, let skip):
+            return buildQuery(pageSize: pageSize, skip: skip) ?? [:]
+        }
+    }
 
     var path: String? {
         switch self {

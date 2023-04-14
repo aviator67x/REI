@@ -13,7 +13,7 @@ struct FindCollection {
 }
 
 enum FindSection: Hashable {
-    case photlo
+    case photo
 }
 
 enum FindItem: Hashable {

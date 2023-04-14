@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol HousesNetworkService {
-    func getHouses() -> AnyPublisher<[HouseResponceModel], NetworkError>
+    func getHouses(pageSize: Int, skip: Int) -> AnyPublisher<[HouseResponceModel], NetworkError>
 }
 
 final class HousesNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == HouseEndPoint {
@@ -21,7 +21,7 @@ final class HousesNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> wh
 }
 
 extension HousesNetworkServiceImpl: HousesNetworkService {
-    func getHouses() -> AnyPublisher<[HouseResponceModel], NetworkError> {
-        return housesProvider.execute(endpoint: .getHouses)
+    func getHouses(pageSize: Int, skip: Int) -> AnyPublisher<[HouseResponceModel], NetworkError> {
+        return housesProvider.execute(endpoint: .getHouses(pageSize: pageSize, skip: skip))
     }
 }

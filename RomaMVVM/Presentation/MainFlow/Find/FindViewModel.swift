@@ -14,6 +14,12 @@ final class FindViewModel: BaseViewModel {
 
     @Published var sections: [FindCollection] = []
 
+    @Published private var items = [FindItem]()
+    @Published private var isReloadItems = true
+    @Published private(set) var itemsToReload = [FindItem]()
+    private var skipCounter = 0
+    private var pageSize = 1
+
     let houseNetworkService: HousesNetworkService
 
     init(houseNetworkService: HousesNetworkService) {
@@ -26,63 +32,90 @@ final class FindViewModel: BaseViewModel {
     }
 
     func updateDataSource() {
-        guard let imageURL = URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0407-min.jpg"),
-              let imageURL1 = URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0408-min.jpg"),
-              let imageURL2 = URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0414-min.jpg")
-        else {
-            return
-        }
-        let model = PhotoCellModel(
-            image: imageURL,
-            street: "Dorpstraat, 41",
-            ort: "1721 BB Broek-op-Langedejk",
-            livingArea: 65,
-            square: 120,
-            numberOfRooms: "5",
-            price: 318_000
-        )
-        let model1 = PhotoCellModel(
-            image: imageURL1,
-            street: "Burgerstraat, 41",
-            ort: "2121 BB Sint-Pankras",
-            livingArea: 105,
-            square: 180,
-            numberOfRooms: "6",
-            price: 480_000
-        )
-        let model2 = PhotoCellModel(
-            image: imageURL2,
-            street: "Lindenstraat, 41",
-            ort: "5612 AB Alkmaar",
-            livingArea: 80,
-            square: 95,
-            numberOfRooms: "3",
-            price: 269_000
-        )
-        var models = [model1, model2, model]
-        houseNetworkService.getHouses()
+        houseNetworkService.getHouses(pageSize: pageSize, skip: 0)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    print("FINISHED")
-                case .failure(let error):
+                    print("Finished")
+                    self.skipCounter = self.pageSize
+                case let .failure(error):
                     print(error.localizedDescription)
                 }
             }, receiveValue: { value in
-                models.removeAll()
+                var models: [PhotoCellModel] = []
                 value.forEach { house in
-                    let model = PhotoCellModel(image: house.images[0], street: house.street, ort: house.ort, livingArea: 50, square: house.square, numberOfRooms: String(house.rooomsNumber), price: 800000)
+                    let model = PhotoCellModel(
+                        image: house.images[0],
+                        street: house.street,
+                        ort: house.ort,
+                        livingArea: 50,
+                        square: house.square,
+                        numberOfRooms: String(house.rooomsNumber),
+                        price: 800_000
+                    )
                     models.append(model)
                 }
-                var items = [FindItem]()
+
                 for model in models {
                     let item: FindItem = .photo(model)
-                    items.append(item)
+                    self.items.append(item)
                 }
-                let section = FindCollection(section: .photlo, items: items)
+                let section = FindCollection(section: .photo, items: self.items)
                 self.sections.append(section)
             })
             .store(in: &cancellables)
+    }
+
+    func addItemsToSection() {
+        if isReloadItems {
+            isReloadItems = false
+            houseNetworkService.getHouses(pageSize: pageSize, skip: skipCounter)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        print("Finished")
+                        self.skipCounter += self.pageSize
+                        self.addItems()
+                    case let .failure(error):
+                        print(error.errorDescription ?? "")
+                    }
+                }, receiveValue: { [unowned self] value in
+                    var models: [PhotoCellModel] = []
+                    value.forEach { house in
+                        let model = PhotoCellModel(
+                            image: house.images[0],
+                            street: house.street,
+                            ort: house.ort,
+                            livingArea: 50,
+                            square: house.square,
+                            numberOfRooms: String(house.rooomsNumber),
+                            price: 800_000
+                        )
+                        models.append(model)
+                    }
+                    self.items = []
+                    
+                    for model in models {
+                        let item: FindItem = .photo(model)
+                        self.items.append(item)
+                        print(items.count)
+                    }
+                })
+                .store(in: &cancellables)
+        }
+    }
+
+    private func addItems() {
+        $items.combineLatest($isReloadItems)
+            .map { $0 }
+            .sink { [unowned self] items in
+                if items.1 {
+                    itemsToReload = items.0
+                }
+            }
+            .store(in: &cancellables)
+        isReloadItems = true
     }
 }

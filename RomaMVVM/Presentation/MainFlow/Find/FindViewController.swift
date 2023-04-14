@@ -25,6 +25,8 @@ final class FindViewController: BaseViewController<FindViewModel> {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
+                case .collectionBottomDidReach:
+                    viewModel.addItemsToSection()
                 }
             }
             .store(in: &cancellables)
@@ -32,6 +34,14 @@ final class FindViewController: BaseViewController<FindViewModel> {
         viewModel.$sections
             .sinkWeakly(self, receiveValue: { (self, sections) in
                 self.contentView.setupSnapShot(sections: sections)
+            })
+            .store(in: &cancellables)
+        
+        viewModel.$itemsToReload
+            .sinkWeakly(self, receiveValue: { (self, items) in
+                if !items.isEmpty  {
+                    self.contentView.updateSnapshot(items)
+                }
             })
             .store(in: &cancellables)
     }

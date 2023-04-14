@@ -9,6 +9,7 @@ import UIKit
 import Combine
 
 enum FindViewAction {
+    case collectionBottomDidReach
 
 }
 
@@ -35,7 +36,8 @@ final class FindView: BaseView {
         let sectionProvider =
             { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection
-                let listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+                var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+                listConfiguration.showsSeparators = true
                 section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
                 return section
             }
@@ -61,6 +63,11 @@ final class FindView: BaseView {
     }
 
     private func bindActions() {
+        collectionView.reachedBottomPublisher()
+            .sink { [unowned self] in
+                self.actionSubject.send(.collectionBottomDidReach)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -120,6 +127,14 @@ extension FindView {
                 }
             }
         )
+    }
+    
+    func updateSnapshot(_ items: [FindItem]) {
+        guard var snapshot = dataSource?.snapshot() else { return }
+        snapshot.appendItems(items, toSection: .photo)
+        DispatchQueue.main.async {
+            self.dataSource?.apply(snapshot)
+        }
     }
 }
 
