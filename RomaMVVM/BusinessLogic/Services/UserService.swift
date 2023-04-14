@@ -93,7 +93,7 @@ final class UserServiceImpl: UserService {
 
     func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, UserServiceError> {
         userNetworkService.updateUser(user)
-            .mapError { UserServiceError.networking($0)}
+            .mapError { UserServiceError.networking($0) }
             .eraseToAnyPublisher()
     }
 
@@ -106,47 +106,47 @@ final class UserServiceImpl: UserService {
         return user
     }
 
-//    func saveAvatar(image: Data) -> AnyPublisher<UpdateUserResponseModel, UserServiceError> {
-//        let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
-//
-//        return userNetworkService.saveAvatar(image: multipartItems)
-//             .flatMap { [unowned self] avatarUrl -> AnyPublisher<UpdateUserResponseModel, UserServiceError> in
-//                guard let userId = user?.id else {
-//                    return Fail(error: UserServiceError.noUser)
-//                        .eraseToAnyPublisher()
-//                }
-//
-//                let imageURL = avatarUrl.imageURL
-//                let updateUserRequestModel = UpdateUserRequestModel(
-//                    firstName: nil,
-//                    lastName: nil,
-//                    nickName: nil,
-//                    imageURL: imageURL,
-//                    id: userId
-//                )
-//
-//                KingfisherManager.shared.retrieveImage(
-//                    with: Kingfisher.ImageResource(downloadURL: imageURL), // URL(string: imageURL)!),
-//                    options: [.cacheOriginalImage],
-//                    completionHandler: nil
-//                )
-//
-//               return update(user: updateUserRequestModel)
-////                     .eraseToAnyPublisher()
-//
-//            }
-//            .handleEvents(receiveOutput: { [unowned self] user in
-//                                let userModel = UserDomainModel(networkModel: user)
-//                                save(user: userModel) })
-//            .eraseToAnyPublisher()
-//
-//    }
-
-    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {
+    func saveAvatar(image: Data) -> AnyPublisher<Void, UserServiceError> {
         let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
 
         return userNetworkService.saveAvatar(image: multipartItems)
+            .mapError { UserServiceError.networking($0) }
+            .flatMap { [unowned self] avatarUrl -> AnyPublisher<UpdateUserResponseModel, UserServiceError> in
+                guard let userId = user?.id else {
+                    return Fail(error: UserServiceError.noUser)
+                        .eraseToAnyPublisher()
+                }
+
+                let imageURL = avatarUrl.imageURL
+                let updateUserRequestModel = UpdateUserRequestModel(
+                    firstName: nil,
+                    lastName: nil,
+                    nickName: nil,
+                    imageURL: imageURL,
+                    id: userId
+                )
+
+                KingfisherManager.shared.retrieveImage(
+                    with: Kingfisher.ImageResource(downloadURL: imageURL),
+                    options: [.cacheOriginalImage],
+                    completionHandler: nil
+                )
+
+                return update(user: updateUserRequestModel)
+            }
+            .handleEvents(receiveOutput: { [unowned self] user in
+                let userModel = UserDomainModel(networkModel: user)
+                save(user: userModel)
+            })
+            .map { _ in }
+            .eraseToAnyPublisher()
     }
+
+//    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {
+//        let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
+//
+//        return userNetworkService.saveAvatar(image: multipartItems)
+//    }
 }
 
 extension UserServiceImpl {

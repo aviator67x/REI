@@ -30,6 +30,26 @@ struct PhotoCellModel: Hashable {
     let numberOfRooms: String
     let price: Int
     
+    init(image: URL, street: String, ort: String, livingArea: Int, square: Int, numberOfRooms: String, price: Int) {
+        self.image = image
+        self.street = street
+        self.ort = ort
+        self.livingArea = livingArea
+        self.square = square
+        self.numberOfRooms = numberOfRooms
+        self.price = price
+    }
+    
+    init(data: HouseResponceModel) {
+        self.image = data.images.first
+        self.street = data.street
+        self.ort = data.ort
+        self.livingArea = data.livingArea
+        self.square = data.square
+        self.numberOfRooms = "\(data.rooomsNumber)"
+        self.price = data.price
+    }
+    
     static func == (lhs: PhotoCellModel, rhs: PhotoCellModel) -> Bool {
         return lhs.uuid == rhs.uuid
     }

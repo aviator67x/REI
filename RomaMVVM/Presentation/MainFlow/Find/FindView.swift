@@ -53,8 +53,6 @@ final class FindView: BaseView {
         setupDataSource()
     }
 
-
-
     private func initialSetup() {
         setupLayout()
         setupUI()
@@ -91,16 +89,6 @@ final class FindView: BaseView {
 private enum Constant {
 }
 
-#if DEBUG
-import SwiftUI
-struct FindPreview: PreviewProvider {
-    
-    static var previews: some View {
-        ViewRepresentable(FindView())
-    }
-}
-#endif
-
 // MARK: - extension
 extension FindView {
     func setupSnapShot(sections: [FindCollection]) {
@@ -129,12 +117,23 @@ extension FindView {
         )
     }
     
-    func updateSnapshot(_ items: [FindItem]) {
+    func updateSnapshot(with data: [FindSection: [FindItem]]) {
         guard var snapshot = dataSource?.snapshot() else { return }
-        snapshot.appendItems(items, toSection: .photo)
+        for (section, items) in data {
+            snapshot.appendItems(items,toSection: section)
+        }
         DispatchQueue.main.async {
             self.dataSource?.apply(snapshot)
         }
     }
 }
 
+#if DEBUG
+import SwiftUI
+struct FindPreview: PreviewProvider {
+    
+    static var previews: some View {
+        ViewRepresentable(FindView())
+    }
+}
+#endif

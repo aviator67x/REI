@@ -38,10 +38,8 @@ final class FindViewController: BaseViewController<FindViewModel> {
             .store(in: &cancellables)
         
         viewModel.$itemsToReload
-            .sinkWeakly(self, receiveValue: { (self, items) in
-                if !items.isEmpty  {
-                    self.contentView.updateSnapshot(items)
-                }
+            .sinkWeakly(self, receiveValue: { (self, data) in
+                    self.contentView.updateSnapshot(with: data)
             })
             .store(in: &cancellables)
     }

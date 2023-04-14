@@ -13,6 +13,14 @@ struct UpdateUserRequestModel: Encodable {
     let nickName: String?
     let imageURL: URL?
     let id: String
+    
+    init(firstName: String? = nil, lastName: String? = nil, nickName: String? = nil, imageURL: URL?, id: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.nickName = nickName
+        self.imageURL = imageURL
+        self.id = id
+    }
 }
 
 struct UpdateUserResponseModel: Decodable {
