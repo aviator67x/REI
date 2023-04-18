@@ -18,7 +18,7 @@ protocol AppContainer: AnyObject {
     var keychainService: KeychainService { get }
     var propertyNetworkService: PropertyNetworkService { get }
     var searchRequestModel: SearchRequestModel { get }
-    var houseMetworkService: HousesNetworkService { get }
+    var housesNetworkService: HousesNetworkService { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -30,8 +30,8 @@ final class AppContainerImpl: AppContainer {
     let tokenStorageService: TokenStorageService
     let keychainService: KeychainService
     let propertyNetworkService: PropertyNetworkService
-   let searchRequestModel: SearchRequestModel
-    let houseMetworkService: HousesNetworkService
+    let searchRequestModel: SearchRequestModel
+    let housesNetworkService: HousesNetworkService
 
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -80,10 +80,10 @@ final class AppContainerImpl: AppContainer {
         self.appSettingsService = appSettingsService
 
         let authPlugin = AuthPlugin(token: appConfiguration.environment.apiKey)
-        
+
         var searchRequestModel: SearchRequestModel { SearchRequestModel() }
         self.searchRequestModel = searchRequestModel
-        
+
         let housesNetworkServiceProvider =
             NetworkServiceProviderImpl<HouseEndPoint>(
                 baseURLStorage: appConfiguration,
@@ -92,6 +92,6 @@ final class AppContainerImpl: AppContainer {
                 decoder: JSONDecoder()
             )
         let housesNetworkService = HousesNetworkServiceImpl(housesProvider: housesNetworkServiceProvider)
-        self.houseMetworkService = housesNetworkService        
+        self.housesNetworkService = housesNetworkService
     }
 }

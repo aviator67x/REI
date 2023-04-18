@@ -117,6 +117,8 @@
 		CE9CAF3A29B657C0007DC31B /* PropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3629B657C0007DC31B /* PropertyView.swift */; };
 		CE9CAF3B29B657C0007DC31B /* PropertyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3729B657C0007DC31B /* PropertyViewModel.swift */; };
 		CE9CAF3E29B678BE007DC31B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CE9CAF3D29B678BE007DC31B /* Kingfisher */; };
+		CEA2A86729E9D1B400395817 /* FindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86629E9D1B400395817 /* FindModel.swift */; };
+		CEA2A86929E9D23E00395817 /* HouseDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86829E9D23E00395817 /* HouseDomainModel.swift */; };
 		CEA545E52977FF04007F9962 /* Creatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545E42977FF04007F9962 /* Creatable.swift */; };
 		CEA545E82978016D007F9962 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEA545E72978016D007F9962 /* SnapKit */; };
 		CEA545EF297820A3007F9962 /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545EA297820A3007F9962 /* TextFieldType.swift */; };
@@ -307,6 +309,8 @@
 		CE9CAF3529B657C0007DC31B /* PropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyViewController.swift; sourceTree = "<group>"; };
 		CE9CAF3629B657C0007DC31B /* PropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyView.swift; sourceTree = "<group>"; };
 		CE9CAF3729B657C0007DC31B /* PropertyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyViewModel.swift; sourceTree = "<group>"; };
+		CEA2A86629E9D1B400395817 /* FindModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindModel.swift; sourceTree = "<group>"; };
+		CEA2A86829E9D23E00395817 /* HouseDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDomainModel.swift; sourceTree = "<group>"; };
 		CEA545E42977FF04007F9962 /* Creatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creatable.swift; sourceTree = "<group>"; };
 		CEA545EA297820A3007F9962 /* TextFieldType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
 		CEA545EB297820A3007F9962 /* TextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
@@ -590,6 +594,7 @@
 			isa = PBXGroup;
 			children = (
 				CEAEB9F829AE34EB005BBF50 /* UserDomainModel.swift */,
+				CEA2A86829E9D23E00395817 /* HouseDomainModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -850,6 +855,7 @@
 				CEAA10E729DDBA5200340401 /* FindViewController.swift */,
 				CEAA10E829DDBA5200340401 /* FindView.swift */,
 				CEAA10E929DDBA5200340401 /* FindViewModel.swift */,
+				CEA2A86629E9D1B400395817 /* FindModel.swift */,
 				CEAA10EE29DDBC3D00340401 /* Subviews */,
 				CEAA10F129DDBD7900340401 /* Models */,
 			);
@@ -1224,6 +1230,7 @@
 				CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */,
 				CE9430D529C8873200FFB94C /* TermsModuleBuilder.swift in Sources */,
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
+				CEA2A86729E9D1B400395817 /* FindModel.swift in Sources */,
 				CE9CAF3B29B657C0007DC31B /* PropertyViewModel.swift in Sources */,
 				CEAEB9E429AAA57E005BBF50 /* UserNetworkService.swift in Sources */,
 				CEAEB9EC29ACA6B1005BBF50 /* PasswordRestoreModuleBuilder.swift in Sources */,
@@ -1240,6 +1247,7 @@
 				CEAE383329B772640046198A /* PropertyModels.swift in Sources */,
 				CEDDF29E29D6FA27003BF639 /* SearchCollection.swift in Sources */,
 				CEA545F1297820A3007F9962 /* ValidatorType.swift in Sources */,
+				CEA2A86929E9D23E00395817 /* HouseDomainModel.swift in Sources */,
 				CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */,
 				CE0E27BB29D43C81001EDFCD /* DistanceCell.swift in Sources */,
 				744F123129D6DC930015A4D3 /* UserDataCellModel.swift in Sources */,

@@ -31,6 +31,7 @@ class NetworkManagerImpl: NetworkManager {
                 if !(200 ... 299).contains(response.statusCode) {
                     throw httpError(response.statusCode)
                 }
+                NetworkLogger.log(response: response)
                 
                 return data
             }

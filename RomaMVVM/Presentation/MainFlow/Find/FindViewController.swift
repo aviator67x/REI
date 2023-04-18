@@ -8,6 +8,7 @@
 import UIKit
 
 final class FindViewController: BaseViewController<FindViewModel> {
+    
     // MARK: - Views
     private let contentView = FindView()
     
@@ -26,7 +27,7 @@ final class FindViewController: BaseViewController<FindViewModel> {
             .sink { [unowned self] action in
                 switch action {
                 case .collectionBottomDidReach:
-                    viewModel.addItemsToSection()
+                    viewModel.loadHouses()
                 }
             }
             .store(in: &cancellables)

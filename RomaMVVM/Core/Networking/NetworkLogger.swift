@@ -49,7 +49,6 @@ struct NetworkLogger {
     static func log(response: HTTPURLResponse) {
         print("\n - - - - - - - - - - HTTPURLResponse - - - - - - - - - - \n")
         defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
-        
         print("HTTPURLResponse status code is \(response.statusCode)")
     }
     

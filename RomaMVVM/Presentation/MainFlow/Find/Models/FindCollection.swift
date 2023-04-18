@@ -40,7 +40,7 @@ struct PhotoCellModel: Hashable {
         self.price = price
     }
     
-    init(data: HouseResponceModel) {
+    init(data: HouseDomainModel) {
         self.image = data.images.first
         self.street = data.street
         self.ort = data.ort

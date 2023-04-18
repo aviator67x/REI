@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HouseResponceModel: Decodable {
+struct HouseResponseModel: Decodable {
 //    let id: String
     let distance: Int
     let constructionYear: Int
