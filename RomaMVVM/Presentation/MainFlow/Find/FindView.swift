@@ -5,17 +5,17 @@
 //  Created by User on 05.04.2023.
 //
 
-import UIKit
 import Combine
+import UIKit
+import UIScrollView_InfiniteScroll
 
 enum FindViewAction {
     case collectionBottomDidReach
-
 }
 
 final class FindView: BaseView {
     var dataSource: UICollectionViewDiffableDataSource<FindSection, FindItem>?
-    
+
     // MARK: - Subviews
     private lazy var stackView = UIStackView()
     private lazy var collectionView: UICollectionView = createCollectionView()
@@ -28,10 +28,11 @@ final class FindView: BaseView {
         initialSetup()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func createCollectionView() -> UICollectionView {
         let sectionProvider =
             { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
@@ -39,6 +40,7 @@ final class FindView: BaseView {
                 var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
                 listConfiguration.showsSeparators = true
                 section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
+
                 return section
             }
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
@@ -46,10 +48,30 @@ final class FindView: BaseView {
 
         return collection
     }
-    
+
+    private func sectionFooterBuilder() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let backgroundFooterSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .absolute(40)
+        )
+        let backgroundFooter = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: backgroundFooterSize,
+            elementKind: "LoadingFooter",
+            alignment: .bottom
+        )
+
+        return backgroundFooter
+    }
+
     private func setupCollectionView() {
-        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reusedidentifier)
-        
+        collectionView.register(
+            PhotoCell.self,
+            forCellWithReuseIdentifier: PhotoCell.reusedidentifier)
+        collectionView.register(
+            LoadingFooter.self,
+            forSupplementaryViewOfKind: "LoadingFooter",
+            withReuseIdentifier: LoadingFooter.identifier
+        )
         setupDataSource()
     }
 
@@ -64,6 +86,7 @@ final class FindView: BaseView {
         collectionView.reachedBottomPublisher()
             .sink { [unowned self] in
                 self.actionSubject.send(.collectionBottomDidReach)
+                collectionView.beginInfiniteScroll(true)
             }
             .store(in: &cancellables)
     }
@@ -78,7 +101,7 @@ final class FindView: BaseView {
         addSubview(stackView) {
             $0.edges.equalToSuperview()
         }
-        
+
         stackView.addArrangedSubview(collectionView) {
             $0.edges.equalToSuperview()
         }
@@ -86,8 +109,7 @@ final class FindView: BaseView {
 }
 
 // MARK: - View constants
-private enum Constant {
-}
+private enum Constant {}
 
 // MARK: - extension
 extension FindView {
@@ -106,8 +128,11 @@ extension FindView {
             cellProvider: {
                 collectionView, indexPath, item -> UICollectionViewCell in
                 switch item {
-                case .photo(let model):
-                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reusedidentifier, for: indexPath) as? PhotoCell else {
+                case let .photo(model):
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: PhotoCell.reusedidentifier,
+                        for: indexPath
+                    ) as? PhotoCell else {
                         return UICollectionViewCell()
                     }
                     cell.setupCell(model)
@@ -115,25 +140,43 @@ extension FindView {
                 }
             }
         )
+        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath -> UICollectionReusableView? in
+            switch kind {
+            case "LoadingFooter":
+                guard let footer: LoadingFooter = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: "LoadingFooter",
+                    withReuseIdentifier: LoadingFooter.identifier,
+                    for: indexPath
+                ) as? LoadingFooter else {
+                    return nil
+                }
+                footer.stopActivityIndicator()
+                return footer
+            default:
+                return nil
+            }
+        }
     }
-    
+
     func updateSnapshot(with data: [FindSection: [FindItem]]) {
-        guard var snapshot = dataSource?.snapshot() else { return }
+        guard var snapshot = dataSource?.snapshot() else {
+            return
+        }
         for (section, items) in data {
-            snapshot.appendItems(items,toSection: section)
+            snapshot.appendItems(items, toSection: section)
         }
         DispatchQueue.main.async {
             self.dataSource?.apply(snapshot)
+            self.collectionView.finishInfiniteScroll()
         }
     }
 }
 
 #if DEBUG
-import SwiftUI
-struct FindPreview: PreviewProvider {
-    
-    static var previews: some View {
-        ViewRepresentable(FindView())
+    import SwiftUI
+    struct FindPreview: PreviewProvider {
+        static var previews: some View {
+            ViewRepresentable(FindView())
+        }
     }
-}
 #endif

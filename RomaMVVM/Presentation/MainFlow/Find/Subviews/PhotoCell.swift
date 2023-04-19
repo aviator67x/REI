@@ -20,7 +20,6 @@ final class PhotoCell: UICollectionViewListCell {
     let stackView = UIStackView()
     let heartButton = UIButton()
     let signsButton = UIButton()
-   
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,7 +77,7 @@ final class PhotoCell: UICollectionViewListCell {
     }
     
     func setupCell(_ model: PhotoCellModel) {
-        imageView.kf.setImage(with: model.image)
+        imageView.kf.setImage(with: model.image, placeholder: UIImage(systemName: "house.lodge.circle"))
         streetLabel.text = model.street
         ortLabel.text = model.ort
         sqmLabel.text = "\(model.livingArea) sqm / \(model.square) sqm \u{00B7} \(model.numberOfRooms) rooms"

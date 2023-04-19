@@ -10,8 +10,12 @@ import Foundation
 
 final class FindModel {
     private var cancellables = Set<AnyCancellable>()
+    
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<FindTransition, Never>()
+    
+    private(set) lazy var isLoadingPublisher = isLoadingSubject.eraseToAnyPublisher()
+    let isLoadingSubject = PassthroughSubject<Bool, Never>()
 
     let housesNetworkService: HousesNetworkService
 

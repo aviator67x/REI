@@ -31,6 +31,12 @@ final class FindViewModel: BaseViewModel {
                 self.addItemsToSection(model: houses)
             })
             .store(in: &cancellables)
+        
+        model.isLoadingPublisher
+            .sinkWeakly(self, receiveValue: { (self, value) in
+                self.isLoadingSubject.send(value)
+            })
+            .store(in: &cancellables)
     }
 }
 
