@@ -13,13 +13,13 @@ final class FindViewModel: BaseViewModel {
 
     @Published var sections: [FindCollection] = []
     @Published private(set) var itemsToReload: [FindSection: [FindItem]] = [:]
+    private var items: [FindItem] = []
 
     init(model: FindModel) {
         self.model = model
     }
 
     override func onViewDidLoad() {
-        createDataSource(model: [])
         model.loadHouses()
         setupBinding()
     }
@@ -27,11 +27,10 @@ final class FindViewModel: BaseViewModel {
     private func setupBinding() {
         model.$houses
             .sinkWeakly(self, receiveValue: { (self, houses) in
-                print("Print from ViewModel \(houses.count)")
-                self.addItemsToSection(model: houses)
+                self.createDataSource(model: houses)
             })
             .store(in: &cancellables)
-        
+
         model.isLoadingPublisher
             .sinkWeakly(self, receiveValue: { (self, value) in
                 self.isLoadingSubject.send(value)
@@ -47,14 +46,12 @@ extension FindViewModel {
     }
 
     func createDataSource(model: [HouseDomainModel]) {
-        let section = FindCollection(section: .photo, items: [])
-        sections.append(section)
-    }
-
-    func addItemsToSection(model: [HouseDomainModel]) {
-        let items = model
+        var items = model
             .map { PhotoCellModel(data: $0) }
             .map { FindItem.photo($0) }
-        itemsToReload = [.photo: items]
+        
+        self.items.append(contentsOf: items)
+        let section = FindCollection(section: .photo, items: self.items)
+        sections = [section]
     }
 }

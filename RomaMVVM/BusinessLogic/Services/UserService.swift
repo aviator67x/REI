@@ -7,7 +7,6 @@
 
 import Combine
 import Foundation
-import KeychainAccess
 import Kingfisher
 
 enum UserServiceError: Error {
@@ -28,13 +27,13 @@ protocol UserService {
     func save(user: UserDomainModel)
     func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, UserServiceError>
     func getUser() -> UserDomainModel?
-//    func saveAvatar(image: Data) -> AnyPublisher<UpdateUserResponseModel, UserServiceError>
+    func saveAvatar(image: Data) -> AnyPublisher<Void, UserServiceError>
 }
 
 final class UserServiceImpl: UserService {
-    private var userValueSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
     private(set) lazy var userPublisher = userValueSubject.eraseToAnyPublisher()
-
+    private var userValueSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
+  
     let tokenStorageService: TokenStorageService
     private let keychainService: KeychainService
     private let userNetworkService: UserNetworkService

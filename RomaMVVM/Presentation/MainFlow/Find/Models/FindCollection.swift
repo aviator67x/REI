@@ -18,6 +18,7 @@ enum FindSection: Hashable {
 
 enum FindItem: Hashable {
     case photo(PhotoCellModel)
+    case activity(LoadingFooter)
 }
 
 struct PhotoCellModel: Hashable {

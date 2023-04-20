@@ -49,6 +49,7 @@ final class FindModel {
                     print(error.localizedDescription)
                 }
             }, receiveValue: { [unowned self] data in
+                NetworkLogger.log(data: data)
                 data.forEach { house in
                     let domainHouse = HouseDomainModel(model: house)
                     self.houses.append(domainHouse)

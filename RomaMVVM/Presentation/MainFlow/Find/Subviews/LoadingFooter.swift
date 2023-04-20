@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
  
-final class LoadingFooter: UICollectionReusableView {
+final class LoadingFooter: UICollectionViewCell {
     static let identifier = String(describing: LoadingFooter.self)
   private let activityView = UIActivityIndicatorView()
     

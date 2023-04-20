@@ -7,7 +7,6 @@
 
 import Combine
 import UIKit
-import UIScrollView_InfiniteScroll
 
 enum FindViewAction {
     case collectionBottomDidReach
@@ -37,7 +36,7 @@ final class FindView: BaseView {
         let sectionProvider =
             { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection
-                var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+                var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
                 listConfiguration.showsSeparators = true
                 section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
 
@@ -67,6 +66,7 @@ final class FindView: BaseView {
         collectionView.register(
             PhotoCell.self,
             forCellWithReuseIdentifier: PhotoCell.reusedidentifier)
+        collectionView.register(LoadingFooter.self, forCellWithReuseIdentifier: LoadingFooter.identifier)
         collectionView.register(
             LoadingFooter.self,
             forSupplementaryViewOfKind: "LoadingFooter",
@@ -86,7 +86,6 @@ final class FindView: BaseView {
         collectionView.reachedBottomPublisher()
             .sink { [unowned self] in
                 self.actionSubject.send(.collectionBottomDidReach)
-                collectionView.beginInfiniteScroll(true)
             }
             .store(in: &cancellables)
     }
@@ -137,6 +136,11 @@ extension FindView {
                     }
                     cell.setupCell(model)
                     return cell
+                case .activity(_):
+                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingFooter.identifier, for: indexPath) as? LoadingFooter else {
+                        return UICollectionViewCell()
+                    }
+                    return cell
                 }
             }
         )
@@ -155,19 +159,6 @@ extension FindView {
             default:
                 return nil
             }
-        }
-    }
-
-    func updateSnapshot(with data: [FindSection: [FindItem]]) {
-        guard var snapshot = dataSource?.snapshot() else {
-            return
-        }
-        for (section, items) in data {
-            snapshot.appendItems(items, toSection: section)
-        }
-        DispatchQueue.main.async {
-            self.dataSource?.apply(snapshot)
-            self.collectionView.finishInfiniteScroll()
         }
     }
 }

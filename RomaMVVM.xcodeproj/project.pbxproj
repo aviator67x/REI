@@ -120,7 +120,7 @@
 		CEA2A86729E9D1B400395817 /* FindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86629E9D1B400395817 /* FindModel.swift */; };
 		CEA2A86929E9D23E00395817 /* HouseDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86829E9D23E00395817 /* HouseDomainModel.swift */; };
 		CEA51C4029EEF3A80030602E /* LoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA51C3F29EEF3A80030602E /* LoadingFooter.swift */; };
-		CEA51C4329EFE7370030602E /* UIScrollView_InfiniteScroll in Frameworks */ = {isa = PBXBuildFile; productRef = CEA51C4229EFE7370030602E /* UIScrollView_InfiniteScroll */; };
+		CEA51C4529F03C6E0030602E /* HousesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA51C4429F03C6E0030602E /* HousesService.swift */; };
 		CEA545E52977FF04007F9962 /* Creatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545E42977FF04007F9962 /* Creatable.swift */; };
 		CEA545E82978016D007F9962 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEA545E72978016D007F9962 /* SnapKit */; };
 		CEA545EF297820A3007F9962 /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545EA297820A3007F9962 /* TextFieldType.swift */; };
@@ -314,6 +314,7 @@
 		CEA2A86629E9D1B400395817 /* FindModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindModel.swift; sourceTree = "<group>"; };
 		CEA2A86829E9D23E00395817 /* HouseDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDomainModel.swift; sourceTree = "<group>"; };
 		CEA51C3F29EEF3A80030602E /* LoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooter.swift; sourceTree = "<group>"; };
+		CEA51C4429F03C6E0030602E /* HousesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesService.swift; sourceTree = "<group>"; };
 		CEA545E42977FF04007F9962 /* Creatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creatable.swift; sourceTree = "<group>"; };
 		CEA545EA297820A3007F9962 /* TextFieldType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
 		CEA545EB297820A3007F9962 /* TextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
@@ -390,7 +391,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE9CAF3E29B678BE007DC31B /* Kingfisher in Frameworks */,
-				CEA51C4329EFE7370030602E /* UIScrollView_InfiniteScroll in Frameworks */,
 				D9E1B5A48B342C96AE2CE12F /* CombineCocoa in Frameworks */,
 				05CCAA6B809D348CF69C3FB3 /* KeyboardLayoutGuide in Frameworks */,
 				5522D7D73F74CCACD557A672 /* CombineNetworking in Frameworks */,
@@ -1025,6 +1025,7 @@
 			children = (
 				B61D0EF8B1999093C976E133 /* AppSettings.swift */,
 				90A4F4E565EAAD3D9ED5C262 /* UserService.swift */,
+				CEA51C4429F03C6E0030602E /* HousesService.swift */,
 				CEDDF2A129D87B65003BF639 /* KeychainService.swift */,
 				CEA5B73029B0B8D30038A29C /* TokenStorageService.swift */,
 				CEADC9A62983D9E4007A0650 /* TextFieldValidationService */,
@@ -1057,7 +1058,6 @@
 				C07B7AD09C0EA1553D69D767 /* KeychainAccess */,
 				CEA545E72978016D007F9962 /* SnapKit */,
 				CE9CAF3D29B678BE007DC31B /* Kingfisher */,
-				CEA51C4229EFE7370030602E /* UIScrollView_InfiniteScroll */,
 			);
 			productName = RomaMVVM;
 			productReference = E6353D0F1511E20E206B1634 /* RomaMVVM.app */;
@@ -1163,6 +1163,7 @@
 			files = (
 				CE13E3BD29DC81A900B948C9 /* UserProfileCell.swift in Sources */,
 				CE9430D729C8873200FFB94C /* TermsView.swift in Sources */,
+				CEA51C4529F03C6E0030602E /* HousesService.swift in Sources */,
 				CEAA10EA29DDBA5200340401 /* FindModuleBuilder.swift in Sources */,
 				6E4C7AAA8893AF9C2AB5AE1A /* AppConfiguration.swift in Sources */,
 				93D6390C1941B36D603900B0 /* AppContainer.swift in Sources */,
@@ -1973,11 +1974,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE9CAF3C29B678BE007DC31B /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		CEA51C4229EFE7370030602E /* UIScrollView_InfiniteScroll */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CEA51C4129EFE7370030602E /* XCRemoteSwiftPackageReference "UIScrollView-InfiniteScroll" */;
-			productName = UIScrollView_InfiniteScroll;
 		};
 		CEA545E72978016D007F9962 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
