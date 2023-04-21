@@ -107,7 +107,7 @@ final class SignUpViewModel: BaseViewModel {
                 let userModel = UserDomainModel(networkModel: signinResponse)
                 let token = signinResponse.accessToken
                 self?.userService.save(user: userModel)
-                self?.userService.tokenStorageService.saveAccessToken(token: token)
+                self?.userService.tokenStorageService.saveAccessToken(token: Token(value: token))
                 self?.transitionSubject.send(.success)
                 self?.transitionSubject.send(completion: .finished)
             }

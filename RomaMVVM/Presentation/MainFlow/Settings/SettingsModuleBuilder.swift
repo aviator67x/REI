@@ -15,7 +15,7 @@ enum SettingsTransition: Transition {
 
 final class SettingsModuleBuilder {
     class func build(container: AppContainer) -> Module<SettingsTransition, UIViewController> {
-        let viewModel = SettingsViewModel(userService: container.userService, userNerworkService: container.userNetworkService)
+        let viewModel = SettingsViewModel(userService: container.userService)
         let viewController = SettingsViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

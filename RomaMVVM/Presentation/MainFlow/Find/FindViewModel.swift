@@ -46,7 +46,7 @@ extension FindViewModel {
     }
 
     func createDataSource(model: [HouseDomainModel]) {
-        var items = model
+        let items = model
             .map { PhotoCellModel(data: $0) }
             .map { FindItem.photo($0) }
         

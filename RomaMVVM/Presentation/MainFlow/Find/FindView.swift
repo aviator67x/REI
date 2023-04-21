@@ -18,6 +18,7 @@ final class FindView: BaseView {
     // MARK: - Subviews
     private lazy var stackView = UIStackView()
     private lazy var collectionView: UICollectionView = createCollectionView()
+    private lazy var activityView = LoadingFooter()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<FindViewAction, Never>()
@@ -65,13 +66,14 @@ final class FindView: BaseView {
     private func setupCollectionView() {
         collectionView.register(
             PhotoCell.self,
-            forCellWithReuseIdentifier: PhotoCell.reusedidentifier)
-        collectionView.register(LoadingFooter.self, forCellWithReuseIdentifier: LoadingFooter.identifier)
-        collectionView.register(
-            LoadingFooter.self,
-            forSupplementaryViewOfKind: "LoadingFooter",
-            withReuseIdentifier: LoadingFooter.identifier
+            forCellWithReuseIdentifier: PhotoCell.reusedidentifier
         )
+//        collectionView.register(LoadingFooter.self, forCellWithReuseIdentifier: LoadingFooter.identifier)
+//        collectionView.register(
+//            LoadingFooter.self,
+//            forSupplementaryViewOfKind: "LoadingFooter",
+//            withReuseIdentifier: LoadingFooter.identifier
+//        )
         setupDataSource()
     }
 
@@ -98,11 +100,11 @@ final class FindView: BaseView {
 
     private func setupLayout() {
         addSubview(stackView) {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(safeAreaLayoutGuide.snp.edges)
         }
 
         stackView.addArrangedSubview(collectionView) {
-            $0.edges.equalToSuperview()
+            $0.leading.top.trailing.equalToSuperview()
         }
     }
 }
@@ -136,30 +138,33 @@ extension FindView {
                     }
                     cell.setupCell(model)
                     return cell
-                case .activity(_):
-                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingFooter.identifier, for: indexPath) as? LoadingFooter else {
-                        return UICollectionViewCell()
-                    }
-                    return cell
+//                case .activity:
+//                    guard let cell = collectionView.dequeueReusableCell(
+//                        withReuseIdentifier: LoadingFooter.identifier,
+//                        for: indexPath
+//                    ) as? LoadingFooter else {
+//                        return UICollectionViewCell()
+//                    }
+//                    return cell
                 }
             }
         )
-        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath -> UICollectionReusableView? in
-            switch kind {
-            case "LoadingFooter":
-                guard let footer: LoadingFooter = collectionView.dequeueReusableSupplementaryView(
-                    ofKind: "LoadingFooter",
-                    withReuseIdentifier: LoadingFooter.identifier,
-                    for: indexPath
-                ) as? LoadingFooter else {
-                    return nil
-                }
-                footer.stopActivityIndicator()
-                return footer
-            default:
-                return nil
-            }
-        }
+//        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath -> UICollectionReusableView? in
+//            switch kind {
+//            case "LoadingFooter":
+//                guard let footer: LoadingFooter = collectionView.dequeueReusableSupplementaryView(
+//                    ofKind: "LoadingFooter",
+//                    withReuseIdentifier: LoadingFooter.identifier,
+//                    for: indexPath
+//                ) as? LoadingFooter else {
+//                    return nil
+//                }
+//                footer.stopActivityIndicator()
+//                return footer
+//            default:
+//                return nil
+//            }
+//        }
     }
 }
 

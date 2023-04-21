@@ -20,7 +20,6 @@ protocol UserService {
     var user: UserDomainModel? { get }
     var userPublisher: AnyPublisher<UserDomainModel?, Never> { get }
     var isAuthorized: Bool { get }
-    var token: String? { get }
     var tokenStorageService: TokenStorageService { get }
 
     func logout() -> AnyPublisher<Void, UserServiceError>
@@ -31,11 +30,11 @@ protocol UserService {
 }
 
 final class UserServiceImpl: UserService {
+    let tokenStorageService: TokenStorageService
+    
     private(set) lazy var userPublisher = userValueSubject.eraseToAnyPublisher()
     private var userValueSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
-  
-    let tokenStorageService: TokenStorageService
-    private let keychainService: KeychainService
+      
     private let userNetworkService: UserNetworkService
     private let userDefaults = UserDefaults.standard
 
@@ -44,20 +43,14 @@ final class UserServiceImpl: UserService {
     }
 
     var isAuthorized: Bool {
-        tokenStorageService.getAccessToken() != nil
-    }
-
-    var token: String? {
-        tokenStorageService.getAccessToken()
+        tokenStorageService.token != nil
     }
 
     init(
         tokenStorageService: TokenStorageService,
-        userNetworkService: UserNetworkService,
-        keychainService: KeychainService
+        userNetworkService: UserNetworkService
     ) {
         self.tokenStorageService = tokenStorageService
-        self.keychainService = keychainService
         self.userNetworkService = userNetworkService
         startUserValueSubject()
     }
@@ -67,10 +60,10 @@ final class UserServiceImpl: UserService {
     }
 
     func logout() -> AnyPublisher<Void, UserServiceError> {
-        guard let token = tokenStorageService.getAccessToken() else {
+        guard let token = tokenStorageService.token else {
             return Fail(error: UserServiceError.tokenStorage).eraseToAnyPublisher()
         }
-        return userNetworkService.logOut(token: token)
+        return userNetworkService.logOut(token: token.value)
             .mapError { UserServiceError.networking($0) }
             .handleEvents(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -112,7 +105,7 @@ final class UserServiceImpl: UserService {
             .mapError { UserServiceError.networking($0) }
             .flatMap { [unowned self] avatarUrl -> AnyPublisher<UpdateUserResponseModel, UserServiceError> in
                 guard let userId = user?.id else {
-                    return Fail(error: UserServiceError.noUser)
+                   return Fail(error: UserServiceError.noUser)
                         .eraseToAnyPublisher()
                 }
 
@@ -131,7 +124,7 @@ final class UserServiceImpl: UserService {
                     completionHandler: nil
                 )
 
-                return update(user: updateUserRequestModel)
+               return update(user: updateUserRequestModel)
             }
             .handleEvents(receiveOutput: { [unowned self] user in
                 let userModel = UserDomainModel(networkModel: user)
@@ -140,12 +133,6 @@ final class UserServiceImpl: UserService {
             .map { _ in }
             .eraseToAnyPublisher()
     }
-
-//    func saveAvatar(image: Data) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {
-//        let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
-//
-//        return userNetworkService.saveAvatar(image: multipartItems)
-//    }
 }
 
 extension UserServiceImpl {

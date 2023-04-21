@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
  
-final class LoadingFooter: UICollectionViewCell {
+final class LoadingFooter: UIView {
     static let identifier = String(describing: LoadingFooter.self)
   private let activityView = UIActivityIndicatorView()
     
@@ -24,6 +24,7 @@ final class LoadingFooter: UICollectionViewCell {
     }
     
     private func setupUI() {
+        backgroundColor = .red
         activityView.hidesWhenStopped = true
         activityView.startAnimating()
     }

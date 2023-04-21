@@ -25,7 +25,7 @@ protocol Endpoint: RequestBuilder {
 }
 
 protocol RequestBuilder {
-    func build(baseURL: URL, encoder: JSONEncoder) throws -> URLRequest
+    func build(baseURL: URL, encoder: JSONEncoder, plugins: [Plugin]) throws -> URLRequest
 }
 
 extension Endpoint {
@@ -33,7 +33,7 @@ extension Endpoint {
 
     var queries: HTTPQueries { [:] }
 
-    func build(baseURL: URL, encoder: JSONEncoder) throws -> URLRequest {
+    func build(baseURL: URL, encoder: JSONEncoder, plugins: [Plugin]) throws -> URLRequest {
         var fullURL = self.baseURL ?? baseURL
         if let path = path {
             fullURL = fullURL.appendingPathComponent(path)
@@ -49,6 +49,11 @@ extension Endpoint {
         }
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.rawValue
+        headers.forEach { (key: String, value: String) in
+            request.addValue(value, forHTTPHeaderField: key)
+        }
+        plugins.forEach {$0.modifyRequest(&request)}
+        
         if let body = body {
             switch body {
             case let .rawData(data):
@@ -63,14 +68,11 @@ extension Endpoint {
             case let .multipartBody(multipartItems):
                 let multipartData = getMultipartData(multipartItems: multipartItems)
                 request.httpBody = multipartData.data
-                request.addValue(
+                request.setValue(
                     "multipart/form-data; boundary=\(multipartData.boundary)",
                     forHTTPHeaderField: "Content-Type"
                 )
             }
-        }
-        headers.forEach { (key: String, value: String) in
-            request.addValue(value, forHTTPHeaderField: key)
         }
         return request
     }

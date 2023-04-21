@@ -8,33 +8,42 @@
 import Foundation
 import KeychainAccess
 
+struct Token {
+    let value: String
+}
+
 protocol TokenStorageService {
-    var keychain: Keychain { get }
-    
-    func saveAccessToken(token: String)
-    func getAccessToken() -> String?
+    var token: Token? { get }
+    func saveAccessToken(token: Token)
+//    func getAccessToken() -> String?
     func clearAccessToken()
 }
 
 final class TokenStorageServiceImpl: TokenStorageService {
     let keychain: Keychain
-    private let configuration: AppConfiguration
+    var token: Token?
+//    private let configuration: AppConfiguration
     
-    init(configuration: AppConfiguration) {
-        self.configuration = configuration
-        self.keychain = Keychain(service: configuration.bundleId)
+    init(keychain: Keychain) {
+       
+        self.keychain = keychain
+        if let tokenValue =  keychain[Keys.token] {
+            self.token = Token(value: tokenValue)
+        }
     }
     
-    func saveAccessToken(token: String) {
-        keychain[Keys.token] = token
+    func saveAccessToken(token: Token) {
+        keychain[Keys.token] = token.value
+        self.token = token
     }
     
-    func getAccessToken() -> String? {
-        keychain[Keys.token]
-    }
+//    func getAccessToken() -> String? {
+//        keychain[Keys.token]
+//    }
     
     func clearAccessToken() {
         keychain[Keys.token] = nil
+        token = nil
     }
 }
 

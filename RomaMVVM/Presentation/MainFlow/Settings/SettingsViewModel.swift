@@ -18,13 +18,11 @@ final class SettingsViewModel: BaseViewModel {
     private let transitionSubject = PassthroughSubject<SettingsTransition, Never>()
 
     private let userService: UserService
-    private let userNetworkService: UserNetworkService
 
     @Published private(set) var sections: [SettingsCollection] = []
 
-    init(userService: UserService, userNerworkService: UserNetworkService) {
+    init(userService: UserService) {
         self.userService = userService
-        self.userNetworkService = userNerworkService
         super.init()
     }
 
