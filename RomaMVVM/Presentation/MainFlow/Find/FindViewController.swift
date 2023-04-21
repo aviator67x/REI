@@ -20,6 +20,14 @@ final class FindViewController: BaseViewController<FindViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        let titleView = SegmentedControlView()
+        self.navigationItem.titleView = titleView
+      
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage.init(systemName: "face.dashed")))
     }
 
     private func setupBindings() {

@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         customNavBarAppearance.configureWithOpaqueBackground()
 
         customNavBarAppearance.shadowColor = .red
-        customNavBarAppearance.backgroundColor = .green
+        customNavBarAppearance.backgroundColor = .orange
         
         customNavBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         customNavBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]

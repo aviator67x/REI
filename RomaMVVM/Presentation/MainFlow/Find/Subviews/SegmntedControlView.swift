@@ -23,9 +23,9 @@ final class SegmentedControlView: UIView {
     
     private func setupUI() {
         segmentControl.backgroundColor = .systemBackground
-        segmentControl.insertSegment(withTitle: "Find", at: 0, animated: true)
-        segmentControl.insertSegment(withTitle: "Sort", at: 1, animated: true)
-        segmentControl.insertSegment(withTitle: "Favourite", at: 2, animated: true)
+        segmentControl.insertSegment(withTitle: "Foto", at: 0, animated: true)
+        segmentControl.insertSegment(withTitle: "List", at: 1, animated: true)
+        segmentControl.insertSegment(withTitle: "Map", at: 2, animated: true)
         segmentControl.sizeToFit()
         segmentControl.selectedSegmentIndex = 0
         segmentControl.setTitleTextAttributes(
@@ -37,7 +37,7 @@ final class SegmentedControlView: UIView {
     private func setupLayout() {
         addSubview(segmentControl) {
             $0.edges.equalToSuperview()
-            $0.height.equalTo(50)
+            $0.height.equalTo(25)
         }
     }
 }
