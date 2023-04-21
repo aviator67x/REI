@@ -22,7 +22,7 @@ final class SegmentedControlView: UIView {
     }
     
     private func setupUI() {
-        segmentControl.backgroundColor = .systemBackground
+        segmentControl.backgroundColor = .orange
         segmentControl.insertSegment(withTitle: "Foto", at: 0, animated: true)
         segmentControl.insertSegment(withTitle: "List", at: 1, animated: true)
         segmentControl.insertSegment(withTitle: "Map", at: 2, animated: true)

@@ -56,6 +56,9 @@ final class FindView: BaseView {
             PhotoCell.self,
             forCellWithReuseIdentifier: PhotoCell.reusedidentifier
         )
+        collectionView.register(MainCell.self, forCellWithReuseIdentifier: MainCell.reusedidentifier)
+        collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reusedidentifier)
+        
         setupDataSource()
     }
 
@@ -122,6 +125,24 @@ extension FindView {
                         withReuseIdentifier: PhotoCell.reusedidentifier,
                         for: indexPath
                     ) as? PhotoCell else {
+                        return UICollectionViewCell()
+                    }
+                    cell.setupCell(model)
+                    return cell
+                case .main(let model):
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: MainCell.reusedidentifier,
+                        for: indexPath
+                    ) as? MainCell else {
+                        return UICollectionViewCell()
+                    }
+                    cell.setupCell(model)
+                    return cell
+                case .list(let model):
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: ListCell.reusedidentifier,
+                        for: indexPath
+                    ) as? ListCell else {
                         return UICollectionViewCell()
                     }
                     cell.setupCell(model)
