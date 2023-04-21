@@ -10,6 +10,7 @@ import UIKit
 
 enum FindViewAction {
     case collectionBottomDidReach
+    case collectionTopScrollDidBegin(offset: CGPoint)
 }
 
 final class FindView: BaseView {
@@ -17,8 +18,9 @@ final class FindView: BaseView {
 
     // MARK: - Subviews
     private lazy var stackView = UIStackView()
+    private lazy var selectView = SelectView()
+    private lazy var resultView = ResultView()
     private lazy var collectionView: UICollectionView = createCollectionView()
-    private lazy var activityView = LoadingFooter()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<FindViewAction, Never>()
@@ -49,36 +51,16 @@ final class FindView: BaseView {
         return collection
     }
 
-    private func sectionFooterBuilder() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let backgroundFooterSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .absolute(40)
-        )
-        let backgroundFooter = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: backgroundFooterSize,
-            elementKind: "LoadingFooter",
-            alignment: .bottom
-        )
-
-        return backgroundFooter
-    }
-
     private func setupCollectionView() {
         collectionView.register(
             PhotoCell.self,
             forCellWithReuseIdentifier: PhotoCell.reusedidentifier
         )
-//        collectionView.register(LoadingFooter.self, forCellWithReuseIdentifier: LoadingFooter.identifier)
-//        collectionView.register(
-//            LoadingFooter.self,
-//            forSupplementaryViewOfKind: "LoadingFooter",
-//            withReuseIdentifier: LoadingFooter.identifier
-//        )
         setupDataSource()
     }
 
     private func initialSetup() {
-        setupLayout()
+        setupLayout(hideSelect: false)
         setupUI()
         setupCollectionView()
         bindActions()
@@ -90,6 +72,12 @@ final class FindView: BaseView {
                 self.actionSubject.send(.collectionBottomDidReach)
             }
             .store(in: &cancellables)
+
+        collectionView.contentOffsetPublisher
+            .sink { [unowned self] offset in
+                self.actionSubject.send(.collectionTopScrollDidBegin(offset: offset))
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -98,14 +86,14 @@ final class FindView: BaseView {
         stackView.distribution = .fill
     }
 
-    private func setupLayout() {
+    func setupLayout(hideSelect: Bool) {
         addSubview(stackView) {
             $0.edges.equalTo(safeAreaLayoutGuide.snp.edges)
         }
 
-        stackView.addArrangedSubview(collectionView) {
-            $0.leading.top.trailing.equalToSuperview()
-        }
+        selectView.isHidden = hideSelect ? true : false
+
+        stackView.addArrangedSubviews([selectView, resultView, collectionView])
     }
 }
 
@@ -138,33 +126,9 @@ extension FindView {
                     }
                     cell.setupCell(model)
                     return cell
-//                case .activity:
-//                    guard let cell = collectionView.dequeueReusableCell(
-//                        withReuseIdentifier: LoadingFooter.identifier,
-//                        for: indexPath
-//                    ) as? LoadingFooter else {
-//                        return UICollectionViewCell()
-//                    }
-//                    return cell
                 }
             }
         )
-//        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath -> UICollectionReusableView? in
-//            switch kind {
-//            case "LoadingFooter":
-//                guard let footer: LoadingFooter = collectionView.dequeueReusableSupplementaryView(
-//                    ofKind: "LoadingFooter",
-//                    withReuseIdentifier: LoadingFooter.identifier,
-//                    for: indexPath
-//                ) as? LoadingFooter else {
-//                    return nil
-//                }
-//                footer.stopActivityIndicator()
-//                return footer
-//            default:
-//                return nil
-//            }
-//        }
     }
 }
 

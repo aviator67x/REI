@@ -28,6 +28,8 @@ final class FindViewController: BaseViewController<FindViewModel> {
                 switch action {
                 case .collectionBottomDidReach:
                     viewModel.loadHouses()
+                case .collectionTopScrollDidBegin(let offset):
+                    viewModel.setSelect(for: offset)
                 }
             }
             .store(in: &cancellables)
@@ -35,6 +37,12 @@ final class FindViewController: BaseViewController<FindViewModel> {
         viewModel.$sections
             .sinkWeakly(self, receiveValue: { (self, sections) in
                 self.contentView.setupSnapShot(sections: sections)
+            })
+            .store(in: &cancellables)
+        
+        viewModel.$isSelectHidden
+            .sinkWeakly(self, receiveValue: { (self, value) in
+                self.contentView.setupLayout(hideSelect: value)
             })
             .store(in: &cancellables)
     }
