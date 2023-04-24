@@ -11,6 +11,7 @@ final class FindViewController: BaseViewController<FindViewModel> {
     
     // MARK: - Views
     private let contentView = FindView()
+    private lazy var segmentedControl = SegmentedControl(frame: .zero)
     
     // MARK: - Lifecycle
     override func loadView() {
@@ -24,9 +25,7 @@ final class FindViewController: BaseViewController<FindViewModel> {
     }
     
     private func setupNavigationBar() {
-        let titleView = SegmentedControlView()
-        self.navigationItem.titleView = titleView
-      
+        self.navigationItem.titleView = segmentedControl
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage.init(systemName: "face.dashed")))
     }
 
@@ -37,7 +36,7 @@ final class FindViewController: BaseViewController<FindViewModel> {
                 case .collectionBottomDidReach:
                     viewModel.loadHouses()
                 case .collectionTopScrollDidBegin(let offset):
-                    viewModel.setSelect(for: offset)
+                    viewModel.setSelectViewState(for: offset)
                 }
             }
             .store(in: &cancellables)
@@ -48,9 +47,15 @@ final class FindViewController: BaseViewController<FindViewModel> {
             })
             .store(in: &cancellables)
         
-        viewModel.$isSelectHidden
+        viewModel.$isSelectViewHidden
             .sinkWeakly(self, receiveValue: { (self, value) in
                 self.contentView.setupLayout(hideSelect: value)
+            })
+            .store(in: &cancellables)
+        
+       segmentedControl.selectedSegmentIndexPublisher
+            .sinkWeakly(self, receiveValue: { (self, index) in
+                self.viewModel.setScreenState(for: index)
             })
             .store(in: &cancellables)
     }

@@ -11,7 +11,6 @@ import UIKit
 final class SearchViewController: BaseViewController<SearchViewModel> {
     // MARK: - Views
     private let contentView = SearchView()
-    private let segmentControl = UISegmentedControl()
 
     // MARK: - Lifecycle
     override func loadView() {
@@ -80,12 +79,6 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
                     viewModel.configureScreen(for: index)
                 }
             }
-            .store(in: &cancellables)
-
-        segmentControl.selectedSegmentIndexPublisher
-            .sinkWeakly(self, receiveValue: { (self, index) in
-                self.viewModel.configureScreen(for: index)
-            })
             .store(in: &cancellables)
 
         viewModel.$sections

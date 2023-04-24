@@ -12,8 +12,9 @@ final class FindViewModel: BaseViewModel {
     private let model: FindModel
 
     @Published var sections: [FindCollection] = []
-    @Published private(set) var itemsToReload: [FindSection: [FindItem]] = [:]
-    @Published var isSelectHidden: Bool = false
+//    @Published private(set) var itemsToReload: [FindSection: [FindItem]] = [:]
+    @Published var isSelectViewHidden: Bool = false
+    private var screenState: FindScreenState = .photo
     private var items: [FindItem] = []
 
     init(model: FindModel) {
@@ -46,8 +47,21 @@ extension FindViewModel {
         model.loadHouses()
     }
     
-    func setSelect(for offset: CGPoint) {
-        isSelectHidden = offset.y > 100 ? true : false
+    func setScreenState(for index: Int) {
+        switch index {
+        case 1:
+            screenState = .photo
+        case 2:
+            screenState = .list
+        case 3:
+            screenState = .map
+        default:
+            break
+        }
+    }
+    
+    func setSelectViewState(for offset: CGPoint) {
+        isSelectViewHidden = offset.y > 100 ? true : false
     }
 
     func createDataSource(model: [HouseDomainModel]) {

@@ -234,6 +234,8 @@ final class SearchView: BaseView {
                 print($0)
             }
             .store(in: &cancellables)
+        
+        
     }
 
     private func setupUI() {
@@ -318,7 +320,9 @@ extension SearchView {
                     }
                     cell.segmentPublisher
                         .sinkWeakly(self, receiveValue: { (self, value) in
-                            self.actionSubject.send(.segmentControl(value))
+                            if let value = value {
+                                self.actionSubject.send(.segmentControl(value))
+                            }                           
                         })
                         .store(in: &cancellables)
                     return cell

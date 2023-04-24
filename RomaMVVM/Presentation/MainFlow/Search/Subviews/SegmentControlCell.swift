@@ -17,7 +17,7 @@ final class SegmentControlCell: UICollectionViewCell {
     private var cancellables = Set<AnyCancellable>()
     
     private(set) lazy var segmentPublisher = segmentSubject.eraseToAnyPublisher()
-    private lazy var segmentSubject = PassthroughSubject<Int, Never>()
+    private lazy var segmentSubject = CurrentValueSubject<Int?, Never>(nil)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,7 +35,7 @@ final class SegmentControlCell: UICollectionViewCell {
     private func setupBinding() {
         segmentControl.selectedSegmentIndexPublisher
             .sinkWeakly(self, receiveValue: { (self, value) in
-                print(value)
+                self.segmentSubject.value = value
             })
             .store(in: &cancellables)
     }

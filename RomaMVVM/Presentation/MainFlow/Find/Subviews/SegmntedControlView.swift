@@ -8,36 +8,27 @@
 import Foundation
 import UIKit
 
-final class SegmentedControlView: UIView {
-    private let segmentControl = UISegmentedControl()
-    
+final class SegmentedControl: UISegmentedControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        setupLayout()
     }
-    
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupUI() {
-        segmentControl.backgroundColor = .orange
-        segmentControl.insertSegment(withTitle: "Foto", at: 0, animated: true)
-        segmentControl.insertSegment(withTitle: "List", at: 1, animated: true)
-        segmentControl.insertSegment(withTitle: "Map", at: 2, animated: true)
-        segmentControl.sizeToFit()
-        segmentControl.selectedSegmentIndex = 0
-        segmentControl.setTitleTextAttributes(
+        backgroundColor = .orange
+        insertSegment(withTitle: "Photo", at: 0, animated: true)
+        insertSegment(withTitle: "List", at: 1, animated: true)
+        insertSegment(withTitle: "Map", at: 2, animated: true)
+        sizeToFit()
+        selectedSegmentIndex = 0
+        setTitleTextAttributes(
             [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)],
             for: .normal
         )
-    }
-    
-    private func setupLayout() {
-        addSubview(segmentControl) {
-            $0.edges.equalToSuperview()
-            $0.height.equalTo(25)
-        }
     }
 }
