@@ -16,6 +16,7 @@ final class PhotoCell: UICollectionViewListCell {
     let streetLabel = UILabel()
     let ortLabel = UILabel()
     let sqmLabel = UILabel()
+    let spacer = UIView()
     let priceValueLabel = UILabel()
     let stackView = UIStackView()
     let heartButton = UIButton()
@@ -38,7 +39,7 @@ final class PhotoCell: UICollectionViewListCell {
         imageView.clipsToBounds = true
         
         stackView.axis = .vertical
-        stackView.spacing = 3
+        stackView.spacing = 1
      
         [streetLabel, ortLabel, sqmLabel, priceValueLabel].forEach { label in
             label.textColor = .white
@@ -58,13 +59,18 @@ final class PhotoCell: UICollectionViewListCell {
     private func setupLayout() {
         contentView.addSubview(imageView) {
             $0.edges.equalToSuperview()
-            $0.height.equalTo(300)
+            $0.height.equalTo(200)
         }
         
         contentView.addSubview(stackView) {
             $0.leading.bottom.equalToSuperview().inset(20)
         }
-        stackView.addArrangedSubviews([streetLabel, ortLabel, sqmLabel, priceValueLabel])
+        
+        spacer.snp.makeConstraints {
+            $0.height.equalTo(10)
+        }
+        
+        stackView.addArrangedSubviews([streetLabel, ortLabel, sqmLabel, spacer, priceValueLabel])
         
         contentView.addSubview(heartButton) {
             $0.size.equalTo(40)

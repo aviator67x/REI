@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ResultViewModel {
+struct SearchResultViewModel {
     let country: String
     let result: Int
     let filters: Int

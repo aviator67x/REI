@@ -10,7 +10,6 @@ import UIKit
 
 enum FindViewAction {
     case collectionBottomDidReach
-    case collectionTopScrollDidBegin(offset: CGPoint)
 }
 
 final class FindView: BaseView {
@@ -19,11 +18,16 @@ final class FindView: BaseView {
     // MARK: - Subviews
     private lazy var stackView = UIStackView()
     private lazy var selectView = SelectView()
-    private lazy var resultView = ResultView()
+    private lazy var resultView = SearchResultView()
     private lazy var collectionView: UICollectionView = createCollectionView()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<FindViewAction, Never>()
+
+    private lazy var stackViewTopConstraint = stackView.topAnchor.constraint(
+        equalTo: self.safeAreaLayoutGuide.topAnchor,
+        constant: 0
+    )
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,12 +62,13 @@ final class FindView: BaseView {
         )
         collectionView.register(MainCell.self, forCellWithReuseIdentifier: MainCell.reusedidentifier)
         collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reusedidentifier)
-        
+        collectionView.register(MapCell.self, forCellWithReuseIdentifier: MapCell.reusedidentifier)
+
         setupDataSource()
     }
 
     private func initialSetup() {
-        setupLayout(hideSelect: false)
+        setupLayout()
         setupUI()
         setupCollectionView()
         bindActions()
@@ -78,7 +83,13 @@ final class FindView: BaseView {
 
         collectionView.contentOffsetPublisher
             .sink { [unowned self] offset in
-                self.actionSubject.send(.collectionTopScrollDidBegin(offset: offset))
+                let yOffset = offset.y
+                let selectViewHeight = selectView.bounds.height
+                if yOffset >= selectViewHeight {
+                    stackViewTopConstraint.constant = -selectViewHeight
+                } else {
+                    stackViewTopConstraint.constant = -yOffset
+                }
             }
             .store(in: &cancellables)
     }
@@ -89,14 +100,20 @@ final class FindView: BaseView {
         stackView.distribution = .fill
     }
 
-    func setupLayout(hideSelect: Bool) {
-        addSubview(stackView) {
-            $0.edges.equalTo(safeAreaLayoutGuide.snp.edges)
-        }
+    func setupLayout() {
+        stackView.addArrangedSubview(selectView)
+        stackView.addArrangedSubview(resultView)
+        stackView.addArrangedSubview(collectionView)
 
-        selectView.isHidden = hideSelect ? true : false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stackView)
 
-        stackView.addArrangedSubviews([selectView, resultView, collectionView])
+        NSLayoutConstraint.activate([
+            stackViewTopConstraint,
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+        ])
     }
 }
 
@@ -105,6 +122,10 @@ private enum Constant {}
 
 // MARK: - extension
 extension FindView {
+    func makeSelectView(isVisible: Bool) {
+        selectView.isHidden = !isVisible
+    }
+    
     func setupSnapShot(sections: [FindCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<FindSection, FindItem>()
         for section in sections {
@@ -129,7 +150,7 @@ extension FindView {
                     }
                     cell.setupCell(model)
                     return cell
-                case .main(let model):
+                case let .main(model):
                     guard let cell = collectionView.dequeueReusableCell(
                         withReuseIdentifier: MainCell.reusedidentifier,
                         for: indexPath
@@ -138,7 +159,7 @@ extension FindView {
                     }
                     cell.setupCell(model)
                     return cell
-                case .list(let model):
+                case let .list(model):
                     guard let cell = collectionView.dequeueReusableCell(
                         withReuseIdentifier: ListCell.reusedidentifier,
                         for: indexPath
@@ -146,6 +167,14 @@ extension FindView {
                         return UICollectionViewCell()
                     }
                     cell.setupCell(model)
+                    return cell
+                case .map:
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: MapCell.reusedidentifier,
+                        for: indexPath
+                    ) as? MapCell else {
+                        return UICollectionViewCell()
+                    }
                     return cell
                 }
             }

@@ -15,10 +15,13 @@ struct FindCollection {
 enum FindSection: Hashable {
     case photo
     case list
+    case main
+    case map
 }
 
 enum FindItem: Hashable {
     case photo(PhotoCellModel)
     case main(MainCellModel)
     case list(ListCellModel)
+    case map
 }

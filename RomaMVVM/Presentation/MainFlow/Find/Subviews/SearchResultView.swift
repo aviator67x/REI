@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class ResultView: UIView {
+final class SearchResultView: UIView {
     private let countryLabel = UILabel()
     private let resultLabel = UILabel()
     private let filterCounterLabel = UILabel()
@@ -82,7 +82,7 @@ final class ResultView: UIView {
 //        }
     }
     
-    func setup(with model: ResultViewModel) {
+    func setup(with model: SearchResultViewModel) {
         countryLabel.text = "\(model.country)"
         resultLabel.text = "\(model.result) results in find"
         filterCounterLabel.text = "\(model.filters)"

@@ -12,10 +12,8 @@ final class FindViewModel: BaseViewModel {
     private let model: FindModel
 
     @Published var sections: [FindCollection] = []
-//    @Published private(set) var itemsToReload: [FindSection: [FindItem]] = [:]
-    @Published var isSelectViewHidden: Bool = false
-    private var screenState: FindScreenState = .photo
-    private var items: [FindItem] = []
+
+    var screenState = FindScreenState.photo
 
     init(model: FindModel) {
         self.model = model
@@ -29,7 +27,7 @@ final class FindViewModel: BaseViewModel {
     private func setupBinding() {
         model.$houses
             .sinkWeakly(self, receiveValue: { (self, houses) in
-                self.createDataSource(model: houses)
+                self.createDataSource(model: houses, screenState: self.screenState)
             })
             .store(in: &cancellables)
 
@@ -43,34 +41,40 @@ final class FindViewModel: BaseViewModel {
 
 // MARK: - extension
 extension FindViewModel {
+    func setScreenState(_ state: FindScreenState) {
+        screenState = state
+        createDataSource(model: model.houses, screenState: state)
+    }
+
     func loadHouses() {
         model.loadHouses()
     }
-    
-    func setScreenState(for index: Int) {
-        switch index {
-        case 1:
-            screenState = .photo
-        case 2:
-            screenState = .list
-        case 3:
-            screenState = .map
-        default:
-            break
-        }
-    }
-    
-    func setSelectViewState(for offset: CGPoint) {
-        isSelectViewHidden = offset.y > 100 ? true : false
-    }
 
-    func createDataSource(model: [HouseDomainModel]) {
-        let items = model
-            .map { PhotoCellModel(data: $0) }
-            .map { FindItem.photo($0) }
-        
-        self.items.append(contentsOf: items)
-        let section = FindCollection(section: .photo, items: self.items)
-        sections = [section]
+    func createDataSource(model: [HouseDomainModel], screenState: FindScreenState) {
+        switch screenState {
+        case .photo:
+            let items = model
+                .map { PhotoCellModel(data: $0) }
+                .map { FindItem.photo($0) }
+            let section = FindCollection(section: .photo, items: items)
+            sections = [section]
+        case .list:
+            let mainViewItem = model
+                .map { MainCellModel(data: $0) }
+                .map { FindItem.main($0) }
+                .randomElement()
+            guard let item = mainViewItem else { return }
+            let manViewSection = FindCollection(section: .main, items: [item])
+
+            let items = model
+                .map { ListCellModel(data: $0) }
+                .map { FindItem.list($0) }
+            let listSection = FindCollection(section: .list, items: items)
+            sections = [manViewSection, listSection]
+        case .map:
+            let mapItem = FindItem.map
+            let mapSection = FindCollection(section: .map, items: [mapItem])
+            sections = [mapSection]
+        }
     }
 }

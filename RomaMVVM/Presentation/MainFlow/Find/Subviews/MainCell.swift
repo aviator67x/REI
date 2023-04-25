@@ -45,7 +45,7 @@ final class MainCell: UICollectionViewListCell {
     private func setupLayout() {
         contentView.addSubview(imageView) {
             $0.edges.equalToSuperview()
-            $0.height.equalTo(300)
+            $0.height.equalTo(200)
         }
         
         contentView.addSubview(stackView) {

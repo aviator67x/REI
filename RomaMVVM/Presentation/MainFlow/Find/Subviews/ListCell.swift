@@ -38,23 +38,24 @@ final class ListCell: UICollectionViewListCell {
         
         stackView.axis = .vertical
         stackView.spacing = 3
-     
-        [streetLabel, ortLabel, sqmLabel, priceValueLabel].forEach { label in
-            label.textColor = .white
-            label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        }
         
+        streetLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        streetLabel.textColor = .systemBlue
+        [ortLabel, sqmLabel].forEach { label in
+            label.font = UIFont.systemFont(ofSize: 14)
+        }
+       priceValueLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        heartButton.tintColor = .systemBlue
 //        heartButton.largeContentImageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 //        heartButton.imageView?.contentMode = .scaleAspectFill
 //        heartButton.clipsToBounds = true
-        heartButton.tintColor = .white
     }
     
     private func setupLayout() {
         contentView.addSubview(imageView) {
             $0.leading.equalToSuperview()
-            $0.height.equalTo(300)
+            $0.height.equalTo(100)
             $0.width.equalTo(80)
             $0.top.bottom.equalToSuperview().inset(20)
         }
@@ -88,6 +89,7 @@ final class ListCell: UICollectionViewListCell {
        let image2String = NSAttributedString(attachment: image2Attachment)
         fullString.append(image2String)
         fullString.append(NSAttributedString(string: "\(model.numberOfRooms)"))
+        print("number of rooms \(model.numberOfRooms)")
         sqmLabel.attributedText = fullString
         
         priceValueLabel.text = "\u{20AC} \(String(model.price)) k.k."
