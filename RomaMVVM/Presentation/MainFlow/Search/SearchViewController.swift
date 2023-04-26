@@ -37,7 +37,7 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
         
         let cross = UIButton()
         cross.setImage(UIImage(systemName: "multiply"), for: .normal)
-        cross.addTarget(self, action: #selector(bellDidTap), for: .touchUpInside)
+        cross.addTarget(self, action: #selector(crossDidTap), for: .touchUpInside)
         cross.frame = CGRectMake(0, 0, 20, 20)
         let crossButton = UIBarButtonItem(customView: cross)
         
@@ -49,6 +49,11 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
 
     @objc
     private func bellDidTap() {}
+    
+    @objc
+    private func crossDidTap() {
+        navigationController?.popViewController(animated: false)
+    }
 
     private func setupBindings() {
         contentView.actionPublisher

@@ -9,7 +9,6 @@ import UIKit
 import Combine
 
 enum SearchTransition: Transition {
-    case logout
     case detailed(SearchRequestModel, ScreenState)
 }
 

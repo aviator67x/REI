@@ -271,7 +271,8 @@ final class SearchView: BaseView {
 
     private func setupLayout() {
         addSubview(collection) {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
 
         addSubview(resultLabel) {

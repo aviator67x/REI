@@ -24,9 +24,9 @@ final class MainTabBarCoordinator: Coordinator {
     }
 
     func start() {
-        setupHomeCoordinator()
+        setupFindCoordinator()       
         setupSettingsCoordinator()
-        setupProperyeCoordinator()
+        setupHomeCoordinator()
 
         let controllers = childCoordinators.compactMap { $0.navigationController }
         let module = MainTabBarModuleBuilder.build(viewControllers: controllers)
@@ -64,14 +64,14 @@ final class MainTabBarCoordinator: Coordinator {
         coordinator.start()
     }
     
-    func setupProperyeCoordinator() {
+    func setupFindCoordinator() {
         let navController = UINavigationController()
         navController.tabBarItem = .init(
-            title: "Property",
-            image: UIImage(systemName: "house.circle"),
+            title: "Find",
+            image: UIImage(systemName: "magnifyingglass"),
             selectedImage: nil
         )
-        let coordinator = PropertyCoordinator(navigationController: navController, container: container)
+        let coordinator = FindCoordinator(navigationController: navController, container: container)
         childCoordinators.append(coordinator)
         coordinator.didFinishPublisher
             .sink { [unowned self] in

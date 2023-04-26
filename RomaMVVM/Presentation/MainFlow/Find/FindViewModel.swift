@@ -11,9 +11,14 @@ import Foundation
 final class FindViewModel: BaseViewModel {
     private let model: FindModel
 
+    private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
+    private let transitionSubject = PassthroughSubject<FindTransition, Never>()
+
     @Published var sections: [FindCollection] = []
 
     var screenState = FindScreenState.photo
+
+    var selectScreenTransition = PassthroughSubject<SelectScreenTransition, Never>()
 
     init(model: FindModel) {
         self.model = model
@@ -35,6 +40,19 @@ final class FindViewModel: BaseViewModel {
             .sinkWeakly(self, receiveValue: { (self, value) in
                 self.isLoadingSubject.send(value)
             })
+            .store(in: &cancellables)
+
+        selectScreenTransition
+            .sink { [unowned self] screen in
+                switch screen {
+                case .find:
+                    transitionSubject.send(.search)
+                case .sort:
+                    transitionSubject.send(.sort)
+                case .favourite:
+                    transitionSubject.send(.favourite)
+                }
+            }
             .store(in: &cancellables)
     }
 }

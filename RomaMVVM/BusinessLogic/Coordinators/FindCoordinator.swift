@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class PropertyCoordinator: Coordinator {
+final class FindCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
     var navigationController: UINavigationController
@@ -24,18 +24,25 @@ final class PropertyCoordinator: Coordinator {
     }
     
     func start() {
-        propertyRoot()
+        findRoot()
     }
     
-    private func  propertyRoot() {
-//        let module = PropertyModuleBuilder.build(container: container)
+    private func  findRoot() {
         let module = FindModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .home:
-                    didFinishSubject.send()
-                    didFinishSubject.send(completion: .finished)
+                case .search:
+//                    didFinishSubject.send()
+//                    didFinishSubject.send(completion: .finished)
+                    let searchModule = SearchModuleBuilder.build(container: container)
+                    let controller = searchModule.viewController
+                    controller.hidesBottomBarWhenPushed = true
+                    push(controller, animated: false)
+                case .sort:
+                    break
+                case .favourite:
+                    break
                 }
             }
             .store(in: &cancellables)

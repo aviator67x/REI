@@ -7,12 +7,15 @@
 
 import Foundation
 import UIKit
+import Combine
 
 final class SelectView: UIView {
     private let stackView = UIStackView()
     private lazy var findButton = UIButton()
     private lazy var sortButton = UIButton()
     private lazy var favouriteButton = UIButton()
+    
+    private var cancellables = Set<AnyCancellable>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,5 +48,28 @@ final class SelectView: UIView {
             $0.height.equalTo(60)
         }
         stackView.addArrangedSubviews([findButton, sortButton, favouriteButton])
+    }
+    
+    func setup(with screen: PassthroughSubject<SelectScreenTransition, Never>) {
+        findButton.tapPublisher
+            .map { print($0) }
+            .sinkWeakly(self, receiveValue: {(self, value) in
+                screen.send(.find)
+            })
+            .store(in: &cancellables)
+       
+       sortButton.tapPublisher
+            .map { print($0) }
+            .sinkWeakly(self, receiveValue: {(self, value) in
+                screen.send(.sort)
+            })
+            .store(in: &cancellables)
+        
+        favouriteButton.tapPublisher
+            .map { print($0) }
+            .sinkWeakly(self, receiveValue: {(self, value) in
+                screen.send(.favourite)
+            })
+            .store(in: &cancellables)
     }
 }

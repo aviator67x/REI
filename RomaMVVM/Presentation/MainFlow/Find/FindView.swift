@@ -100,7 +100,7 @@ final class FindView: BaseView {
         stackView.distribution = .fill
     }
 
-    func setupLayout() {
+    private func setupLayout() {
         stackView.addArrangedSubview(selectView)
         stackView.addArrangedSubview(resultView)
         stackView.addArrangedSubview(collectionView)
@@ -112,7 +112,7 @@ final class FindView: BaseView {
             stackViewTopConstraint,
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
         ])
     }
 }
@@ -122,6 +122,10 @@ private enum Constant {}
 
 // MARK: - extension
 extension FindView {
+    func setupSelectView(with screen: PassthroughSubject<SelectScreenTransition, Never>) {
+        selectView.setup(with: screen)
+    }
+    
     func makeSelectView(isVisible: Bool) {
         selectView.isHidden = !isVisible
     }

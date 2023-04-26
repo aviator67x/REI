@@ -39,6 +39,8 @@ final class FindViewController: BaseViewController<FindViewModel> {
                 }
             }
             .store(in: &cancellables)
+        
+        contentView.setupSelectView(with: viewModel.selectScreenTransition)
 
         viewModel.$sections
             .sinkWeakly(self, receiveValue: { (self, sections) in
@@ -55,6 +57,6 @@ final class FindViewController: BaseViewController<FindViewModel> {
                 viewModel.setScreenState(state)
                 contentView.makeSelectView(isVisible: state != .map)
             }
-            .store(in: &cancellables)
+            .store(in: &cancellables)           
     }
 }

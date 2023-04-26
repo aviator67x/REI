@@ -31,8 +31,6 @@ final class SearchCoordinator: Coordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .logout:
-                    didFinishSubject.send()
                 case .detailed(let requestModel, let state):
                     year(model: requestModel, screenState: state)
                     didFinishSubject.send()

@@ -9,7 +9,9 @@ import UIKit
 import Combine
 
 enum FindTransition: Transition {
-    case home
+    case search
+    case sort
+    case favourite
 }
 
 final class FindModuleBuilder {
@@ -17,6 +19,6 @@ final class FindModuleBuilder {
         let model = FindModel(housesNetworkService: container.housesNetworkService)
         let viewModel = FindViewModel(model: model)
         let viewController = FindViewController(viewModel: viewModel)
-        return Module(viewController: viewController, transitionPublisher: model.transitionPublisher)
+        return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }
 }
