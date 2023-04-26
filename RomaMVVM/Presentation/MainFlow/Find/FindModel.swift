@@ -24,21 +24,19 @@ final class FindModel {
     @Published private var isPaginationInProgress = false
     private var hasMoreToLoad = true
     private var offset = 0
-    private var pageSize = 8
+    private var pageSize = 3
 
     init(housesNetworkService: HousesNetworkService) {
         self.housesNetworkService = housesNetworkService
     }
 
     func loadHouses() {
-//        houses = []
         guard hasMoreToLoad,
               !isPaginationInProgress
         else {
             return
         }
         isPaginationInProgress = true
-        print("first \(isPaginationInProgress)")
         isLoadingSubject.send(true)
         housesNetworkService.getHouses(pageSize: pageSize, skip: offset)
             .receive(on: DispatchQueue.main)
@@ -46,7 +44,7 @@ final class FindModel {
                 self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
-                    print("finished")
+                    break
                 case let .failure(error):
                     print(error.localizedDescription)
                 }
@@ -55,12 +53,10 @@ final class FindModel {
                 data.forEach { house in
                     let domainHouse = HouseDomainModel(model: house)
                     self.houses.append(domainHouse)
-                    print("houses count: \(houses.count)")
-                    self.offset += data.count
-                    self.hasMoreToLoad = data.count >= pageSize
-                    self.isPaginationInProgress = false
-                    print("second \(isPaginationInProgress)")
                 }
+                self.offset += data.count
+                self.hasMoreToLoad = offset >= pageSize
+                self.isPaginationInProgress = false
             })
             .store(in: &cancellables)
     }

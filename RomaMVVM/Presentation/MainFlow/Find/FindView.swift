@@ -126,6 +126,10 @@ extension FindView {
         selectView.isHidden = !isVisible
     }
     
+    func updateSearchResultView(with data: SearchResultViewModel) {
+        resultView.setup(with: data)
+    }
+    
     func setupSnapShot(sections: [FindCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<FindSection, FindItem>()
         for section in sections {

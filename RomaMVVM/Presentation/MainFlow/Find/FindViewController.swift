@@ -43,6 +43,9 @@ final class FindViewController: BaseViewController<FindViewModel> {
         viewModel.$sections
             .sinkWeakly(self, receiveValue: { (self, sections) in
                 self.contentView.setupSnapShot(sections: sections)
+               let resultCount =  sections.first?.items.count ?? 0
+                let resultModel = SearchResultViewModel(country: "Netherlands", result: resultCount, filters: 9)
+                self.contentView.updateSearchResultView(with: resultModel)
             })
             .store(in: &cancellables)
 

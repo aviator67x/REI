@@ -46,10 +46,9 @@ final class PhotoCell: UICollectionViewListCell {
             label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         }
         
-        heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
-//        heartButton.largeContentImageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//        heartButton.imageView?.contentMode = .scaleAspectFill
-//        heartButton.clipsToBounds = true
+        let mediumConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .medium)
+        let mediumBoldHeart = UIImage(systemName: "heart", withConfiguration: mediumConfig)
+        heartButton.setImage(mediumBoldHeart, for: .normal)
         heartButton.tintColor = .white
         
         let buttonTitle = "\u{2B6F}  \u{95E8} \u{27C1}"
