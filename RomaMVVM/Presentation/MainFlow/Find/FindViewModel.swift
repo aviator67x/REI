@@ -18,8 +18,6 @@ final class FindViewModel: BaseViewModel {
 
     var screenState = FindScreenState.photo
 
-    var selectScreenTransition = PassthroughSubject<SelectScreenTransition, Never>()
-
     init(model: FindModel) {
         self.model = model
     }
@@ -41,24 +39,22 @@ final class FindViewModel: BaseViewModel {
                 self.isLoadingSubject.send(value)
             })
             .store(in: &cancellables)
-
-        selectScreenTransition
-            .sink { [unowned self] screen in
-                switch screen {
-                case .find:
-                    transitionSubject.send(.search)
-                case .sort:
-                    transitionSubject.send(.sort)
-                case .favourite:
-                    transitionSubject.send(.favourite)
-                }
-            }
-            .store(in: &cancellables)
     }
 }
 
 // MARK: - extension
 extension FindViewModel {
+    func moveTo(_ screen: SelectViewAction) {
+        switch screen {
+        case .find:
+            self.transitionSubject.send(.search)
+        case .sort:
+            self.transitionSubject.send(.sort)
+        case .favourite:
+            self.transitionSubject.send(.favourite)
+        }
+    }
+    
     func setScreenState(_ state: FindScreenState) {
         screenState = state
         createDataSource(model: model.houses, screenState: state)

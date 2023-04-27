@@ -36,11 +36,11 @@ final class FindViewController: BaseViewController<FindViewModel> {
                 switch action {
                 case .collectionBottomDidReach:
                     viewModel.loadHouses()
+                case .fromSelectViewTransition(let screen):
+                    viewModel.moveTo(screen)
                 }
             }
             .store(in: &cancellables)
-        
-        contentView.setupSelectView(with: viewModel.selectScreenTransition)
 
         viewModel.$sections
             .sinkWeakly(self, receiveValue: { (self, sections) in

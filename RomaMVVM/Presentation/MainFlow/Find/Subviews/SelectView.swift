@@ -9,6 +9,12 @@ import Foundation
 import UIKit
 import Combine
 
+enum SelectViewAction {
+    case find
+    case sort
+    case favourite
+}
+
 final class SelectView: UIView {
     private let stackView = UIStackView()
     private lazy var findButton = UIButton()
@@ -16,11 +22,15 @@ final class SelectView: UIView {
     private lazy var favouriteButton = UIButton()
     
     private var cancellables = Set<AnyCancellable>()
+    
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private lazy var actionSubject = PassthroughSubject<SelectViewAction, Never>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
         setupLayout()
+        setupBinding()
     }
 
     @available(*, unavailable)
@@ -50,26 +60,23 @@ final class SelectView: UIView {
         stackView.addArrangedSubviews([findButton, sortButton, favouriteButton])
     }
     
-    func setup(with screen: PassthroughSubject<SelectScreenTransition, Never>) {
+    private func setupBinding() {
         findButton.tapPublisher
-            .map { print($0) }
-            .sinkWeakly(self, receiveValue: {(self, value) in
-                screen.send(.find)
-            })
-            .store(in: &cancellables)
-       
-       sortButton.tapPublisher
-            .map { print($0) }
-            .sinkWeakly(self, receiveValue: {(self, value) in
-                screen.send(.sort)
-            })
+            .sink { _ in
+                self.actionSubject.send(.find)
+            }
             .store(in: &cancellables)
         
         favouriteButton.tapPublisher
-            .map { print($0) }
-            .sinkWeakly(self, receiveValue: {(self, value) in
-                screen.send(.favourite)
-            })
+            .sink { _ in
+                self.actionSubject.send(.sort)
+            }
+            .store(in: &cancellables)
+        
+        favouriteButton.tapPublisher
+            .sink { _ in
+                self.actionSubject.send(.favourite)
+            }
             .store(in: &cancellables)
     }
 }

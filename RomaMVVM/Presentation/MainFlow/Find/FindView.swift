@@ -10,6 +10,7 @@ import UIKit
 
 enum FindViewAction {
     case collectionBottomDidReach
+    case fromSelectViewTransition(SelectViewAction)
 }
 
 final class FindView: BaseView {
@@ -92,6 +93,12 @@ final class FindView: BaseView {
                 }
             }
             .store(in: &cancellables)
+        
+        selectView.actionPublisher
+            .sinkWeakly(self, receiveValue: {(self, transition) in
+                self.actionSubject.send(.fromSelectViewTransition(transition))
+            })
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -122,10 +129,6 @@ private enum Constant {}
 
 // MARK: - extension
 extension FindView {
-    func setupSelectView(with screen: PassthroughSubject<SelectScreenTransition, Never>) {
-        selectView.setup(with: screen)
-    }
-    
     func makeSelectView(isVisible: Bool) {
         selectView.isHidden = !isVisible
     }
