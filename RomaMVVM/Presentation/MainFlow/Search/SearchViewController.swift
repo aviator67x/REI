@@ -52,7 +52,8 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
     
     @objc
     private func crossDidTap() {
-        navigationController?.popViewController(animated: false)
+//        navigationController?.popViewController(animated: false)
+        viewModel.popModule()
     }
 
     private func setupBindings() {

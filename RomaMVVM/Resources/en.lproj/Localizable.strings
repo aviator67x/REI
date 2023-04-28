@@ -25,6 +25,7 @@
 "logout" = "Logout";
 "search" = "Search";
 "profile" = "Profile";
+"favourite" = "Favourite";
 
 // Application
 "Global.emptyString" = "";

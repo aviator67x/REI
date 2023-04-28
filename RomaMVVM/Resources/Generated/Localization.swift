@@ -25,6 +25,8 @@ internal enum Localization {
   /// 
   ///   Created by Roman Savchenko on 12.12.2021.
   internal static let error = Localization.tr("Localizable", "error", fallback: "Error")
+  /// Favourite
+  internal static let favourite = Localization.tr("Localizable", "favourite", fallback: "Favourite")
   /// Home
   internal static let home = Localization.tr("Localizable", "home", fallback: "Home")
   /// Logout

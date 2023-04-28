@@ -91,6 +91,15 @@
 		CE31637E29F94A2000E8A6B0 /* SelectScreenTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */; };
 		CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FE929BC9CEA0042C2F8 /* Array.swift */; };
 		CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */; };
+		CE5CCEBA29FAB09F007972CB /* FavouriteModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEB629FAB09F007972CB /* FavouriteModuleBuilder.swift */; };
+		CE5CCEBB29FAB09F007972CB /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEB729FAB09F007972CB /* FavouriteViewController.swift */; };
+		CE5CCEBC29FAB09F007972CB /* FavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEB829FAB09F007972CB /* FavouriteView.swift */; };
+		CE5CCEBD29FAB09F007972CB /* FavouriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEB929FAB09F007972CB /* FavouriteViewModel.swift */; };
+		CE5CCEC429FAE7A5007972CB /* MyHouseModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEC029FAE7A5007972CB /* MyHouseModuleBuilder.swift */; };
+		CE5CCEC529FAE7A6007972CB /* MyHouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEC129FAE7A5007972CB /* MyHouseViewController.swift */; };
+		CE5CCEC629FAE7A6007972CB /* MyHouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEC229FAE7A5007972CB /* MyHouseView.swift */; };
+		CE5CCEC729FAE7A6007972CB /* MyHouseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEC329FAE7A5007972CB /* MyHouseViewModel.swift */; };
+		CE5CCEC929FAEB71007972CB /* MyHouseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEC829FAEB71007972CB /* MyHouseCoordinator.swift */; };
 		CE63F86029D4B0F600268B7E /* UniversalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63F85F29D4B0F600268B7E /* UniversalCell.swift */; };
 		CE9430C629C4C20B00FFB94C /* ImageAsset+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C529C4C20B00FFB94C /* ImageAsset+Hashable.swift */; };
 		CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C829C8736400FFB94C /* ProfileModuleBuilder.swift */; };
@@ -200,7 +209,7 @@
 		E0783FEAD4F64D8929109DF5 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5CE856A5F4072C7D998EAD /* SignInViewController.swift */; };
 		E4CB518683283ED390099429 /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660B9D647D37E0FD93F458FA /* UIStackView+Ext.swift */; };
 		E55C8D3133EAF37F19BDBABE /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C07B7AD09C0EA1553D69D767 /* KeychainAccess */; };
-		E8A38D357261F60F542286DF /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4204A762E062DA5EEE513D13 /* SearchCoordinator.swift */; };
+		E8A38D357261F60F542286DF /* FavouriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4204A762E062DA5EEE513D13 /* FavouriteCoordinator.swift */; };
 		EDA8332A2814204807868020 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C183A3131CDE7C136CB59A86 /* Montserrat-Light.ttf */; };
 		EDFD24AA92041FD400F9F11D /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594D4969D87ADFBE45DB3B4A /* MainTabBarCoordinator.swift */; };
 		FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F63E4604E2232035B0BC622 /* SettingsViewModel.swift */; };
@@ -224,7 +233,7 @@
 		3B572022A129B903AC8D421F /* AxisScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisScrollView.swift; sourceTree = "<group>"; };
 		3EC8AB22F87FE1AB0050D7F8 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		404B00B670BDF26304438EE4 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
-		4204A762E062DA5EEE513D13 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
+		4204A762E062DA5EEE513D13 /* FavouriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCoordinator.swift; sourceTree = "<group>"; };
 		44877D35F71384240EE9120B /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.ttf"; sourceTree = "<group>"; };
 		454D1933EFC1212910E6E44D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		46B001527DE0C8233D769738 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic.ttf"; sourceTree = "<group>"; };
@@ -299,6 +308,15 @@
 		CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectScreenTransition.swift; sourceTree = "<group>"; };
 		CE4E7FE929BC9CEA0042C2F8 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
+		CE5CCEB629FAB09F007972CB /* FavouriteModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteModuleBuilder.swift; sourceTree = "<group>"; };
+		CE5CCEB729FAB09F007972CB /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
+		CE5CCEB829FAB09F007972CB /* FavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteView.swift; sourceTree = "<group>"; };
+		CE5CCEB929FAB09F007972CB /* FavouriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewModel.swift; sourceTree = "<group>"; };
+		CE5CCEC029FAE7A5007972CB /* MyHouseModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHouseModuleBuilder.swift; sourceTree = "<group>"; };
+		CE5CCEC129FAE7A5007972CB /* MyHouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHouseViewController.swift; sourceTree = "<group>"; };
+		CE5CCEC229FAE7A5007972CB /* MyHouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHouseView.swift; sourceTree = "<group>"; };
+		CE5CCEC329FAE7A5007972CB /* MyHouseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHouseViewModel.swift; sourceTree = "<group>"; };
+		CE5CCEC829FAEB71007972CB /* MyHouseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHouseCoordinator.swift; sourceTree = "<group>"; };
 		CE63F85F29D4B0F600268B7E /* UniversalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalCell.swift; sourceTree = "<group>"; };
 		CE9430C529C4C20B00FFB94C /* ImageAsset+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageAsset+Hashable.swift"; sourceTree = "<group>"; };
 		CE9430C829C8736400FFB94C /* ProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleBuilder.swift; sourceTree = "<group>"; };
@@ -556,9 +574,10 @@
 				92538858FFEEA766147EFFCB /* AppCoordinator.swift */,
 				BE9E493181ACAF4283DF6A60 /* AuthCoordinator.swift */,
 				594D4969D87ADFBE45DB3B4A /* MainTabBarCoordinator.swift */,
-				4204A762E062DA5EEE513D13 /* SearchCoordinator.swift */,
+				4204A762E062DA5EEE513D13 /* FavouriteCoordinator.swift */,
 				CA51E79F6908337E1B14DE70 /* SettingsCoordinator.swift */,
 				CE9CAF3129B6551B007DC31B /* FindCoordinator.swift */,
+				CE5CCEC829FAEB71007972CB /* MyHouseCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -785,6 +804,28 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		CE5CCEBE29FAE6B3007972CB /* Favourite */ = {
+			isa = PBXGroup;
+			children = (
+				CE5CCEB729FAB09F007972CB /* FavouriteViewController.swift */,
+				CE5CCEB629FAB09F007972CB /* FavouriteModuleBuilder.swift */,
+				CE5CCEB829FAB09F007972CB /* FavouriteView.swift */,
+				CE5CCEB929FAB09F007972CB /* FavouriteViewModel.swift */,
+			);
+			path = Favourite;
+			sourceTree = "<group>";
+		};
+		CE5CCEBF29FAE782007972CB /* MyHouse */ = {
+			isa = PBXGroup;
+			children = (
+				CE5CCEC029FAE7A5007972CB /* MyHouseModuleBuilder.swift */,
+				CE5CCEC129FAE7A5007972CB /* MyHouseViewController.swift */,
+				CE5CCEC229FAE7A5007972CB /* MyHouseView.swift */,
+				CE5CCEC329FAE7A5007972CB /* MyHouseViewModel.swift */,
+			);
+			path = MyHouse;
+			sourceTree = "<group>";
+		};
 		CE9430C729C8732E00FFB94C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -990,14 +1031,16 @@
 		CEAEB9F229AD0BA5005BBF50 /* MainFlow */ = {
 			isa = PBXGroup;
 			children = (
-				CEAA10E529DDBA0200340401 /* Find */,
 				CE9430D029C8870F00FFB94C /* Terms */,
 				5B5C3AE1BF141B5158BBB0E9 /* MainTabBar */,
 				CCA876F88893001B36189960 /* Settings */,
 				CE9430C729C8732E00FFB94C /* Profile */,
 				CE990E5D29C8E77400120D6F /* EditProfile */,
 				CE0E27AA29CE1D90001EDFCD /* Search */,
+				CEAA10E529DDBA0200340401 /* Find */,
 				CE13E3A629DAFDE100B948C9 /* Detailed */,
+				CE5CCEBE29FAE6B3007972CB /* Favourite */,
+				CE5CCEBF29FAE782007972CB /* MyHouse */,
 				CE9CAF3329B65788007DC31B /* Property */,
 			);
 			path = MainFlow;
@@ -1207,6 +1250,7 @@
 				6E4C7AAA8893AF9C2AB5AE1A /* AppConfiguration.swift in Sources */,
 				93D6390C1941B36D603900B0 /* AppContainer.swift in Sources */,
 				CEAA10EC29DDBA5200340401 /* FindView.swift in Sources */,
+				CE5CCEC729FAE7A6007972CB /* MyHouseViewModel.swift in Sources */,
 				CE0E27C129D43D49001EDFCD /* PriceCell.swift in Sources */,
 				CEAEB9EE29ACA6B1005BBF50 /* PasswordRestoreView.swift in Sources */,
 				CEA5F58B298CEBA200B87DD4 /* UISegmentControl.swift in Sources */,
@@ -1219,6 +1263,7 @@
 				CEAA10ED29DDBA5200340401 /* FindViewModel.swift in Sources */,
 				CE0E27AF29CE1DA9001EDFCD /* SearchModuleBuilder.swift in Sources */,
 				CEA5B72E29B0A2B70038A29C /* Publisher+WithLatestFrom.swift in Sources */,
+				CE5CCEC629FAE7A6007972CB /* MyHouseView.swift in Sources */,
 				CEA5B72A29B0A2060038A29C /* Publisher+Assign.swift in Sources */,
 				CE0E27C329D43D8F001EDFCD /* TypeCell.swift in Sources */,
 				CE990E8229CA1A7100120D6F /* ButtonCell.swift in Sources */,
@@ -1257,6 +1302,7 @@
 				CEA5B73329B0B8D30038A29C /* TokenStorageService.swift in Sources */,
 				4E49AFA694CC28CA8EB3D441 /* AxisScrollView.swift in Sources */,
 				5143110F52CB4AE108E6832F /* BaseView.swift in Sources */,
+				CE5CCEC529FAE7A6007972CB /* MyHouseViewController.swift in Sources */,
 				CEA545F0297820A3007F9962 /* TextFieldView.swift in Sources */,
 				CEE2DE7329F66C550029AFF8 /* FindScreenState.swift in Sources */,
 				CE990E9529CB623100120D6F /* EditProfileViewController.swift in Sources */,
@@ -1268,6 +1314,7 @@
 				CE9CAF3229B6551B007DC31B /* FindCoordinator.swift in Sources */,
 				B33A99E3AECD58D23DDA8E79 /* Coordinator.swift in Sources */,
 				CEAE383529BA020D0046198A /* NSMutableData+.swift in Sources */,
+				CE5CCEBD29FAB09F007972CB /* FavouriteViewModel.swift in Sources */,
 				CE31637A29F6D9EE00E8A6B0 /* UIView+isHidden.swift in Sources */,
 				CEA545FF297832F6007F9962 /* UIView+layout.swift in Sources */,
 				CEADC9A32981A22E007A0650 /* CGPoint+UniformKeyPathInitializable.swift in Sources */,
@@ -1288,9 +1335,10 @@
 				CEAEB9E429AAA57E005BBF50 /* UserNetworkService.swift in Sources */,
 				CEAEB9EC29ACA6B1005BBF50 /* PasswordRestoreModuleBuilder.swift in Sources */,
 				CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */,
-				E8A38D357261F60F542286DF /* SearchCoordinator.swift in Sources */,
+				E8A38D357261F60F542286DF /* FavouriteCoordinator.swift in Sources */,
 				CE990E9629CB623100120D6F /* EditProfileView.swift in Sources */,
 				CE0E27B129CE1DA9001EDFCD /* SearchView.swift in Sources */,
+				CE5CCEC929FAEB71007972CB /* MyHouseCoordinator.swift in Sources */,
 				CEADC9A52982EC63007A0650 /* TextFieldValidator.swift in Sources */,
 				CE9881B729A4F3550086F583 /* NetworkServiceProvider.swift in Sources */,
 				CE9881B929A4F3550086F583 /* HTTPMethod.swift in Sources */,
@@ -1331,12 +1379,15 @@
 				CE990E9429CB623100120D6F /* EditProfileModuleBuilder.swift in Sources */,
 				CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */,
 				03EA4466B3EA6DF4583F862E /* SettingsViewController.swift in Sources */,
+				CE5CCEBA29FAB09F007972CB /* FavouriteModuleBuilder.swift in Sources */,
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
 				CE13E3AC29DAFE5600B948C9 /* DetailedViewController.swift in Sources */,
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,
 				CEE2DE6B29F3174B0029AFF8 /* ListCell.swift in Sources */,
 				1F2825C6E85F4B0D9F8DAC85 /* SignInModuleBuilder.swift in Sources */,
 				CEAEB9ED29ACA6B1005BBF50 /* PasswordRestoreViewController.swift in Sources */,
+				CE5CCEBB29FAB09F007972CB /* FavouriteViewController.swift in Sources */,
+				CE5CCEC429FAE7A5007972CB /* MyHouseModuleBuilder.swift in Sources */,
 				CE9CAF3829B657C0007DC31B /* PropertyModuleBuilder.swift in Sources */,
 				BC83B275D377DACEB60714C8 /* SignInView.swift in Sources */,
 				CEA546032978379B007F9962 /* RegEx.swift in Sources */,
@@ -1358,6 +1409,7 @@
 				E4CB518683283ED390099429 /* UIStackView+Ext.swift in Sources */,
 				CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */,
 				CE13E3BB29DC5AFA00B948C9 /* BackgroundCell.swift in Sources */,
+				CE5CCEBC29FAB09F007972CB /* FavouriteView.swift in Sources */,
 				CEE2DE6129F291CF0029AFF8 /* SegmntedControlView.swift in Sources */,
 				CE31637C29F7D35100E8A6B0 /* MapCell.swift in Sources */,
 				CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */,

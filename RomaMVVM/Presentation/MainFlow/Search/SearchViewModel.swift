@@ -34,7 +34,7 @@ final class SearchViewModel: BaseViewModel {
         updateDataSource()
     }
     
-    func setupBinding() {
+   private func setupBinding() {
         minPriceSubject
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
@@ -89,6 +89,10 @@ final class SearchViewModel: BaseViewModel {
     
     func showDetailed(state: ScreenState) {
         transitionSubject.send(.detailed(searchRequest, state))
+    }
+    
+    func popModule() {
+        transitionSubject.send(.pop)
     }
 
     private func updateDataSource() {

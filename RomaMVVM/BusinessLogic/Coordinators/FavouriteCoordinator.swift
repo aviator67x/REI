@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class SearchCoordinator: Coordinator {
+final class FavouriteCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
     var navigationController: UINavigationController
@@ -27,12 +27,13 @@ final class SearchCoordinator: Coordinator {
     }
 
     private func searchRoot() {
-        let module = SearchModuleBuilder.build(container: container)
+        let module = FavouriteModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .detailed(let requestModel, let state):
-                    year(model: requestModel, screenState: state)
+//                case .detailed(let requestModel, let state):
+//                    year(model: requestModel, screenState: state)
+                default:
                     didFinishSubject.send()
                 }
             }
@@ -40,8 +41,8 @@ final class SearchCoordinator: Coordinator {
         setRoot(module.viewController)
     }
     
-    private func year(model: SearchRequestModel, screenState: ScreenState) {
-        let module = DetailedModuleBuilder.build(container: container, searchRequestModel: model, screenState: screenState)
-        push(module.viewController)
-    }
+//    private func year(model: SearchRequestModel, screenState: ScreenState) {
+//        let module = DetailedModuleBuilder.build(container: container, searchRequestModel: model, screenState: screenState)
+//        push(module.viewController)
+//    }
 }

@@ -24,23 +24,24 @@ final class MainTabBarCoordinator: Coordinator {
     }
 
     func start() {
-        setupFindCoordinator()       
+        setupFindCoordinator()
+        setupFavoriteCoordinator()
+        setupMyHouseCoordinator()
         setupSettingsCoordinator()
-        setupHomeCoordinator()
 
         let controllers = childCoordinators.compactMap { $0.navigationController }
         let module = MainTabBarModuleBuilder.build(viewControllers: controllers)
         setRoot(module.viewController)
     }
 
-    private func setupHomeCoordinator() {
+    private func setupFavoriteCoordinator() {
         let navController = UINavigationController()
         navController.tabBarItem = .init(
-            title: Localization.home,
-            image: UIImage(systemName: "magnifyingglass"),
-            selectedImage: UIImage(systemName: "magnifyingglass.circle")
+            title: Localization.favourite,
+            image: UIImage(systemName: "heart"),
+            selectedImage: UIImage(systemName: "heart.filled")
         )
-        let coordinator = SearchCoordinator(navigationController: navController, container: container)
+        let coordinator = FavouriteCoordinator(navigationController: navController, container: container)
         childCoordinators.append(coordinator)
         coordinator.start()
     }
@@ -63,7 +64,7 @@ final class MainTabBarCoordinator: Coordinator {
             .store(in: &cancellables)
         coordinator.start()
     }
-    
+
     func setupFindCoordinator() {
         let navController = UINavigationController()
         navController.tabBarItem = .init(
@@ -72,6 +73,27 @@ final class MainTabBarCoordinator: Coordinator {
             selectedImage: nil
         )
         let coordinator = FindCoordinator(navigationController: navController, container: container)
+        childCoordinators.append(coordinator)
+        coordinator.didFinishPublisher
+            .sink { [unowned self] in
+                childCoordinators.forEach {
+                    removeChild(coordinator: $0)
+                }
+                didFinishSubject.send()
+                didFinishSubject.send(completion: .finished)
+            }
+            .store(in: &cancellables)
+        coordinator.start()
+    }
+    
+    func setupMyHouseCoordinator() {
+        let navController = UINavigationController()
+        navController.tabBarItem = .init(
+            title: "MyHouse",
+            image: UIImage(systemName: "house"),
+            selectedImage: nil
+        )
+        let coordinator = MyHouseCoordinator(navigationController: navController, container: container)
         childCoordinators.append(coordinator)
         coordinator.didFinishPublisher
             .sink { [unowned self] in

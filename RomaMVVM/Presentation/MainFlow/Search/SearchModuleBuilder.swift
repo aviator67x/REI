@@ -10,6 +10,7 @@ import Combine
 
 enum SearchTransition: Transition {
     case detailed(SearchRequestModel, ScreenState)
+    case pop
 }
 
 final class SearchModuleBuilder {
