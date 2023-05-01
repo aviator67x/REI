@@ -16,7 +16,7 @@ protocol AppContainer: AnyObject {
     var appSettingsService: AppSettingsService { get }
     var propertyNetworkService: PropertyNetworkService { get }
     var searchRequestModel: SearchRequestModel { get }
-    var housesNetworkService: HousesNetworkService { get }
+    var housesService: HousesService { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -26,7 +26,7 @@ final class AppContainerImpl: AppContainer {
     let appSettingsService: AppSettingsService
     let propertyNetworkService: PropertyNetworkService
     let searchRequestModel: SearchRequestModel
-    let housesNetworkService: HousesNetworkService
+    let housesService: HousesService
 
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -76,12 +76,9 @@ final class AppContainerImpl: AppContainer {
                 networkManager: networkManagerImpl,
                 encoder: JSONEncoder(),
                 decoder: JSONDecoder()        
-            )
-        
+            )        
         let housesNetworkService = HousesNetworkServiceImpl(housesProvider: housesNetworkServiceProvider)
-        self.housesNetworkService = housesNetworkService
-
-        
+        self.housesService = HousesServiceImpl(housesNetworkService: housesNetworkService)
 
         let appSettingsService = AppSettingsServiceImpl()
         self.appSettingsService = appSettingsService

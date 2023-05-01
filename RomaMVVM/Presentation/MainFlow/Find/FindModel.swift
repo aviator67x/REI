@@ -9,22 +9,22 @@ import Combine
 import Foundation
 
 final class FindModel {
-private var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
 
     private(set) lazy var isLoadingPublisher = isLoadingSubject.eraseToAnyPublisher()
     let isLoadingSubject = PassthroughSubject<Bool, Never>()
 
-    let housesNetworkService: HousesNetworkService
+    let housesService: HousesService
 
     @Published var houses: [HouseDomainModel] = []
 
     @Published private var isPaginationInProgress = false
     private var hasMoreToLoad = true
     private var offset = 0
-    private var pageSize = 3
+    private var pageSize = 2
 
-    init(housesNetworkService: HousesNetworkService) {
-        self.housesNetworkService = housesNetworkService
+    init(housesService: HousesService) {
+        self.housesService = housesService
     }
 
     func loadHouses() {
@@ -35,7 +35,7 @@ private var cancellables = Set<AnyCancellable>()
         }
         isPaginationInProgress = true
         isLoadingSubject.send(true)
-        housesNetworkService.getHouses(pageSize: pageSize, skip: offset)
+        housesService.getHouses(pageSize: pageSize, offset: offset)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 self.isLoadingSubject.send(false)
@@ -47,10 +47,7 @@ private var cancellables = Set<AnyCancellable>()
                 }
             }, receiveValue: { [unowned self] data in
                 NetworkLogger.log(data: data)
-                data.forEach { house in
-                    let domainHouse = HouseDomainModel(model: house)
-                    self.houses.append(domainHouse)
-                }
+                self.houses.append(contentsOf: data)
                 self.offset += data.count
                 self.hasMoreToLoad = offset >= pageSize
                 self.isPaginationInProgress = false

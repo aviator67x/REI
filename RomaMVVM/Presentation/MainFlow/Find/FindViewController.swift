@@ -45,7 +45,12 @@ final class FindViewController: BaseViewController<FindViewModel> {
         viewModel.$sections
             .sinkWeakly(self, receiveValue: { (self, sections) in
                 self.contentView.setupSnapShot(sections: sections)
-               let resultCount =  sections.first?.items.count ?? 0
+                var resultCount = 0
+                if let section = sections.first(where: {$0.section == .photo}) {
+                    resultCount =  section.items.count
+                } else if let section = sections.first(where: {$0.section == .list}) {
+                    resultCount = section.items.count
+                }
                 let resultModel = SearchResultViewModel(country: "Netherlands", result: resultCount, filters: 9)
                 self.contentView.updateSearchResultView(with: resultModel)
             })
