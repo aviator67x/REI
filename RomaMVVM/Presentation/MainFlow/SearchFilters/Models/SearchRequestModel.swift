@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class SearchRequestModel {
+struct SearchRequestModel {
     var distance: String?
     var propertyType: String?
     var minPrice: String?

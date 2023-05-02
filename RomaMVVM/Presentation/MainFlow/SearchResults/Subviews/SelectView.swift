@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 enum SelectViewAction {
-    case find
+    case searchFilter
     case sort
     case favourite
 }
@@ -63,7 +63,7 @@ final class SelectView: UIView {
     private func setupBinding() {
         findButton.tapPublisher
             .sink { _ in
-                self.actionSubject.send(.find)
+                self.actionSubject.send(.searchFilter)
             }
             .store(in: &cancellables)
         

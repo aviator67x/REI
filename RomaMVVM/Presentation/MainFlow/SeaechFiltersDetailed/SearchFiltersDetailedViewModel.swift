@@ -15,11 +15,13 @@ final class SearchFiltersDetailedViewModel: BaseViewModel {
     private let popDetailedSubject = PassthroughSubject<Bool, Never>()
 
     @Published private(set) var sections: [SearchFiltersDetailedCollection] = []
-    @Published var requestModel: SearchRequestModel
+//    @Published var requestModel: SearchRequestModel
+    let model: SearchModel
     var screenState: SearchFiltersDetailedScreenState
 
-   init(requestModel: SearchRequestModel, screenState: SearchFiltersDetailedScreenState) {
-        self.requestModel = requestModel
+   init(model: SearchModel, screenState: SearchFiltersDetailedScreenState) {
+//        self.requestModel = requestModel
+       self.model = model
        self.screenState = screenState
         super.init()
     }
@@ -31,9 +33,9 @@ final class SearchFiltersDetailedViewModel: BaseViewModel {
     func updateRequestModel(_ text: String) {
         switch text {
         case "since 1850", "since 1900", "since 1950", "since 2000", "since 2010", "since 2020":
-            requestModel.constructionYear = text
+            model.searchRequestModel.constructionYear = text
         default:
-            requestModel.garage = text
+            model.searchRequestModel.garage = text
         }
         popDetailedSubject.send(true)
     }

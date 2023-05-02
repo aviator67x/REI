@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class FindCoordinator: Coordinator {
+final class SearchResultsCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
 
     var navigationController: UINavigationController
@@ -32,22 +32,22 @@ final class FindCoordinator: Coordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .search:
-                    let searchModule = SearchFiltersModuleBuilder.build(container: container)
-                    let searchController = searchModule.viewController
-                    searchModule.transitionPublisher
+                case .searchFilters(let model):
+                    let searchFiltersModule = SearchFiltersModuleBuilder.build(container: container, model: model)
+                    let searchFiltersController = searchFiltersModule.viewController
+                    searchFiltersModule.transitionPublisher
                         .sink { [unowned self] transition in
                             switch transition {
                             case let .detailed(requestModel, state):
                                 year(model: requestModel, screenState: state)
                             case .pop:
-                                searchController.navigationController?.popViewController(animated: false)
+                                searchFiltersController.navigationController?.popViewController(animated: false)
                             }
                         }
                         .store(in: &cancellables)
                    
-                    searchController.hidesBottomBarWhenPushed = true
-                    push(searchController, animated: false)
+                    searchFiltersController.hidesBottomBarWhenPushed = true
+                    push(searchFiltersController, animated: false)
                 case .sort:
                     break
                 case .favourite:
@@ -59,10 +59,10 @@ final class FindCoordinator: Coordinator {
         setRoot(module.viewController)
     }
 
-    private func year(model: SearchRequestModel, screenState: SearchFiltersDetailedScreenState) {
+    private func year(model: SearchModel, screenState: SearchFiltersDetailedScreenState) {
         let module = SearchFiltersDetailedModuleBuilder.build(
             container: container,
-            searchRequestModel: model,
+            model: model,
             screenState: screenState
         )
         push(module.viewController)

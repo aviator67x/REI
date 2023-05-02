@@ -18,6 +18,7 @@ enum HouseColumn: CaseIterable {
     case distance
     case propertyType
     case roomsNumber
+    case garage
 
     enum Distance: String {
         case one = "+ 1"

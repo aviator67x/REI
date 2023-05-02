@@ -126,13 +126,13 @@
 		CE990E9929CB820D00120D6F /* UIImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9829CB820C00120D6F /* UIImage+resize.swift */; };
 		CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */; };
 		CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2F29B52163007DC31B /* DecodingError+.swift */; };
-		CE9CAF3229B6551B007DC31B /* FindCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3129B6551B007DC31B /* FindCoordinator.swift */; };
+		CE9CAF3229B6551B007DC31B /* SearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */; };
 		CE9CAF3829B657C0007DC31B /* PropertyModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3429B657C0007DC31B /* PropertyModuleBuilder.swift */; };
 		CE9CAF3929B657C0007DC31B /* PropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3529B657C0007DC31B /* PropertyViewController.swift */; };
 		CE9CAF3A29B657C0007DC31B /* PropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3629B657C0007DC31B /* PropertyView.swift */; };
 		CE9CAF3B29B657C0007DC31B /* PropertyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3729B657C0007DC31B /* PropertyViewModel.swift */; };
 		CE9CAF3E29B678BE007DC31B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CE9CAF3D29B678BE007DC31B /* Kingfisher */; };
-		CEA2A86729E9D1B400395817 /* SearchResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86629E9D1B400395817 /* SearchResultsModel.swift */; };
+		CEA2A86729E9D1B400395817 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86629E9D1B400395817 /* SearchModel.swift */; };
 		CEA2A86929E9D23E00395817 /* HouseDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86829E9D23E00395817 /* HouseDomainModel.swift */; };
 		CEA51C4529F03C6E0030602E /* HousesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA51C4429F03C6E0030602E /* HousesService.swift */; };
 		CEA545E52977FF04007F9962 /* Creatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA545E42977FF04007F9962 /* Creatable.swift */; };
@@ -346,12 +346,12 @@
 		CE990E9829CB820C00120D6F /* UIImage+resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+resize.swift"; sourceTree = "<group>"; };
 		CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+coding.swift"; sourceTree = "<group>"; };
 		CE9CAF2F29B52163007DC31B /* DecodingError+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingError+.swift"; sourceTree = "<group>"; };
-		CE9CAF3129B6551B007DC31B /* FindCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindCoordinator.swift; sourceTree = "<group>"; };
+		CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsCoordinator.swift; sourceTree = "<group>"; };
 		CE9CAF3429B657C0007DC31B /* PropertyModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyModuleBuilder.swift; sourceTree = "<group>"; };
 		CE9CAF3529B657C0007DC31B /* PropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyViewController.swift; sourceTree = "<group>"; };
 		CE9CAF3629B657C0007DC31B /* PropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyView.swift; sourceTree = "<group>"; };
 		CE9CAF3729B657C0007DC31B /* PropertyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyViewModel.swift; sourceTree = "<group>"; };
-		CEA2A86629E9D1B400395817 /* SearchResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsModel.swift; sourceTree = "<group>"; };
+		CEA2A86629E9D1B400395817 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		CEA2A86829E9D23E00395817 /* HouseDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDomainModel.swift; sourceTree = "<group>"; };
 		CEA51C4429F03C6E0030602E /* HousesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesService.swift; sourceTree = "<group>"; };
 		CEA545E42977FF04007F9962 /* Creatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creatable.swift; sourceTree = "<group>"; };
@@ -582,7 +582,7 @@
 				594D4969D87ADFBE45DB3B4A /* MainTabBarCoordinator.swift */,
 				4204A762E062DA5EEE513D13 /* FavouriteCoordinator.swift */,
 				CA51E79F6908337E1B14DE70 /* SettingsCoordinator.swift */,
-				CE9CAF3129B6551B007DC31B /* FindCoordinator.swift */,
+				CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */,
 				CE5CCEC829FAEB71007972CB /* MyHouseCoordinator.swift */,
 			);
 			path = Coordinators;
@@ -934,7 +934,7 @@
 				CEAA10E729DDBA5200340401 /* SearchResultsViewController.swift */,
 				CEAA10E829DDBA5200340401 /* SearchResultsView.swift */,
 				CEAA10E929DDBA5200340401 /* SearchResultsViewModel.swift */,
-				CEA2A86629E9D1B400395817 /* SearchResultsModel.swift */,
+				CEA2A86629E9D1B400395817 /* SearchModel.swift */,
 				CEAA10EE29DDBC3D00340401 /* Subviews */,
 				CEAA10F129DDBD7900340401 /* Models */,
 			);
@@ -1042,8 +1042,8 @@
 				CCA876F88893001B36189960 /* Settings */,
 				CE9430C729C8732E00FFB94C /* Profile */,
 				CE990E5D29C8E77400120D6F /* EditProfile */,
-				CE0E27AA29CE1D90001EDFCD /* SearchFilters */,
 				CEAA10E529DDBA0200340401 /* SearchResults */,
+				CE0E27AA29CE1D90001EDFCD /* SearchFilters */,
 				CE13E3A629DAFDE100B948C9 /* SeaechFiltersDetailed */,
 				CE5CCEBE29FAE6B3007972CB /* Favourite */,
 				CE5CCEBF29FAE782007972CB /* MyHouse */,
@@ -1321,7 +1321,7 @@
 				CE9430CE29C8736400FFB94C /* ProfileView.swift in Sources */,
 				173F149C6D6553B04D682E9D /* BaseViewModel.swift in Sources */,
 				CEADC9A22981A22E007A0650 /* UniformKeyPathInitializable.swift in Sources */,
-				CE9CAF3229B6551B007DC31B /* FindCoordinator.swift in Sources */,
+				CE9CAF3229B6551B007DC31B /* SearchResultsCoordinator.swift in Sources */,
 				B33A99E3AECD58D23DDA8E79 /* Coordinator.swift in Sources */,
 				CEAE383529BA020D0046198A /* NSMutableData+.swift in Sources */,
 				CE5CCECB29FFF37A007972CB /* SearchRequestModel.swift in Sources */,
@@ -1341,7 +1341,7 @@
 				CEE2DE7129F323660029AFF8 /* PhotoCellModel.swift in Sources */,
 				CE9430D529C8873200FFB94C /* TermsModuleBuilder.swift in Sources */,
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
-				CEA2A86729E9D1B400395817 /* SearchResultsModel.swift in Sources */,
+				CEA2A86729E9D1B400395817 /* SearchModel.swift in Sources */,
 				CE9CAF3B29B657C0007DC31B /* PropertyViewModel.swift in Sources */,
 				CEAEB9E429AAA57E005BBF50 /* UserNetworkService.swift in Sources */,
 				CEAEB9EC29ACA6B1005BBF50 /* PasswordRestoreModuleBuilder.swift in Sources */,

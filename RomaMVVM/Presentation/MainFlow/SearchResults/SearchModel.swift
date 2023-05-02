@@ -8,14 +8,14 @@
 import Combine
 import Foundation
 
-final class SearchResultsModel {
+final class SearchModel {
     private var cancellables = Set<AnyCancellable>()
 
     private(set) lazy var isLoadingPublisher = isLoadingSubject.eraseToAnyPublisher()
-    let isLoadingSubject = PassthroughSubject<Bool, Never>()
+    private lazy var isLoadingSubject = PassthroughSubject<Bool, Never>()
 
-    let housesService: HousesService
-
+    private let housesService: HousesService
+    var searchRequestModel: SearchRequestModel = .init()
     @Published var houses: [HouseDomainModel] = []
 
     @Published private var isPaginationInProgress = false

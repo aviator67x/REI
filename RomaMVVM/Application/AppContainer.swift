@@ -15,7 +15,7 @@ protocol AppContainer: AnyObject {
     var userService: UserService { get }
     var appSettingsService: AppSettingsService { get }
     var propertyNetworkService: PropertyNetworkService { get }
-    var searchRequestModel: SearchRequestModel { get }
+    var searchModel: SearchModel { get }
     var housesService: HousesService { get }
 }
 
@@ -25,26 +25,29 @@ final class AppContainerImpl: AppContainer {
     let userService: UserService
     let appSettingsService: AppSettingsService
     let propertyNetworkService: PropertyNetworkService
-    let searchRequestModel: SearchRequestModel
+    let searchModel: SearchModel
     let housesService: HousesService
 
     init() {
         let appConfiguration = AppConfigurationImpl()
         self.appConfiguration = appConfiguration
         
+        let appSettingsService = AppSettingsServiceImpl()
+        self.appSettingsService = appSettingsService
+        
         let keychainService = Keychain(service: appConfiguration.bundleId)
         let tokenStorageService = TokenStorageServiceImpl(keychain: keychainService)
         let tokenPlugin = TokenPlugin(tokenStorage: tokenStorageService)
         let networkManagerImpl = NetworkManagerImpl(session: URLSession.shared)
-
-        let networkServiceProvider = NetworkServiceProviderImpl<AuthEndPoint>(
+        
+        let authNetworkServiceProvider = NetworkServiceProviderImpl<AuthEndPoint>(
             baseURLStorage: appConfiguration,
             networkManager: networkManagerImpl,
             encoder: JSONEncoder(),
             decoder: JSONDecoder(),
             plugins: [tokenPlugin]
         )
-        let authService = AuthNetworkServiceImpl(authProvider: networkServiceProvider)
+        let authService = AuthNetworkServiceImpl(authProvider: authNetworkServiceProvider)
         self.authNetworkService = authService
 
         let userNetworkServiceProvider = NetworkServiceProviderImpl<UserEndPoint>(
@@ -80,10 +83,6 @@ final class AppContainerImpl: AppContainer {
         let housesNetworkService = HousesNetworkServiceImpl(housesProvider: housesNetworkServiceProvider)
         self.housesService = HousesServiceImpl(housesNetworkService: housesNetworkService)
 
-        let appSettingsService = AppSettingsServiceImpl()
-        self.appSettingsService = appSettingsService
-
-        var searchRequestModel: SearchRequestModel { SearchRequestModel() }
-        self.searchRequestModel = searchRequestModel
+        self.searchModel = SearchModel(housesService: housesService)
     }
 }

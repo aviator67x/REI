@@ -72,7 +72,7 @@ final class MainTabBarCoordinator: Coordinator {
             image: UIImage(systemName: "magnifyingglass"),
             selectedImage: nil
         )
-        let coordinator = FindCoordinator(navigationController: navController, container: container)
+        let coordinator = SearchResultsCoordinator(navigationController: navController, container: container)
         childCoordinators.append(coordinator)
         coordinator.didFinishPublisher
             .sink { [unowned self] in

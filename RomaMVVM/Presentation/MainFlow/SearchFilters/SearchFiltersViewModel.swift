@@ -21,16 +21,18 @@ final class SearchFiltersViewModel: BaseViewModel {
     private lazy var maxSquareSubject = CurrentValueSubject<String?, Never>(nil)
 
     private var searchParameters: [SearchParam] = []
-    private var searchRequest: SearchRequestModel {
-        didSet {
-            print("SearchRequest for now is: \(searchRequest)")
-        }
-    }
-    
-    let housesService: HousesService
-    
-    init(searchRequest: SearchRequestModel, housesService: HousesService) {
-        self.searchRequest = searchRequest
+
+//    private var searchRequest: SearchRequestModel {
+//        didSet {
+//            print("SearchRequest for now is: \(searchRequest)")
+//        }
+//    }
+    private let model: SearchModel
+    private let housesService: HousesService
+
+    init(model: SearchModel, housesService: HousesService) {
+//        self.searchRequest = searchRequest
+        self.model = model
         self.housesService = housesService
         super.init()
     }
@@ -44,14 +46,14 @@ final class SearchFiltersViewModel: BaseViewModel {
         minPriceSubject
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
-                self.searchRequest.minPrice = price
+                self.model.searchRequestModel.minPrice = price
             })
             .store(in: &cancellables)
 
         maxPriceSubject
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
-                self.searchRequest.maxPrice
+                self.model.searchRequestModel.maxPrice
                     = price
             })
             .store(in: &cancellables)
@@ -59,14 +61,14 @@ final class SearchFiltersViewModel: BaseViewModel {
         minSquareSubject
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, square) in
-                self.searchRequest.minSquare = square
+                self.model.searchRequestModel.minSquare = square
             })
             .store(in: &cancellables)
 
         maxSquareSubject
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, square) in
-                self.searchRequest.maxSquare = square
+                self.model.searchRequestModel.maxSquare = square
             })
             .store(in: &cancellables)
     }
@@ -76,33 +78,43 @@ final class SearchFiltersViewModel: BaseViewModel {
     }
 
     func updateDistance(_ distance: String) {
-        searchRequest.distance = distance
+        model.searchRequestModel.distance = distance
         let distanceParam = SearchParam(
             key: .distance,
-            value: .equalToString(parameter: distance))
+            value: .equalToString(parameter: distance)
+        )
         searchParameters.append(distanceParam)
     }
 
     func updateType(_ type: String) {
-        searchRequest.propertyType = type
+        model.searchRequestModel.propertyType = type
         let typeParam = SearchParam(
             key: .propertyType,
-            value: .equalToString(parameter: type))
+            value: .equalToString(parameter: type)
+        )
         searchParameters.append(typeParam)
     }
 
     func updateNumberOfRooms(_ number: String) {
-        searchRequest.roomsNumber = number
+        model.searchRequestModel.roomsNumber = number
         guard let character = number.first,
-            let number = Int(String(character)) else { return }
+              let number = Int(String(character)) else { return }
         let roomsNumberParam = SearchParam(
             key: .roomsNumber,
-            value: .equalToInt(parameter: number))
+            value: .equalToInt(parameter: number)
+        )
+        searchParameters.append(roomsNumberParam)
     }
 
     func executeSearch() {
-        if searchRequest.garage != nil {
-            searchRequest
+        if model.searchRequestModel.garage != nil {
+            guard let garage = model.searchRequestModel.garage else {
+                return
+            }
+            let garageParam = SearchParam(
+                key: .garage,
+                value: .equalToString(parameter: garage)
+            )
         }
         housesService.searchHouses(searchParameters)
             .receive(on: DispatchQueue.main)
@@ -110,7 +122,7 @@ final class SearchFiltersViewModel: BaseViewModel {
                 switch completion {
                 case .finished:
                     break
-                case .failure(let error):
+                case let .failure(error):
                     debugPrint(error.localizedDescription)
                 }
             }, receiveValue: { [unowned self] houses in
@@ -120,7 +132,7 @@ final class SearchFiltersViewModel: BaseViewModel {
     }
 
     func showDetailed(state: SearchFiltersDetailedScreenState) {
-        transitionSubject.send(.detailed(searchRequest, state))
+        transitionSubject.send(.detailed(self.model, state))
     }
 
     func popModule() {

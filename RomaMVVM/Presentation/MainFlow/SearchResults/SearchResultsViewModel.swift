@@ -11,7 +11,7 @@ import Foundation
 final class SearchResultsViewModel: BaseViewModel {
     private var screenState = SearchResultsScreenState.photo
     
-    private let model: SearchResultsModel
+    private let model: SearchModel
 
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<FindTransition, Never>()
@@ -19,7 +19,7 @@ final class SearchResultsViewModel: BaseViewModel {
     @Published var sections: [SearchResultsCollection] = []
     private lazy var houses = CurrentValueSubject<[HouseDomainModel], Never>([])
   
-    init(model: SearchResultsModel) {
+    init(model: SearchModel) {
         self.model = model
     }
 
@@ -53,8 +53,8 @@ final class SearchResultsViewModel: BaseViewModel {
 extension SearchResultsViewModel {
     func moveTo(_ screen: SelectViewAction) {
         switch screen {
-        case .find:
-            transitionSubject.send(.search)
+        case .searchFilter:
+            transitionSubject.send(.searchFilters(self.model))
         case .sort:
             transitionSubject.send(.sort)
         case .favourite:
