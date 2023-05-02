@@ -22,14 +22,14 @@ final class PropertyViewModel: BaseViewModel {
 
     private var searchParameters: [SearchParam] =
         [
-            SearchParam(
-                key: PropertyColumn.layout, // .area,
-                value: SearchType.equalToInt(parameter: 58)
-            ),
-            SearchParam(
-                key: PropertyColumn.propertyType,
-                value: SearchType.equalToString(parameter: "Flat")
-            ),
+//            SearchParam(
+//                key: PropertyColumn.layout, // .area,
+//                value: SearchType.equalToInt(parameter: 58)
+//            ),
+//            SearchParam(
+//                key: PropertyColumn.propertyType,
+//                value: SearchType.equalToString(parameter: "Flat")
+//            ),
         ]
     // MARK: - Lifecycle
     init(propertyNetworkService: PropertyNetworkService) {
@@ -50,10 +50,10 @@ extension PropertyViewModel {
     }
 
     func addSearchValue(_ value: SearchType) {
-        searchValue = value
-        guard let searchKey = searchKey,
-              let searchValue = searchValue else { return }
-        searchParameters.append(SearchParam(key: searchKey, value: searchValue))
+//        searchValue = value
+//        guard let searchKey = searchKey,
+//              let searchValue = searchValue else { return }
+//        searchParameters.append(SearchParam(key: searchKey, value: searchValue))
     }
 
     func filter() {

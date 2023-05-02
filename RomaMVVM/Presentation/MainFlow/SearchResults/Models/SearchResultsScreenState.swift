@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum FindScreenState: Int {
+enum SearchResultsScreenState: Int {
     case photo
     case list
     case map

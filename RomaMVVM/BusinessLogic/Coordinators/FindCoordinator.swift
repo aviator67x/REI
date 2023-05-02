@@ -28,12 +28,12 @@ final class FindCoordinator: Coordinator {
     }
 
     private func findRoot() {
-        let module = FindModuleBuilder.build(container: container)
+        let module = SearchResultsModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
                 case .search:
-                    let searchModule = SearchModuleBuilder.build(container: container)
+                    let searchModule = SearchFiltersModuleBuilder.build(container: container)
                     let searchController = searchModule.viewController
                     searchModule.transitionPublisher
                         .sink { [unowned self] transition in
@@ -59,8 +59,8 @@ final class FindCoordinator: Coordinator {
         setRoot(module.viewController)
     }
 
-    private func year(model: SearchRequestModel, screenState: ScreenState) {
-        let module = DetailedModuleBuilder.build(
+    private func year(model: SearchRequestModel, screenState: SearchFiltersDetailedScreenState) {
+        let module = SearchFiltersDetailedModuleBuilder.build(
             container: container,
             searchRequestModel: model,
             screenState: screenState

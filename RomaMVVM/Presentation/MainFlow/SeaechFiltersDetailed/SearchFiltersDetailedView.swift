@@ -9,19 +9,19 @@ import UIKit
 import Combine
 import Foundation
 
-enum DetailedViewAction {
-    case selectedItem(DetailedItem)
+enum SearchFiltersDetailedViewAction {
+    case selectedItem(SearchFiltersDetailedItem)
 
 }
 
-final class DetailedView: BaseView {
-    var dataSource: UICollectionViewDiffableDataSource<DetailedSection, DetailedItem>?
+final class SearchFiltersDetailedView: BaseView {
+    var dataSource: UICollectionViewDiffableDataSource<SearchFiltersDetailedSection, SearchFiltersDetailedItem>?
     // MARK: - Subviews
 
     private var collection: UICollectionView!
     
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<DetailedViewAction, Never>()
+    private let actionSubject = PassthroughSubject<SearchFiltersDetailedViewAction, Never>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,7 +59,7 @@ final class DetailedView: BaseView {
     private func bindActions() {
         collection.didSelectItemPublisher
             .compactMap {self.dataSource?.itemIdentifier(for: $0)}
-            .map {DetailedViewAction.selectedItem($0)}
+            .map {SearchFiltersDetailedViewAction.selectedItem($0)}
             .sink { [unowned self] in
                 actionSubject.send($0)}
             .store(in: &cancellables)
@@ -86,15 +86,15 @@ import SwiftUI
 struct DetailedPreview: PreviewProvider {
     
     static var previews: some View {
-        ViewRepresentable(DetailedView())
+        ViewRepresentable(SearchFiltersDetailedView())
     }
 }
 #endif
 
 // MARK: - extensions
-extension DetailedView {
-    func setupSnapShot(sections: [DetailedCollection]) {
-        var snapshot = NSDiffableDataSourceSnapshot<DetailedSection, DetailedItem>()
+extension SearchFiltersDetailedView {
+    func setupSnapShot(sections: [SearchFiltersDetailedCollection]) {
+        var snapshot = NSDiffableDataSourceSnapshot<SearchFiltersDetailedSection, SearchFiltersDetailedItem>()
         for section in sections {
             snapshot.appendSections([section.section])
             snapshot.appendItems(section.items, toSection: section.section)
@@ -103,7 +103,7 @@ extension DetailedView {
     }
     
     func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<DetailedSection, DetailedItem>(collectionView: collection, cellProvider: {
+        dataSource = UICollectionViewDiffableDataSource<SearchFiltersDetailedSection, SearchFiltersDetailedItem>(collectionView: collection, cellProvider: {
             collectionView, indexPath, item -> UICollectionViewCell in
             switch item {
             case .plain(let year1850):

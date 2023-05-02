@@ -14,21 +14,35 @@ enum SearchType {
     case less(than: String)
 }
 
+enum HouseColumn: CaseIterable {
+    case distance
+    case propertyType
+    case roomsNumber
+
+    enum Distance: String {
+        case one = "+ 1"
+        case two = "+ 2"
+        case five = "+ 5"
+        case ten = "+ 10"
+        case fifteen = "+ 15"
+        case thirty = "+ 30"
+        case fifty = "+ 50"
+        case oneHundred = "+ 100"
+    }
+    
+    enum PropertyType {
+        case appartment
+        case house
+        case land
+    }
+}
+
 enum PropertyColumn: String, CaseIterable {
-//    case area
     case layout
-//    case price
     case propertyType
     case realEstateCategory
     case residenceType
     case saleOrRent
-//    case storeysNumber
-//    case toTheAirportAntalya
-//    case toTheAirportGazipasa
-//    case toTheCityCenter
-//    case toTheSea
-//    case yearOfConstruction
-//    case location
 
     enum Layout: String, CaseIterable {
         case null = "0 + 1"
@@ -36,25 +50,25 @@ enum PropertyColumn: String, CaseIterable {
         case two = "2 + 1"
         case three = "3 + 1"
     }
-    
+
     enum PropertyType: String, CaseIterable {
         case flat = "Flat"
         case villa = "Villa"
         case land = "Land"
         case hotDeals = "Hot Deals"
     }
-    
+
     enum RealEstateCategoty: String, CaseIterable {
         case built = "Built"
         case underConstuction = "Under construction"
         case resale = "Resale"
     }
-    
+
     enum ResidenceType: String, CaseIterable {
         case citizenship = "Citizenship"
         case residentCard = "ResidentCard"
     }
-    
+
     enum SaleOrRent: String, CaseIterable {
         case sale = "Sale"
         case rent = "Rent"
@@ -62,7 +76,8 @@ enum PropertyColumn: String, CaseIterable {
 }
 
 struct SearchParam {
-    let key: PropertyColumn
+//    let key: PropertyColumn
+    let key: HouseColumn
     let value: SearchType
 }
 

@@ -9,21 +9,22 @@ import Combine
 import Foundation
 import UIKit
 
-enum SearchViewAction {
-    case selectedItem(SearchItem)
+enum SearchFiltersViewAction {
+    case selectedItem(SearchFiltersItem)
     case segmentControl(Int)
+    case resultButtonDidTap
 }
 
-final class SearchView: BaseView {
-    var dataSource: UICollectionViewDiffableDataSource<SearchSection, SearchItem>?
+final class SearchFiltersView: BaseView {
+    var dataSource: UICollectionViewDiffableDataSource<SearchFiltersSection, SearchFiltersItem>?
 
     // MARK: - Subviews
 
     private var collection: UICollectionView!
-    private let resultLabel = UILabel()
+    private let resultButton = UIButton()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<SearchViewAction, Never>()
+    private let actionSubject = PassthroughSubject<SearchFiltersViewAction, Never>()
 
     // MARK: - Life cycle
     override init(frame: CGRect) {
@@ -144,7 +145,7 @@ final class SearchView: BaseView {
         return sectionLayoutBuilder(section: .backgroundItem)
     }
 
-    private func sectionLayoutBuilder(section: SearchSection) -> NSCollectionLayoutSection {
+    private func sectionLayoutBuilder(section: SearchFiltersSection) -> NSCollectionLayoutSection {
         let itemWidthDimension: NSCollectionLayoutDimension
         let groupHeight: CGFloat
         let groupLeadingInset: CGFloat
@@ -228,22 +229,25 @@ final class SearchView: BaseView {
     private func bindActions() {
         collection.didSelectItemPublisher
             .compactMap { self.dataSource?.itemIdentifier(for: $0) }
-            .map { SearchViewAction.selectedItem($0) }
+            .map { SearchFiltersViewAction.selectedItem($0) }
             .sink { [unowned self] in
                 actionSubject.send($0)
-                print($0)
             }
             .store(in: &cancellables)
         
-        
+        resultButton.tapPublisher
+            .sink { _ in
+                self.actionSubject.send(.resultButtonDidTap)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
         backgroundColor = .systemTeal
-        resultLabel.backgroundColor = .systemBlue
-        resultLabel.text = "Result"
-        resultLabel.textColor = .white
-        resultLabel.textAlignment = .center
+        resultButton.backgroundColor = .systemBlue
+        resultButton.setTitle("Result", for: .normal)
+        resultButton.setTitleColor(.white, for: .normal)
+        resultButton.titleLabel?.textAlignment = .center
     }
 
     private func setupCollection() {
@@ -275,7 +279,7 @@ final class SearchView: BaseView {
             $0.leading.trailing.bottom.equalToSuperview()
         }
 
-        addSubview(resultLabel) {
+        addSubview(resultButton) {
             $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
             $0.leading.trailing.equalToSuperview().inset(16)
@@ -291,15 +295,15 @@ private enum Constant {}
     import SwiftUI
     struct SearchPreview: PreviewProvider {
         static var previews: some View {
-            ViewRepresentable(SearchView())
+            ViewRepresentable(SearchFiltersView())
         }
     }
 #endif
 
 // MARK: - extension
-extension SearchView {
-    func setupSnapshot(sections: [SearchCollection]) {
-        var snapshot = NSDiffableDataSourceSnapshot<SearchSection, SearchItem>()
+extension SearchFiltersView {
+    func setupSnapshot(sections: [SearchFiltersCollection]) {
+        var snapshot = NSDiffableDataSourceSnapshot<SearchFiltersSection, SearchFiltersItem>()
         for section in sections {
             snapshot.appendSections([section.sections])
             snapshot.appendItems(section.items, toSection: section.sections)
@@ -308,7 +312,7 @@ extension SearchView {
     }
     
     func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<SearchSection, SearchItem>(
+        dataSource = UICollectionViewDiffableDataSource<SearchFiltersSection, SearchFiltersItem>(
             collectionView: collection,
             cellProvider: { [unowned self] _, indexPath, item -> UICollectionViewCell in
                 switch item {

@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct FindCollection {
-    var section: FindSection
-    var items: [FindItem]
+struct SearchResultsCollection {
+    var section: SearchResultsSection
+    var items: [SearchResultsItem]
 }
 
-enum FindSection: Hashable {
+enum SearchResultsSection: Hashable {
     case photo
     case list
     case main
     case map
 }
 
-enum FindItem: Hashable {
+enum SearchResultsItem: Hashable {
     case photo(PhotoCellModel)
     case main(MainCellModel)
     case list(ListCellModel)

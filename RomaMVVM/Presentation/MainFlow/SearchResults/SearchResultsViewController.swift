@@ -8,9 +8,9 @@
 import Combine
 import UIKit
 
-final class FindViewController: BaseViewController<FindViewModel> {
+final class SearchResultsViewController: BaseViewController<SearchResultsViewModel> {
     // MARK: - Views
-    private let contentView = FindView()
+    private let contentView = SearchResultsView()
     private lazy var segmentedControl = SegmentedControl(frame: .zero)
 
     // MARK: - Lifecycle
@@ -57,7 +57,7 @@ final class FindViewController: BaseViewController<FindViewModel> {
             .store(in: &cancellables)
 
         segmentedControl.selectedSegmentIndexPublisher
-            .compactMap { FindScreenState(rawValue: $0) }
+            .compactMap { SearchResultsScreenState(rawValue: $0) }
             .sink { [unowned self] state in
                 viewModel.setScreenState(state)
                 contentView.makeSelectView(isVisible: state != .map)

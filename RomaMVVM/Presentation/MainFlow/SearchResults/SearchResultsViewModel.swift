@@ -8,18 +8,18 @@
 import Combine
 import Foundation
 
-final class FindViewModel: BaseViewModel {
-    private var screenState = FindScreenState.photo
+final class SearchResultsViewModel: BaseViewModel {
+    private var screenState = SearchResultsScreenState.photo
     
-    private let model: FindModel
+    private let model: SearchResultsModel
 
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<FindTransition, Never>()
 
-    @Published var sections: [FindCollection] = []
+    @Published var sections: [SearchResultsCollection] = []
     private lazy var houses = CurrentValueSubject<[HouseDomainModel], Never>([])
   
-    init(model: FindModel) {
+    init(model: SearchResultsModel) {
         self.model = model
     }
 
@@ -50,7 +50,7 @@ final class FindViewModel: BaseViewModel {
 }
 
 // MARK: - extension
-extension FindViewModel {
+extension SearchResultsViewModel {
     func moveTo(_ screen: SelectViewAction) {
         switch screen {
         case .find:
@@ -62,7 +62,7 @@ extension FindViewModel {
         }
     }
 
-    func setScreenState(_ state: FindScreenState) {
+    func setScreenState(_ state: SearchResultsScreenState) {
         screenState = state
         createDataSource()
     }
@@ -76,25 +76,25 @@ extension FindViewModel {
         case .photo:
             let items = houses.value
                 .map { PhotoCellModel(data: $0) }
-                .map { FindItem.photo($0) }
-            let section = FindCollection(section: .photo, items: items)
+                .map { SearchResultsItem.photo($0) }
+            let section = SearchResultsCollection(section: .photo, items: items)
             sections = [section]
         case .list:
             let mainViewItem = houses.value
                 .map { MainCellModel(data: $0) }
-                .map { FindItem.main($0) }
+                .map { SearchResultsItem.main($0) }
                 .randomElement()
             guard let item = mainViewItem else { return }
-            let manViewSection = FindCollection(section: .main, items: [item])
+            let manViewSection = SearchResultsCollection(section: .main, items: [item])
 
             let items = houses.value
                 .map { ListCellModel(data: $0) }
-                .map { FindItem.list($0) }
-            let listSection = FindCollection(section: .list, items: items)
+                .map { SearchResultsItem.list($0) }
+            let listSection = SearchResultsCollection(section: .list, items: items)
             sections = [manViewSection, listSection]
         case .map:
-            let mapItem = FindItem.map
-            let mapSection = FindCollection(section: .map, items: [mapItem])
+            let mapItem = SearchResultsItem.map
+            let mapSection = SearchResultsCollection(section: .map, items: [mapItem])
             sections = [mapSection]
         }
     }

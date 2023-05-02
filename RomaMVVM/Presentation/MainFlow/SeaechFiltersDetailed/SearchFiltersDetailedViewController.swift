@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class DetailedViewController: BaseViewController<DetailedViewModel> {
+final class SearchFiltersDetailedViewController: BaseViewController<SearchFiltersDetailedViewModel> {
     // MARK: - Views
-    private let contentView = DetailedView()
+    private let contentView = SearchFiltersDetailedView()
     
     // MARK: - Lifecycle
     override func loadView() {

@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class FindModel {
+final class SearchResultsModel {
     private var cancellables = Set<AnyCancellable>()
 
     private(set) lazy var isLoadingPublisher = isLoadingSubject.eraseToAnyPublisher()

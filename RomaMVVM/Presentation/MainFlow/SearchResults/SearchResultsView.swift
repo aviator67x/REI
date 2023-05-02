@@ -8,13 +8,13 @@
 import Combine
 import UIKit
 
-enum FindViewAction {
+enum SearchResultsViewAction {
     case collectionBottomDidReach
     case fromSelectViewTransition(SelectViewAction)
 }
 
-final class FindView: BaseView {
-    var dataSource: UICollectionViewDiffableDataSource<FindSection, FindItem>?
+final class SearchResultsView: BaseView {
+    var dataSource: UICollectionViewDiffableDataSource<SearchResultsSection, SearchResultsItem>?
 
     // MARK: - Subviews
     private lazy var stackView = UIStackView()
@@ -23,7 +23,7 @@ final class FindView: BaseView {
     private lazy var collectionView: UICollectionView = createCollectionView()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<FindViewAction, Never>()
+    private let actionSubject = PassthroughSubject<SearchResultsViewAction, Never>()
 
     private lazy var stackViewTopConstraint = stackView.topAnchor.constraint(
         equalTo: self.safeAreaLayoutGuide.topAnchor,
@@ -128,7 +128,7 @@ final class FindView: BaseView {
 private enum Constant {}
 
 // MARK: - extension
-extension FindView {
+extension SearchResultsView {
     func makeSelectView(isVisible: Bool) {
         selectView.isHidden = !isVisible
     }
@@ -137,8 +137,8 @@ extension FindView {
         resultView.setup(with: data)
     }
     
-    func setupSnapShot(sections: [FindCollection]) {
-        var snapshot = NSDiffableDataSourceSnapshot<FindSection, FindItem>()
+    func setupSnapShot(sections: [SearchResultsCollection]) {
+        var snapshot = NSDiffableDataSourceSnapshot<SearchResultsSection, SearchResultsItem>()
         for section in sections {
             snapshot.appendSections([section.section])
             snapshot.appendItems(section.items, toSection: section.section)
@@ -147,7 +147,7 @@ extension FindView {
     }
 
     func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<FindSection, FindItem>(
+        dataSource = UICollectionViewDiffableDataSource<SearchResultsSection, SearchResultsItem>(
             collectionView: collectionView,
             cellProvider: {
                 collectionView, indexPath, item -> UICollectionViewCell in
@@ -197,7 +197,7 @@ extension FindView {
     import SwiftUI
     struct FindPreview: PreviewProvider {
         static var previews: some View {
-            ViewRepresentable(FindView())
+            ViewRepresentable(SearchResultsView())
         }
     }
 #endif

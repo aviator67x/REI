@@ -8,9 +8,9 @@
 import Combine
 import UIKit
 
-final class SearchViewController: BaseViewController<SearchViewModel> {
+final class SearchFiltersViewController: BaseViewController<SearchFiltersViewModel> {
     // MARK: - Views
-    private let contentView = SearchView()
+    private let contentView = SearchFiltersView()
 
     // MARK: - Lifecycle
     override func loadView() {
@@ -83,6 +83,8 @@ final class SearchViewController: BaseViewController<SearchViewModel> {
                     }
                 case .segmentControl(let index):
                     viewModel.configureScreen(for: index)
+                case .resultButtonDidTap:
+                    viewModel.executeSearch()
                 }
             }
             .store(in: &cancellables)

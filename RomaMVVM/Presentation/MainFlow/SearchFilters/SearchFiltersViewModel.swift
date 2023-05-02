@@ -8,100 +8,132 @@
 import Combine
 import Foundation
 
-final class SearchViewModel: BaseViewModel {
+final class SearchFiltersViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
-    private let transitionSubject = PassthroughSubject<SearchTransition, Never>()
-    
+    private let transitionSubject = PassthroughSubject<SearchFiltersTransition, Never>()
+
     @Published var screenConfiguration = 0
-    @Published private(set) var sections: [SearchCollection] = []
-    
+    @Published private(set) var sections: [SearchFiltersCollection] = []
+
     private lazy var minPriceSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var maxPriceSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var minSquareSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var maxSquareSubject = CurrentValueSubject<String?, Never>(nil)
-    
-    private var searchRequest: SearchRequestModel {didSet {
-        print(oldValue.self)
-    }}
-    
-    init(searchRequest: SearchRequestModel) {
-        self.searchRequest = searchRequest
-        super.init()
-        setupBinding()
+
+    private var searchParameters: [SearchParam] = []
+    private var searchRequest: SearchRequestModel {
+        didSet {
+            print("SearchRequest for now is: \(searchRequest)")
+        }
     }
     
+    let housesService: HousesService
+    
+    init(searchRequest: SearchRequestModel, housesService: HousesService) {
+        self.searchRequest = searchRequest
+        self.housesService = housesService
+        super.init()
+    }
+
     override func onViewDidLoad() {
+        setupBinding()
         updateDataSource()
     }
-    
-   private func setupBinding() {
+
+    private func setupBinding() {
         minPriceSubject
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
                 self.searchRequest.minPrice = price
-                print(price)
             })
             .store(in: &cancellables)
-        
+
         maxPriceSubject
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
                 self.searchRequest.maxPrice
-                 = price
+                    = price
             })
             .store(in: &cancellables)
-        
+
         minSquareSubject
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, square) in
                 self.searchRequest.minSquare = square
-                print(square)
             })
             .store(in: &cancellables)
-        
+
         maxSquareSubject
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, square) in
                 self.searchRequest.maxSquare = square
-                print(square)
             })
             .store(in: &cancellables)
     }
-    
+
     func configureScreen(for index: Int) {
         screenConfiguration = index
     }
 
     func updateDistance(_ distance: String) {
-        print(distance)
         searchRequest.distance = distance
+        let distanceParam = SearchParam(
+            key: .distance,
+            value: .equalToString(parameter: distance))
+        searchParameters.append(distanceParam)
     }
 
     func updateType(_ type: String) {
         searchRequest.propertyType = type
-        print(type)
+        let typeParam = SearchParam(
+            key: .propertyType,
+            value: .equalToString(parameter: type))
+        searchParameters.append(typeParam)
     }
 
     func updateNumberOfRooms(_ number: String) {
         searchRequest.roomsNumber = number
-        print(number)
+        guard let character = number.first,
+            let number = Int(String(character)) else { return }
+        let roomsNumberParam = SearchParam(
+            key: .roomsNumber,
+            value: .equalToInt(parameter: number))
     }
-    
-    func showDetailed(state: ScreenState) {
+
+    func executeSearch() {
+        if searchRequest.garage != nil {
+            searchRequest
+        }
+        housesService.searchHouses(searchParameters)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                }
+            }, receiveValue: { [unowned self] houses in
+                print(houses.count)
+            })
+            .store(in: &cancellables)
+    }
+
+    func showDetailed(state: SearchFiltersDetailedScreenState) {
         transitionSubject.send(.detailed(searchRequest, state))
     }
-    
+
     func popModule() {
         transitionSubject.send(.pop)
     }
 
     private func updateDataSource() {
-        let segmentControlSection: SearchCollection = {
-            SearchCollection(sections: .segmentControl, items: [.segmentControl])
+        let segmentControlSection: SearchFiltersCollection = {
+            SearchFiltersCollection(sections: .segmentControl, items: [.segmentControl])
         }()
 
-        let distanceSection: SearchCollection = {
-            SearchCollection(
+        let distanceSection: SearchFiltersCollection = {
+            SearchFiltersCollection(
                 sections: .distance,
                 items: [
                     .distance("+ 1"),
@@ -116,39 +148,39 @@ final class SearchViewModel: BaseViewModel {
             )
         }()
 
-        let priceSection: SearchCollection = {
+        let priceSection: SearchFiltersCollection = {
             let model = PriceCellModel(minPrice: minPriceSubject, maxPrice: maxPriceSubject)
-            return SearchCollection(sections: .price, items: [.price(model: model)])
+            return SearchFiltersCollection(sections: .price, items: [.price(model: model)])
         }()
 
-        let yearSection: SearchCollection = {
-            SearchCollection(sections: .year, items: [.year])
+        let yearSection: SearchFiltersCollection = {
+            SearchFiltersCollection(sections: .year, items: [.year])
         }()
-        
-        let squareSection: SearchCollection = {
+
+        let squareSection: SearchFiltersCollection = {
             let model = SquareCellModel(minSquare: minSquareSubject, maxSquare: maxSquareSubject)
-            return SearchCollection(sections: .square, items: [.square(model: model)])
+            return SearchFiltersCollection(sections: .square, items: [.square(model: model)])
         }()
 
-        let garageSection: SearchCollection = {
-            SearchCollection(sections: .garage, items: [.garage])
+        let garageSection: SearchFiltersCollection = {
+            SearchFiltersCollection(sections: .garage, items: [.garage])
         }()
 
-        let roomsNumberSection: SearchCollection = {
-            SearchCollection(
+        let roomsNumberSection: SearchFiltersCollection = {
+            SearchFiltersCollection(
                 sections: .roomsNumber,
                 items: [
-                    .roomsNumber("+1"),
-                    .roomsNumber("+2"),
-                    .roomsNumber("+3"),
-                    .roomsNumber("+4"),
-                    .roomsNumber("+5"),
+                    .roomsNumber("1+"),
+                    .roomsNumber("2+"),
+                    .roomsNumber("3+"),
+                    .roomsNumber("4+"),
+                    .roomsNumber("5+"),
                 ]
             )
         }()
 
-        let typeSection: SearchCollection = {
-            SearchCollection(
+        let typeSection: SearchFiltersCollection = {
+            SearchFiltersCollection(
                 sections: .type,
                 items: [
                     .type("appartment"),
@@ -157,9 +189,9 @@ final class SearchViewModel: BaseViewModel {
                 ]
             )
         }()
-        
-        let backgroundSection: SearchCollection = {
-            SearchCollection(sections: .backgroundItem, items: [.backgroundItem])
+
+        let backgroundSection: SearchFiltersCollection = {
+            SearchFiltersCollection(sections: .backgroundItem, items: [.backgroundItem])
         }()
 
         sections = [
@@ -171,7 +203,7 @@ final class SearchViewModel: BaseViewModel {
             roomsNumberSection,
             yearSection,
             garageSection,
-            backgroundSection
+            backgroundSection,
         ]
     }
 }

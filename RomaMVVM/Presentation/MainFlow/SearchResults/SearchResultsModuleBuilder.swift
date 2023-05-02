@@ -14,11 +14,11 @@ enum FindTransition: Transition {
     case favourite
 }
 
-final class FindModuleBuilder {
+final class SearchResultsModuleBuilder {
     class func build(container: AppContainer) -> Module<FindTransition, UIViewController> {
-        let model = FindModel(housesService: container.housesService)
-        let viewModel = FindViewModel(model: model)
-        let viewController = FindViewController(viewModel: viewModel)
+        let model = SearchResultsModel(housesService: container.housesService)
+        let viewModel = SearchResultsViewModel(model: model)
+        let viewController = SearchResultsViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }
 }

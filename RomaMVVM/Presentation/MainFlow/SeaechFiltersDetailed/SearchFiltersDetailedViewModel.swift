@@ -7,18 +7,18 @@
 
 import Combine
 
-final class DetailedViewModel: BaseViewModel {
+final class SearchFiltersDetailedViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
-    private let transitionSubject = PassthroughSubject<DetailedTransition, Never>()
+    private let transitionSubject = PassthroughSubject<SearchFiltersDetailedTransition, Never>()
     
     private(set) lazy var popDetailedPublisher = popDetailedSubject.eraseToAnyPublisher()
     private let popDetailedSubject = PassthroughSubject<Bool, Never>()
 
-    @Published private(set) var sections: [DetailedCollection] = []
+    @Published private(set) var sections: [SearchFiltersDetailedCollection] = []
     @Published var requestModel: SearchRequestModel
-    var screenState: ScreenState
+    var screenState: SearchFiltersDetailedScreenState
 
-   init(requestModel: SearchRequestModel, screenState: ScreenState) {
+   init(requestModel: SearchRequestModel, screenState: SearchFiltersDetailedScreenState) {
         self.requestModel = requestModel
        self.screenState = screenState
         super.init()
@@ -41,8 +41,8 @@ final class DetailedViewModel: BaseViewModel {
     private func createDataSource() {
         switch screenState {
         case .year:
-            let section: DetailedCollection = {
-               DetailedCollection(
+            let section: SearchFiltersDetailedCollection = {
+               SearchFiltersDetailedCollection(
                     section: .plain,
                     items: [
                         .plain("since 1850"),
@@ -56,8 +56,8 @@ final class DetailedViewModel: BaseViewModel {
             }()
             sections = [section]
         case .garage:
-            let section: DetailedCollection = {
-               DetailedCollection(
+            let section: SearchFiltersDetailedCollection = {
+               SearchFiltersDetailedCollection(
                     section: .plain,
                     items: [
                         .plain("garage"),

@@ -9,38 +9,41 @@ import Foundation
 
 enum HouseEndPoint: Endpoint {
     case getHouses(pageSize: Int, skip: Int)
-    
+    case filter(with: [SearchParam])
+
     var queries: HTTPQueries {
         switch self {
-        case .getHouses(let pageSize, let skip):
+        case let .getHouses(pageSize, skip):
             return buildQuery(pageSize: pageSize, skip: skip) ?? [:]
+        case let .filter(searchParams):
+            return buildQuery(searchParams: searchParams) ?? [:]
         }
     }
 
     var path: String? {
         switch self {
-        case .getHouses:
+        case .getHouses, .filter:
             return "/data/Houses"
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .getHouses:
+        case .getHouses, .filter:
             return .get
         }
     }
 
     var headers: HTTPHeaders {
         switch self {
-        case .getHouses:
+        case .getHouses, .filter:
             return ["Content-Type": "application/json"]
         }
     }
 
     var body: RequestBody? {
         switch self {
-        case .getHouses:
+        case .getHouses, .filter:
             return nil
         }
     }
