@@ -33,9 +33,9 @@ final class SearchFiltersDetailedViewModel: BaseViewModel {
     func updateRequestModel(_ text: String) {
         switch text {
         case "since 1850", "since 1900", "since 1950", "since 2000", "since 2010", "since 2020":
-            model.searchRequestModel.constructionYear = text
+            model.updateSearchRequestModel(constructionYear: text)
         default:
-            model.searchRequestModel.garage = text
+            model.updateSearchRequestModel(parkingType: text)
         }
         popDetailedSubject.send(true)
     }

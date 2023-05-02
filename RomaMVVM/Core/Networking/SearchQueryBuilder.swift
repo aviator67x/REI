@@ -10,15 +10,19 @@ import Foundation
 enum SearchType {
     case equalToInt(parameter: Int)
     case equalToString(parameter: String)
-    case more(than: String)
-    case less(than: String)
+    case more(than: Int)
+    case less(than: Int)
 }
 
 enum HouseColumn: CaseIterable {
     case distance
+    case price
     case propertyType
+    case square
     case roomsNumber
+    case constructionYear
     case garage
+   
 
     enum Distance: String {
         case one = "+ 1"

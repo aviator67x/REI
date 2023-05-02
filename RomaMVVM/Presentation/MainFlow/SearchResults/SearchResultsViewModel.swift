@@ -10,15 +10,16 @@ import Foundation
 
 final class SearchResultsViewModel: BaseViewModel {
     private var screenState = SearchResultsScreenState.photo
-    
     private let model: SearchModel
 
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<FindTransition, Never>()
 
     @Published var sections: [SearchResultsCollection] = []
+    @Published var resultViewModel: ResultViewModel?
+    
     private lazy var houses = CurrentValueSubject<[HouseDomainModel], Never>([])
-  
+
     init(model: SearchModel) {
         self.model = model
     }
@@ -34,11 +35,26 @@ final class SearchResultsViewModel: BaseViewModel {
                 self.houses.value = houses
             })
             .store(in: &cancellables)
-        
+
         houses
-            .sinkWeakly(self, receiveValue: { (self, houses) in
+            .sinkWeakly(self, receiveValue: { (self, _) in
                 self.createDataSource()
             })
+            .store(in: &cancellables)
+
+        $sections
+            .sinkWeakly(
+                self,
+                receiveValue: { (self, sections) in
+                    var resultCount = 0
+                    if let section = sections.first(where: {$0.section == .photo}) {
+                        resultCount =  section.items.count
+                    } else if let section = sections.first(where: {$0.section == .list}) {
+                        resultCount = section.items.count
+                    }
+                    self.resultViewModel = ResultViewModel(country: "Netherlands", result: resultCount, filters: 9)
+                }
+            )
             .store(in: &cancellables)
 
         model.isLoadingPublisher
@@ -54,7 +70,7 @@ extension SearchResultsViewModel {
     func moveTo(_ screen: SelectViewAction) {
         switch screen {
         case .searchFilter:
-            transitionSubject.send(.searchFilters(self.model))
+            transitionSubject.send(.searchFilters(model))
         case .sort:
             transitionSubject.send(.sort)
         case .favourite:

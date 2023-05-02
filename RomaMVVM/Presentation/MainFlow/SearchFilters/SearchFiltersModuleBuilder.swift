@@ -15,7 +15,7 @@ enum SearchFiltersTransition: Transition {
 
 final class SearchFiltersModuleBuilder {
     class func build(container: AppContainer, model: SearchModel) -> Module<SearchFiltersTransition, UIViewController> {
-        let viewModel = SearchFiltersViewModel(model: model, housesService: container.housesService)
+        let viewModel = SearchFiltersViewModel(model: model)
         let viewController = SearchFiltersViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

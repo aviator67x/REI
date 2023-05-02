@@ -19,7 +19,7 @@ final class SearchResultsView: BaseView {
     // MARK: - Subviews
     private lazy var stackView = UIStackView()
     private lazy var selectView = SelectView()
-    private lazy var resultView = SearchResultView()
+    private lazy var resultView = ResultView()
     private lazy var collectionView: UICollectionView = createCollectionView()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
@@ -133,7 +133,7 @@ extension SearchResultsView {
         selectView.isHidden = !isVisible
     }
     
-    func updateSearchResultView(with data: SearchResultViewModel) {
+    func updateSearchResultView(with data: ResultViewModel) {
         resultView.setup(with: data)
     }
     

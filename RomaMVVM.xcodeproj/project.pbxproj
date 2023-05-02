@@ -195,7 +195,7 @@
 		CEDDF2A229D87B65003BF639 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDDF2A129D87B65003BF639 /* KeychainService.swift */; };
 		CEE2DE5D29F18CC70029AFF8 /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE5C29F18CC70029AFF8 /* Plugin.swift */; };
 		CEE2DE6129F291CF0029AFF8 /* SegmntedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE6029F291CF0029AFF8 /* SegmntedControlView.swift */; };
-		CEE2DE6329F2939E0029AFF8 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE6229F2939E0029AFF8 /* SearchResultView.swift */; };
+		CEE2DE6329F2939E0029AFF8 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE6229F2939E0029AFF8 /* ResultView.swift */; };
 		CEE2DE6529F2A17F0029AFF8 /* SearchResultViewModelResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE6429F2A17F0029AFF8 /* SearchResultViewModelResultViewModel.swift */; };
 		CEE2DE6729F2AA820029AFF8 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE6629F2AA820029AFF8 /* SelectView.swift */; };
 		CEE2DE6929F30B310029AFF8 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE6829F30B310029AFF8 /* MainCell.swift */; };
@@ -413,7 +413,7 @@
 		CEDDF2A129D87B65003BF639 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		CEE2DE5C29F18CC70029AFF8 /* Plugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
 		CEE2DE6029F291CF0029AFF8 /* SegmntedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmntedControlView.swift; sourceTree = "<group>"; };
-		CEE2DE6229F2939E0029AFF8 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
+		CEE2DE6229F2939E0029AFF8 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		CEE2DE6429F2A17F0029AFF8 /* SearchResultViewModelResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModelResultViewModel.swift; sourceTree = "<group>"; };
 		CEE2DE6629F2AA820029AFF8 /* SelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectView.swift; sourceTree = "<group>"; };
 		CEE2DE6829F30B310029AFF8 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
@@ -945,7 +945,7 @@
 			isa = PBXGroup;
 			children = (
 				CEE2DE6029F291CF0029AFF8 /* SegmntedControlView.swift */,
-				CEE2DE6229F2939E0029AFF8 /* SearchResultView.swift */,
+				CEE2DE6229F2939E0029AFF8 /* ResultView.swift */,
 				CEE2DE6629F2AA820029AFF8 /* SelectView.swift */,
 				CEAA10EF29DDBC5600340401 /* PhotoCell.swift */,
 				CEE2DE6829F30B310029AFF8 /* MainCell.swift */,
@@ -1375,7 +1375,7 @@
 				CE13E3CA29DC860E00B948C9 /* DetailedModels.swift in Sources */,
 				CEDDF2A229D87B65003BF639 /* KeychainService.swift in Sources */,
 				CE0E27BD29D43CBD001EDFCD /* BackgrounFooterView.swift in Sources */,
-				CEE2DE6329F2939E0029AFF8 /* SearchResultView.swift in Sources */,
+				CEE2DE6329F2939E0029AFF8 /* ResultView.swift in Sources */,
 				8B92C57154F6E7BCFE57E7B1 /* Module.swift in Sources */,
 				CEAA10F529DEDAD700340401 /* HouseModel.swift in Sources */,
 				B355206A6EA2EE9B20C77B89 /* SceneDelegate.swift in Sources */,

@@ -45,13 +45,22 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
         viewModel.$sections
             .sinkWeakly(self, receiveValue: { (self, sections) in
                 self.contentView.setupSnapShot(sections: sections)
-                var resultCount = 0
-                if let section = sections.first(where: {$0.section == .photo}) {
-                    resultCount =  section.items.count
-                } else if let section = sections.first(where: {$0.section == .list}) {
-                    resultCount = section.items.count
+//                var resultCount = 0
+//                if let section = sections.first(where: {$0.section == .photo}) {
+//                    resultCount =  section.items.count
+//                } else if let section = sections.first(where: {$0.section == .list}) {
+//                    resultCount = section.items.count
+//                }
+//                let resultModel = ResultViewModel(country: "Netherlands", result: resultCount, filters: 9)
+//                self.contentView.updateSearchResultView(with: resultModel)
+            })
+            .store(in: &cancellables)
+        
+        viewModel.$resultViewModel
+            .sinkWeakly(self, receiveValue: {(self, resultModel) in
+                guard let resultModel = resultModel else {
+                    return
                 }
-                let resultModel = SearchResultViewModel(country: "Netherlands", result: resultCount, filters: 9)
                 self.contentView.updateSearchResultView(with: resultModel)
             })
             .store(in: &cancellables)
