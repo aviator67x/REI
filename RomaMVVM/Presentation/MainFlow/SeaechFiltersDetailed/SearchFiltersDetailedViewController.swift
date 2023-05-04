@@ -27,8 +27,10 @@ final class SearchFiltersDetailedViewController: BaseViewController<SearchFilter
                 switch action {
                 case .selectedItem(let item):
                     switch item {
-                    case .plain(let text):
-                        viewModel.updateRequestModel(text)
+                    case .plainYear(let text):
+                        viewModel.updateRequestModel(text.rawValue)
+                    case .plainGarage(let text):
+                        viewModel.updateRequestModel(text.rawValue)
                     }
                 }
             }

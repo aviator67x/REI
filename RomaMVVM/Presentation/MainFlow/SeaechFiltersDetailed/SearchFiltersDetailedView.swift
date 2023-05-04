@@ -106,35 +106,15 @@ extension SearchFiltersDetailedView {
         dataSource = UICollectionViewDiffableDataSource<SearchFiltersDetailedSection, SearchFiltersDetailedItem>(collectionView: collection, cellProvider: {
             collectionView, indexPath, item -> UICollectionViewCell in
             switch item {
-            case .plain(let year1850):
+            case .plainYear(let year):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
-                cell.setupCell(title: year1850)
+                cell.setupCell(yearTitle: year)
                 
                 return cell
-            case .plain(let year1900):
+            case .plainGarage(let garage):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
-                cell.setupCell(title: year1900)
-                
-                return cell
-            case .plain(let year1950):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
-                cell.setupCell(title: year1950)
-                
-                return cell
-            case .plain(let year2000):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
-                cell.setupCell(title: year2000)
-                
-                return cell
-            case .plain(let year2010):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
-                cell.setupCell(title: year2010)
-                
-                return cell
-            case .plain(let year2020):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
-                cell.setupCell(title: year2020)
-                
+                cell.setupCell(garageTitle: garage)
+
                 return cell
             }
         })

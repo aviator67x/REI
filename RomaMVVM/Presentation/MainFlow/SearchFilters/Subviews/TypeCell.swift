@@ -42,8 +42,15 @@ final class TypeCell: UICollectionViewListCell {
 
     private func setupBinding() {}
 
-    func setupCell(with title: String) {
-        typeLabel.text = title
+    func setupCell(with title: SearchRequestModel.PropertyType) {
+        switch title {
+        case .apartment:
+            typeLabel.text = "apartment"
+        case .house:
+            typeLabel.text = "house"
+        case .land:
+            typeLabel.text = "land"
+        }
     }
 }
 

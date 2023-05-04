@@ -15,9 +15,12 @@ final class SearchResultsViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<FindTransition, Never>()
 
-    @Published var sections: [SearchResultsCollection] = []
-    @Published var resultViewModel: ResultViewModel?
-    
+    private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
+    private lazy var sectionsSubject = CurrentValueSubject<[SearchResultsCollection], Never>([])
+
+    private(set) lazy var resultViewModelPublisher = resultViewModelSubject.eraseToAnyPublisher()
+    private lazy var resultViewModelSubject = CurrentValueSubject<ResultViewModel?, Never>(nil)
+
     private lazy var houses = CurrentValueSubject<[HouseDomainModel], Never>([])
 
     init(model: SearchModel) {
@@ -30,7 +33,7 @@ final class SearchResultsViewModel: BaseViewModel {
     }
 
     private func setupBinding() {
-        model.$houses
+        model.housesPublisher
             .sinkWeakly(self, receiveValue: { (self, houses) in
                 self.houses.value = houses
             })
@@ -42,20 +45,21 @@ final class SearchResultsViewModel: BaseViewModel {
             })
             .store(in: &cancellables)
 
-        $sections
-            .sinkWeakly(
-                self,
-                receiveValue: { (self, sections) in
-                    var resultCount = 0
-                    if let section = sections.first(where: {$0.section == .photo}) {
-                        resultCount =  section.items.count
-                    } else if let section = sections.first(where: {$0.section == .list}) {
-                        resultCount = section.items.count
-                    }
-                    self.resultViewModel = ResultViewModel(country: "Netherlands", result: resultCount, filters: 9)
-                }
+        sectionsSubject.combineLatest(model.searchParametersPublisher)
+            .sink { [unowned self] sections, searchParams in
+            var resultCount = 0
+            if let section = sections.first(where: { $0.section == .photo }) {
+                resultCount = section.items.count
+            } else if let section = sections.first(where: { $0.section == .list }) {
+                resultCount = section.items.count
+            }
+            self.resultViewModelSubject.value = ResultViewModel(
+                country: "Netherlands",
+                result: resultCount,
+                filters: searchParams.count
             )
-            .store(in: &cancellables)
+        }
+        .store(in: &cancellables)
 
         model.isLoadingPublisher
             .sinkWeakly(self, receiveValue: { (self, value) in
@@ -94,7 +98,7 @@ extension SearchResultsViewModel {
                 .map { PhotoCellModel(data: $0) }
                 .map { SearchResultsItem.photo($0) }
             let section = SearchResultsCollection(section: .photo, items: items)
-            sections = [section]
+            sectionsSubject.value = [section]
         case .list:
             let mainViewItem = houses.value
                 .map { MainCellModel(data: $0) }
@@ -107,11 +111,11 @@ extension SearchResultsViewModel {
                 .map { ListCellModel(data: $0) }
                 .map { SearchResultsItem.list($0) }
             let listSection = SearchResultsCollection(section: .list, items: items)
-            sections = [manViewSection, listSection]
+            sectionsSubject.value = [manViewSection, listSection]
         case .map:
             let mapItem = SearchResultsItem.map
             let mapSection = SearchResultsCollection(section: .map, items: [mapItem])
-            sections = [mapSection]
+            sectionsSubject.value = [mapSection]
         }
     }
 }

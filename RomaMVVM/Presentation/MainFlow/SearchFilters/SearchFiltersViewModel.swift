@@ -66,15 +66,15 @@ final class SearchFiltersViewModel: BaseViewModel {
         screenConfiguration = index
     }
 
-    func updateDistance(_ distance: String) {
+    func updateDistance(_ distance: SearchRequestModel.Distance) {
         model.updateSearchRequestModel(distance: distance)
     }
 
-    func updateType(_ type: String) {
+    func updateType(_ type: SearchRequestModel.PropertyType) {
         model.updateSearchRequestModel(propertyType: type)
     }
 
-    func updateNumberOfRooms(_ number: String) {
+    func updateNumberOfRooms(_ number: SearchRequestModel.NumberOfRooms) {
         model.updateSearchRequestModel(roomsNumber: number)
        
     }
@@ -101,14 +101,14 @@ final class SearchFiltersViewModel: BaseViewModel {
             SearchFiltersCollection(
                 sections: .distance,
                 items: [
-                    .distance("+ 1"),
-                    .distance("+ 2"),
-                    .distance("+ 5"),
-                    .distance("+ 10"),
-                    .distance("+ 15"),
-                    .distance("+ 30"),
-                    .distance("+ 50"),
-                    .distance("+ 100"),
+                    .distance(.one),
+                    .distance(.two),
+                    .distance(.five),
+                    .distance(.ten),
+                    .distance(.fifteen),
+                    .distance(.thirty),
+                    .distance(.fifty),
+                    .distance(.oneHundred),
                 ]
             )
         }()
@@ -119,7 +119,7 @@ final class SearchFiltersViewModel: BaseViewModel {
         }()
 
         let yearSection: SearchFiltersCollection = {
-            SearchFiltersCollection(sections: .year, items: [.year])
+            SearchFiltersCollection(sections: .year, items: [.year(.since1850)])
         }()
 
         let squareSection: SearchFiltersCollection = {
@@ -128,18 +128,18 @@ final class SearchFiltersViewModel: BaseViewModel {
         }()
 
         let garageSection: SearchFiltersCollection = {
-            SearchFiltersCollection(sections: .garage, items: [.garage])
+            SearchFiltersCollection(sections: .garage, items: [.garage(.garage)])
         }()
 
         let roomsNumberSection: SearchFiltersCollection = {
             SearchFiltersCollection(
                 sections: .roomsNumber,
                 items: [
-                    .roomsNumber("1+"),
-                    .roomsNumber("2+"),
-                    .roomsNumber("3+"),
-                    .roomsNumber("4+"),
-                    .roomsNumber("5+"),
+                    .roomsNumber(.one),
+                    .roomsNumber(.two),
+                    .roomsNumber(.three),
+                    .roomsNumber(.four),
+                    .roomsNumber(.five),
                 ]
             )
         }()
@@ -148,9 +148,9 @@ final class SearchFiltersViewModel: BaseViewModel {
             SearchFiltersCollection(
                 sections: .type,
                 items: [
-                    .type("appartment"),
-                    .type("house"),
-                    .type("land"),
+                    .type(.apartment),
+                    .type(.house),
+                    .type(.land),
                 ]
             )
         }()

@@ -42,7 +42,25 @@ final class DistanceCell: UICollectionViewCell {
 
     private func setupBinding() {}
 
-    func setupCell(with km: String) {
-        distanceLabel.text = km
+    func setupCell(with km: SearchRequestModel
+        .Distance) {
+            switch km {
+            case .one:
+                distanceLabel.text = "+1"
+            case .two:
+                distanceLabel.text = "+2"
+            case .five:
+                distanceLabel.text = "+5"
+            case .ten:
+                distanceLabel.text = "+10"
+            case .fifteen:
+                distanceLabel.text = "+15"
+            case .thirty:
+                distanceLabel.text = "+30"
+            case .fifty:
+                distanceLabel.text = "+50"
+            case .oneHundred:
+                distanceLabel.text = "+100"
+            }
     }
 }

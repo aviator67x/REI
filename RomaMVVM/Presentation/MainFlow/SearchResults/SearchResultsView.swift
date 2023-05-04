@@ -133,7 +133,7 @@ extension SearchResultsView {
         selectView.isHidden = !isVisible
     }
     
-    func updateSearchResultView(with data: ResultViewModel) {
+    func updateResultView(with data: ResultViewModel) {
         resultView.setup(with: data)
     }
     

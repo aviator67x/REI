@@ -70,13 +70,13 @@ enum SearchFiltersSection: Hashable, CaseIterable {
 
 enum SearchFiltersItem: Hashable {
     case segmentControl
-    case distance(String)
+    case distance(SearchRequestModel.Distance)
     case price(model: PriceCellModel)
-    case type(String)
+    case type(SearchRequestModel.PropertyType)
     case square(model: SquareCellModel)
-    case roomsNumber(String)
-    case year
-    case garage
+    case roomsNumber(SearchRequestModel.NumberOfRooms)
+    case year(SearchRequestModel.PeriodOfBuilding)
+    case garage(SearchRequestModel.Garage)
     case backgroundItem
 }
 

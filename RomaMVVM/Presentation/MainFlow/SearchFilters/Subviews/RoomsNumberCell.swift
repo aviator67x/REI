@@ -42,7 +42,19 @@ final class RoomsNumberCell: UICollectionViewListCell {
 
     private func setupBinding() {}
 
-    func setupCell(with title: String) {
-        roomsNumberLabel.text = title
+    func setupCell(with title: SearchRequestModel.NumberOfRooms) {
+        switch title {
+        case .one:
+            roomsNumberLabel.text = "1+"
+        case .two:
+            roomsNumberLabel.text = "2+"
+        case .three:
+            roomsNumberLabel.text = "3+"
+        case .four:
+            roomsNumberLabel.text = "4+"
+        case .five:
+            roomsNumberLabel.text = "5+"
+        }
+        
     }
 }

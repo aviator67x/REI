@@ -37,6 +37,9 @@ final class PriceCell: UICollectionViewCell {
     }
 
     private func setupUI() {
+        minTextField.delegate = self
+        maxTextField.delegate = self
+        
         middleLabel.text = "to:"
         minTextField.placeholder = " 0"
         minTextField.layer.cornerRadius = 2
@@ -74,15 +77,29 @@ final class PriceCell: UICollectionViewCell {
     }
 
     private func setupBinding() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+//    @objc
+//    private func handleKeyboardWillHide() {
+//        minTextField.resignFirstResponder()
+//        maxTextField.resignFirstResponder()
+//    }
 
     func setupCell(with model: PriceCellModel) {
-       minTextField.textPublisher
+       minTextField.publisher(for: \.text)//textPublisher
             .assignWeakly(to: \.value, on: model.minPrice)
             .store(in: &cancellables)
-        maxTextField.textPublisher
+        maxTextField.publisher(for: \.text)//textPublisher
             .assignWeakly(to: \.value, on: model.maxPrice)
             .store(in: &cancellables)
+    }
+}
+
+// MARK: - TextFieldShouldReturn
+extension PriceCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
 }
 

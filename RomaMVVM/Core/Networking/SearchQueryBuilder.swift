@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SearchType {
+enum SearchType: Equatable {
     case equalToInt(parameter: Int)
     case equalToString(parameter: String)
     case more(than: Int)
@@ -42,46 +42,7 @@ enum HouseColumn: CaseIterable {
     }
 }
 
-enum PropertyColumn: String, CaseIterable {
-    case layout
-    case propertyType
-    case realEstateCategory
-    case residenceType
-    case saleOrRent
-
-    enum Layout: String, CaseIterable {
-        case null = "0 + 1"
-        case one = "1 + 1"
-        case two = "2 + 1"
-        case three = "3 + 1"
-    }
-
-    enum PropertyType: String, CaseIterable {
-        case flat = "Flat"
-        case villa = "Villa"
-        case land = "Land"
-        case hotDeals = "Hot Deals"
-    }
-
-    enum RealEstateCategoty: String, CaseIterable {
-        case built = "Built"
-        case underConstuction = "Under construction"
-        case resale = "Resale"
-    }
-
-    enum ResidenceType: String, CaseIterable {
-        case citizenship = "Citizenship"
-        case residentCard = "ResidentCard"
-    }
-
-    enum SaleOrRent: String, CaseIterable {
-        case sale = "Sale"
-        case rent = "Rent"
-    }
-}
-
-struct SearchParam {
-//    let key: PropertyColumn
+struct SearchParam: Equatable {
     let key: HouseColumn
     let value: SearchType
 }

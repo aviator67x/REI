@@ -31,8 +31,12 @@ final class DetailedCell: UICollectionViewCell {
         }
     }
 
-    func setupCell(title: String) {
-        titleLable.text = title
+    func setupCell(yearTitle: SearchRequestModel.PeriodOfBuilding) {
+            titleLable.text = yearTitle.rawValue
+    }
+    
+    func setupCell(garageTitle: SearchRequestModel.Garage) {
+            titleLable.text = garageTitle.rawValue
     }
 }
 

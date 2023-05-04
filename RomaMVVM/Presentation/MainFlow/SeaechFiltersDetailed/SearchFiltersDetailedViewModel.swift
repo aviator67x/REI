@@ -47,12 +47,12 @@ final class SearchFiltersDetailedViewModel: BaseViewModel {
                SearchFiltersDetailedCollection(
                     section: .plain,
                     items: [
-                        .plain("since 1850"),
-                        .plain("since 1900"),
-                        .plain("since 1950"),
-                        .plain("since 2000"),
-                        .plain("since 2010"),
-                        .plain("since 2020"),
+                        .plainYear(SearchRequestModel.PeriodOfBuilding.since1850),
+                        .plainYear(SearchRequestModel.PeriodOfBuilding.since1900),
+                        .plainYear(SearchRequestModel.PeriodOfBuilding.since1950),
+                        .plainYear(SearchRequestModel.PeriodOfBuilding.since2000),
+                        .plainYear(SearchRequestModel.PeriodOfBuilding.since2010),
+                        .plainYear(SearchRequestModel.PeriodOfBuilding.since2020),
                     ]
                 )
             }()
@@ -62,11 +62,11 @@ final class SearchFiltersDetailedViewModel: BaseViewModel {
                SearchFiltersDetailedCollection(
                     section: .plain,
                     items: [
-                        .plain("garage"),
-                        .plain("free parking"),
-                        .plain("municipal parking"),
-                        .plain("hourly payable parking"),
-                        .plain("no parking"),
+                        .plainGarage(SearchRequestModel.Garage.garage),
+                        .plainGarage(SearchRequestModel.Garage.freeParking),
+                        .plainGarage(SearchRequestModel.Garage.municipalParking),
+                        .plainGarage(SearchRequestModel.Garage.hourlyPayableParking),
+                        .plainGarage(SearchRequestModel.Garage.noParking),
                     ]
                 )
             }()
