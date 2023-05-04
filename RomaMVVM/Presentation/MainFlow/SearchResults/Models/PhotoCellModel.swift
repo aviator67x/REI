@@ -33,7 +33,7 @@ struct PhotoCellModel: Hashable {
         self.ort = data.ort
         self.livingArea = data.livingArea
         self.square = data.square
-        self.numberOfRooms = "\(data.rooomsNumber)"
+        self.numberOfRooms = "\(data.roomsNumber)"
         self.price = data.price
     }
     

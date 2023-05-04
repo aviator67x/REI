@@ -29,7 +29,7 @@ final class SearchModel {
 
     private var searchRequestModel: SearchRequestModel = .init() {
         didSet {
-            updateSearchRequestModel()
+            updateSearchFilters()
         }
     }
 
@@ -37,7 +37,9 @@ final class SearchModel {
         self.housesService = housesService
     }
 
-    func updateSearchRequestModel() {
+    func updateSearchFilters() {
+        searchParametersSubject.value = []
+        
         if let distance = searchRequestModel.distance {
             searchParametersSubject.value
                 .append(.init(key: .distance, value: .equalToInt(parameter: distance.rawValue)))
@@ -141,7 +143,6 @@ final class SearchModel {
     }
 
     func executeSearch() {
-        print("Param\(searchParametersSubject.value)")
         isLoadingSubject.send(true)
         housesService.searchHouses(searchParametersSubject.value)
             .receive(on: DispatchQueue.main)
@@ -154,8 +155,6 @@ final class SearchModel {
                 }
             }, receiveValue: { [unowned self] houses in
                 self.housesSubject.value = houses
-                self.searchRequestModel = .init()
-                self.searchParametersSubject.value = []
                 self.hasMoreToLoad = false
             })
             .store(in: &cancellables)

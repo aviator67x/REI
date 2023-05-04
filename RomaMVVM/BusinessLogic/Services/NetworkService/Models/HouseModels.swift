@@ -18,11 +18,11 @@ struct HouseResponseModel: Decodable {
     let square: Int
     let street: String
     let propertyType: String
-    let rooomsNumber: Int
+    let roomsNumber: Int
     let price: Int
 
     enum CodinKeys: String, CodingKey {
-        case distance, constructionYear, garage, images, ort, square, street, propertyType, rooomsNumber, livingArea, price
+        case distance, constructionYear, garage, images, ort, square, street, propertyType, roomsNumber, livingArea, price
 //        case id = "objectId"
     }
 }

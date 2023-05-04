@@ -18,10 +18,10 @@ final class HouseDomainModel {
         let square: Int
         let street: String
         let propertyType: String
-        let rooomsNumber: Int
+        let roomsNumber: Int
         let price: Int
     
-    init(id: String, distance: Int, constructionYear: Int, garage: String, images: [URL], ort: String, livingArea: Int, square: Int, street: String, propertyType: String, rooomsNumber: Int, price: Int) {
+    init(id: String, distance: Int, constructionYear: Int, garage: String, images: [URL], ort: String, livingArea: Int, square: Int, street: String, propertyType: String, roomsNumber: Int, price: Int) {
         self.id = id
         self.distance = distance
         self.constructionYear = constructionYear
@@ -32,7 +32,7 @@ final class HouseDomainModel {
         self.square = square
         self.street = street
         self.propertyType = propertyType
-        self.rooomsNumber = rooomsNumber
+        self.roomsNumber = roomsNumber
         self.price = price
     }
     
@@ -47,7 +47,7 @@ final class HouseDomainModel {
         self.square = model.square
         self.street = model.street
         self.propertyType = model.propertyType
-        self.rooomsNumber = model.rooomsNumber
+        self.roomsNumber = model.roomsNumber
         self.price = model.price
     }
 }

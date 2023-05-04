@@ -170,8 +170,6 @@
 		CEADC9B32987D61A007A0650 /* Optional+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC9B22987D61A007A0650 /* Optional+extension.swift */; };
 		CEADC9B5298853E8007A0650 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC9B4298853E8007A0650 /* BaseButton.swift */; };
 		CEAE382F29B768C00046198A /* PropertyEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE382E29B768C00046198A /* PropertyEndPoint.swift */; };
-		CEAE383129B76BCA0046198A /* PropertyNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383029B76BCA0046198A /* PropertyNetworkService.swift */; };
-		CEAE383329B772640046198A /* PropertyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383229B772640046198A /* PropertyModels.swift */; };
 		CEAE383529BA020D0046198A /* NSMutableData+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383429BA020C0046198A /* NSMutableData+.swift */; };
 		CEAE383729BA720F0046198A /* MultipartItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383629BA720F0046198A /* MultipartItems.swift */; };
 		CEAE383929BB19680046198A /* SearchQueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383829BB19680046198A /* SearchQueryBuilder.swift */; };
@@ -384,8 +382,6 @@
 		CEADC9B22987D61A007A0650 /* Optional+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+extension.swift"; sourceTree = "<group>"; };
 		CEADC9B4298853E8007A0650 /* BaseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		CEAE382E29B768C00046198A /* PropertyEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyEndPoint.swift; sourceTree = "<group>"; };
-		CEAE383029B76BCA0046198A /* PropertyNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyNetworkService.swift; sourceTree = "<group>"; };
-		CEAE383229B772640046198A /* PropertyModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyModels.swift; sourceTree = "<group>"; };
 		CEAE383429BA020C0046198A /* NSMutableData+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableData+.swift"; sourceTree = "<group>"; };
 		CEAE383629BA720F0046198A /* MultipartItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartItems.swift; sourceTree = "<group>"; };
 		CEAE383829BB19680046198A /* SearchQueryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryBuilder.swift; sourceTree = "<group>"; };
@@ -977,7 +973,6 @@
 			children = (
 				CEAEB9DE29AAA446005BBF50 /* AuthModels.swift */,
 				CEAEB9E029AAA49B005BBF50 /* UserModels.swift */,
-				CEAE383229B772640046198A /* PropertyModels.swift */,
 				CEAA10F629DEDBBE00340401 /* HouseModels.swift */,
 			);
 			path = Models;
@@ -988,7 +983,6 @@
 			children = (
 				51CFD4204AC5C192A2EB09E5 /* AuthNetworkService.swift */,
 				CEAEB9E329AAA57E005BBF50 /* UserNetworkService.swift */,
-				CEAE383029B76BCA0046198A /* PropertyNetworkService.swift */,
 				CEAA10FA29DEE01000340401 /* HousesNetworkService.swift */,
 			);
 			path = Services;
@@ -1282,7 +1276,6 @@
 				CEAEB9F929AE34EC005BBF50 /* UserDomainModel.swift in Sources */,
 				CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */,
 				656F7BA65C21EC792A53FC1A /* AuthNetworkService.swift in Sources */,
-				CEAE383129B76BCA0046198A /* PropertyNetworkService.swift in Sources */,
 				CEAA10F329DDBDB700340401 /* SearchResultsCollection.swift in Sources */,
 				CEAA10F929DEDC2A00340401 /* HouseEndPoint.swift in Sources */,
 				CEE2DE6D29F322540029AFF8 /* MainCellModel.swift in Sources */,
@@ -1335,7 +1328,6 @@
 				CE990E9729CB623100120D6F /* EditProfileViewModel.swift in Sources */,
 				CEE2DE6529F2A17F0029AFF8 /* SearchResultViewModelResultViewModel.swift in Sources */,
 				CE0E27BF29D43D06001EDFCD /* HeaderView.swift in Sources */,
-				CEAE383329B772640046198A /* PropertyModels.swift in Sources */,
 				CEDDF29E29D6FA27003BF639 /* SearchFiltersCollection.swift in Sources */,
 				CEA545F1297820A3007F9962 /* ValidatorType.swift in Sources */,
 				CEA2A86929E9D23E00395817 /* HouseDomainModel.swift in Sources */,
