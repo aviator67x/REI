@@ -32,11 +32,11 @@ final class DetailedCell: UICollectionViewCell {
     }
 
     func setupCell(yearTitle: SearchRequestModel.PeriodOfBuilding) {
-            titleLable.text = yearTitle.rawValue
+            titleLable.text = String(yearTitle.rawValue)
     }
     
     func setupCell(garageTitle: SearchRequestModel.Garage) {
-            titleLable.text = garageTitle.rawValue
+            titleLable.text = String(garageTitle.rawValue)
     }
 }
 

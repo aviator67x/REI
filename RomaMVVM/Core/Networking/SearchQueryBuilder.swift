@@ -22,24 +22,6 @@ enum HouseColumn: CaseIterable {
     case roomsNumber
     case constructionYear
     case garage
-   
-
-    enum Distance: String {
-        case one = "+ 1"
-        case two = "+ 2"
-        case five = "+ 5"
-        case ten = "+ 10"
-        case fifteen = "+ 15"
-        case thirty = "+ 30"
-        case fifty = "+ 50"
-        case oneHundred = "+ 100"
-    }
-    
-    enum PropertyType {
-        case appartment
-        case house
-        case land
-    }
 }
 
 struct SearchParam: Equatable {

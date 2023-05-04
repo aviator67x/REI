@@ -37,23 +37,26 @@ final class PriceCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-        minTextField.delegate = self
-        maxTextField.delegate = self
-        
         middleLabel.text = "to:"
         minTextField.placeholder = " 0"
         minTextField.layer.cornerRadius = 2
         minTextField.layer.borderColor = UIColor.lightGray.cgColor
         minTextField.layer.borderWidth = 1
+        minTextField.keyboardType = .decimalPad
         
         maxTextField.placeholder = " Max price"
         maxTextField.layer.cornerRadius = 2
         maxTextField.layer.borderColor = UIColor.lightGray.cgColor
         maxTextField.layer.borderWidth = 1
+        maxTextField.keyboardType = .decimalPad
         
         stack.alignment = .center
         stack.distribution = .equalSpacing
         stack.spacing = 16
+
+        contentView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        contentView.addGestureRecognizer(tap)
     }
 
     private func setupLayout() {
@@ -76,30 +79,22 @@ final class PriceCell: UICollectionViewCell {
         stack.addArrangedSubviews([minTextField, middleLabel, maxTextField])
     }
 
-    private func setupBinding() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
+    private func setupBinding() {}
     
-//    @objc
-//    private func handleKeyboardWillHide() {
-//        minTextField.resignFirstResponder()
-//        maxTextField.resignFirstResponder()
-//    }
+    @objc
+    private func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+        minTextField.resignFirstResponder()
+        maxTextField.resignFirstResponder()
+    }
 
     func setupCell(with model: PriceCellModel) {
-       minTextField.publisher(for: \.text)//textPublisher
+       minTextField.publisher(for: \.text)
             .assignWeakly(to: \.value, on: model.minPrice)
             .store(in: &cancellables)
-        maxTextField.publisher(for: \.text)//textPublisher
+        maxTextField.publisher(for: \.text)
             .assignWeakly(to: \.value, on: model.maxPrice)
             .store(in: &cancellables)
     }
 }
 
-// MARK: - TextFieldShouldReturn
-extension PriceCell: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-    }
-}
 

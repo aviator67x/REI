@@ -10,23 +10,23 @@ import Foundation
 struct SearchRequestModel: Hashable {
     var distance: Distance?
     var propertyType: PropertyType?
-    var minPrice: String?
-    var maxPrice: String?
-    var roomsNumber: String?
-    var minSquare: String?
-    var maxSquare: String?
-    var constructionYear: String?
-    var garage: String?
+    var minPrice: Int?
+    var maxPrice: Int?
+    var roomsNumber: NumberOfRooms?
+    var minSquare: Int?
+    var maxSquare: Int?
+    var constructionYear: PeriodOfBuilding?
+    var garage: Garage?
     
     enum Distance: Int, CaseIterable {
-        case one
-        case two
-        case five
-        case ten
-        case fifteen
-        case thirty
-        case fifty
-        case oneHundred
+        case one = 1
+        case two = 2
+        case five = 5
+        case ten = 10
+        case fifteen = 15
+        case thirty = 30
+        case fifty = 50
+        case oneHundred = 100
     }
     
     enum PropertyType: String, CaseIterable {
@@ -43,20 +43,21 @@ struct SearchRequestModel: Hashable {
         case five
     }
     
-    enum PeriodOfBuilding: String, CaseIterable {
-        case since1850
-        case since1900
-        case since1950
-        case since2000
-        case since2010
-        case since2020
+    enum PeriodOfBuilding: Int
+    , CaseIterable {
+        case since1850 = 1850
+        case since1900 = 1900
+        case since1950 = 1950
+        case since2000 = 2000
+        case since2010 = 2010
+        case since2020 = 2020
     }
     
     enum Garage: String, CaseIterable {
-        case garage
-        case freeParking
-        case municipalParking
-        case hourlyPayableParking
-        case noParking
+        case garage = "Garage"
+        case freeParking = "Free parking"
+        case municipalParking = "Municipal parking"
+        case hourlyPayableParking = "Hourly parking"
+        case noParking = "No parking"
     }
 }

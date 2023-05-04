@@ -16,8 +16,6 @@ final class SearchModel {
 
     private let housesService: HousesService
 
-    private var searchRequestModel: SearchRequestModel = .init()
-    
     private(set) lazy var searchParametersPublisher = searchParametersSubject.eraseToAnyPublisher()
     private lazy var searchParametersSubject = CurrentValueSubject<[SearchParam], Never>([])
 
@@ -29,134 +27,89 @@ final class SearchModel {
     private var offset = 0
     private var pageSize = 2
 
+    private var searchRequestModel: SearchRequestModel = .init() {
+        didSet {
+            updateSearchRequestModel()
+        }
+    }
+
     init(housesService: HousesService) {
         self.housesService = housesService
     }
 
+    func updateSearchRequestModel() {
+        if let distance = searchRequestModel.distance {
+            searchParametersSubject.value
+                .append(.init(key: .distance, value: .equalToInt(parameter: distance.rawValue)))
+        }
+        
+        if let minPrice = searchRequestModel.minPrice {
+            searchParametersSubject.value.append(.init(key: .price, value: .more(than: minPrice)))
+        }
+
+        if let maxPrice = searchRequestModel.maxPrice {
+            searchParametersSubject.value.append(.init(key: .price, value: .less(than: maxPrice)))
+        }
+        
+        if let propertyType = searchRequestModel.propertyType {
+            searchParametersSubject.value.append(.init(key: .propertyType, value: .equalToString(parameter: propertyType.rawValue)))
+        }
+        
+        if let minSquare = searchRequestModel.minSquare {
+            searchParametersSubject.value.append(.init(key: .square, value: .more(than: minSquare)))
+        }
+        
+        if let maxSquare = searchRequestModel.maxSquare {
+            searchParametersSubject.value.append(.init(key: .square, value: .less(than: maxSquare)))
+        }
+        
+        if let numberOfRooms = searchRequestModel.roomsNumber {
+            searchParametersSubject.value.append(.init(key: .roomsNumber, value: .equalToInt(parameter: numberOfRooms.rawValue)))
+        }
+        
+        if let constructionYear = searchRequestModel.constructionYear{
+            searchParametersSubject.value.append(.init(key: .roomsNumber, value: .equalToInt(parameter: constructionYear.rawValue)))
+        }
+        
+        if let garage = searchRequestModel.garage {
+            searchParametersSubject.value.append(.init(key: .roomsNumber, value: .equalToString(parameter: garage.rawValue)))
+        }
+    }
+
     func updateSearchRequestModel(distance: SearchRequestModel.Distance) {
-        searchRequestModel.distance
-//        let distanceParam = SearchParam(
-//            key: .distance,
-//            value: .equalToString(parameter: distance)
-//        )
-//        if let existingIndex = searchParametersSubject.value.firstIndex(where: {$0.key == .distance}) {
-//            searchParametersSubject.value.remove(at: existingIndex)
-//        }
-//        searchParametersSubject.value.append(distanceParam)
+        searchRequestModel.distance = distance
     }
 
     func updateSearchRequestModel(minPrice: String) {
-        searchRequestModel.minPrice = minPrice
+        searchRequestModel.minPrice = Int(minPrice)
     }
 
     func updateSearchRequestModel(maxPrice: String) {
-        searchRequestModel.maxPrice = maxPrice
-        guard let maxPriceInt = Int(maxPrice) else {
-            return
-        }
-        let maxPriceParam = SearchParam(
-            key: .price,
-            value: .less(than: maxPriceInt)
-        )
-        switch maxPriceParam.value {
-        case .equalToString(parameter: _), .equalToInt(parameter: _), .more(than: _):
-            break
-        case .less(than: _):
-            if let existingIndex = searchParametersSubject.value.firstIndex(where: {$0.key == .price}) {
-                searchParametersSubject.value.remove(at: existingIndex)
-            }
-        }
-        searchParametersSubject.value.append(maxPriceParam)
+        searchRequestModel.maxPrice = Int(maxPrice)
     }
 
     func updateSearchRequestModel(propertyType: SearchRequestModel.PropertyType) {
-//        searchRequestModel.propertyType = propertyType
-//        let typeParam = SearchParam(
-//            key: .propertyType,
-//            value: .equalToString(parameter: propertyType)
-//        )
-//        if let existingIndex = searchParametersSubject.value.firstIndex(where: {$0.key == .propertyType}) {
-//            searchParametersSubject.value.remove(at: existingIndex)
-//        }
-//        searchParametersSubject.value.append(typeParam)
+        searchRequestModel.propertyType = propertyType
     }
 
     func updateSearchRequestModel(minSquare: String) {
-        searchRequestModel.minSquare = minSquare
-        guard let minSquareParamInt = Int(minSquare) else {
-            return
-        }
-        let minSquareParam = SearchParam(
-            key: .square,
-            value: .more(than: minSquareParamInt)
-        )
-        switch minSquareParam.value {
-        case .equalToInt(parameter: _), .less(than: _), .equalToString(parameter: _):
-            break
-        case .more(than: _):
-            if let existingIndex = searchParametersSubject.value.firstIndex(where: {$0.key == .square}) {
-                searchParametersSubject.value.remove(at: existingIndex)
-            }
-        }
-        searchParametersSubject.value.append(minSquareParam)
+        searchRequestModel.minSquare = Int(minSquare)
     }
 
     func updateSearchRequestModel(maxSquare: String) {
-        searchRequestModel.maxSquare = maxSquare
-        guard let maxSquareParamInt = Int(maxSquare) else {
-            return
-        }
-        let maxSquareParam = SearchParam(
-            key: .square,
-            value: .less(than: maxSquareParamInt)
-        )
-        switch maxSquareParam.value {
-        case .equalToString(parameter: _), .equalToInt(parameter: _), .more(than: _):
-            break
-        case .less(than: _):
-            if let existingIndex = searchParametersSubject.value.firstIndex(where: {$0.key == .square}) {
-                searchParametersSubject.value.remove(at: existingIndex)
-            }
-        }
-        searchParametersSubject.value.append(maxSquareParam)
+        searchRequestModel.maxSquare = Int(maxSquare)
     }
 
     func updateSearchRequestModel(roomsNumber: SearchRequestModel.NumberOfRooms) {
-//        searchRequestModel.roomsNumber = roomsNumber
-//        guard let character = roomsNumber.first,
-//              let number = Int(String(character)) else { return }
-//        let roomsNumberParam = SearchParam(
-//            key: .roomsNumber,
-//            value: .equalToInt(parameter: number)
-//        )
-//        if let existingIndex = searchParametersSubject.value.firstIndex(where: {$0.key == .roomsNumber}) {
-//            searchParametersSubject.value.remove(at: existingIndex)
-//        }
-//        searchParametersSubject.value.append(roomsNumberParam)
+        searchRequestModel.roomsNumber = roomsNumber
     }
 
-    func updateSearchRequestModel(constructionYear: String) {
+    func updateSearchRequestModel(constructionYear: SearchRequestModel.PeriodOfBuilding) {
         searchRequestModel.constructionYear = constructionYear
-        let constructionYearParam = SearchParam(
-            key: .constructionYear,
-            value: .equalToString(parameter: constructionYear)
-        )
-        if let existingIndex = searchParametersSubject.value.firstIndex(where: {$0.key == .constructionYear}) {
-            searchParametersSubject.value.remove(at: existingIndex)
-        }
-        searchParametersSubject.value.append(constructionYearParam)
     }
 
-    func updateSearchRequestModel(parkingType: String) {
+    func updateSearchRequestModel(parkingType: SearchRequestModel.Garage) {
         searchRequestModel.garage = parkingType
-        let garageParam = SearchParam(
-            key: .garage,
-            value: .equalToString(parameter: parkingType)
-        )
-        if let existingIndex = searchParametersSubject.value.firstIndex(where: {$0.key == .garage}) {
-            searchParametersSubject.value.remove(at: existingIndex)
-        }
-        searchParametersSubject.value.append(garageParam)
     }
 
     func loadHouses() {
@@ -189,21 +142,22 @@ final class SearchModel {
 
     func executeSearch() {
         print("Param\(searchParametersSubject.value)")
-//        isLoadingSubject.send(true)
-//        housesService.searchHouses(searchParametersSubject.value)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    self.isLoadingSubject.send(false)
-//                case let .failure(error):
-//                    debugPrint(error.localizedDescription)
-//                }
-//            }, receiveValue: { [unowned self] houses in
-//                self.housesSubject.value = houses
-//                self.searchParametersSubject.value = []
-//                self.hasMoreToLoad = false
-//            })
-//            .store(in: &cancellables)
+        isLoadingSubject.send(true)
+        housesService.searchHouses(searchParametersSubject.value)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.isLoadingSubject.send(false)
+                case let .failure(error):
+                    debugPrint(error.localizedDescription)
+                }
+            }, receiveValue: { [unowned self] houses in
+                self.housesSubject.value = houses
+                self.searchRequestModel = .init()
+                self.searchParametersSubject.value = []
+                self.hasMoreToLoad = false
+            })
+            .store(in: &cancellables)
     }
 }
