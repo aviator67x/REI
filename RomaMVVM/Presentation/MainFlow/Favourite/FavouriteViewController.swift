@@ -29,5 +29,11 @@ final class FavouriteViewController: BaseViewController<FavouriteViewModel> {
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel.sectionsPublisher
+            .sinkWeakly(self, receiveValue: { (self, sections) in
+                self.contentView.setupSnapShot(sections: sections)
+            })
+            .store(in: &cancellables)
     }
 }

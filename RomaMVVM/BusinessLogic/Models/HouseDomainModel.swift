@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class HouseDomainModel {
+final class HouseDomainModel: Codable {
         let id: String
         let distance: Int
         let constructionYear: Int
