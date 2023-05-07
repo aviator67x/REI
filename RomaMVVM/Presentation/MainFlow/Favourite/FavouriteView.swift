@@ -49,10 +49,8 @@ final class FavouriteView: BaseView {
     }
 
     private func setupCollectionView() {
-        collectionView.register(
-            PhotoCell.self,
-            forCellWithReuseIdentifier: PhotoCell.reusedidentifier
-        )
+        collectionView.register(PhotoCell.self)
+        
         setupDataSource()
     }
 
@@ -104,27 +102,17 @@ extension FavouriteView {
             cellProvider: {
                 collectionView, indexPath, item -> UICollectionViewCell in
                 switch item {
-                case let .photo(model):
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: PhotoCell.reusedidentifier,
-                        for: indexPath
-                    ) as? PhotoCell else {
-                        return UICollectionViewCell()
-                    }
+              case let .photo(model):
+                   let cell: PhotoCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
                     return cell
                 case let .main(model):
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: MainCell.reusedidentifier,
-                        for: indexPath
-                    ) as? MainCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: MainCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
                     return cell
                 case let .list(model):
                     guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: ListCell.reusedidentifier,
+                        withReuseIdentifier: ListCell.reusableIdentifier,
                         for: indexPath
                     ) as? ListCell else {
                         return UICollectionViewCell()
@@ -132,12 +120,7 @@ extension FavouriteView {
                     cell.setupCell(model)
                     return cell
                 case .map:
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: MapCell.reusedidentifier,
-                        for: indexPath
-                    ) as? MapCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: MapCell = collectionView.dedequeueReusableCell(for: indexPath)
                     return cell
                 }
             }

@@ -67,12 +67,10 @@ final class ProfileView: BaseView {
     }
 
     private func setupCollectionView() {
-        collectionView.register(PlainCell.self, forCellWithReuseIdentifier: PlainCell.identifier)
-        collectionView.register(ButtonCell.self, forCellWithReuseIdentifier: ButtonCell.identifier)
-        collectionView.register(
-            UserDataCell.self,
-            forCellWithReuseIdentifier: UserDataCell.reuseidentifier
-        )
+        collectionView.register(PlainCell.self)
+        collectionView.register(ButtonCell.self)
+        collectionView.register(UserDataCell.self)
+        
         setupDataSource()
     }
 
@@ -101,29 +99,14 @@ extension ProfileView {
                 collectionView, indexPath, item -> UICollectionViewCell in
                 switch item {
                 case let .plain(title):
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: PlainCell.identifier,
-                        for: indexPath
-                    ) as? PlainCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: PlainCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(title: title.rawValue)
                     return cell
                 case .button:
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: ButtonCell.identifier,
-                        for: indexPath
-                    ) as? ButtonCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: BackgroundCell = collectionView.dedequeueReusableCell(for: indexPath)
                     return cell
                 case let .userData(user):
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: UserDataCell.reuseidentifier,
-                        for: indexPath
-                    ) as? UserDataCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: UserDataCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setup(user)
                     return cell
                 }

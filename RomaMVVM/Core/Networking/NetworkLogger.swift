@@ -20,8 +20,8 @@ fileprivate enum LogEvent: String {
 struct NetworkLogger {
     static func log(request: URLRequest) {
         
-        print("\n - - - - - - - - - - URLRequest details - - - - - - - - - - \n")
-        defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
+        debugPrint("\n - - - - - - - - - - URLRequest details - - - - - - - - - - \n")
+        defer { debugPrint("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
         
         let urlAsString = request.url?.absoluteString ?? ""
         let urlComponents = NSURLComponents(string: urlAsString)
@@ -43,18 +43,18 @@ struct NetworkLogger {
             logOutput += "\n \(NSString(data: body, encoding: String.Encoding.utf8.rawValue) ?? "")"
         }
         
-        print(logOutput)
+        debugPrint(logOutput)
     }
     
     static func log(response: HTTPURLResponse) {
-        print("\n - - - - - - - - - - HTTPURLResponse - - - - - - - - - - \n")
+        debugPrint("\n - - - - - - - - - - HTTPURLResponse - - - - - - - - - - \n")
         defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
-        print("HTTPURLResponse status code is \(response.statusCode)")
+        debugPrint("HTTPURLResponse status code is \(response.statusCode)")
     }
     
     static func log<T>(data: T) {
-        print("\n - - - - - - - - - - DataFromDataTaskPublisher - - - - - - - - - - \n")
-        defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
-        print("\(data) \n")
+        debugPrint("\n - - - - - - - - - - DataFromDataTaskPublisher - - - - - - - - - - \n")
+        defer { debugPrint("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
+        debugPrint("\(data) \n")
     }
 }

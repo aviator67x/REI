@@ -47,4 +47,10 @@ enum HouseEndPoint: Endpoint {
             return nil
         }
     }
+    
+    func buildQuery(pageSize: Int, skip: Int) -> [String: String]? {
+        return [
+            "pageSize":"\(pageSize)",
+            "offset":"\(skip)"]
+    }
 }

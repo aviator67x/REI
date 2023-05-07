@@ -12,14 +12,16 @@ struct UpdateUserRequestModel: Encodable {
     let lastName: String?
     let nickName: String?
     let imageURL: URL?
+    let favouriteHouses: [HouseRequestModel]?
     let id: String
     
-    init(firstName: String? = nil, lastName: String? = nil, nickName: String? = nil, imageURL: URL?, id: String) {
+    init(firstName: String? = nil, lastName: String? = nil, nickName: String? = nil, imageURL: URL?, id: String, favouriteHouses: [HouseRequestModel]? = nil) {
         self.firstName = firstName
         self.lastName = lastName
         self.nickName = nickName
         self.imageURL = imageURL
         self.id = id
+        self.favouriteHouses = favouriteHouses
     }
 }
 
@@ -35,7 +37,7 @@ struct UpdateUserResponseModel: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case name, firstName, lastName, nickName, email, imageURL, userStatus
-        case id = "ownerId"
+        case id = "objectId"
     }
 }
 

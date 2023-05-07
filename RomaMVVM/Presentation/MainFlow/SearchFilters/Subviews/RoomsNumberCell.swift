@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class RoomsNumberCell: UICollectionViewListCell {
-    static let reusedidentifier = String(String(describing: RoomsNumberCell.self))
+//    static let reusedidentifier = String(String(describing: RoomsNumberCell.self))
     
     private let roomsNumberLabel = UILabel()
     

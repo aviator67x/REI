@@ -49,10 +49,10 @@ extension Endpoint {
         }
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.rawValue
+        plugins.forEach {$0.modifyRequest(&request)}
         headers.forEach { (key: String, value: String) in
             request.addValue(value, forHTTPHeaderField: key)
         }
-        plugins.forEach {$0.modifyRequest(&request)}
         
         if let body = body {
             switch body {
@@ -97,11 +97,5 @@ extension Endpoint {
 
     func buildQuery(searchParams: [SearchParam]) -> [String: String]? {
         return Search.searchProperty(searchParams).query
-    }
-    
-    func buildQuery(pageSize: Int, skip: Int) -> [String: String]? {
-        return [
-            "pageSize":"\(pageSize)",
-            "offset":"\(skip)"]
     }
 }

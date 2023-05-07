@@ -50,8 +50,9 @@ final class SettingsView: BaseView {
     }
 
     private func setupCollection() {
-        collection.register(UserProfileCell.self, forCellWithReuseIdentifier: UserProfileCell.identifier)
-        collection.register(PlainCell.self, forCellWithReuseIdentifier: PlainCell.identifier)
+        collection.register(UserProfileCell.self)
+        collection.register(PlainCell.self)
+        
         setupDataSource()
     }
 
@@ -98,19 +99,11 @@ extension SettingsView {
                 collectionView, indexPath, item -> UICollectionViewCell in
                     switch item {
                     case let .plain(title):
-                        guard let cell = collectionView.dequeueReusableCell(
-                            withReuseIdentifier: PlainCell.identifier,
-                            for: indexPath
-                        ) as? PlainCell else {
-                            return UICollectionViewCell()
-                        }
+                        let cell: PlainCell = collectionView.dedequeueReusableCell(for: indexPath)
                         cell.setupCell(title: title)
                         return cell
                     case let .userProfile(model):
-                        guard let cell = collectionView.dequeueReusableCell(
-                            withReuseIdentifier: UserProfileCell.identifier,
-                            for: indexPath
-                        ) as? UserProfileCell else { return UICollectionViewCell() }
+                        let cell: UserProfileCell = collectionView.dedequeueReusableCell(for: indexPath)
                         cell.setupCell(model: model)
                         return cell
                     }

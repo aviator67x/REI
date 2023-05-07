@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class BackgroundCell: UICollectionViewListCell {
-    static let reusedidentifier = String(String(describing: BackgroundCell.self))
+//    static let reusedidentifier = String(String(describing: BackgroundCell.self))
     private let label = UILabel()
     
     override init(frame: CGRect) {

@@ -261,15 +261,16 @@ final class SearchFiltersView: BaseView {
             forSupplementaryViewOfKind: "header",
             withReuseIdentifier: "Header"
         )
-        collection.register(SegmentControlCell.self, forCellWithReuseIdentifier: SegmentControlCell.reusedidentifier)
-        collection.register(DistanceCell.self, forCellWithReuseIdentifier: DistanceCell.reusedidentifier)
-        collection.register(PriceCell.self, forCellWithReuseIdentifier: PriceCell.reusedidentifier)
-        collection.register(TypeCell.self, forCellWithReuseIdentifier: TypeCell.reusedidentifier)
-        collection.register(UniversalCell.self, forCellWithReuseIdentifier: UniversalCell.reusedidentifier)
-        collection.register(SquareCell.self, forCellWithReuseIdentifier: SquareCell.reusedidentifier)
-        collection.register(RoomsNumberCell.self, forCellWithReuseIdentifier: RoomsNumberCell.reusedidentifier)
-        collection.register(TypeCell.self, forCellWithReuseIdentifier: TypeCell.reusedidentifier)
-        collection.register(BackgroundCell.self, forCellWithReuseIdentifier: BackgroundCell.reusedidentifier)
+        collection.register(SegmentControlCell.self)
+        collection.register(DistanceCell.self)
+        collection.register(PriceCell.self)
+        collection.register(TypeCell.self)
+        collection.register(UniversalCell.self)
+        collection.register(SquareCell.self)
+        collection.register(RoomsNumberCell.self)
+        collection.register(TypeCell.self)
+        collection.register(BackgroundCell.self)
+        
         setupDataSource()
     }
 
@@ -317,12 +318,7 @@ extension SearchFiltersView {
             cellProvider: { [unowned self] _, indexPath, item -> UICollectionViewCell in
                 switch item {
                 case .segmentControl:
-                    guard let cell = collection.dequeueReusableCell(
-                        withReuseIdentifier: SegmentControlCell.reusedidentifier,
-                        for: indexPath
-                    ) as? SegmentControlCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: SegmentControlCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.segmentPublisher
                         .sinkWeakly(self, receiveValue: { (self, value) in
                             if let value = value {
@@ -332,41 +328,21 @@ extension SearchFiltersView {
                         .store(in: &cancellables)
                     return cell
                 case let .distance(km):
-                    guard let cell = collection.dequeueReusableCell(
-                        withReuseIdentifier: DistanceCell.reusedidentifier,
-                        for: indexPath
-                    ) as? DistanceCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: DistanceCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: km)
                     
                     return cell
                 case var .price(model):
-                    guard let cell = collection.dequeueReusableCell(
-                        withReuseIdentifier: PriceCell.reusedidentifier,
-                        for: indexPath
-                    ) as? PriceCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: PriceCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: model)
                     
                     return cell
                 case let .type(title):
-                    guard let cell = collection.dequeueReusableCell(
-                        withReuseIdentifier: TypeCell.reusedidentifier,
-                        for: indexPath
-                    ) as? TypeCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: TypeCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: title)
                     return cell
                 case .year:
-                    guard let cell = collection.dequeueReusableCell(
-                        withReuseIdentifier: UniversalCell.reusedidentifier,
-                        for: indexPath
-                    ) as? UniversalCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: UniversalCell = collection.dedequeueReusableCell(for: indexPath)
                     let model = UniversalCellModel(
                         image: UIImage(systemName: "square.split.bottomrightquarter"),
                         itemText: "Period of building",
@@ -375,12 +351,7 @@ extension SearchFiltersView {
                     cell.setupCell(model: model)
                     return cell
                 case .garage:
-                    guard let cell = collection.dequeueReusableCell(
-                        withReuseIdentifier: UniversalCell.reusedidentifier,
-                        for: indexPath
-                    ) as? UniversalCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: UniversalCell = collection.dedequeueReusableCell(for: indexPath)
                     let model = UniversalCellModel(
                         image: UIImage(systemName: "car"),
                         itemText: "Garage",
@@ -389,32 +360,17 @@ extension SearchFiltersView {
                     cell.setupCell(model: model)
                     return cell
                 case let .square(model):
-                    guard let cell = collection.dequeueReusableCell(
-                        withReuseIdentifier: SquareCell.reusedidentifier,
-                        for: indexPath
-                    ) as? SquareCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: SquareCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: model)
                     
                     return cell
                 case let .roomsNumber(title):
-                    guard let cell = collection.dequeueReusableCell(
-                        withReuseIdentifier: RoomsNumberCell.reusedidentifier,
-                        for: indexPath
-                    ) as? RoomsNumberCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: RoomsNumberCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: title)
                     
                     return cell
                 case .backgroundItem:
-                    guard let cell = collection.dequeueReusableCell(
-                        withReuseIdentifier: BackgroundCell.reusedidentifier,
-                        for: indexPath
-                    ) as? BackgroundCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: BackgroundCell = collection.dedequeueReusableCell(for: indexPath)
                     
                     return cell
                 }

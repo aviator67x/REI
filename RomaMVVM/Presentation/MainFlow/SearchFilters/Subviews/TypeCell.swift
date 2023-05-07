@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class TypeCell: UICollectionViewListCell {
-    static let reusedidentifier = String(String(describing: TypeCell.self))
+//    static let reusedidentifier = String(String(describing: TypeCell.self))
     
     private let typeLabel = UILabel()
     

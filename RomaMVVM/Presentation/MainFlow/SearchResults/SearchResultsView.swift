@@ -57,13 +57,10 @@ final class SearchResultsView: BaseView {
     }
 
     private func setupCollectionView() {
-        collectionView.register(
-            PhotoCell.self,
-            forCellWithReuseIdentifier: PhotoCell.reusedidentifier
-        )
-        collectionView.register(MainCell.self, forCellWithReuseIdentifier: MainCell.reusedidentifier)
-        collectionView.register(ListCell.self, forCellWithReuseIdentifier: ListCell.reusedidentifier)
-        collectionView.register(MapCell.self, forCellWithReuseIdentifier: MapCell.reusedidentifier)
+        collectionView.register(PhotoCell.self)
+        collectionView.register(MainCell.self)
+        collectionView.register(ListCell.self)
+        collectionView.register(MapCell.self)
 
         setupDataSource()
     }
@@ -153,39 +150,19 @@ extension SearchResultsView {
                 collectionView, indexPath, item -> UICollectionViewCell in
                 switch item {
                 case let .photo(model):
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: PhotoCell.reusedidentifier,
-                        for: indexPath
-                    ) as? PhotoCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: PhotoCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
                     return cell
                 case let .main(model):
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: MainCell.reusedidentifier,
-                        for: indexPath
-                    ) as? MainCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: MainCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
                     return cell
                 case let .list(model):
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: ListCell.reusedidentifier,
-                        for: indexPath
-                    ) as? ListCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: ListCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
                     return cell
                 case .map:
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: MapCell.reusedidentifier,
-                        for: indexPath
-                    ) as? MapCell else {
-                        return UICollectionViewCell()
-                    }
+                    let cell: MainCell = collectionView.dedequeueReusableCell(for: indexPath)
                     return cell
                 }
             }

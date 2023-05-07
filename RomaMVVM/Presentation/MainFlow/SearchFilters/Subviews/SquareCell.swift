@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 final class SquareCell: UICollectionViewListCell {
-    static let reusedidentifier = String(String(describing: SquareCell.self))
+//    static let reusedidentifier = String(String(describing: SquareCell.self))
     
     private let stack = UIStackView()
     private let minTextField = UITextField()
