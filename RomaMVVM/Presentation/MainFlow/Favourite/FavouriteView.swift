@@ -5,16 +5,16 @@
 //  Created by User on 27.04.2023.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 enum FavouriteViewAction {
-
+    case selectedItem(FavouriteItem)
 }
 
 final class FavouriteView: BaseView {
-    var dataSource: UICollectionViewDiffableDataSource<SearchResultsSection, SearchResultsItem>?
-    
+    var dataSource: UICollectionViewDiffableDataSource<FavouriteSection, FavouriteItem>?
+
     // MARK: - Subviews
     private lazy var stackView = UIStackView()
     private lazy var infoView = InfoView()
@@ -23,21 +23,36 @@ final class FavouriteView: BaseView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<FavouriteViewAction, Never>()
 
+    private var itemSubject = PassthroughSubject<FavouriteItem, Never>()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func createCollectionView() -> UICollectionView {
         let sectionProvider =
             { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection
                 var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
                 listConfiguration.showsSeparators = true
+
+                listConfiguration.trailingSwipeActionsConfigurationProvider = { indexPath in
+                    let del = UIContextualAction(style: .destructive, title: "Delete") {
+                        [weak self] _, _, _ in
+                        if let item = self?.dataSource?.itemIdentifier(for: indexPath) {
+                            self?.itemSubject.send(item)
+                        }
+                    }
+
+                    return UISwipeActionsConfiguration(actions: [del])
+                }
+
                 section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
 
                 return section
@@ -50,7 +65,7 @@ final class FavouriteView: BaseView {
 
     private func setupCollectionView() {
         collectionView.register(PhotoCell.self)
-        
+
         setupDataSource()
     }
 
@@ -62,6 +77,12 @@ final class FavouriteView: BaseView {
     }
 
     private func bindActions() {
+        itemSubject
+            .map { FavouriteViewAction.selectedItem($0) }
+            .sink { [unowned self] in
+                actionSubject.send($0)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -87,8 +108,8 @@ final class FavouriteView: BaseView {
 
 // MARK: - extension
 extension FavouriteView {
-    func setupSnapShot(sections: [SearchResultsCollection]) {
-        var snapshot = NSDiffableDataSourceSnapshot<SearchResultsSection, SearchResultsItem>()
+    func setupSnapShot(sections: [FavouriteCollection]) {
+        var snapshot = NSDiffableDataSourceSnapshot<FavouriteSection, FavouriteItem>()
         for section in sections {
             snapshot.appendSections([section.section])
             snapshot.appendItems(section.items, toSection: section.section)
@@ -97,30 +118,15 @@ extension FavouriteView {
     }
 
     func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<SearchResultsSection, SearchResultsItem>(
+        dataSource = UICollectionViewDiffableDataSource<FavouriteSection, FavouriteItem>(
             collectionView: collectionView,
             cellProvider: {
                 collectionView, indexPath, item -> UICollectionViewCell in
                 switch item {
-              case let .photo(model):
-                   let cell: PhotoCell = collectionView.dedequeueReusableCell(for: indexPath)
+                case let .photo(model):
+                    let cell: PhotoCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
-                    return cell
-                case let .main(model):
-                    let cell: MainCell = collectionView.dedequeueReusableCell(for: indexPath)
-                    cell.setupCell(model)
-                    return cell
-                case let .list(model):
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: ListCell.reusableIdentifier,
-                        for: indexPath
-                    ) as? ListCell else {
-                        return UICollectionViewCell()
-                    }
-                    cell.setupCell(model)
-                    return cell
-                case .map:
-                    let cell: MapCell = collectionView.dedequeueReusableCell(for: indexPath)
+
                     return cell
                 }
             }
@@ -128,16 +134,22 @@ extension FavouriteView {
     }
 }
 
-// MARK: - View constants
-private enum Constant {
-}
-
-#if DEBUG
-import SwiftUI
-struct FavouritePreview: PreviewProvider {
-    
-    static var previews: some View {
-        ViewRepresentable(FavouriteView())
+extension UIView {
+    func gesture(_ gestureType: GestureType = .tap()) ->
+        GesturePublisher
+    {
+        .init(view: self, gestureType: gestureType)
     }
 }
+
+// MARK: - View constants
+private enum Constant {}
+
+#if DEBUG
+    import SwiftUI
+    struct FavouritePreview: PreviewProvider {
+        static var previews: some View {
+            ViewRepresentable(FavouriteView())
+        }
+    }
 #endif

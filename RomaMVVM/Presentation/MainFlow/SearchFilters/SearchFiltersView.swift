@@ -326,6 +326,7 @@ extension SearchFiltersView {
                             }                           
                         })
                         .store(in: &cancellables)
+                    
                     return cell
                 case let .distance(km):
                     let cell: DistanceCell = collection.dedequeueReusableCell(for: indexPath)

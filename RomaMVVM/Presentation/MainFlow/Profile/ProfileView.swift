@@ -70,6 +70,7 @@ final class ProfileView: BaseView {
         collectionView.register(PlainCell.self)
         collectionView.register(ButtonCell.self)
         collectionView.register(UserDataCell.self)
+        collectionView.register(BackgroundCell.self)
         
         setupDataSource()
     }

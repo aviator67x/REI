@@ -26,6 +26,8 @@ final class FavouriteViewController: BaseViewController<FavouriteViewModel> {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
+                case .selectedItem(let item):
+                    viewModel.deleteItem(item)
                 }
             }
             .store(in: &cancellables)

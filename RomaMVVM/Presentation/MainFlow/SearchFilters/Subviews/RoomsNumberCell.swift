@@ -8,9 +8,7 @@
 import Foundation
 import UIKit
 
-final class RoomsNumberCell: UICollectionViewListCell {
-//    static let reusedidentifier = String(String(describing: RoomsNumberCell.self))
-    
+final class RoomsNumberCell: UICollectionViewListCell {    
     private let roomsNumberLabel = UILabel()
     
     override init(frame: CGRect) {
