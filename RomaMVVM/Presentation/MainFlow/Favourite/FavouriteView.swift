@@ -108,6 +108,10 @@ final class FavouriteView: BaseView {
 
 // MARK: - extension
 extension FavouriteView {
+    func updateInfoView(with count: Int) {
+        infoView.setup(with: count )
+    }
+    
     func setupSnapShot(sections: [FavouriteCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<FavouriteSection, FavouriteItem>()
         for section in sections {

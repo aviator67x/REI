@@ -15,7 +15,8 @@ final class FavouriteViewModel: BaseViewModel {
     private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
     private lazy var sectionsSubject = CurrentValueSubject<[FavouriteCollection], Never>([])
 
-    private lazy var favouriteHouses = CurrentValueSubject<[HouseDomainModel], Never>([])
+    private(set) lazy var favouriteHousesPublisher = favouriteHousesSubject.eraseToAnyPublisher()
+    private lazy var favouriteHousesSubject = CurrentValueSubject<[HouseDomainModel], Never>([])
 
     private let userService: UserService
 
@@ -27,7 +28,7 @@ final class FavouriteViewModel: BaseViewModel {
     override func onViewDidLoad() {
         setupBinding()
 //        favouriteHouses.value = userService.user.favouriteHouses
-        favouriteHouses.value = [HouseDomainModel(
+        favouriteHousesSubject.value = [HouseDomainModel(
             id: "10",
             distance: 5,
             constructionYear: 2010,
@@ -44,7 +45,7 @@ final class FavouriteViewModel: BaseViewModel {
     }
 
     private func setupBinding() {
-        favouriteHouses
+        favouriteHousesSubject
             .sinkWeakly(
                 self,
                 receiveValue: { (self, _) in
@@ -55,7 +56,7 @@ final class FavouriteViewModel: BaseViewModel {
     }
 
     private func setupDataSource() {
-        let items = favouriteHouses.value
+        let items = favouriteHousesSubject.value
             .map { PhotoCellModel(data: $0) }
             .map { FavouriteItem.photo($0) }
         let section = FavouriteCollection(section: .photo, items: items)
@@ -65,7 +66,7 @@ final class FavouriteViewModel: BaseViewModel {
     func deleteItem(_ item: FavouriteItem) {
         switch item {
         case .photo(let house):
-            self.favouriteHouses.value.removeAll(where: {$0.id == house.id})
+            self.favouriteHousesSubject.value.removeAll(where: {$0.id == house.id})
         }
     }
 }

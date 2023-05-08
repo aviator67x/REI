@@ -37,5 +37,11 @@ final class FavouriteViewController: BaseViewController<FavouriteViewModel> {
                 self.contentView.setupSnapShot(sections: sections)
             })
             .store(in: &cancellables)
+        
+        viewModel.favouriteHousesPublisher
+            .sinkWeakly(self, receiveValue: { (self, favouriteHouses) in
+                self.contentView.updateInfoView(with: favouriteHouses.count)
+            })
+            .store(in: &cancellables)
     }
 }

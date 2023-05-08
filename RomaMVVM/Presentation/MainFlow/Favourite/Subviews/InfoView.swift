@@ -44,7 +44,7 @@ final class InfoView: UIView {
         }
     }
 
-    func setup(with model: Int) {
-        resultLabel.text = "\(model) results in find"
+    func setup(with count: Int) {
+        resultLabel.text = "\(count) results in find"
     }
 }
