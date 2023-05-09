@@ -12,6 +12,7 @@ enum UserEndPoint: Endpoint {
     case logOut(token: String)
     case addAvatar(image: [MultipartItem])
     case update(user: UpdateUserRequestModel)
+    case saveToFavourities(houseId: String, userId: String)
 
     var path: String? {
         switch self {
@@ -23,6 +24,8 @@ enum UserEndPoint: Endpoint {
             return "/files/images"
         case .update(let user):
             return "/users/\(user.id)"
+        case .saveToFavourities(_, let userId):
+            return "/data/users/\(userId)/favouriteHouses:Houses:n"
         }
     }
 
@@ -36,6 +39,8 @@ enum UserEndPoint: Endpoint {
             return .post
         case .update:
             return .put
+        case .saveToFavourities:
+            return .post
         }
     }
 
@@ -50,6 +55,8 @@ enum UserEndPoint: Endpoint {
             return [:]
         case .update:
             return ["Content-Type": "text/plain"]
+        case .saveToFavourities:
+            return ["Content-Type": "application/json"]
         }
     }
 
@@ -61,6 +68,8 @@ enum UserEndPoint: Endpoint {
             return .multipartBody(image)
         case .update(let user):
             return .encodable(user)
+        case .saveToFavourities(houseId: let houseId, _):
+            return .encodable([houseId])
         }
     }
 }

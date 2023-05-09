@@ -20,8 +20,8 @@ fileprivate enum LogEvent: String {
 struct NetworkLogger {
     static func log(request: URLRequest) {
         
-        debugPrint("\n - - - - - - - - - - URLRequest details - - - - - - - - - - \n")
-        defer { debugPrint("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
+        debugPrint("\n- - - - - - - - - - URLRequest details - - - - - - - - - -\n")
+        defer { debugPrint("\n- - - - - - - - - -  END - - - - - - - - - -\n") }
         
         let urlAsString = request.url?.absoluteString ?? ""
         let urlComponents = NSURLComponents(string: urlAsString)
@@ -32,29 +32,28 @@ struct NetworkLogger {
         let host = "\(urlComponents?.host ?? "")"
         
         var logOutput = """
-                        \(urlAsString) \n\n
-                        \(method) \(path)?\(query) HTTP/1.1 \n
-                        HOST: \(host)\n
-                        """
+                        \(urlAsString)\n\n
+                        \(method) \(path)?\(query) HTTP/1.1 \nHOST: \(host)\n
+"""
         for (key,value) in request.allHTTPHeaderFields ?? [:] {
-            logOutput += "\(key): \(value) \n"
+            logOutput += "\(key): \(value)\n"
         }
         if let body = request.httpBody {
-            logOutput += "\n \(NSString(data: body, encoding: String.Encoding.utf8.rawValue) ?? "")"
+            logOutput += "\n\(NSString(data: body, encoding: String.Encoding.utf8.rawValue) ?? "")"
         }
         
         debugPrint(logOutput)
     }
     
     static func log(response: HTTPURLResponse) {
-        debugPrint("\n - - - - - - - - - - HTTPURLResponse - - - - - - - - - - \n")
-        defer { print("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
+        debugPrint("\n- - - - - - - - - - HTTPURLResponse - - - - - - - - - -\n")
+        defer { print("\n- - - - - - - - - -  END - - - - - - - - - -\n") }
         debugPrint("HTTPURLResponse status code is \(response.statusCode)")
     }
     
     static func log<T>(data: T) {
-        debugPrint("\n - - - - - - - - - - DataFromDataTaskPublisher - - - - - - - - - - \n")
-        defer { debugPrint("\n - - - - - - - - - -  END - - - - - - - - - - \n") }
-        debugPrint("\(data) \n")
+        debugPrint("\n- - - - - - - - - - DataFromDataTaskPublisher - - - - - - - - - -\n")
+        defer { debugPrint("\n- - - - - - - - - -  END - - - - - - - - - -\n") }
+        debugPrint("\(data)\n")
     }
 }

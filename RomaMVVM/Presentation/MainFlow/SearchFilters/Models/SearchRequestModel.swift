@@ -65,3 +65,8 @@ struct SearchRequestModel: Hashable {
         case noParking = "No parking"
     }
 }
+
+struct DistanceItemModel {
+    let distance: SearchRequestModel.Distance
+    var isSelected: Bool = false
+}

@@ -13,6 +13,7 @@ protocol UserNetworkService {
     func logOut(token: String) -> AnyPublisher<Void, NetworkError>
     func saveAvatar(image: [MultipartItem]) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError>
     func updateUser(_ updateUserRequetModel: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError>
+    func saveHouseToFavourities(houseId: String, userId: String) -> AnyPublisher<Void, NetworkError>
 }
 
 final class UserNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == UserEndPoint {
@@ -33,6 +34,10 @@ extension UserNetworkServiceImpl: UserNetworkService {
     
     func saveAvatar(image: [MultipartItem]) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError> {
         return userProvider.execute(endpoint: .addAvatar(image: image))
+    }
+    
+    func saveHouseToFavourities(houseId: String, userId: String) -> AnyPublisher<Void, NetworkError> {
+        return userProvider.execute(endpoint: .saveToFavourities(houseId: houseId, userId: userId))
     }
      
     func updateUser(_ userUpdateRequestModel: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError> {

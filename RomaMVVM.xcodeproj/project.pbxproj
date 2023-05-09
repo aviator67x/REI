@@ -90,6 +90,8 @@
 		CE1E2DD02A07C92F00328EAF /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DCF2A07C92F00328EAF /* Publisher.swift */; };
 		CE1E2DD22A07C98100328EAF /* Subscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DD12A07C98100328EAF /* Subscriber.swift */; };
 		CE1E2DD62A0833A800328EAF /* FavouriteCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DD52A0833A800328EAF /* FavouriteCollection.swift */; };
+		CE1E2DD82A0946C700328EAF /* UIView+gesturePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DD72A0946C700328EAF /* UIView+gesturePublisher.swift */; };
+		CE1E2DDA2A09817700328EAF /* URLRequest+curl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DD92A09817700328EAF /* URLRequest+curl.swift */; };
 		CE31637A29F6D9EE00E8A6B0 /* UIView+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */; };
 		CE31637C29F7D35100E8A6B0 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637B29F7D35100E8A6B0 /* MapCell.swift */; };
 		CE31637E29F94A2000E8A6B0 /* SelectScreenTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */; };
@@ -310,6 +312,8 @@
 		CE1E2DCF2A07C92F00328EAF /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
 		CE1E2DD12A07C98100328EAF /* Subscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscriber.swift; sourceTree = "<group>"; };
 		CE1E2DD52A0833A800328EAF /* FavouriteCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCollection.swift; sourceTree = "<group>"; };
+		CE1E2DD72A0946C700328EAF /* UIView+gesturePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+gesturePublisher.swift"; sourceTree = "<group>"; };
+		CE1E2DD92A09817700328EAF /* URLRequest+curl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+curl.swift"; sourceTree = "<group>"; };
 		CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+isHidden.swift"; sourceTree = "<group>"; };
 		CE31637B29F7D35100E8A6B0 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectScreenTransition.swift; sourceTree = "<group>"; };
@@ -533,6 +537,7 @@
 				CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */,
 				CEB0FCC32A077FB6009EEABA /* UICollectionView+dequeue.swift */,
 				CE1E2DCC2A078E1300328EAF /* UICollectionReusableView+identifiier.swift */,
+				CE1E2DD72A0946C700328EAF /* UIView+gesturePublisher.swift */,
 				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
 			);
 			path = UIKit;
@@ -908,6 +913,7 @@
 				CEFEA50E29A7881F0085AB1D /* NetworkLogger.swift */,
 				CEAE383629BA720F0046198A /* MultipartItems.swift */,
 				CEAE383829BB19680046198A /* SearchQueryBuilder.swift */,
+				CE1E2DD92A09817700328EAF /* URLRequest+curl.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1401,9 +1407,11 @@
 				CEE2DE5D29F18CC70029AFF8 /* Plugin.swift in Sources */,
 				FE1FD4B33EFBF38BB3F20858 /* SettingsCoordinator.swift in Sources */,
 				0F42C83C9EF50CE2D9816660 /* SettingsModuleBuilder.swift in Sources */,
+				CE1E2DDA2A09817700328EAF /* URLRequest+curl.swift in Sources */,
 				CEA545F2297820A3007F9962 /* TextField.swift in Sources */,
 				CE9430D629C8873200FFB94C /* TermsViewController.swift in Sources */,
 				5E9FA1F198504A7E904ABBCA /* SettingsView.swift in Sources */,
+				CE1E2DD82A0946C700328EAF /* UIView+gesturePublisher.swift in Sources */,
 				CE990E9429CB623100120D6F /* EditProfileModuleBuilder.swift in Sources */,
 				CE1E2DD62A0833A800328EAF /* FavouriteCollection.swift in Sources */,
 				CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */,

@@ -52,7 +52,8 @@ final class AuthCoordinator: Coordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .success: didFinishSubject.send()
+                case .success:
+                    didFinishSubject.send()
                     didFinishSubject.send(completion: .finished)
                 }
             }
@@ -65,7 +66,8 @@ final class AuthCoordinator: Coordinator {
         module.transitionPublisher
             .sink { [unowned self] transiton in
                 switch transiton {
-                case .success: didFinishSubject.send()
+                case .success:
+                    didFinishSubject.send()
                     didFinishSubject.send(completion: .finished)
                 }
             }

@@ -8,9 +8,7 @@
 import Foundation
 import UIKit
 
-final class TypeCell: UICollectionViewListCell {
-//    static let reusedidentifier = String(String(describing: TypeCell.self))
-    
+final class TypeCell: UICollectionViewListCell {    
     private let typeLabel = UILabel()
     
     override init(frame: CGRect) {

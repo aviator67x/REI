@@ -37,7 +37,7 @@ final class HouseDomainModel: Codable {
     }
     
     init(model: HouseResponseModel) {
-        self.id = "HouseDomainModel"
+        self.id = model.objectId
         self.distance = model.distance
         self.constructionYear = model.constructionYear
         self.garage = model.garage

@@ -52,7 +52,6 @@ final class FavouriteView: BaseView {
 
                     return UISwipeActionsConfiguration(actions: [del])
                 }
-
                 section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
 
                 return section
@@ -109,9 +108,9 @@ final class FavouriteView: BaseView {
 // MARK: - extension
 extension FavouriteView {
     func updateInfoView(with count: Int) {
-        infoView.setup(with: count )
+        infoView.setup(with: count)
     }
-    
+
     func setupSnapShot(sections: [FavouriteCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<FavouriteSection, FavouriteItem>()
         for section in sections {
@@ -130,19 +129,10 @@ extension FavouriteView {
                 case let .photo(model):
                     let cell: PhotoCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
-
                     return cell
                 }
             }
         )
-    }
-}
-
-extension UIView {
-    func gesture(_ gestureType: GestureType = .tap()) ->
-        GesturePublisher
-    {
-        .init(view: self, gestureType: gestureType)
     }
 }
 

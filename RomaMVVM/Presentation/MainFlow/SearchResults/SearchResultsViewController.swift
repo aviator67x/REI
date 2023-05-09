@@ -38,6 +38,8 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                     viewModel.loadHouses()
                 case .fromSelectViewTransition(let screen):
                     viewModel.moveTo(screen)
+                case .onPhotoCellHeartButtonPublisher(selectedItem: let selectedItem):
+                    viewModel.addToFavourities(item: selectedItem)
                 }
             }
             .store(in: &cancellables)

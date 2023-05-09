@@ -48,3 +48,7 @@ struct UpdateAvatarResponceModel: Decodable {
         case imageURL = "fileURL"
     }
 }
+
+struct SaveToFavouriteResponseModel: Decodable {
+    let one:  String
+}

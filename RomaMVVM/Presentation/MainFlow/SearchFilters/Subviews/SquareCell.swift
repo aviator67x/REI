@@ -9,9 +9,7 @@ import Foundation
 import UIKit
 import Combine
 
-final class SquareCell: UICollectionViewListCell {
-//    static let reusedidentifier = String(String(describing: SquareCell.self))
-    
+final class SquareCell: UICollectionViewListCell {   
     private let stack = UIStackView()
     private let minTextField = UITextField()
     private let maxTextField = UITextField()

@@ -10,8 +10,6 @@ import UIKit
 import Kingfisher
 
 final class PhotoCell: UICollectionViewListCell {
-//    static let reusedidentifier = String(describing: PhotoCell.self)
-    
     let imageView = UIImageView()
     let streetLabel = UILabel()
     let ortLabel = UILabel()
@@ -21,6 +19,8 @@ final class PhotoCell: UICollectionViewListCell {
     let stackView = UIStackView()
     let heartButton = UIButton()
     let signsButton = UIButton()
+    
+    var heartButtonDidTap: (() -> ())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,7 +40,7 @@ final class PhotoCell: UICollectionViewListCell {
         
         stackView.axis = .vertical
         stackView.spacing = 1
-     
+        
         [streetLabel, ortLabel, sqmLabel, priceValueLabel].forEach { label in
             label.textColor = .white
             label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -53,6 +53,11 @@ final class PhotoCell: UICollectionViewListCell {
         
         let buttonTitle = "\u{2B6F}  \u{95E8} \u{27C1}"
         signsButton.setTitle(buttonTitle, for: .normal)
+        
+        let action = UIAction { [weak self] _ in
+            self?.heartButtonDidTap?()
+        }
+        heartButton.addAction(action, for: .touchUpInside)
     }
     
     private func setupLayout() {

@@ -45,14 +45,15 @@ final class SearchFiltersViewController: BaseViewController<SearchFiltersViewMod
     }
 
     @objc
-    private func resetDidTap() {}
+    private func resetDidTap() {
+        viewModel.cleanFilters()
+    }
 
     @objc
     private func bellDidTap() {}
     
     @objc
     private func crossDidTap() {
-//        navigationController?.popViewController(animated: false)
         viewModel.popModule()
     }
 

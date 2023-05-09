@@ -326,22 +326,23 @@ extension SearchFiltersView {
                             }                           
                         })
                         .store(in: &cancellables)
-                    
                     return cell
+                    
                 case let .distance(km):
                     let cell: DistanceCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: km)
-                    
                     return cell
+                    
                 case var .price(model):
                     let cell: PriceCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: model)
-                    
                     return cell
+                    
                 case let .type(title):
                     let cell: TypeCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: title)
                     return cell
+                    
                 case .year:
                     let cell: UniversalCell = collection.dedequeueReusableCell(for: indexPath)
                     let model = UniversalCellModel(
@@ -351,6 +352,7 @@ extension SearchFiltersView {
                     )
                     cell.setupCell(model: model)
                     return cell
+                    
                 case .garage:
                     let cell: UniversalCell = collection.dedequeueReusableCell(for: indexPath)
                     let model = UniversalCellModel(
@@ -360,16 +362,17 @@ extension SearchFiltersView {
                     )
                     cell.setupCell(model: model)
                     return cell
+                    
                 case let .square(model):
                     let cell: SquareCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: model)
-                    
                     return cell
+                    
                 case let .roomsNumber(title):
                     let cell: RoomsNumberCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: title)
-                    
                     return cell
+                    
                 case .backgroundItem:
                     let cell: BackgroundCell = collection.dedequeueReusableCell(for: indexPath)
                     

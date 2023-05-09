@@ -99,3 +99,4 @@ extension Endpoint {
         return Search.searchProperty(searchParams).query
     }
 }
+

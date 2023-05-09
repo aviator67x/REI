@@ -11,28 +11,67 @@ import Foundation
 final class SearchFiltersViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SearchFiltersTransition, Never>()
-
+    
     @Published var screenConfiguration = 0
     @Published private(set) var sections: [SearchFiltersCollection] = []
-
+    
     private lazy var minPriceSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var maxPriceSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var minSquareSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var maxSquareSubject = CurrentValueSubject<String?, Never>(nil)
-
+    
     private let model: SearchModel
-
+    
     init(model: SearchModel) {
         self.model = model
         super.init()
     }
-
+    
     override func onViewDidLoad() {
         setupBinding()
         updateDataSource()
     }
+}
 
-    private func setupBinding() {
+    // MARK: - extension
+    extension SearchFiltersViewModel {
+    func cleanFilters() {
+        model.cleanSearchRequestModel()
+    }
+
+    func configureScreen(for index: Int) {
+        screenConfiguration = index
+    }
+
+    func updateDistance(_ distance: SearchRequestModel.Distance) {
+        model.updateSearchRequestModel(distance: distance)
+    }
+
+    func updateType(_ type: SearchRequestModel.PropertyType) {
+        model.updateSearchRequestModel(propertyType: type)
+    }
+
+    func updateNumberOfRooms(_ number: SearchRequestModel.NumberOfRooms) {
+        model.updateSearchRequestModel(roomsNumber: number)
+    }
+
+    func executeSearch() {
+        model.executeSearch()
+        transitionSubject.send(.pop)
+    }
+
+    func showDetailed(state: SearchFiltersDetailedScreenState) {
+        transitionSubject.send(.detailed(model, state))
+    }
+
+    func popModule() {
+        transitionSubject.send(.pop)
+    }
+}
+
+// MARK: - private extension
+private extension SearchFiltersViewModel {
+    func setupBinding() {
         minPriceSubject
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
@@ -62,37 +101,7 @@ final class SearchFiltersViewModel: BaseViewModel {
             .store(in: &cancellables)
     }
 
-    func configureScreen(for index: Int) {
-        screenConfiguration = index
-    }
-
-    func updateDistance(_ distance: SearchRequestModel.Distance) {
-        model.updateSearchRequestModel(distance: distance)
-    }
-
-    func updateType(_ type: SearchRequestModel.PropertyType) {
-        model.updateSearchRequestModel(propertyType: type)
-    }
-
-    func updateNumberOfRooms(_ number: SearchRequestModel.NumberOfRooms) {
-        model.updateSearchRequestModel(roomsNumber: number)
-       
-    }
-
-    func executeSearch() {
-        model.executeSearch()
-        transitionSubject.send(.pop)
-    }
-
-    func showDetailed(state: SearchFiltersDetailedScreenState) {
-        transitionSubject.send(.detailed(self.model, state))
-    }
-
-    func popModule() {
-        transitionSubject.send(.pop)
-    }
-
-    private func updateDataSource() {
+    func updateDataSource() {
         let segmentControlSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .segmentControl, items: [.segmentControl])
         }()

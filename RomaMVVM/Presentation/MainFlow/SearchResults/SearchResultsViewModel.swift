@@ -71,6 +71,20 @@ final class SearchResultsViewModel: BaseViewModel {
 
 // MARK: - extension
 extension SearchResultsViewModel {
+    func addToFavourities(item: SearchResultsItem) {
+        switch item {
+        case .photo(let house):
+            let id = house.id ?? ""
+            self.model.addToFavouritiesHouse(with: id) 
+        case .main(_):
+            break
+        case .list(_):
+            break
+        case .map:
+            break
+        }
+    }
+    
     func moveTo(_ screen: SelectViewAction) {
         switch screen {
         case .searchFilter:

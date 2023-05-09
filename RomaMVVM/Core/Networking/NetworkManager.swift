@@ -20,7 +20,8 @@ class NetworkManagerImpl: NetworkManager {
     }
 
     func execute(request: URLRequest) -> AnyPublisher<Data, Error> {
-        NetworkLogger.log(request: request)
+//        NetworkLogger.log(request: request)
+        print(request.cURL())
         return session.dataTaskPublisher(for: request)
             .tryMap { [unowned self] data, response in
                 guard let response = response as? HTTPURLResponse else {

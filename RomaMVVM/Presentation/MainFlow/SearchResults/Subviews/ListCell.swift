@@ -10,8 +10,6 @@ import UIKit
 import Kingfisher
 
 final class ListCell: UICollectionViewListCell {
-//    static let reusedidentifier = String(describing: ListCell.self)
-    
     let imageView = UIImageView()
     let streetLabel = UILabel()
     let ortLabel = UILabel()

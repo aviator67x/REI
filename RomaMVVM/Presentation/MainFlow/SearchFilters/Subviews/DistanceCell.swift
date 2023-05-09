@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 
 final class DistanceCell: UICollectionViewCell {
-    static let reusedidentifier = String(String(describing: DistanceCell.self))
-
     private let distanceLabel = UILabel()
 
     override init(frame: CGRect) {

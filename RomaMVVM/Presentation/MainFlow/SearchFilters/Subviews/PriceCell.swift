@@ -9,9 +9,7 @@ import Foundation
 import UIKit
 import Combine
 
-final class PriceCell: UICollectionViewCell {
-    static let reusedidentifier = String(String(describing: PriceCell.self))
-    
+final class PriceCell: UICollectionViewCell {   
     private let stack = UIStackView()
     private(set) var minTextField = UITextField()
     private let maxTextField = UITextField()

@@ -109,12 +109,11 @@ extension SearchFiltersDetailedView {
             case .plainYear(let year):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
                 cell.setupCell(yearTitle: year)
-                
                 return cell
+                
             case .plainGarage(let garage):
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
                 cell.setupCell(garageTitle: garage)
-
                 return cell
             }
         })

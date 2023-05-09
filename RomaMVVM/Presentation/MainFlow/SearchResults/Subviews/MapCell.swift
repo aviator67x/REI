@@ -9,7 +9,6 @@ import Foundation
 import MapKit
 
 final class MapCell: UICollectionViewListCell {
-//    static let reusedidentifier = String(describing: MapCell.self)
     let mapView = MKMapView()
     
     override init(frame: CGRect) {

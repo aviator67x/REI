@@ -103,9 +103,11 @@ extension ProfileView {
                     let cell: PlainCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(title: title.rawValue)
                     return cell
+                    
                 case .button:
                     let cell: BackgroundCell = collectionView.dedequeueReusableCell(for: indexPath)
                     return cell
+                    
                 case let .userData(user):
                     let cell: UserDataCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setup(user)

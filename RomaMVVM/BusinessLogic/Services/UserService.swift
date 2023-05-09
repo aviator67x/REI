@@ -27,6 +27,7 @@ protocol UserService {
     func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, UserServiceError>
     func getUser() -> UserDomainModel?
     func saveAvatar(image: Data) -> AnyPublisher<Void, UserServiceError>
+    func addToFavourities(houseId: String) -> AnyPublisher<Void, UserServiceError>
 }
 
 final class UserServiceImpl: UserService {
@@ -131,6 +132,13 @@ final class UserServiceImpl: UserService {
                 save(user: userModel)
             })
             .map { _ in }
+            .eraseToAnyPublisher()
+    }
+    
+    func addToFavourities(houseId: String) -> AnyPublisher<Void, UserServiceError> {
+        let userId = self.user?.id ?? ""
+        return userNetworkService.saveHouseToFavourities(houseId: houseId, userId: userId)
+            .mapError { UserServiceError.networking($0) }
             .eraseToAnyPublisher()
     }
 }

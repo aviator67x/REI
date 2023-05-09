@@ -102,6 +102,7 @@ extension SettingsView {
                         let cell: PlainCell = collectionView.dedequeueReusableCell(for: indexPath)
                         cell.setupCell(title: title)
                         return cell
+                        
                     case let .userProfile(model):
                         let cell: UserProfileCell = collectionView.dedequeueReusableCell(for: indexPath)
                         cell.setupCell(model: model)

@@ -15,6 +15,7 @@ final class SearchModel {
     private lazy var isLoadingSubject = PassthroughSubject<Bool, Never>()
 
     private let housesService: HousesService
+    private let userService: UserService
 
     private(set) lazy var searchParametersPublisher = searchParametersSubject.eraseToAnyPublisher()
     private lazy var searchParametersSubject = CurrentValueSubject<[SearchParam], Never>([])
@@ -33,8 +34,22 @@ final class SearchModel {
         }
     }
 
-    init(housesService: HousesService) {
+    init(housesService: HousesService, userService: UserService) {
         self.housesService = housesService
+        self.userService = userService
+    }
+    
+    func addToFavouritiesHouse(with id: String) {
+        userService.addToFavourities(houseId: id)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("finished")
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                }
+            }, receiveValue: { _ in})
+            .store(in: &cancellables)
     }
 
     func updateSearchFilters() {
@@ -76,6 +91,10 @@ final class SearchModel {
         if let garage = searchRequestModel.garage {
             searchParametersSubject.value.append(.init(key: .roomsNumber, value: .equalToString(parameter: garage.rawValue)))
         }
+    }
+    
+    func cleanSearchRequestModel() {
+       searchRequestModel = SearchRequestModel.empty
     }
 
     func updateSearchRequestModel(distance: SearchRequestModel.Distance) {

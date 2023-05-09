@@ -15,7 +15,6 @@ struct UniversalCellModel {
 }
 
 final class UniversalCell: UICollectionViewCell {
-    static let reusedidentifier = String(String(describing: UniversalCell.self))
     private let itemImage = UIImageView()
     private let itemLabel = UILabel()
     private let infoLabel = UILabel()
