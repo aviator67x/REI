@@ -76,11 +76,12 @@ extension SearchResultsViewModel {
         case .photo(let house):
             let id = house.id ?? ""
             self.model.addToFavouritiesHouse(with: id) 
-        case .main(_):
-            break
-        case .list(_):
-            break
-        case .map:
+       
+        case .list(let house):
+            let id = house.id ?? ""
+            self.model.addToFavouritiesHouse(with: id)
+            
+        case .main, .map:
             break
         }
     }

@@ -12,7 +12,7 @@ enum UserEndPoint: Endpoint {
     case logOut(token: String)
     case addAvatar(image: [MultipartItem])
     case update(user: UpdateUserRequestModel)
-    case saveToFavourities(houseId: String, userId: String)
+    case saveToFavourities(houses: [String], userId: String)
 
     var path: String? {
         switch self {
@@ -68,8 +68,8 @@ enum UserEndPoint: Endpoint {
             return .multipartBody(image)
         case .update(let user):
             return .encodable(user)
-        case .saveToFavourities(houseId: let houseId, _):
-            return .encodable([houseId])
+        case .saveToFavourities(houses: let houses, _):
+            return .encodable(houses)
         }
     }
 }

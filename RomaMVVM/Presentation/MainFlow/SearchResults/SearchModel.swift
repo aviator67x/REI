@@ -28,6 +28,7 @@ final class SearchModel {
     private var offset = 0
     private var pageSize = 2
 
+    private var favouriteHouses: [String] = []
    var searchRequestModel: SearchRequestModel = .init() {
         didSet {
             updateSearchFilters()
@@ -40,7 +41,8 @@ final class SearchModel {
     }
     
     func addToFavouritiesHouse(with id: String) {
-        userService.addToFavourities(houseId: id)
+        favouriteHouses.append(id)
+        userService.addToFavourities(houses: favouriteHouses)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

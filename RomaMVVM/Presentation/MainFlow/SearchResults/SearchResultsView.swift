@@ -169,7 +169,7 @@ extension SearchResultsView {
                     return cell
                     
                 case .map:
-                    let cell: MainCell = collectionView.dedequeueReusableCell(for: indexPath)
+                    let cell: MapCell = collectionView.dedequeueReusableCell(for: indexPath)
                     return cell
                 }
             }

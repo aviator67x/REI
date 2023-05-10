@@ -9,6 +9,7 @@ import Foundation
 
 struct ListCellModel: Hashable {
     let uuid = UUID()
+    let id: String?
     let image: URL?
     let street: String
     let ort: String
@@ -17,8 +18,9 @@ struct ListCellModel: Hashable {
     let numberOfRooms: String
     let price: Int
     
-    init(image: URL, street: String, ort: String, livingArea: Int, square: Int, numberOfRooms: String, price: Int) {
+    init(id: String, image: URL, street: String, ort: String, livingArea: Int, square: Int, numberOfRooms: String, price: Int) {
         self.image = image
+        self.id = id
         self.street = street
         self.ort = ort
         self.livingArea = livingArea
@@ -28,6 +30,7 @@ struct ListCellModel: Hashable {
     }
     
     init(data: HouseDomainModel) {
+        self.id = data.id
         self.image = data.images.first
         self.street = data.street
         self.ort = data.ort
