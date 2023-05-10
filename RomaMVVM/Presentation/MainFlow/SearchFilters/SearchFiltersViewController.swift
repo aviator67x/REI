@@ -66,7 +66,8 @@ final class SearchFiltersViewController: BaseViewController<SearchFiltersViewMod
                     case .segmentControl:
                        break
                     case .distance(let distance):
-                        viewModel.updateDistance(distance)
+                        let param =  distance
+                       viewModel.updateDistance(param)
                     case .price:
                         break
                     case .type(let type):

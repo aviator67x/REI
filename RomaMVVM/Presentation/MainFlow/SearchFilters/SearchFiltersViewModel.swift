@@ -11,30 +11,176 @@ import Foundation
 final class SearchFiltersViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SearchFiltersTransition, Never>()
-    
+
     @Published var screenConfiguration = 0
     @Published private(set) var sections: [SearchFiltersCollection] = []
-    
+
     private lazy var minPriceSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var maxPriceSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var minSquareSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var maxSquareSubject = CurrentValueSubject<String?, Never>(nil)
-    
+
     private let model: SearchModel
-    
+    private var distanceCellModels: [DistanceCellModel] = [
+        .init(distance: .one),
+        .init(distance: .two),
+        .init(distance: .five),
+        .init(distance: .ten),
+        .init(distance: .fifteen),
+        .init(distance: .thirty),
+        .init(distance: .fifty),
+        .init(distance: .oneHundred),
+    ]
+
+    private var propertyTypeCellModels: [PropertyTypeCellModel] = [
+        .init(propertyType: .apartment),
+        .init(propertyType: .house),
+        .init(propertyType: .land),
+    ]
+
+    private var numberOfRoomsCellModels: [NumberOfRoomsCellModel] = [
+        .init(numberOfRooms: .one),
+        .init(numberOfRooms: .two),
+        .init(numberOfRooms: .three),
+        .init(numberOfRooms: .four),
+        .init(numberOfRooms: .five),
+    ]
+
     init(model: SearchModel) {
         self.model = model
         super.init()
     }
-    
+
     override func onViewDidLoad() {
         setupBinding()
         updateDataSource()
+        checkSearchRequestModel()
+    }
+    func checkSearchRequestModel() {
+            switch model.searchRequestModel.distance {
+            case .none:
+                return
+            case .some(let distance):
+                switch distance {
+                case .one:
+                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .one}) else {
+                        return
+                    }
+                    distanceCellModels[index].isSelected = true
+                    updateDataSource()
+                case .two:
+                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .two}) else {
+                        return
+                    }
+                    distanceCellModels[index].isSelected = true
+                    updateDataSource()
+                case .five:
+                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .five}) else {
+                        return
+                    }
+                    distanceCellModels[index].isSelected = true
+                    updateDataSource()
+                case .ten:
+                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .ten}) else {
+                        return
+                    }
+                    distanceCellModels[index].isSelected = true
+                    updateDataSource()
+                case .fifteen:
+                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .fifteen}) else {
+                        return
+                    }
+                    distanceCellModels[index].isSelected = true
+                    updateDataSource()
+                case .thirty:
+                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .thirty}) else {
+                        return
+                    }
+                    distanceCellModels[index].isSelected = true
+                    updateDataSource()
+                case .fifty:
+                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .fifty}) else {
+                        return
+                    }
+                    distanceCellModels[index].isSelected = true
+                    updateDataSource()
+                case .oneHundred:
+                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .oneHundred}) else {
+                        return
+                    }
+                    distanceCellModels[index].isSelected = true
+                    updateDataSource()
+                }
+            }
+        switch model.searchRequestModel.propertyType {
+        case .none:
+            return
+        case .some(let type):
+            switch type {
+            case .apartment:
+                guard let index = propertyTypeCellModels.firstIndex(where: {$0.propertyType == .apartment}) else {
+                    return
+                }
+                propertyTypeCellModels[index].isSelected = true
+                updateDataSource()
+            case .house:
+                guard let index = propertyTypeCellModels.firstIndex(where: {$0.propertyType == .house}) else {
+                    return
+                }
+                propertyTypeCellModels[index].isSelected = true
+                updateDataSource()
+            case .land:
+                guard let index = propertyTypeCellModels.firstIndex(where: {$0.propertyType == .land}) else {
+                    return
+                }
+                propertyTypeCellModels[index].isSelected = true
+                updateDataSource()
+            }
+        }
+        switch model.searchRequestModel.roomsNumber {
+        case .none:
+            return
+        case .some(let number):
+            switch number {
+            case .one:
+                guard let index = numberOfRoomsCellModels.firstIndex(where: {$0.numberOfRooms == .one}) else {
+                    return
+                }
+                numberOfRoomsCellModels[index].isSelected = true
+                updateDataSource()
+            case .two:
+                guard let index = numberOfRoomsCellModels.firstIndex(where: {$0.numberOfRooms == .two}) else {
+                    return
+                }
+                numberOfRoomsCellModels[index].isSelected = true
+                updateDataSource()
+            case .three:
+                guard let index = numberOfRoomsCellModels.firstIndex(where: {$0.numberOfRooms == .three}) else {
+                    return
+                }
+                numberOfRoomsCellModels[index].isSelected = true
+                updateDataSource()
+            case .four:
+                guard let index = numberOfRoomsCellModels.firstIndex(where: {$0.numberOfRooms == .four}) else {
+                    return
+                }
+                numberOfRoomsCellModels[index].isSelected = true
+                updateDataSource()
+            case .five:
+                guard let index = numberOfRoomsCellModels.firstIndex(where: {$0.numberOfRooms == .five
+                    
+                }) else {
+                    return
+                }
+                numberOfRoomsCellModels[index].isSelected = true
+                updateDataSource()
+            }
+        }
     }
 }
 
-    // MARK: - extension
-    extension SearchFiltersViewModel {
+// MARK: - extension
+extension SearchFiltersViewModel {
     func cleanFilters() {
         model.cleanSearchRequestModel()
     }
@@ -43,16 +189,41 @@ final class SearchFiltersViewModel: BaseViewModel {
         screenConfiguration = index
     }
 
-    func updateDistance(_ distance: SearchRequestModel.Distance) {
-        model.updateSearchRequestModel(distance: distance)
+    func updateDistance(_ distance: DistanceCellModel) {
+        model.updateSearchRequestModel(distance: distance.distance)
+        for (index, _) in distanceCellModels.enumerated() {
+            distanceCellModels[index].isSelected = false
+        }
+        guard let selectedItemIndex = distanceCellModels.firstIndex(of: distance) else {
+            return
+        }
+        distanceCellModels[selectedItemIndex].isSelected.toggle()
+        updateDataSource()
+        print(distanceCellModels)
     }
 
-    func updateType(_ type: SearchRequestModel.PropertyType) {
-        model.updateSearchRequestModel(propertyType: type)
+    func updateType(_ type: PropertyTypeCellModel) {
+        model.updateSearchRequestModel(propertyType: type.propertyType)
+        for (index, _) in propertyTypeCellModels.enumerated() {
+            propertyTypeCellModels[index].isSelected = false
+        }
+        guard let selectedItemIndex = propertyTypeCellModels.firstIndex(of: type) else {
+            return
+        }
+        propertyTypeCellModels[selectedItemIndex].isSelected.toggle()
+        updateDataSource()
     }
 
-    func updateNumberOfRooms(_ number: SearchRequestModel.NumberOfRooms) {
-        model.updateSearchRequestModel(roomsNumber: number)
+    func updateNumberOfRooms(_ number: NumberOfRoomsCellModel) {
+        model.updateSearchRequestModel(roomsNumber: number.numberOfRooms)
+        for (index, _) in numberOfRoomsCellModels.enumerated() {
+            numberOfRoomsCellModels[index].isSelected = false
+        }
+        guard let selectedItemIndex = numberOfRoomsCellModels.firstIndex(of: number) else {
+            return
+        }
+        numberOfRoomsCellModels[selectedItemIndex].isSelected.toggle()
+        updateDataSource()
     }
 
     func executeSearch() {
@@ -106,21 +277,12 @@ private extension SearchFiltersViewModel {
             SearchFiltersCollection(sections: .segmentControl, items: [.segmentControl])
         }()
 
-        let distanceSection: SearchFiltersCollection = {
-            SearchFiltersCollection(
-                sections: .distance,
-                items: [
-                    .distance(.one),
-                    .distance(.two),
-                    .distance(.five),
-                    .distance(.ten),
-                    .distance(.fifteen),
-                    .distance(.thirty),
-                    .distance(.fifty),
-                    .distance(.oneHundred),
-                ]
-            )
-        }()
+        let distanceItems = distanceCellModels
+            .map { SearchFiltersItem.distance($0) }
+        let distanceSection = SearchFiltersCollection(
+            sections: .distance,
+            items: distanceItems
+        )
 
         let priceSection: SearchFiltersCollection = {
             let model = PriceCellModel(minPrice: minPriceSubject, maxPrice: maxPriceSubject)
@@ -140,29 +302,19 @@ private extension SearchFiltersViewModel {
             SearchFiltersCollection(sections: .garage, items: [.garage(.garage)])
         }()
 
-        let roomsNumberSection: SearchFiltersCollection = {
-            SearchFiltersCollection(
-                sections: .roomsNumber,
-                items: [
-                    .roomsNumber(.one),
-                    .roomsNumber(.two),
-                    .roomsNumber(.three),
-                    .roomsNumber(.four),
-                    .roomsNumber(.five),
-                ]
-            )
-        }()
+        let numberOfRoomsItems = numberOfRoomsCellModels
+            .map { SearchFiltersItem.roomsNumber($0) }
+        let roomsNumberSection = SearchFiltersCollection(
+            sections: .roomsNumber,
+            items: numberOfRoomsItems
+        )
 
-        let typeSection: SearchFiltersCollection = {
-            SearchFiltersCollection(
-                sections: .type,
-                items: [
-                    .type(.apartment),
-                    .type(.house),
-                    .type(.land),
-                ]
-            )
-        }()
+        let typeItems = propertyTypeCellModels
+            .map { SearchFiltersItem.type($0) }
+        let typeSection = SearchFiltersCollection(
+            sections: .type,
+            items: typeItems
+        )
 
         let backgroundSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .backgroundItem, items: [.backgroundItem])

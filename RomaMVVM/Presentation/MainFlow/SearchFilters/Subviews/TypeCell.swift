@@ -24,8 +24,7 @@ final class TypeCell: UICollectionViewListCell {
     }
 
     private func setupUI() {
-        typeLabel.backgroundColor = .secondarySystemBackground
-        typeLabel.bordered(width: 1, color: .lightGray)
+        typeLabel.layer.masksToBounds = true
         typeLabel.layer.cornerRadius = 6
         typeLabel.textAlignment = .center
     }
@@ -40,10 +39,13 @@ final class TypeCell: UICollectionViewListCell {
 
     private func setupBinding() {}
 
-    func setupCell(with title: SearchRequestModel.PropertyType) {
-        switch title {
+    func setupCell(with model: PropertyTypeCellModel) {
+        isSelected = model.isSelected
+        typeLabel.bordered(width: 1, color: isSelected ? .blue : .lightGray)
+        typeLabel.backgroundColor = isSelected ? .systemTeal : .secondarySystemBackground
+        switch model.propertyType {
         case .apartment:
-            typeLabel.text = "apartment"
+            typeLabel.text = "apartment"            
         case .house:
             typeLabel.text = "house"
         case .land:

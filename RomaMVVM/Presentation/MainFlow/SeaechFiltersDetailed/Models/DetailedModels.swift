@@ -17,8 +17,8 @@ enum SearchFiltersDetailedSection: Hashable {
 }
 
 enum SearchFiltersDetailedItem: Hashable {
-    case plainYear(SearchRequestModel.PeriodOfBuilding)
-    case plainGarage(SearchRequestModel.Garage)
+    case plainYear(PeriodOfBuilding)
+    case plainGarage(Garage)
     
     func hash(into hasher: inout Hasher) {
             switch self {

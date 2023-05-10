@@ -30,12 +30,12 @@ final class SearchFiltersDetailedViewModel: BaseViewModel {
         createDataSource()
     }
     
-    func updateRequestModel(year: SearchRequestModel.PeriodOfBuilding) {
+    func updateRequestModel(year: PeriodOfBuilding) {
             model.updateSearchRequestModel(constructionYear: year)
         popDetailedSubject.send(true)
     }
     
-    func updateRequestModel(garage: SearchRequestModel.Garage) {
+    func updateRequestModel(garage: Garage) {
         model.updateSearchRequestModel(parkingType: garage)
         popDetailedSubject.send(true)
     }
@@ -47,12 +47,12 @@ final class SearchFiltersDetailedViewModel: BaseViewModel {
                SearchFiltersDetailedCollection(
                     section: .plain,
                     items: [
-                        .plainYear(SearchRequestModel.PeriodOfBuilding.since1850),
-                        .plainYear(SearchRequestModel.PeriodOfBuilding.since1900),
-                        .plainYear(SearchRequestModel.PeriodOfBuilding.since1950),
-                        .plainYear(SearchRequestModel.PeriodOfBuilding.since2000),
-                        .plainYear(SearchRequestModel.PeriodOfBuilding.since2010),
-                        .plainYear(SearchRequestModel.PeriodOfBuilding.since2020),
+                        .plainYear(.since1850),
+                        .plainYear(.since1900),
+                        .plainYear(.since1950),
+                        .plainYear(.since2000),
+                        .plainYear(.since2010),
+                        .plainYear(.since2020),
                     ]
                 )
             }()
@@ -62,11 +62,11 @@ final class SearchFiltersDetailedViewModel: BaseViewModel {
                SearchFiltersDetailedCollection(
                     section: .plain,
                     items: [
-                        .plainGarage(SearchRequestModel.Garage.garage),
-                        .plainGarage(SearchRequestModel.Garage.freeParking),
-                        .plainGarage(SearchRequestModel.Garage.municipalParking),
-                        .plainGarage(SearchRequestModel.Garage.hourlyPayableParking),
-                        .plainGarage(SearchRequestModel.Garage.noParking),
+                        .plainGarage(Garage.garage),
+                        .plainGarage(Garage.freeParking),
+                        .plainGarage(Garage.municipalParking),
+                        .plainGarage(Garage.hourlyPayableParking),
+                        .plainGarage(Garage.noParking),
                     ]
                 )
             }()

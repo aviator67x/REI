@@ -24,8 +24,7 @@ final class DistanceCell: UICollectionViewCell {
     }
 
     private func setupUI() {
-        distanceLabel.backgroundColor = .secondarySystemBackground
-        distanceLabel.bordered(width: 1, color: .lightGray)
+        distanceLabel.layer.masksToBounds = true
         distanceLabel.layer.cornerRadius = 6
         distanceLabel.textAlignment = .center
     }
@@ -40,25 +39,27 @@ final class DistanceCell: UICollectionViewCell {
 
     private func setupBinding() {}
 
-    func setupCell(with km: SearchRequestModel
-        .Distance) {
-            switch km {
-            case .one:
-                distanceLabel.text = "+1"
-            case .two:
-                distanceLabel.text = "+2"
-            case .five:
-                distanceLabel.text = "+5"
-            case .ten:
-                distanceLabel.text = "+10"
-            case .fifteen:
-                distanceLabel.text = "+15"
-            case .thirty:
-                distanceLabel.text = "+30"
-            case .fifty:
-                distanceLabel.text = "+50"
-            case .oneHundred:
-                distanceLabel.text = "+100"
-            }
+    func setupCell(with model: DistanceCellModel) {
+        isSelected = model.isSelected
+        distanceLabel.bordered(width: 1, color: isSelected ? .blue : .lightGray)
+        distanceLabel.backgroundColor = isSelected ? .systemTeal : .secondarySystemBackground
+        switch model.distance {
+        case .one:
+            distanceLabel.text = isSelected ? " 1 X  " : "+1"
+        case .two:
+            distanceLabel.text = isSelected ? " 2 X  " : "+2"
+        case .five:
+            distanceLabel.text = isSelected ? " 5 X  " : "+5"
+        case .ten:
+            distanceLabel.text = isSelected ? " 10 X  " : "+10"
+        case .fifteen:
+            distanceLabel.text = isSelected ? " 15 X  " : "+15"
+        case .thirty:
+            distanceLabel.text = isSelected ? " 30 X  " : "30"
+        case .fifty:
+            distanceLabel.text = isSelected ? " 50 X  " : "+50"
+        case .oneHundred:
+            distanceLabel.text = isSelected ? " 100 X  " : "+100"
+        }
     }
 }

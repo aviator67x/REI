@@ -92,6 +92,9 @@
 		CE1E2DD62A0833A800328EAF /* FavouriteCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DD52A0833A800328EAF /* FavouriteCollection.swift */; };
 		CE1E2DD82A0946C700328EAF /* UIView+gesturePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DD72A0946C700328EAF /* UIView+gesturePublisher.swift */; };
 		CE1E2DDA2A09817700328EAF /* URLRequest+curl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DD92A09817700328EAF /* URLRequest+curl.swift */; };
+		CE1E2DDC2A0B92B200328EAF /* DistanceCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DDB2A0B92B200328EAF /* DistanceCellModel.swift */; };
+		CE1E2DDE2A0B933300328EAF /* PropertyTypeCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DDD2A0B933300328EAF /* PropertyTypeCellModel.swift */; };
+		CE1E2DE02A0B9FF700328EAF /* NumberOfRoomsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DDF2A0B9FF700328EAF /* NumberOfRoomsCellModel.swift */; };
 		CE31637A29F6D9EE00E8A6B0 /* UIView+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */; };
 		CE31637C29F7D35100E8A6B0 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637B29F7D35100E8A6B0 /* MapCell.swift */; };
 		CE31637E29F94A2000E8A6B0 /* SelectScreenTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */; };
@@ -314,6 +317,9 @@
 		CE1E2DD52A0833A800328EAF /* FavouriteCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCollection.swift; sourceTree = "<group>"; };
 		CE1E2DD72A0946C700328EAF /* UIView+gesturePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+gesturePublisher.swift"; sourceTree = "<group>"; };
 		CE1E2DD92A09817700328EAF /* URLRequest+curl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+curl.swift"; sourceTree = "<group>"; };
+		CE1E2DDB2A0B92B200328EAF /* DistanceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCellModel.swift; sourceTree = "<group>"; };
+		CE1E2DDD2A0B933300328EAF /* PropertyTypeCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTypeCellModel.swift; sourceTree = "<group>"; };
+		CE1E2DDF2A0B9FF700328EAF /* NumberOfRoomsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfRoomsCellModel.swift; sourceTree = "<group>"; };
 		CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+isHidden.swift"; sourceTree = "<group>"; };
 		CE31637B29F7D35100E8A6B0 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectScreenTransition.swift; sourceTree = "<group>"; };
@@ -1081,6 +1087,9 @@
 				CE5CCECA29FFF37A007972CB /* SearchRequestModel.swift */,
 				CE5CCECC29FFF3D8007972CB /* PriceCellModel.swift */,
 				CE5CCECE29FFF400007972CB /* SquareCellModel.swift */,
+				CE1E2DDB2A0B92B200328EAF /* DistanceCellModel.swift */,
+				CE1E2DDD2A0B933300328EAF /* PropertyTypeCellModel.swift */,
+				CE1E2DDF2A0B9FF700328EAF /* NumberOfRoomsCellModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1337,6 +1346,7 @@
 				5143110F52CB4AE108E6832F /* BaseView.swift in Sources */,
 				CE5CCEC529FAE7A6007972CB /* MyHouseViewController.swift in Sources */,
 				CEA545F0297820A3007F9962 /* TextFieldView.swift in Sources */,
+				CE1E2DDE2A0B933300328EAF /* PropertyTypeCellModel.swift in Sources */,
 				CEE2DE7329F66C550029AFF8 /* SearchResultsScreenState.swift in Sources */,
 				CE990E9529CB623100120D6F /* EditProfileViewController.swift in Sources */,
 				CEADC9B5298853E8007A0650 /* BaseButton.swift in Sources */,
@@ -1368,6 +1378,7 @@
 				CEA2A86729E9D1B400395817 /* SearchModel.swift in Sources */,
 				CEAEB9E429AAA57E005BBF50 /* UserNetworkService.swift in Sources */,
 				CEAEB9EC29ACA6B1005BBF50 /* PasswordRestoreModuleBuilder.swift in Sources */,
+				CE1E2DE02A0B9FF700328EAF /* NumberOfRoomsCellModel.swift in Sources */,
 				CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */,
 				E8A38D357261F60F542286DF /* FavouriteCoordinator.swift in Sources */,
 				CE990E9629CB623100120D6F /* EditProfileView.swift in Sources */,
@@ -1377,6 +1388,7 @@
 				CE9881B729A4F3550086F583 /* NetworkServiceProvider.swift in Sources */,
 				CE9881B929A4F3550086F583 /* HTTPMethod.swift in Sources */,
 				16D96EFFF06F84700B92B20F /* LoadingView.swift in Sources */,
+				CE1E2DDC2A0B92B200328EAF /* DistanceCellModel.swift in Sources */,
 				CE990E9729CB623100120D6F /* EditProfileViewModel.swift in Sources */,
 				CEE2DE6529F2A17F0029AFF8 /* SearchResultViewModelResultViewModel.swift in Sources */,
 				CE0E27BF29D43D06001EDFCD /* HeaderView.swift in Sources */,

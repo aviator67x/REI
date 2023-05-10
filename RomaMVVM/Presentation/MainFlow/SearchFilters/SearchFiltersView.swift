@@ -328,9 +328,9 @@ extension SearchFiltersView {
                         .store(in: &cancellables)
                     return cell
                     
-                case let .distance(km):
+                case let .distance(cellModel):
                     let cell: DistanceCell = collection.dedequeueReusableCell(for: indexPath)
-                    cell.setupCell(with: km)
+                    cell.setupCell(with: cellModel)
                     return cell
                     
                 case var .price(model):
@@ -368,9 +368,9 @@ extension SearchFiltersView {
                     cell.setupCell(with: model)
                     return cell
                     
-                case let .roomsNumber(title):
+                case let .roomsNumber(model):
                     let cell: RoomsNumberCell = collection.dedequeueReusableCell(for: indexPath)
-                    cell.setupCell(with: title)
+                    cell.setupCell(with: model)
                     return cell
                     
                 case .backgroundItem:

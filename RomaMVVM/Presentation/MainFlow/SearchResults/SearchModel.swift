@@ -28,7 +28,7 @@ final class SearchModel {
     private var offset = 0
     private var pageSize = 2
 
-    private var searchRequestModel: SearchRequestModel = .init() {
+   var searchRequestModel: SearchRequestModel = .init() {
         didSet {
             updateSearchFilters()
         }
@@ -97,7 +97,7 @@ final class SearchModel {
        searchRequestModel = SearchRequestModel.empty
     }
 
-    func updateSearchRequestModel(distance: SearchRequestModel.Distance) {
+    func updateSearchRequestModel(distance: Distance) {
         searchRequestModel.distance = distance
     }
 
@@ -109,7 +109,7 @@ final class SearchModel {
         searchRequestModel.maxPrice = Int(maxPrice)
     }
 
-    func updateSearchRequestModel(propertyType: SearchRequestModel.PropertyType) {
+    func updateSearchRequestModel(propertyType: PropertyType) {
         searchRequestModel.propertyType = propertyType
     }
 
@@ -121,15 +121,15 @@ final class SearchModel {
         searchRequestModel.maxSquare = Int(maxSquare)
     }
 
-    func updateSearchRequestModel(roomsNumber: SearchRequestModel.NumberOfRooms) {
+    func updateSearchRequestModel(roomsNumber: NumberOfRooms) {
         searchRequestModel.roomsNumber = roomsNumber
     }
 
-    func updateSearchRequestModel(constructionYear: SearchRequestModel.PeriodOfBuilding) {
+    func updateSearchRequestModel(constructionYear: PeriodOfBuilding) {
         searchRequestModel.constructionYear = constructionYear
     }
 
-    func updateSearchRequestModel(parkingType: SearchRequestModel.Garage) {
+    func updateSearchRequestModel(parkingType: Garage) {
         searchRequestModel.garage = parkingType
     }
 

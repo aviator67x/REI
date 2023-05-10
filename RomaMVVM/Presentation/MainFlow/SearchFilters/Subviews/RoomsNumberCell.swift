@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-final class RoomsNumberCell: UICollectionViewListCell {    
+final class RoomsNumberCell: UICollectionViewListCell {
     private let roomsNumberLabel = UILabel()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -24,8 +24,7 @@ final class RoomsNumberCell: UICollectionViewListCell {
     }
 
     private func setupUI() {
-        roomsNumberLabel.backgroundColor = .secondarySystemBackground
-        roomsNumberLabel.bordered(width: 1, color: .lightGray)
+        roomsNumberLabel.layer.masksToBounds = true
         roomsNumberLabel.layer.cornerRadius = 6
         roomsNumberLabel.textAlignment = .center
     }
@@ -40,8 +39,11 @@ final class RoomsNumberCell: UICollectionViewListCell {
 
     private func setupBinding() {}
 
-    func setupCell(with title: SearchRequestModel.NumberOfRooms) {
-        switch title {
+    func setupCell(with model: NumberOfRoomsCellModel) {
+        isSelected = model.isSelected
+        roomsNumberLabel.bordered(width: 1, color: isSelected ? .blue : .lightGray)
+        roomsNumberLabel.backgroundColor = isSelected ? .systemTeal : .secondarySystemBackground
+        switch model.numberOfRooms {
         case .one:
             roomsNumberLabel.text = "1+"
         case .two:
@@ -53,6 +55,5 @@ final class RoomsNumberCell: UICollectionViewListCell {
         case .five:
             roomsNumberLabel.text = "5+"
         }
-        
     }
 }
