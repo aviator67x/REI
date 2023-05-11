@@ -56,81 +56,82 @@ final class SearchFiltersViewModel: BaseViewModel {
         updateDataSource()
         checkSearchRequestModel()
     }
+
     func checkSearchRequestModel() {
-            switch model.searchRequestModel.distance {
-            case .none:
-                return
-            case .some(let distance):
-                switch distance {
-                case .one:
-                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .one}) else {
-                        return
-                    }
-                    distanceCellModels[index].isSelected = true
-                    updateDataSource()
-                case .two:
-                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .two}) else {
-                        return
-                    }
-                    distanceCellModels[index].isSelected = true
-                    updateDataSource()
-                case .five:
-                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .five}) else {
-                        return
-                    }
-                    distanceCellModels[index].isSelected = true
-                    updateDataSource()
-                case .ten:
-                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .ten}) else {
-                        return
-                    }
-                    distanceCellModels[index].isSelected = true
-                    updateDataSource()
-                case .fifteen:
-                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .fifteen}) else {
-                        return
-                    }
-                    distanceCellModels[index].isSelected = true
-                    updateDataSource()
-                case .thirty:
-                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .thirty}) else {
-                        return
-                    }
-                    distanceCellModels[index].isSelected = true
-                    updateDataSource()
-                case .fifty:
-                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .fifty}) else {
-                        return
-                    }
-                    distanceCellModels[index].isSelected = true
-                    updateDataSource()
-                case .oneHundred:
-                    guard let index = distanceCellModels.firstIndex(where: {$0.distance == .oneHundred}) else {
-                        return
-                    }
-                    distanceCellModels[index].isSelected = true
-                    updateDataSource()
+        switch model.searchRequestModel.distance {
+        case .none:
+            return
+        case let .some(distance):
+            switch distance {
+            case .one:
+                guard let index = distanceCellModels.firstIndex(where: { $0.distance == .one }) else {
+                    return
                 }
+                distanceCellModels[index].isSelected = true
+                updateDataSource()
+            case .two:
+                guard let index = distanceCellModels.firstIndex(where: { $0.distance == .two }) else {
+                    return
+                }
+                distanceCellModels[index].isSelected = true
+                updateDataSource()
+            case .five:
+                guard let index = distanceCellModels.firstIndex(where: { $0.distance == .five }) else {
+                    return
+                }
+                distanceCellModels[index].isSelected = true
+                updateDataSource()
+            case .ten:
+                guard let index = distanceCellModels.firstIndex(where: { $0.distance == .ten }) else {
+                    return
+                }
+                distanceCellModels[index].isSelected = true
+                updateDataSource()
+            case .fifteen:
+                guard let index = distanceCellModels.firstIndex(where: { $0.distance == .fifteen }) else {
+                    return
+                }
+                distanceCellModels[index].isSelected = true
+                updateDataSource()
+            case .thirty:
+                guard let index = distanceCellModels.firstIndex(where: { $0.distance == .thirty }) else {
+                    return
+                }
+                distanceCellModels[index].isSelected = true
+                updateDataSource()
+            case .fifty:
+                guard let index = distanceCellModels.firstIndex(where: { $0.distance == .fifty }) else {
+                    return
+                }
+                distanceCellModels[index].isSelected = true
+                updateDataSource()
+            case .oneHundred:
+                guard let index = distanceCellModels.firstIndex(where: { $0.distance == .oneHundred }) else {
+                    return
+                }
+                distanceCellModels[index].isSelected = true
+                updateDataSource()
             }
+        }
         switch model.searchRequestModel.propertyType {
         case .none:
             return
-        case .some(let type):
+        case let .some(type):
             switch type {
             case .apartment:
-                guard let index = propertyTypeCellModels.firstIndex(where: {$0.propertyType == .apartment}) else {
+                guard let index = propertyTypeCellModels.firstIndex(where: { $0.propertyType == .apartment }) else {
                     return
                 }
                 propertyTypeCellModels[index].isSelected = true
                 updateDataSource()
             case .house:
-                guard let index = propertyTypeCellModels.firstIndex(where: {$0.propertyType == .house}) else {
+                guard let index = propertyTypeCellModels.firstIndex(where: { $0.propertyType == .house }) else {
                     return
                 }
                 propertyTypeCellModels[index].isSelected = true
                 updateDataSource()
             case .land:
-                guard let index = propertyTypeCellModels.firstIndex(where: {$0.propertyType == .land}) else {
+                guard let index = propertyTypeCellModels.firstIndex(where: { $0.propertyType == .land }) else {
                     return
                 }
                 propertyTypeCellModels[index].isSelected = true
@@ -140,35 +141,34 @@ final class SearchFiltersViewModel: BaseViewModel {
         switch model.searchRequestModel.roomsNumber {
         case .none:
             return
-        case .some(let number):
+        case let .some(number):
             switch number {
             case .one:
-                guard let index = numberOfRoomsCellModels.firstIndex(where: {$0.numberOfRooms == .one}) else {
+                guard let index = numberOfRoomsCellModels.firstIndex(where: { $0.numberOfRooms == .one }) else {
                     return
                 }
                 numberOfRoomsCellModels[index].isSelected = true
                 updateDataSource()
             case .two:
-                guard let index = numberOfRoomsCellModels.firstIndex(where: {$0.numberOfRooms == .two}) else {
+                guard let index = numberOfRoomsCellModels.firstIndex(where: { $0.numberOfRooms == .two }) else {
                     return
                 }
                 numberOfRoomsCellModels[index].isSelected = true
                 updateDataSource()
             case .three:
-                guard let index = numberOfRoomsCellModels.firstIndex(where: {$0.numberOfRooms == .three}) else {
+                guard let index = numberOfRoomsCellModels.firstIndex(where: { $0.numberOfRooms == .three }) else {
                     return
                 }
                 numberOfRoomsCellModels[index].isSelected = true
                 updateDataSource()
             case .four:
-                guard let index = numberOfRoomsCellModels.firstIndex(where: {$0.numberOfRooms == .four}) else {
+                guard let index = numberOfRoomsCellModels.firstIndex(where: { $0.numberOfRooms == .four }) else {
                     return
                 }
                 numberOfRoomsCellModels[index].isSelected = true
                 updateDataSource()
             case .five:
-                guard let index = numberOfRoomsCellModels.firstIndex(where: {$0.numberOfRooms == .five
-                    
+                guard let index = numberOfRoomsCellModels.firstIndex(where: { $0.numberOfRooms == .five
                 }) else {
                     return
                 }

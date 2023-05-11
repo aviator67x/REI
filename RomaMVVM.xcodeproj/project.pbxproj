@@ -95,6 +95,7 @@
 		CE1E2DDC2A0B92B200328EAF /* DistanceCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DDB2A0B92B200328EAF /* DistanceCellModel.swift */; };
 		CE1E2DDE2A0B933300328EAF /* PropertyTypeCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DDD2A0B933300328EAF /* PropertyTypeCellModel.swift */; };
 		CE1E2DE02A0B9FF700328EAF /* NumberOfRoomsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DDF2A0B9FF700328EAF /* NumberOfRoomsCellModel.swift */; };
+		CE1E2E042A0D54B200328EAF /* FavouriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2E032A0D54B200328EAF /* FavouriteCell.swift */; };
 		CE31637A29F6D9EE00E8A6B0 /* UIView+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */; };
 		CE31637C29F7D35100E8A6B0 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637B29F7D35100E8A6B0 /* MapCell.swift */; };
 		CE31637E29F94A2000E8A6B0 /* SelectScreenTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */; };
@@ -179,7 +180,6 @@
 		CEADC9A52982EC63007A0650 /* TextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC9A42982EC63007A0650 /* TextFieldValidator.swift */; };
 		CEADC9B32987D61A007A0650 /* Optional+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC9B22987D61A007A0650 /* Optional+extension.swift */; };
 		CEADC9B5298853E8007A0650 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADC9B4298853E8007A0650 /* BaseButton.swift */; };
-		CEAE382F29B768C00046198A /* PropertyEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE382E29B768C00046198A /* PropertyEndPoint.swift */; };
 		CEAE383529BA020D0046198A /* NSMutableData+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383429BA020C0046198A /* NSMutableData+.swift */; };
 		CEAE383729BA720F0046198A /* MultipartItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383629BA720F0046198A /* MultipartItems.swift */; };
 		CEAE383929BB19680046198A /* SearchQueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAE383829BB19680046198A /* SearchQueryBuilder.swift */; };
@@ -320,6 +320,7 @@
 		CE1E2DDB2A0B92B200328EAF /* DistanceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCellModel.swift; sourceTree = "<group>"; };
 		CE1E2DDD2A0B933300328EAF /* PropertyTypeCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTypeCellModel.swift; sourceTree = "<group>"; };
 		CE1E2DDF2A0B9FF700328EAF /* NumberOfRoomsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfRoomsCellModel.swift; sourceTree = "<group>"; };
+		CE1E2E032A0D54B200328EAF /* FavouriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCell.swift; sourceTree = "<group>"; };
 		CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+isHidden.swift"; sourceTree = "<group>"; };
 		CE31637B29F7D35100E8A6B0 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectScreenTransition.swift; sourceTree = "<group>"; };
@@ -402,7 +403,6 @@
 		CEADC9A42982EC63007A0650 /* TextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidator.swift; sourceTree = "<group>"; };
 		CEADC9B22987D61A007A0650 /* Optional+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+extension.swift"; sourceTree = "<group>"; };
 		CEADC9B4298853E8007A0650 /* BaseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
-		CEAE382E29B768C00046198A /* PropertyEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyEndPoint.swift; sourceTree = "<group>"; };
 		CEAE383429BA020C0046198A /* NSMutableData+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableData+.swift"; sourceTree = "<group>"; };
 		CEAE383629BA720F0046198A /* MultipartItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartItems.swift; sourceTree = "<group>"; };
 		CEAE383829BB19680046198A /* SearchQueryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryBuilder.swift; sourceTree = "<group>"; };
@@ -861,6 +861,7 @@
 			isa = PBXGroup;
 			children = (
 				CE5CCED22A042153007972CB /* InfoView.swift */,
+				CE1E2E032A0D54B200328EAF /* FavouriteCell.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -902,7 +903,6 @@
 			children = (
 				CE9881AE29A3A3820086F583 /* AuthEndPoint.swift */,
 				CEAEB9DB29AA9D58005BBF50 /* UserEndPoint.swift */,
-				CEAE382E29B768C00046198A /* PropertyEndPoint.swift */,
 				CEAA10F829DEDC2A00340401 /* HouseEndPoint.swift */,
 			);
 			path = EndPoints;
@@ -1363,7 +1363,6 @@
 				CE31637A29F6D9EE00E8A6B0 /* UIView+isHidden.swift in Sources */,
 				CEA545FF297832F6007F9962 /* UIView+layout.swift in Sources */,
 				CEADC9A32981A22E007A0650 /* CGPoint+UniformKeyPathInitializable.swift in Sources */,
-				CEAE382F29B768C00046198A /* PropertyEndPoint.swift in Sources */,
 				CEAA10F729DEDBBE00340401 /* HouseModels.swift in Sources */,
 				CE0E27B729D43B96001EDFCD /* SegmentControlCell.swift in Sources */,
 				CEAE383729BA720F0046198A /* MultipartItems.swift in Sources */,
@@ -1399,6 +1398,7 @@
 				CE0E27BB29D43C81001EDFCD /* DistanceCell.swift in Sources */,
 				744F123129D6DC930015A4D3 /* UserDataCellModel.swift in Sources */,
 				BA4407035F877122802C3D47 /* Localization.swift in Sources */,
+				CE1E2E042A0D54B200328EAF /* FavouriteCell.swift in Sources */,
 				EDFD24AA92041FD400F9F11D /* MainTabBarCoordinator.swift in Sources */,
 				936E18287F780641A997D742 /* MainTabBarModuleBuilder.swift in Sources */,
 				CEAEB9F729AE2609005BBF50 /* Assets.swift in Sources */,

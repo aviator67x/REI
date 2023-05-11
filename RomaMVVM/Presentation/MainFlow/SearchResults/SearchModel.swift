@@ -29,7 +29,7 @@ final class SearchModel {
     private var pageSize = 2
 
     private var favouriteHouses: [String] = []
-   var searchRequestModel: SearchRequestModel = .init() {
+    var searchRequestModel: SearchRequestModel = .init() {
         didSet {
             updateSearchFilters()
         }
@@ -39,29 +39,37 @@ final class SearchModel {
         self.housesService = housesService
         self.userService = userService
     }
-    
+
+    func getFavouriteHouses() {
+        userService.user?.favouriteHouses?.forEach { house in
+            favouriteHouses.append(house.id)
+        }
+    }
+
     func addToFavouritiesHouse(with id: String) {
-        favouriteHouses.append(id)
+        if !favouriteHouses.contains(id) {
+            favouriteHouses.append(id)
+        }
         userService.addToFavourities(houses: favouriteHouses)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
                     print("finished")
-                case .failure(let error):
+                case let .failure(error):
                     debugPrint(error.localizedDescription)
                 }
-            }, receiveValue: { _ in})
+            }, receiveValue: { _ in })
             .store(in: &cancellables)
     }
 
     func updateSearchFilters() {
         searchParametersSubject.value = []
-        
+
         if let distance = searchRequestModel.distance {
             searchParametersSubject.value
                 .append(.init(key: .distance, value: .equalToInt(parameter: distance.rawValue)))
         }
-        
+
         if let minPrice = searchRequestModel.minPrice {
             searchParametersSubject.value.append(.init(key: .price, value: .more(than: minPrice)))
         }
@@ -69,34 +77,38 @@ final class SearchModel {
         if let maxPrice = searchRequestModel.maxPrice {
             searchParametersSubject.value.append(.init(key: .price, value: .less(than: maxPrice)))
         }
-        
+
         if let propertyType = searchRequestModel.propertyType {
-            searchParametersSubject.value.append(.init(key: .propertyType, value: .equalToString(parameter: propertyType.rawValue)))
+            searchParametersSubject.value
+                .append(.init(key: .propertyType, value: .equalToString(parameter: propertyType.rawValue)))
         }
-        
+
         if let minSquare = searchRequestModel.minSquare {
             searchParametersSubject.value.append(.init(key: .square, value: .more(than: minSquare)))
         }
-        
+
         if let maxSquare = searchRequestModel.maxSquare {
             searchParametersSubject.value.append(.init(key: .square, value: .less(than: maxSquare)))
         }
-        
+
         if let numberOfRooms = searchRequestModel.roomsNumber {
-            searchParametersSubject.value.append(.init(key: .roomsNumber, value: .equalToInt(parameter: numberOfRooms.rawValue)))
+            searchParametersSubject.value
+                .append(.init(key: .roomsNumber, value: .equalToInt(parameter: numberOfRooms.rawValue)))
         }
-        
-        if let constructionYear = searchRequestModel.constructionYear{
-            searchParametersSubject.value.append(.init(key: .roomsNumber, value: .equalToInt(parameter: constructionYear.rawValue)))
+
+        if let constructionYear = searchRequestModel.constructionYear {
+            searchParametersSubject.value
+                .append(.init(key: .roomsNumber, value: .equalToInt(parameter: constructionYear.rawValue)))
         }
-        
+
         if let garage = searchRequestModel.garage {
-            searchParametersSubject.value.append(.init(key: .roomsNumber, value: .equalToString(parameter: garage.rawValue)))
+            searchParametersSubject.value
+                .append(.init(key: .roomsNumber, value: .equalToString(parameter: garage.rawValue)))
         }
     }
-    
+
     func cleanSearchRequestModel() {
-       searchRequestModel = SearchRequestModel.empty
+        searchRequestModel = SearchRequestModel.empty
     }
 
     func updateSearchRequestModel(distance: Distance) {

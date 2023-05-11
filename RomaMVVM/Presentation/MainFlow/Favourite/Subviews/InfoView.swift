@@ -30,7 +30,6 @@ final class InfoView: UIView {
 
         resultLabel.textAlignment = .left
         resultLabel.font = UIFont.systemFont(ofSize: 14)
-        resultLabel.text = "125 results in find"
     }
 
     private func setupLayout() {
@@ -45,6 +44,6 @@ final class InfoView: UIView {
     }
 
     func setup(with count: Int) {
-        resultLabel.text = "\(count) results in find"
+        resultLabel.text = "\(count) results in favourites"
     }
 }

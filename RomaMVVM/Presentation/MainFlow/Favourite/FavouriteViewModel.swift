@@ -27,21 +27,13 @@ final class FavouriteViewModel: BaseViewModel {
 
     override func onViewDidLoad() {
         setupBinding()
-//        favouriteHouses.value = userService.user.favouriteHouses
-        favouriteHousesSubject.value = [HouseDomainModel(
-            id: "10",
-            distance: 5,
-            constructionYear: 2010,
-            garage: "garage",
-            images: [URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0409-min.jpg")!],
-            ort: "Munich",
-            livingArea: 105,
-            square: 130,
-            street: "Brandenburger 14",
-            propertyType: "House",
-            roomsNumber: 5,
-            price: 350_000
-        )]
+    }
+    
+    override func onViewWillAppear() {
+        guard let favouriteHouses = userService.user?.favouriteHouses else {
+            return
+        }
+        favouriteHousesSubject.value = favouriteHouses
     }
 
     private func setupBinding() {

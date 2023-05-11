@@ -33,6 +33,8 @@ protocol UserService {
 final class UserServiceImpl: UserService {
     let tokenStorageService: TokenStorageService
     
+    private var cancellables = Set<AnyCancellable>()
+    
     private(set) lazy var userPublisher = userValueSubject.eraseToAnyPublisher()
     private var userValueSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
       
@@ -54,6 +56,7 @@ final class UserServiceImpl: UserService {
         self.tokenStorageService = tokenStorageService
         self.userNetworkService = userNetworkService
         startUserValueSubject()
+        syncronizeUser()
     }
 
     func startUserValueSubject() {
@@ -98,6 +101,38 @@ final class UserServiceImpl: UserService {
         }
         return user
     }
+    
+    func syncronizeUser() {
+        guard let userId = user?.id else {
+            return
+        }
+        return userNetworkService.getFavouriteHouses(userId: userId)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)}
+            }, receiveValue: { [unowned self] user in
+                                let domainUser = UserDomainModel(networkModel: user)
+                                save(user: domainUser)
+                            })
+//        return userNetworkService.syncronizeUser()
+//            .mapError { UserServiceError.networking($0)}
+//            .sink(receiveCompletion: { completion in
+//                switch completion {
+//                case .finished:
+//                    break
+//                case .failure(let error):
+//                    debugPrint(error.localizedDescription)
+//                }
+//            }, receiveValue: { [unowned self] user in
+//                let domainUser = UserDomainModel(networkModel: user)
+//                save(user: domainUser)
+//            })
+            .store(in: &cancellables)
+                
+    }
 
     func saveAvatar(image: Data) -> AnyPublisher<Void, UserServiceError> {
         let multipartItems = [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: image)]
@@ -139,6 +174,15 @@ final class UserServiceImpl: UserService {
         let userId = self.user?.id ?? ""
         return userNetworkService.saveHouseToFavourities(houses: houses, userId: userId)
             .mapError { UserServiceError.networking($0) }
+            .flatMap { [unowned self] number -> Publishers.MapError<AnyPublisher<UpdateUserResponseModel, NetworkError>, UserServiceError> in
+               return self.userNetworkService.getFavouriteHouses(userId: userId)
+                    .mapError { UserServiceError.networking($0) }
+            }
+            .handleEvents(receiveOutput: { [unowned self] updatedUser in
+                let domainUser = UserDomainModel(networkModel: updatedUser)
+               save(user: domainUser)
+            })
+            .map { _ in}
             .eraseToAnyPublisher()
     }
 }

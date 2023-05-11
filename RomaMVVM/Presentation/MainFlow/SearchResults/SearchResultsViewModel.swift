@@ -28,7 +28,8 @@ final class SearchResultsViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
-        model.loadHouses()
+       loadHouses()
+        getFavouriteHouses()
         setupBinding()
     }
 
@@ -105,6 +106,10 @@ extension SearchResultsViewModel {
     func loadHouses() {
         model.loadHouses()
     }
+    
+    func  getFavouriteHouses() {
+        model.getFavouriteHouses()
+    }
 
     func createDataSource() {
         switch screenState {
@@ -114,6 +119,7 @@ extension SearchResultsViewModel {
                 .map { SearchResultsItem.photo($0) }
             let section = SearchResultsCollection(section: .photo, items: items)
             sectionsSubject.value = [section]
+            
         case .list:
             let mainViewItem = houses.value
                 .map { MainCellModel(data: $0) }
@@ -127,6 +133,7 @@ extension SearchResultsViewModel {
                 .map { SearchResultsItem.list($0) }
             let listSection = SearchResultsCollection(section: .list, items: items)
             sectionsSubject.value = [manViewSection, listSection]
+            
         case .map:
             let mapItem = SearchResultsItem.map
             let mapSection = SearchResultsCollection(section: .map, items: [mapItem])

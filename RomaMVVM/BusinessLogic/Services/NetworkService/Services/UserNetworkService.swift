@@ -13,7 +13,9 @@ protocol UserNetworkService {
     func logOut(token: String) -> AnyPublisher<Void, NetworkError>
     func saveAvatar(image: [MultipartItem]) -> AnyPublisher<UpdateAvatarResponceModel, NetworkError>
     func updateUser(_ updateUserRequetModel: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError>
-    func saveHouseToFavourities(houses: [String], userId: String) -> AnyPublisher<Void, NetworkError>
+    func saveHouseToFavourities(houses: [String], userId: String) -> AnyPublisher<Int, NetworkError>
+    func getFavouriteHouses(userId: String) -> AnyPublisher<UpdateUserResponseModel, NetworkError>
+    func syncronizeUser() -> AnyPublisher<UpdateUserResponseModel, NetworkError>
 }
 
 final class UserNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == UserEndPoint {
@@ -36,11 +38,19 @@ extension UserNetworkServiceImpl: UserNetworkService {
         return userProvider.execute(endpoint: .addAvatar(image: image))
     }
     
-    func saveHouseToFavourities(houses: [String], userId: String) -> AnyPublisher<Void, NetworkError> {
+    func saveHouseToFavourities(houses: [String], userId: String) -> AnyPublisher<Int, NetworkError> {
         return userProvider.execute(endpoint: .saveToFavourities(houses: houses, userId: userId))
+    }
+    
+    func getFavouriteHouses(userId: String) -> AnyPublisher<UpdateUserResponseModel, NetworkError> {
+        return userProvider.execute(endpoint: .getFavouriteHouses(userId: userId))
     }
      
     func updateUser(_ userUpdateRequestModel: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError> {
         return userProvider.execute(endpoint: .update(user: userUpdateRequestModel))
+    }
+    
+    func syncronizeUser() -> AnyPublisher<UpdateUserResponseModel, NetworkError> {
+        return userProvider.execute(endpoint: .syncronize)
     }
 }

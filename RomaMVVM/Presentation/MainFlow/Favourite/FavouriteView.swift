@@ -63,7 +63,7 @@ final class FavouriteView: BaseView {
     }
 
     private func setupCollectionView() {
-        collectionView.register(PhotoCell.self)
+        collectionView.register(FavouriteCell.self)
 
         setupDataSource()
     }
@@ -127,7 +127,7 @@ extension FavouriteView {
                 collectionView, indexPath, item -> UICollectionViewCell in
                 switch item {
                 case let .photo(model):
-                    let cell: PhotoCell = collectionView.dedequeueReusableCell(for: indexPath)
+                    let cell: FavouriteCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
                     return cell
                 }

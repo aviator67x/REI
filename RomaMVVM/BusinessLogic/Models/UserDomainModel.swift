@@ -15,8 +15,8 @@ struct UserDomainModel: Codable {
     let nickName: String
     let email: String
     let imageURL: URL?
-    let favoutiteHouses: [HouseDomainModel]?
-    
+    let favouriteHouses: [HouseDomainModel]?
+
     init(networkModel: SignInResponse) {
         self.id = networkModel.id
         self.name = networkModel.name
@@ -25,9 +25,9 @@ struct UserDomainModel: Codable {
         self.nickName = ""
         self.email = networkModel.email
         self.imageURL = networkModel.imageURL
-        self.favoutiteHouses = []
+        self.favouriteHouses = []
     }
-    
+
     init(networkModel: UpdateUserResponseModel) {
         self.id = networkModel.id
         self.name = networkModel.name
@@ -36,6 +36,11 @@ struct UserDomainModel: Codable {
         self.nickName = networkModel.nickName ?? ""
         self.email = networkModel.email
         self.imageURL = networkModel.imageURL
-        self.favoutiteHouses = []
+        var domainHouses = [HouseDomainModel]()
+        networkModel.favouriteHouses?.forEach {
+            favouriteHouse in
+            domainHouses.append(HouseDomainModel(model: favouriteHouse))
+        }
+        self.favouriteHouses = domainHouses
     }
 }

@@ -13,6 +13,19 @@ enum UserEndPoint: Endpoint {
     case addAvatar(image: [MultipartItem])
     case update(user: UpdateUserRequestModel)
     case saveToFavourities(houses: [String], userId: String)
+    case getFavouriteHouses(userId: String)
+    case syncronize
+    
+    var queries: HTTPQueries {
+        switch self {
+        case .deleteUser, .logOut, .addAvatar, .update, .saveToFavourities:
+            return [:]
+        case .getFavouriteHouses:
+            return ["loadRelations":"favouriteHouses"]
+        case .syncronize:
+            return [:]
+        }
+    }
 
     var path: String? {
         switch self {
@@ -26,6 +39,10 @@ enum UserEndPoint: Endpoint {
             return "/users/\(user.id)"
         case .saveToFavourities(_, let userId):
             return "/data/users/\(userId)/favouriteHouses:Houses:n"
+        case .getFavouriteHouses(let userId):
+            return "/data/users/\(userId)"
+        case .syncronize:
+            return "/data/Users"
         }
     }
 
@@ -33,7 +50,7 @@ enum UserEndPoint: Endpoint {
         switch self {
         case .deleteUser:
             return .delete
-        case .logOut:
+        case .logOut, .getFavouriteHouses, .syncronize:
             return .get
         case .addAvatar:
             return .post
@@ -55,14 +72,14 @@ enum UserEndPoint: Endpoint {
             return [:]
         case .update:
             return ["Content-Type": "text/plain"]
-        case .saveToFavourities:
+        case .saveToFavourities, .getFavouriteHouses, .syncronize:
             return ["Content-Type": "application/json"]
         }
     }
 
     var body: RequestBody? {
         switch self {
-        case .deleteUser, .logOut:
+        case .deleteUser, .logOut, .getFavouriteHouses, .syncronize:
             return nil
         case .addAvatar(image: let image):
             return .multipartBody(image)
