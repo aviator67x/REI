@@ -19,6 +19,7 @@ final class PhotoCell: UICollectionViewListCell {
     let stackView = UIStackView()
     let heartButton = UIButton()
     let signsButton = UIButton()
+    let separatorView = UIView()
     
     var heartButtonDidTap: (() -> ())?
     
@@ -53,12 +54,20 @@ final class PhotoCell: UICollectionViewListCell {
             self?.heartButtonDidTap?()
         }
         heartButton.addAction(action, for: .touchUpInside)
+        
+        separatorView.backgroundColor = .white
     }
     
     private func setupLayout() {
         contentView.addSubview(imageView) {
-            $0.edges.equalToSuperview()
+            $0.leading.top.trailing.equalToSuperview()
             $0.height.equalTo(200)
+        }
+        
+        contentView.addSubview(separatorView) {
+            $0.top.equalTo(imageView.snp.bottom)
+            $0.leading.bottom.trailing.equalToSuperview()
+            $0.height.equalTo(4)
         }
         
         contentView.addSubview(stackView) {

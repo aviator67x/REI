@@ -74,7 +74,19 @@ final class SearchResultsView: BaseView {
     }
 
     private func bindActions() {
-        collectionView.reachedBottomPublisher()
+        collectionView.willBeginDraggingPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.collectionView.isUserInteractionEnabled = false
+            })
+            .store(in: &cancellables)
+        
+        collectionView.didEndDraggingPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.collectionView.isUserInteractionEnabled = true
+            })
+            .store(in: &cancellables)
+        
+        collectionView.reachedBottomPublisher(offset: 500)
             .sink { [unowned self] in
                 self.actionSubject.send(.collectionBottomDidReach)
             }
