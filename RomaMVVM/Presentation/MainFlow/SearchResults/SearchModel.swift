@@ -23,21 +23,29 @@ final class SearchModel {
     private(set) lazy var housesPublisher = housesSubject.eraseToAnyPublisher()
     private lazy var housesSubject = CurrentValueSubject<[HouseDomainModel], Never>([])
 
+    private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
+    private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
+
     private var isPaginationInProgress = false
     private var hasMoreToLoad = true
     private var offset = 0
-    private var pageSize = 2
+    private var pageSize = 5
+    private var housesCount = 0
 
     private var favouriteHouses: [String] = []
-    var searchRequestModel: SearchRequestModel = .init() {
-        didSet {
-            updateSearchFilters()
-        }
-    }
 
     init(housesService: HousesService, userService: UserService) {
         self.housesService = housesService
         self.userService = userService
+        setupBinding()
+    }
+
+    func setupBinding() {
+        searchRequestModelSubject
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.updateSearchFilters()
+            })
+            .store(in: &cancellables)
     }
 
     func getFavouriteHouses() {
@@ -65,91 +73,95 @@ final class SearchModel {
     func updateSearchFilters() {
         searchParametersSubject.value = []
 
-        if let distance = searchRequestModel.distance {
+        if let distance = searchRequestModelSubject.value.distance {
             searchParametersSubject.value
                 .append(.init(key: .distance, value: .equalToInt(parameter: distance.rawValue)))
         }
 
-        if let minPrice = searchRequestModel.minPrice {
+        if let minPrice = searchRequestModelSubject.value.minPrice {
             searchParametersSubject.value.append(.init(key: .price, value: .more(than: minPrice)))
         }
 
-        if let maxPrice = searchRequestModel.maxPrice {
+        if let maxPrice = searchRequestModelSubject.value.maxPrice {
             searchParametersSubject.value.append(.init(key: .price, value: .less(than: maxPrice)))
         }
 
-        if let propertyType = searchRequestModel.propertyType {
+        if let propertyType = searchRequestModelSubject.value.propertyType {
             searchParametersSubject.value
                 .append(.init(key: .propertyType, value: .equalToString(parameter: propertyType.rawValue)))
         }
 
-        if let minSquare = searchRequestModel.minSquare {
+        if let minSquare = searchRequestModelSubject.value.minSquare {
             searchParametersSubject.value.append(.init(key: .square, value: .more(than: minSquare)))
         }
 
-        if let maxSquare = searchRequestModel.maxSquare {
+        if let maxSquare = searchRequestModelSubject.value.maxSquare {
             searchParametersSubject.value.append(.init(key: .square, value: .less(than: maxSquare)))
         }
 
-        if let numberOfRooms = searchRequestModel.roomsNumber {
+        if let numberOfRooms = searchRequestModelSubject.value.roomsNumber {
             searchParametersSubject.value
                 .append(.init(key: .roomsNumber, value: .equalToInt(parameter: numberOfRooms.rawValue)))
         }
 
-        if let constructionYear = searchRequestModel.constructionYear {
+        if let constructionYear = searchRequestModelSubject.value.constructionYear {
             searchParametersSubject.value
                 .append(.init(key: .roomsNumber, value: .equalToInt(parameter: constructionYear.rawValue)))
         }
 
-        if let garage = searchRequestModel.garage {
+        if let garage = searchRequestModelSubject.value.garage {
             searchParametersSubject.value
                 .append(.init(key: .roomsNumber, value: .equalToString(parameter: garage.rawValue)))
         }
     }
 
     func cleanSearchRequestModel() {
-        searchRequestModel = SearchRequestModel.empty
+        searchRequestModelSubject.value = SearchRequestModel.empty
+        hasMoreToLoad = true
+        offset = 0
+        housesSubject.value = []
+        loadHouses()
     }
 
     func updateSearchRequestModel(distance: Distance) {
-        searchRequestModel.distance = distance
+        searchRequestModelSubject.value.distance = distance
     }
 
     func updateSearchRequestModel(minPrice: String) {
-        searchRequestModel.minPrice = Int(minPrice)
+        searchRequestModelSubject.value.minPrice = Int(minPrice)
     }
 
     func updateSearchRequestModel(maxPrice: String) {
-        searchRequestModel.maxPrice = Int(maxPrice)
+        searchRequestModelSubject.value.maxPrice = Int(maxPrice)
     }
 
     func updateSearchRequestModel(propertyType: PropertyType) {
-        searchRequestModel.propertyType = propertyType
+        searchRequestModelSubject.value.propertyType = propertyType
     }
 
     func updateSearchRequestModel(minSquare: String) {
-        searchRequestModel.minSquare = Int(minSquare)
+        searchRequestModelSubject.value.minSquare = Int(minSquare)
     }
 
     func updateSearchRequestModel(maxSquare: String) {
-        searchRequestModel.maxSquare = Int(maxSquare)
+        searchRequestModelSubject.value.maxSquare = Int(maxSquare)
     }
 
     func updateSearchRequestModel(roomsNumber: NumberOfRooms) {
-        searchRequestModel.roomsNumber = roomsNumber
+        searchRequestModelSubject.value.roomsNumber = roomsNumber
     }
 
     func updateSearchRequestModel(constructionYear: PeriodOfBuilding) {
-        searchRequestModel.constructionYear = constructionYear
+        searchRequestModelSubject.value.constructionYear = constructionYear
     }
 
     func updateSearchRequestModel(parkingType: Garage) {
-        searchRequestModel.garage = parkingType
+        searchRequestModelSubject.value.garage = parkingType
     }
 
     func loadHouses() {
-        guard hasMoreToLoad,
-              !isPaginationInProgress
+        guard !isPaginationInProgress//,
+//              hasMoreToLoad
         else {
             return
         }
@@ -188,6 +200,7 @@ final class SearchModel {
                 }
             }, receiveValue: { [unowned self] houses in
                 self.housesSubject.value = houses
+                self.searchRequestModelSubject.value = SearchRequestModel.empty
                 self.hasMoreToLoad = false
             })
             .store(in: &cancellables)

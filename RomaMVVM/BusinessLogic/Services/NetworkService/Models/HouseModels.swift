@@ -50,4 +50,5 @@ struct HouseResponseModel: Decodable {
     let propertyType: String
     let roomsNumber: Int
     let price: Int
+    var isFavourite: Bool?
 }

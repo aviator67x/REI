@@ -28,7 +28,7 @@ final class SearchResultsViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
-       loadHouses()
+        loadHouses()
         getFavouriteHouses()
         setupBinding()
     }
@@ -48,19 +48,19 @@ final class SearchResultsViewModel: BaseViewModel {
 
         sectionsSubject.combineLatest(model.searchParametersPublisher)
             .sink { [unowned self] sections, searchParams in
-            var resultCount = 0
-            if let section = sections.first(where: { $0.section == .photo }) {
-                resultCount = section.items.count
-            } else if let section = sections.first(where: { $0.section == .list }) {
-                resultCount = section.items.count
+                var resultCount = 0
+                if let section = sections.first(where: { $0.section == .photo }) {
+                    resultCount = section.items.count
+                } else if let section = sections.first(where: { $0.section == .list }) {
+                    resultCount = section.items.count
+                }
+                self.resultViewModelSubject.value = ResultViewModel(
+                    country: "Netherlands",
+                    result: resultCount,
+                    filters: searchParams.count
+                )
             }
-            self.resultViewModelSubject.value = ResultViewModel(
-                country: "Netherlands",
-                result: resultCount,
-                filters: searchParams.count
-            )
-        }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
 
         model.isLoadingPublisher
             .sinkWeakly(self, receiveValue: { (self, value) in
@@ -74,19 +74,19 @@ final class SearchResultsViewModel: BaseViewModel {
 extension SearchResultsViewModel {
     func addToFavourities(item: SearchResultsItem) {
         switch item {
-        case .photo(let house):
+        case let .photo(house):
             let id = house.id ?? ""
-            self.model.addToFavouritiesHouse(with: id) 
-       
-        case .list(let house):
+            model.addToFavouritiesHouse(with: id)
+
+        case let .list(house):
             let id = house.id ?? ""
-            self.model.addToFavouritiesHouse(with: id)
-            
+            model.addToFavouritiesHouse(with: id)
+
         case .main, .map:
             break
         }
     }
-    
+
     func moveTo(_ screen: SelectViewAction) {
         switch screen {
         case .searchFilter:
@@ -106,8 +106,8 @@ extension SearchResultsViewModel {
     func loadHouses() {
         model.loadHouses()
     }
-    
-    func  getFavouriteHouses() {
+
+    func getFavouriteHouses() {
         model.getFavouriteHouses()
     }
 
@@ -119,7 +119,7 @@ extension SearchResultsViewModel {
                 .map { SearchResultsItem.photo($0) }
             let section = SearchResultsCollection(section: .photo, items: items)
             sectionsSubject.value = [section]
-            
+
         case .list:
             let mainViewItem = houses.value
                 .map { MainCellModel(data: $0) }
@@ -133,7 +133,7 @@ extension SearchResultsViewModel {
                 .map { SearchResultsItem.list($0) }
             let listSection = SearchResultsCollection(section: .list, items: items)
             sectionsSubject.value = [manViewSection, listSection]
-            
+
         case .map:
             let mapItem = SearchResultsItem.map
             let mapSection = SearchResultsCollection(section: .map, items: [mapItem])

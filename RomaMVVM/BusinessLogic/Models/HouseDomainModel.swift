@@ -20,8 +20,9 @@ final class HouseDomainModel: Codable {
         let propertyType: String
         let roomsNumber: Int
         let price: Int
+    var isFavourite: Bool
     
-    init(id: String, distance: Int, constructionYear: Int, garage: String, images: [URL], ort: String, livingArea: Int, square: Int, street: String, propertyType: String, roomsNumber: Int, price: Int) {
+    init(id: String, distance: Int, constructionYear: Int, garage: String, images: [URL], ort: String, livingArea: Int, square: Int, street: String, propertyType: String, roomsNumber: Int, price: Int, isFavourite: Bool = false) {
         self.id = id
         self.distance = distance
         self.constructionYear = constructionYear
@@ -34,6 +35,7 @@ final class HouseDomainModel: Codable {
         self.propertyType = propertyType
         self.roomsNumber = roomsNumber
         self.price = price
+        self.isFavourite = isFavourite
     }
     
     init(model: HouseResponseModel) {
@@ -49,5 +51,6 @@ final class HouseDomainModel: Codable {
         self.propertyType = model.propertyType
         self.roomsNumber = model.roomsNumber
         self.price = model.price
+        self.isFavourite = model.isFavourite ?? false
     }
 }

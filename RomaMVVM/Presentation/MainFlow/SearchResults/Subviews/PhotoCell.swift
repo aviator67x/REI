@@ -46,11 +46,6 @@ final class PhotoCell: UICollectionViewListCell {
             label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         }
         
-        let mediumConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .medium)
-        let mediumBoldHeart = UIImage(systemName: "heart", withConfiguration: mediumConfig)
-        heartButton.setImage(mediumBoldHeart, for: .normal)
-        heartButton.tintColor = .white
-        
         let buttonTitle = "\u{2B6F}  \u{95E8} \u{27C1}"
         signsButton.setTitle(buttonTitle, for: .normal)
         
@@ -92,5 +87,11 @@ final class PhotoCell: UICollectionViewListCell {
         ortLabel.text = model.ort
         sqmLabel.text = "\(model.livingArea) sqm / \(model.square) sqm \u{00B7} \(model.numberOfRooms) rooms"
         priceValueLabel.text = "\u{20AC} \(String(model.price)) k.k."
+        
+        let mediumConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .medium)
+        let mediumBoldHeartEmpty = UIImage(systemName: "heart", withConfiguration: mediumConfig)
+        let mediumBoldHeartFill = UIImage(systemName: "heart.fill", withConfiguration: mediumConfig)
+        heartButton.setImage(model.isFavourite ? mediumBoldHeartFill : mediumBoldHeartEmpty, for: .normal)
+        heartButton.tintColor = model.isFavourite ? .red : .white
     }
 }
