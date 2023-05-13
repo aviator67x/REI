@@ -54,10 +54,14 @@ final class SearchModel {
         }
     }
 
-    func addToFavouritiesHouse(with id: String) {
-        if !favouriteHouses.contains(id) {
-            favouriteHouses.append(id)
+    func editFavouritiesHouses(with id: String) {
+        if favouriteHouses.contains(id) {
+            guard let index = favouriteHouses.firstIndex(of: id) else {
+                return
+            }
+            favouriteHouses.remove(at: index)
         }
+        favouriteHouses.append(id)
         userService.addToFavourities(houses: favouriteHouses)
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -68,6 +72,8 @@ final class SearchModel {
                 }
             }, receiveValue: { _ in })
             .store(in: &cancellables)
+    
+//        housesService.editFavouriteHouses(for id: String)
     }
 
     func updateSearchFilters() {

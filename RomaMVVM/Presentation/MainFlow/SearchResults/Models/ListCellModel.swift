@@ -17,8 +17,9 @@ struct ListCellModel: Hashable {
     let square: Int
     let numberOfRooms: String
     let price: Int
+    let isFavourite: Bool
     
-    init(id: String, image: URL, street: String, ort: String, livingArea: Int, square: Int, numberOfRooms: String, price: Int) {
+    init(id: String, image: URL, street: String, ort: String, livingArea: Int, square: Int, numberOfRooms: String, price: Int, isFavourite: Bool = false) {
         self.image = image
         self.id = id
         self.street = street
@@ -27,6 +28,7 @@ struct ListCellModel: Hashable {
         self.square = square
         self.numberOfRooms = numberOfRooms
         self.price = price
+        self.isFavourite = isFavourite
     }
     
     init(data: HouseDomainModel) {
@@ -38,6 +40,7 @@ struct ListCellModel: Hashable {
         self.square = data.square
         self.numberOfRooms = "\(data.roomsNumber)"
         self.price = data.price
+        self.isFavourite = data.isFavourite
     }
     
     static func == (lhs: ListCellModel, rhs: ListCellModel) -> Bool {

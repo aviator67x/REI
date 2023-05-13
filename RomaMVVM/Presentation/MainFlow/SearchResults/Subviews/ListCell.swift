@@ -8,8 +8,21 @@
 import Foundation
 import UIKit
 import Kingfisher
+import Combine
+
+enum ListCellAction {
+    case heartDidTap
+}
 
 final class ListCell: UICollectionViewListCell {
+    lazy var cancellables = Set<AnyCancellable>()
+    
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private lazy var actionSubject = PassthroughSubject<ListCellAction, Never>()
+    
+    private(set) lazy var heartButtonPublisher = heartButtonSubject.eraseToAnyPublisher()
+    private lazy var heartButtonSubject = PassthroughSubject<Void, Never>()
+    
     let imageView = UIImageView()
     let streetLabel = UILabel()
     let ortLabel = UILabel()
@@ -23,11 +36,20 @@ final class ListCell: UICollectionViewListCell {
         backgroundColor = .white
         setupUI()
         setupLayout()
+        setupBinding()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupBinding() {
+        heartButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.actionSubject.send(.heartDidTap)
+            })
+            .store(in: &cancellables)
     }
     
     private func setupUI() {
@@ -43,11 +65,6 @@ final class ListCell: UICollectionViewListCell {
             label.font = UIFont.systemFont(ofSize: 14)
         }
        priceValueLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        
-        heartButton.tintColor = .systemBlue
-        let mediumConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .medium)
-        let mediumBoldHeart = UIImage(systemName: "heart", withConfiguration: mediumConfig)
-        heartButton.setImage(mediumBoldHeart, for: .normal)
     }
     
     private func setupLayout() {
@@ -91,5 +108,11 @@ final class ListCell: UICollectionViewListCell {
         sqmLabel.attributedText = fullString
         
         priceValueLabel.text = "\u{20AC} \(String(model.price)) k.k."
+        
+        let mediumConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .medium)
+        let mediumBoldHeartEmpty = UIImage(systemName: "heart", withConfiguration: mediumConfig)
+        let mediumBoldHeartFill = UIImage(systemName: "heart.fill", withConfiguration: mediumConfig)
+        heartButton.setImage(model.isFavourite ? mediumBoldHeartFill : mediumBoldHeartEmpty, for: .normal)
+        heartButton.tintColor = model.isFavourite ? .red : .systemBlue
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 enum SearchResultsViewAction {
     case collectionBottomDidReach
     case fromSelectViewTransition(SelectViewAction)
-    case onPhotoCellHeartButtonPublisher(selectedItem: SearchResultsItem)
+    case onCellHeartButtonPublisher(selectedItem: SearchResultsItem)
 }
 
 final class SearchResultsView: BaseView {
@@ -166,7 +166,7 @@ extension SearchResultsView {
                     let cell: PhotoCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
                     cell.heartButtonDidTap = { [weak self] in
-                        self?.actionSubject.send(.onPhotoCellHeartButtonPublisher(selectedItem: item))
+                        self?.actionSubject.send(.onCellHeartButtonPublisher(selectedItem: item))
                     }
                     return cell
                     
@@ -177,6 +177,11 @@ extension SearchResultsView {
                     
                 case let .list(model):
                     let cell: ListCell = collectionView.dedequeueReusableCell(for: indexPath)
+                    cell.actionPublisher
+                        .sinkWeakly(self, receiveValue: { (self, _) in
+                            self.actionSubject.send(.onCellHeartButtonPublisher(selectedItem: item))
+                        })
+                        .store(in: &cell.cancellables)
                     cell.setupCell(model)
                     return cell
                     

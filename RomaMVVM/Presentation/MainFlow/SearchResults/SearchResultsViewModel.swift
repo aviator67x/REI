@@ -76,11 +76,11 @@ extension SearchResultsViewModel {
         switch item {
         case let .photo(house):
             let id = house.id ?? ""
-            model.addToFavouritiesHouse(with: id)
+            model.editFavouritiesHouses(with: id)
 
         case let .list(house):
             let id = house.id ?? ""
-            model.addToFavouritiesHouse(with: id)
+            model.editFavouritiesHouses(with: id)
 
         case .main, .map:
             break
