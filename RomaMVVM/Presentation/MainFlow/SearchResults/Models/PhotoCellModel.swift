@@ -17,7 +17,7 @@ struct PhotoCellModel: Hashable {
     let square: Int
     let numberOfRooms: String
     let price: Int
-    var isFavourite: Bool
+    let isFavourite: Bool
     
     init(id: String? = nil, image: URL, street: String, ort: String, livingArea: Int, square: Int, numberOfRooms: String, price: Int, isFavourite: Bool = false) {
         self.id = id

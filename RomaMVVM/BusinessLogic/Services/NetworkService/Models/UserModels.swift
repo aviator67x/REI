@@ -48,6 +48,3 @@ struct UpdateAvatarResponceModel: Decodable {
     }
 }
 
-struct SaveToFavouriteResponseModel: Decodable {
-    let one:  String
-}

@@ -20,8 +20,9 @@ struct HouseRequestModel: Encodable {
     let propertyType: String?
     let roomsNumber: Int
     let price: Int
+    let isFavourite: Bool
     
-    init(objectId: String? = nil, distance: Int? = nil, constructionYear: Int? = nil, garage: String? = nil, images: [URL]? = nil, ort: String, livingArea: Int, square: Int, street: String, propertyType: String? = nil, roomsNumber: Int, price: Int) {
+    init(objectId: String? = nil, distance: Int? = nil, constructionYear: Int? = nil, garage: String? = nil, images: [URL]? = nil, ort: String, livingArea: Int, square: Int, street: String, propertyType: String? = nil, roomsNumber: Int, price: Int, isFavourite: Bool) {
         self.objectId = objectId
         self.distance = distance
         self.constructionYear = constructionYear
@@ -34,6 +35,7 @@ struct HouseRequestModel: Encodable {
         self.propertyType = propertyType
         self.roomsNumber = roomsNumber
         self.price = price
+        self.isFavourite = isFavourite
     }
 }
 
@@ -50,5 +52,5 @@ struct HouseResponseModel: Decodable {
     let propertyType: String
     let roomsNumber: Int
     let price: Int
-    var isFavourite: Bool?
+    let isFavourite: Bool
 }

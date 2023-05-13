@@ -8,21 +8,35 @@
 import Foundation
 
 final class HouseDomainModel: Codable {
-        let id: String
-        let distance: Int
-        let constructionYear: Int
-        let garage: String
-        let images: [URL]
-        let ort: String
-        let livingArea: Int
-        let square: Int
-        let street: String
-        let propertyType: String
-        let roomsNumber: Int
-        let price: Int
-    var isFavourite: Bool
-    
-    init(id: String, distance: Int, constructionYear: Int, garage: String, images: [URL], ort: String, livingArea: Int, square: Int, street: String, propertyType: String, roomsNumber: Int, price: Int, isFavourite: Bool = false) {
+    let id: String
+    let distance: Int
+    let constructionYear: Int
+    let garage: String
+    let images: [URL]
+    let ort: String
+    let livingArea: Int
+    let square: Int
+    let street: String
+    let propertyType: String
+    let roomsNumber: Int
+    let price: Int
+    let isFavourite: Bool
+
+    init(
+        id: String,
+        distance: Int,
+        constructionYear: Int,
+        garage: String,
+        images: [URL],
+        ort: String,
+        livingArea: Int,
+        square: Int,
+        street: String,
+        propertyType: String,
+        roomsNumber: Int,
+        price: Int,
+        isFavourite: Bool = false
+    ) {
         self.id = id
         self.distance = distance
         self.constructionYear = constructionYear
@@ -37,7 +51,7 @@ final class HouseDomainModel: Codable {
         self.price = price
         self.isFavourite = isFavourite
     }
-    
+
     init(model: HouseResponseModel) {
         self.id = model.objectId
         self.distance = model.distance
@@ -51,6 +65,6 @@ final class HouseDomainModel: Codable {
         self.propertyType = model.propertyType
         self.roomsNumber = model.roomsNumber
         self.price = model.price
-        self.isFavourite = model.isFavourite ?? false
+        self.isFavourite = model.isFavourite
     }
 }
