@@ -15,7 +15,6 @@ protocol UserNetworkService {
     func updateUser(_ updateUserRequetModel: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError>
     func saveHouseToFavourities(houses: [String], userId: String) -> AnyPublisher<Int, NetworkError>
     func getFavouriteHouses(userId: String) -> AnyPublisher<UpdateUserResponseModel, NetworkError>
-    func syncronizeUser() -> AnyPublisher<UpdateUserResponseModel, NetworkError>
 }
 
 final class UserNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == UserEndPoint {
@@ -48,9 +47,5 @@ extension UserNetworkServiceImpl: UserNetworkService {
      
     func updateUser(_ userUpdateRequestModel: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, NetworkError> {
         return userProvider.execute(endpoint: .update(user: userUpdateRequestModel))
-    }
-    
-    func syncronizeUser() -> AnyPublisher<UpdateUserResponseModel, NetworkError> {
-        return userProvider.execute(endpoint: .syncronize)
     }
 }

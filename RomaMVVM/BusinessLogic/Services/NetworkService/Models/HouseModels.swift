@@ -8,7 +8,7 @@
 import Foundation
 
 struct HouseRequestModel: Encodable {
-    let objectId: String?
+    let objectId: String
     let distance: Int?
     let constructionYear: Int?
     let garage: String?
@@ -22,7 +22,7 @@ struct HouseRequestModel: Encodable {
     let price: Int
     let isFavourite: Bool
     
-    init(objectId: String? = nil, distance: Int? = nil, constructionYear: Int? = nil, garage: String? = nil, images: [URL]? = nil, ort: String, livingArea: Int, square: Int, street: String, propertyType: String? = nil, roomsNumber: Int, price: Int, isFavourite: Bool) {
+    init(objectId: String, distance: Int? = nil, constructionYear: Int? = nil, garage: String? = nil, images: [URL]? = nil, ort: String, livingArea: Int, square: Int, street: String, propertyType: String? = nil, roomsNumber: Int, price: Int, isFavourite: Bool) {
         self.objectId = objectId
         self.distance = distance
         self.constructionYear = constructionYear
@@ -52,5 +52,9 @@ struct HouseResponseModel: Decodable {
     let propertyType: String
     let roomsNumber: Int
     let price: Int
+    let isFavourite: Bool
+}
+
+struct UpdateHouseFavouriteParameterRequestModel: Encodable {
     let isFavourite: Bool
 }

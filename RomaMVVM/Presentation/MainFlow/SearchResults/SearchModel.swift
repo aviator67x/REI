@@ -54,16 +54,20 @@ final class SearchModel {
         }
     }
 
-    func editFavouritiesHouses(with id: String) {
+    func editFavouriteHouses(with id: String) {
         if favouriteHouses.contains(id) {
             guard let index = favouriteHouses.firstIndex(of: id) else {
                 return
             }
             favouriteHouses.remove(at: index)
-        }
-        favouriteHouses.append(id)
+        } else {
+            favouriteHouses.append(id)
+        }        
+        isLoadingSubject.send(true)
         userService.addToFavourities(houses: favouriteHouses)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
+                self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
                     print("finished")
@@ -72,8 +76,28 @@ final class SearchModel {
                 }
             }, receiveValue: { _ in })
             .store(in: &cancellables)
+    }
     
-//        housesService.editFavouriteHouses(for id: String)
+    func updateHouses(with model: UpdateHouseFavouriteParameterRequestModel, houseId: String) {
+        isLoadingSubject.send(true)
+        housesService.update(house: model, houseId: houseId)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                self.isLoadingSubject.send(false)
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                }
+            }, receiveValue: { [unowned self] updatedHouse in
+                guard let index =  housesSubject.value.firstIndex(where: {$0.id == updatedHouse.id}) else {
+                    return
+                }
+                housesSubject.value.remove(at: index)
+                housesSubject.value.insert(updatedHouse, at: index)
+            })
+            .store(in: &cancellables)
     }
 
     func updateSearchFilters() {
@@ -181,7 +205,7 @@ final class SearchModel {
                 case .finished:
                     break
                 case let .failure(error):
-                    print(error.localizedDescription)
+                    debugPrint(error.localizedDescription)
                 }
             }, receiveValue: { [unowned self] data in
                 NetworkLogger.log(data: data)

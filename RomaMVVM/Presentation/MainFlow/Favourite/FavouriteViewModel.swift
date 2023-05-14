@@ -59,6 +59,7 @@ final class FavouriteViewModel: BaseViewModel {
         switch item {
         case .photo(let house):
             self.favouriteHousesSubject.value.removeAll(where: {$0.id == house.id})
+        
         }
     }
 }

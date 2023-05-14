@@ -39,7 +39,7 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                 case .fromSelectViewTransition(let screen):
                     viewModel.moveTo(screen)
                 case .onCellHeartButtonPublisher(selectedItem: let selectedItem):
-                    viewModel.addToFavourities(item: selectedItem)
+                    viewModel.editToFavourites(item: selectedItem)
                 }
             }
             .store(in: &cancellables)

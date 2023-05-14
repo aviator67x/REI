@@ -14,7 +14,6 @@ enum UserEndPoint: Endpoint {
     case update(user: UpdateUserRequestModel)
     case saveToFavourities(houses: [String], userId: String)
     case getFavouriteHouses(userId: String)
-    case syncronize
     
     var queries: HTTPQueries {
         switch self {
@@ -22,8 +21,6 @@ enum UserEndPoint: Endpoint {
             return [:]
         case .getFavouriteHouses:
             return ["loadRelations":"favouriteHouses"]
-        case .syncronize:
-            return [:]
         }
     }
 
@@ -41,8 +38,6 @@ enum UserEndPoint: Endpoint {
             return "/data/users/\(userId)/favouriteHouses:Houses:n"
         case .getFavouriteHouses(let userId):
             return "/data/users/\(userId)"
-        case .syncronize:
-            return "/data/Users"
         }
     }
 
@@ -50,7 +45,7 @@ enum UserEndPoint: Endpoint {
         switch self {
         case .deleteUser:
             return .delete
-        case .logOut, .getFavouriteHouses, .syncronize:
+        case .logOut, .getFavouriteHouses:
             return .get
         case .addAvatar:
             return .post
@@ -72,14 +67,14 @@ enum UserEndPoint: Endpoint {
             return [:]
         case .update:
             return ["Content-Type": "text/plain"]
-        case .saveToFavourities, .getFavouriteHouses, .syncronize:
+        case .saveToFavourities, .getFavouriteHouses:
             return ["Content-Type": "application/json"]
         }
     }
 
     var body: RequestBody? {
         switch self {
-        case .deleteUser, .logOut, .getFavouriteHouses, .syncronize:
+        case .deleteUser, .logOut, .getFavouriteHouses:
             return nil
         case .addAvatar(image: let image):
             return .multipartBody(image)

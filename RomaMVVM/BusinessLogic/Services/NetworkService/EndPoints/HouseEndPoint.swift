@@ -10,6 +10,7 @@ import Foundation
 enum HouseEndPoint: Endpoint {
     case getHouses(pageSize: Int, skip: Int)
     case filter(with: [SearchParam])
+    case update(house: UpdateHouseFavouriteParameterRequestModel, houseId: String)
 
     var queries: HTTPQueries {
         switch self {
@@ -17,6 +18,8 @@ enum HouseEndPoint: Endpoint {
             return buildQuery(pageSize: pageSize, skip: skip) ?? [:]
         case let .filter(searchParams):
             return buildQuery(searchParams: searchParams) ?? [:]
+        case .update:
+            return [:]
         }
     }
 
@@ -24,6 +27,8 @@ enum HouseEndPoint: Endpoint {
         switch self {
         case .getHouses, .filter:
             return "/data/Houses"
+        case .update(house: _, let houseId):
+           return "/data/Houses/\(houseId)"
         }
     }
 
@@ -31,20 +36,24 @@ enum HouseEndPoint: Endpoint {
         switch self {
         case .getHouses, .filter:
             return .get
+        case .update:
+            return .put
         }
     }
 
     var headers: HTTPHeaders {
         switch self {
-        case .getHouses, .filter:
+        case .getHouses, .filter, .update:
             return ["Content-Type": "application/json"]
         }
     }
-
+    
     var body: RequestBody? {
         switch self {
         case .getHouses, .filter:
             return nil
+        case .update(house: let house, _):
+            return .encodable(house)
         }
     }
     

@@ -56,7 +56,6 @@ final class UserServiceImpl: UserService {
         self.tokenStorageService = tokenStorageService
         self.userNetworkService = userNetworkService
         startUserValueSubject()
-        syncronizeUser()
     }
 
     func startUserValueSubject() {
@@ -100,38 +99,6 @@ final class UserServiceImpl: UserService {
             return nil
         }
         return user
-    }
-    
-    func syncronizeUser() {
-        guard let userId = user?.id else {
-            return
-        }
-        return userNetworkService.getFavouriteHouses(userId: userId)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    debugPrint(error.localizedDescription)}
-            }, receiveValue: { [unowned self] user in
-                                let domainUser = UserDomainModel(networkModel: user)
-                                save(user: domainUser)
-                            })
-//        return userNetworkService.syncronizeUser()
-//            .mapError { UserServiceError.networking($0)}
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    break
-//                case .failure(let error):
-//                    debugPrint(error.localizedDescription)
-//                }
-//            }, receiveValue: { [unowned self] user in
-//                let domainUser = UserDomainModel(networkModel: user)
-//                save(user: domainUser)
-//            })
-            .store(in: &cancellables)
-                
     }
 
     func saveAvatar(image: Data) -> AnyPublisher<Void, UserServiceError> {

@@ -21,7 +21,7 @@ final class SearchResultsViewModel: BaseViewModel {
     private(set) lazy var resultViewModelPublisher = resultViewModelSubject.eraseToAnyPublisher()
     private lazy var resultViewModelSubject = CurrentValueSubject<ResultViewModel?, Never>(nil)
 
-    private lazy var houses = CurrentValueSubject<[HouseDomainModel], Never>([])
+    private lazy var housesSubject = CurrentValueSubject<[HouseDomainModel], Never>([])
 
     init(model: SearchModel) {
         self.model = model
@@ -36,11 +36,11 @@ final class SearchResultsViewModel: BaseViewModel {
     private func setupBinding() {
         model.housesPublisher
             .sinkWeakly(self, receiveValue: { (self, houses) in
-                self.houses.value = houses
+                self.housesSubject.value = houses
             })
             .store(in: &cancellables)
 
-        houses
+        housesSubject
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.createDataSource()
             })
@@ -72,15 +72,23 @@ final class SearchResultsViewModel: BaseViewModel {
 
 // MARK: - extension
 extension SearchResultsViewModel {
-    func addToFavourities(item: SearchResultsItem) {
+    func editToFavourites(item: SearchResultsItem) {
         switch item {
         case let .photo(house):
             let id = house.id ?? ""
-            model.editFavouritiesHouses(with: id)
+            var isFavourite = house.isFavourite
+            isFavourite.toggle()
+            model.editFavouriteHouses(with: id)
+            let houseRequestModel = UpdateHouseFavouriteParameterRequestModel(isFavourite: isFavourite)
+            model.updateHouses(with: houseRequestModel, houseId: id)
 
         case let .list(house):
             let id = house.id ?? ""
-            model.editFavouritiesHouses(with: id)
+            var isFavourite = house.isFavourite
+            isFavourite.toggle()
+            model.editFavouriteHouses(with: id)
+            let houseRequestModel = UpdateHouseFavouriteParameterRequestModel(isFavourite: isFavourite)
+            model.updateHouses(with: houseRequestModel, houseId: id)
 
         case .main, .map:
             break
@@ -114,21 +122,21 @@ extension SearchResultsViewModel {
     func createDataSource() {
         switch screenState {
         case .photo:
-            let items = houses.value
+            let items = housesSubject.value
                 .map { PhotoCellModel(data: $0) }
                 .map { SearchResultsItem.photo($0) }
             let section = SearchResultsCollection(section: .photo, items: items)
             sectionsSubject.value = [section]
 
         case .list:
-            let mainViewItem = houses.value
+            let mainViewItem = housesSubject.value
                 .map { MainCellModel(data: $0) }
                 .map { SearchResultsItem.main($0) }
                 .randomElement()
             guard let item = mainViewItem else { return }
             let manViewSection = SearchResultsCollection(section: .main, items: [item])
 
-            let items = houses.value
+            let items = housesSubject.value
                 .map { ListCellModel(data: $0) }
                 .map { SearchResultsItem.list($0) }
             let listSection = SearchResultsCollection(section: .list, items: items)
