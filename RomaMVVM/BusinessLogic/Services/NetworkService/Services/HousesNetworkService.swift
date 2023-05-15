@@ -11,7 +11,6 @@ import Foundation
 protocol HousesNetworkService {
     func getHouses(pageSize: Int, skip: Int) -> AnyPublisher<[HouseResponseModel], NetworkError>
     func searchHouses(with parameters: [SearchParam]) -> AnyPublisher<[HouseResponseModel], NetworkError>
-    func updateHouse(_ updateHouseRequestModel: UpdateHouseFavouriteParameterRequestModel, houseId: String) -> AnyPublisher<HouseResponseModel, NetworkError>
 }
 
 final class HousesNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == HouseEndPoint {
@@ -29,9 +28,5 @@ extension HousesNetworkServiceImpl: HousesNetworkService {
 
     func searchHouses(with parameters: [SearchParam]) -> AnyPublisher<[HouseResponseModel], NetworkError> {
         return housesProvider.execute(endpoint: .filter(with: parameters))
-    }
-
-    func updateHouse(_ updateHouseRequestModel: UpdateHouseFavouriteParameterRequestModel, houseId: String) -> AnyPublisher<HouseResponseModel, NetworkError> {
-        return housesProvider.execute(endpoint: .update(house: updateHouseRequestModel, houseId: houseId))
     }
 }

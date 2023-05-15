@@ -8,6 +8,6 @@
 import Foundation
 
 struct DistanceCellModel: Hashable {
-   let distance: Distance
-    var isSelected: Bool = false
+    let distance: Distance
+    var isSelected = false
 }

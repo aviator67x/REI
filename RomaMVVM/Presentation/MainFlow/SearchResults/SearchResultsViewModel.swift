@@ -23,17 +23,28 @@ final class SearchResultsViewModel: BaseViewModel {
 
     private lazy var housesSubject = CurrentValueSubject<[HouseDomainModel], Never>([])
 
+    private lazy var favouriteIdsSubject = CurrentValueSubject<[String], Never>([])
+
     init(model: SearchModel) {
         self.model = model
     }
 
     override func onViewDidLoad() {
         loadHouses()
-        getFavouriteHouses()
         setupBinding()
     }
 
+    override func onViewWillAppear() {
+        getFavouriteHouses()
+    }
+
     private func setupBinding() {
+        model.favouriteHousesIdPublisher
+            .sinkWeakly(self, receiveValue: { (self, favouriteIds) in
+                self.favouriteIdsSubject.value = favouriteIds
+            })
+            .store(in: &cancellables)
+
         model.housesPublisher
             .sinkWeakly(self, receiveValue: { (self, houses) in
                 self.housesSubject.value = houses
@@ -76,19 +87,11 @@ extension SearchResultsViewModel {
         switch item {
         case let .photo(house):
             let id = house.id ?? ""
-            var isFavourite = house.isFavourite
-            isFavourite.toggle()
             model.editFavouriteHouses(with: id)
-            let houseRequestModel = UpdateHouseFavouriteParameterRequestModel(isFavourite: isFavourite)
-            model.updateHouses(with: houseRequestModel, houseId: id)
 
         case let .list(house):
             let id = house.id ?? ""
-            var isFavourite = house.isFavourite
-            isFavourite.toggle()
             model.editFavouriteHouses(with: id)
-            let houseRequestModel = UpdateHouseFavouriteParameterRequestModel(isFavourite: isFavourite)
-            model.updateHouses(with: houseRequestModel, houseId: id)
 
         case .main, .map:
             break
@@ -123,7 +126,12 @@ extension SearchResultsViewModel {
         switch screenState {
         case .photo:
             let items = housesSubject.value
-                .map { PhotoCellModel(data: $0) }
+                .map { if favouriteIdsSubject.value.contains($0.id) {
+                    return PhotoCellModel(data: $0, isFavourite: true)
+                } else {
+                    return PhotoCellModel(data: $0, isFavourite: false)
+                }
+                }
                 .map { SearchResultsItem.photo($0) }
             let section = SearchResultsCollection(section: .photo, items: items)
             sectionsSubject.value = [section]

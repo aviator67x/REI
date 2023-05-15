@@ -18,10 +18,10 @@ final class FavouriteViewModel: BaseViewModel {
     private(set) lazy var favouriteHousesPublisher = favouriteHousesSubject.eraseToAnyPublisher()
     private lazy var favouriteHousesSubject = CurrentValueSubject<[HouseDomainModel], Never>([])
 
-    private let userService: UserService
+    private let model: SearchModel
 
-    init(userService: UserService) {
-        self.userService = userService
+    init(model: SearchModel) {
+        self.model = model
         super.init()
     }
 
@@ -30,7 +30,8 @@ final class FavouriteViewModel: BaseViewModel {
     }
     
     override func onViewWillAppear() {
-        guard let favouriteHouses = userService.user?.favouriteHouses else {
+        guard let favouriteHouses =
+                model.favouriteHouses() else {
             return
         }
         favouriteHousesSubject.value = favouriteHouses
@@ -58,8 +59,13 @@ final class FavouriteViewModel: BaseViewModel {
     func deleteItem(_ item: FavouriteItem) {
         switch item {
         case .photo(let house):
-            self.favouriteHousesSubject.value.removeAll(where: {$0.id == house.id})
-        
+            guard let id = house.id else {
+                return
+            }
+            self.favouriteHousesSubject.value.removeAll(where: {$0.id == id})
+            var isFavourite = house.isFavourite
+            isFavourite.toggle()
+            model.editFavouriteHouses(with: id)
         }
     }
 }

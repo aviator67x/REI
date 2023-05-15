@@ -31,7 +31,7 @@ struct ListCellModel: Hashable {
         self.isFavourite = isFavourite
     }
     
-    init(data: HouseDomainModel) {
+    init(data: HouseDomainModel, isFavourite: Bool = false) {
         self.id = data.id
         self.image = data.images.first
         self.street = data.street
@@ -40,7 +40,7 @@ struct ListCellModel: Hashable {
         self.square = data.square
         self.numberOfRooms = "\(data.roomsNumber)"
         self.price = data.price
-        self.isFavourite = data.isFavourite
+        self.isFavourite = isFavourite
     }
     
     static func == (lhs: ListCellModel, rhs: ListCellModel) -> Bool {

@@ -16,7 +16,6 @@ enum HousesServiceError: Error {
 protocol HousesService {
     func getHouses(pageSize: Int, offset: Int) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func searchHouses(_ parameters: [SearchParam]) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
-    func update(house: UpdateHouseFavouriteParameterRequestModel, houseId: String) -> AnyPublisher<HouseDomainModel, HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
@@ -40,15 +39,6 @@ final class HousesServiceImpl: HousesService {
             .mapError { HousesServiceError.networking($0) }
             .map { value -> [HouseDomainModel] in
                 value.map { HouseDomainModel(model: $0) }
-            }
-            .eraseToAnyPublisher()
-    }
-
-    func update(house: UpdateHouseFavouriteParameterRequestModel, houseId: String) -> AnyPublisher<HouseDomainModel, HousesServiceError> {
-        return housesNetworkService.updateHouse(house, houseId: houseId)
-            .mapError { HousesServiceError.networking($0) }
-            .map { house in
-                HouseDomainModel(model: house)
             }
             .eraseToAnyPublisher()
     }

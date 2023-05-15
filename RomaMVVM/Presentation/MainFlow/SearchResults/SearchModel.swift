@@ -25,14 +25,15 @@ final class SearchModel {
 
     private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
     private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
+        
+    private(set) lazy var favouriteHousesIdPublisher = favouriteHousesIdSubject.eraseToAnyPublisher()
+    private lazy var favouriteHousesIdSubject = CurrentValueSubject<[String], Never>([])
 
     private var isPaginationInProgress = false
     private var hasMoreToLoad = true
     private var offset = 0
     private var pageSize = 5
     private var housesCount = 0
-
-    private var favouriteHouses: [String] = []
 
     init(housesService: HousesService, userService: UserService) {
         self.housesService = housesService
@@ -50,53 +51,35 @@ final class SearchModel {
 
     func getFavouriteHouses() {
         userService.user?.favouriteHouses?.forEach { house in
-            favouriteHouses.append(house.id)
+            favouriteHousesIdSubject.value.append(house.id)
         }
     }
 
+    func favouriteHouses() -> [HouseDomainModel]? {
+        return userService.user?.favouriteHouses
+    }
+
     func editFavouriteHouses(with id: String) {
-        if favouriteHouses.contains(id) {
-            guard let index = favouriteHouses.firstIndex(of: id) else {
+        if favouriteHousesIdSubject.value.contains(id) {
+            guard let index = favouriteHousesIdSubject.value.firstIndex(of: id) else {
                 return
             }
-            favouriteHouses.remove(at: index)
+            favouriteHousesIdSubject.value.remove(at: index)
         } else {
-            favouriteHouses.append(id)
-        }        
+            favouriteHousesIdSubject.value.append(id)
+        }
         isLoadingSubject.send(true)
-        userService.addToFavourities(houses: favouriteHouses)
+        userService.addToFavourities(houses: favouriteHousesIdSubject.value)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
-                    print("finished")
+                    debugPrint("finished")
                 case let .failure(error):
                     debugPrint(error.localizedDescription)
                 }
             }, receiveValue: { _ in })
-            .store(in: &cancellables)
-    }
-    
-    func updateHouses(with model: UpdateHouseFavouriteParameterRequestModel, houseId: String) {
-        isLoadingSubject.send(true)
-        housesService.update(house: model, houseId: houseId)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                self.isLoadingSubject.send(false)
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    debugPrint(error.localizedDescription)
-                }
-            }, receiveValue: { [unowned self] updatedHouse in
-                guard let index =  housesSubject.value.firstIndex(where: {$0.id == updatedHouse.id}) else {
-                    return
-                }
-                housesSubject.value.remove(at: index)
-                housesSubject.value.insert(updatedHouse, at: index)
-            })
             .store(in: &cancellables)
     }
 
@@ -190,7 +173,7 @@ final class SearchModel {
     }
 
     func loadHouses() {
-        guard !isPaginationInProgress//,
+        guard !isPaginationInProgress // ,
 //              hasMoreToLoad
         else {
             return
