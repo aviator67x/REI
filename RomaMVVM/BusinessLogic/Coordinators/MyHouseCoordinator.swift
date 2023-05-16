@@ -31,14 +31,18 @@ final class MyHouseCoordinator: Coordinator {
         let module = MyHouseModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
-                moveToAdCreating()
+                switch transition {
+                case .moveToAdCreating:
+                    moveToAdCreating()
+                }         
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
     }
     
     private func moveToAdCreating() {
-        
+        let adModule = AdCreatingModuleBuilder.build(container: container)
+       push(adModule.viewController)
     }
 }
 

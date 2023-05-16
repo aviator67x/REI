@@ -66,6 +66,11 @@
 		CE02BD692A12BA71007AD3C7 /* AdCreatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD652A12BA71007AD3C7 /* AdCreatingViewController.swift */; };
 		CE02BD6A2A12BA71007AD3C7 /* AdCreatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD662A12BA71007AD3C7 /* AdCreatingView.swift */; };
 		CE02BD6B2A12BA71007AD3C7 /* AdCreatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD672A12BA71007AD3C7 /* AdCreatingViewModel.swift */; };
+		CE02BD6F2A13DFCD007AD3C7 /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD6E2A13DFCD007AD3C7 /* AddressCell.swift */; };
+		CE02BD722A140290007AD3C7 /* AdCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD712A140290007AD3C7 /* AdCollectionModel.swift */; };
+		CE02BD742A1404B3007AD3C7 /* PropertyTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD732A1404B3007AD3C7 /* PropertyTypeCell.swift */; };
+		CE02BD762A14051A007AD3C7 /* YearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD752A14051A007AD3C7 /* YearCell.swift */; };
+		CE02BD782A140576007AD3C7 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD772A140576007AD3C7 /* PictureCell.swift */; };
 		CE0E27AF29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AB29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift */; };
 		CE0E27B029CE1DA9001EDFCD /* SearchFiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AC29CE1DA9001EDFCD /* SearchFiltersViewController.swift */; };
 		CE0E27B129CE1DA9001EDFCD /* SearchFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AD29CE1DA9001EDFCD /* SearchFiltersView.swift */; };
@@ -295,6 +300,11 @@
 		CE02BD652A12BA71007AD3C7 /* AdCreatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingViewController.swift; sourceTree = "<group>"; };
 		CE02BD662A12BA71007AD3C7 /* AdCreatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingView.swift; sourceTree = "<group>"; };
 		CE02BD672A12BA71007AD3C7 /* AdCreatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingViewModel.swift; sourceTree = "<group>"; };
+		CE02BD6E2A13DFCD007AD3C7 /* AddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
+		CE02BD712A140290007AD3C7 /* AdCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCollectionModel.swift; sourceTree = "<group>"; };
+		CE02BD732A1404B3007AD3C7 /* PropertyTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTypeCell.swift; sourceTree = "<group>"; };
+		CE02BD752A14051A007AD3C7 /* YearCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCell.swift; sourceTree = "<group>"; };
+		CE02BD772A140576007AD3C7 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
 		CE0E27AB29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersModuleBuilder.swift; sourceTree = "<group>"; };
 		CE0E27AC29CE1DA9001EDFCD /* SearchFiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersViewController.swift; sourceTree = "<group>"; };
 		CE0E27AD29CE1DA9001EDFCD /* SearchFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersView.swift; sourceTree = "<group>"; };
@@ -763,8 +773,29 @@
 				CE02BD652A12BA71007AD3C7 /* AdCreatingViewController.swift */,
 				CE02BD662A12BA71007AD3C7 /* AdCreatingView.swift */,
 				CE02BD672A12BA71007AD3C7 /* AdCreatingViewModel.swift */,
+				CE02BD702A14026C007AD3C7 /* Models */,
+				CE02BD6D2A13DFA7007AD3C7 /* Subviews */,
 			);
 			path = AdCreating;
+			sourceTree = "<group>";
+		};
+		CE02BD6D2A13DFA7007AD3C7 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				CE02BD6E2A13DFCD007AD3C7 /* AddressCell.swift */,
+				CE02BD732A1404B3007AD3C7 /* PropertyTypeCell.swift */,
+				CE02BD752A14051A007AD3C7 /* YearCell.swift */,
+				CE02BD772A140576007AD3C7 /* PictureCell.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		CE02BD702A14026C007AD3C7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE02BD712A140290007AD3C7 /* AdCollectionModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		CE0E27AA29CE1D90001EDFCD /* SearchFilters */ = {
@@ -1329,6 +1360,7 @@
 				CEA5B72A29B0A2060038A29C /* Publisher+Assign.swift in Sources */,
 				CE0E27C329D43D8F001EDFCD /* TypeCell.swift in Sources */,
 				CE990E8229CA1A7100120D6F /* ButtonCell.swift in Sources */,
+				CE02BD6F2A13DFCD007AD3C7 /* AddressCell.swift in Sources */,
 				CEAEB9EF29ACA6B1005BBF50 /* PasswordRestoreViewModel.swift in Sources */,
 				CEAA10EB29DDBA5200340401 /* SearchResultsViewController.swift in Sources */,
 				3F262958B2CE34CD77EC9A8D /* AppEnvironment.swift in Sources */,
@@ -1412,6 +1444,7 @@
 				16D96EFFF06F84700B92B20F /* LoadingView.swift in Sources */,
 				CE1E2DDC2A0B92B200328EAF /* DistanceCellModel.swift in Sources */,
 				CE990E9729CB623100120D6F /* EditProfileViewModel.swift in Sources */,
+				CE02BD762A14051A007AD3C7 /* YearCell.swift in Sources */,
 				CEE2DE6529F2A17F0029AFF8 /* SearchResultViewModelResultViewModel.swift in Sources */,
 				CE0E27BF29D43D06001EDFCD /* HeaderView.swift in Sources */,
 				CEDDF29E29D6FA27003BF639 /* SearchFiltersCollection.swift in Sources */,
@@ -1441,6 +1474,8 @@
 				CE13E3BF29DC81FF00B948C9 /* PlainCell.swift in Sources */,
 				CEE2DE5D29F18CC70029AFF8 /* Plugin.swift in Sources */,
 				FE1FD4B33EFBF38BB3F20858 /* SettingsCoordinator.swift in Sources */,
+				CE02BD782A140576007AD3C7 /* PictureCell.swift in Sources */,
+				CE02BD742A1404B3007AD3C7 /* PropertyTypeCell.swift in Sources */,
 				0F42C83C9EF50CE2D9816660 /* SettingsModuleBuilder.swift in Sources */,
 				CE1E2DDA2A09817700328EAF /* URLRequest+curl.swift in Sources */,
 				CEA545F2297820A3007F9962 /* TextField.swift in Sources */,
@@ -1454,6 +1489,7 @@
 				CE5CCEBA29FAB09F007972CB /* FavouriteModuleBuilder.swift in Sources */,
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
 				CE13E3AC29DAFE5600B948C9 /* SearchFiltersDetailedViewController.swift in Sources */,
+				CE02BD722A140290007AD3C7 /* AdCollectionModel.swift in Sources */,
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,
 				CEE2DE6B29F3174B0029AFF8 /* ListCell.swift in Sources */,
 				1F2825C6E85F4B0D9F8DAC85 /* SignInModuleBuilder.swift in Sources */,

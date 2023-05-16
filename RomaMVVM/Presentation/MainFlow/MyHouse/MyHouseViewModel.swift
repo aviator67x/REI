@@ -16,7 +16,7 @@ final class MyHouseViewModel: BaseViewModel {
         super.init()
     }
     
-    func moveToNextScreen() {
-//        transitionSubject.send(.moveToAddress)
+    func moveToNextAd() {
+        transitionSubject.send(.moveToAdCreating)
     }
 }

@@ -30,10 +30,12 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
-        let vm = MyHouseViewModel()
-        let vc = MyHouseViewController(viewModel: vm)
+//        let vm = MyHouseViewModel()
+//        let vc = MyHouseViewController(viewModel: vm)
+        let vm = AdCreatingViewModel()
+        let vc = AdCreatingViewController(viewModel: vm)
         
-        window.rootViewController = navigationController
+        window.rootViewController = vc//navigationController
         window.makeKeyAndVisible()
 
 //        container.userService.clearAccessToken()

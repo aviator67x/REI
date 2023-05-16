@@ -27,7 +27,7 @@ final class MyHouseViewController: BaseViewController<MyHouseViewModel> {
             .sink { [unowned self] action in
                 switch action {
                 case .buttonDidTap:
-                   break
+                    viewModel.moveToNextAd()
                 }
             }
             .store(in: &cancellables)
