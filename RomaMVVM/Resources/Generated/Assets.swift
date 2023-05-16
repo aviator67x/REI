@@ -40,6 +40,7 @@ internal enum Assets {
   internal static let fourRight = ImageAsset(name: "fourRight")
   internal static let girl = ImageAsset(name: "girl")
   internal static let heartFill = ImageAsset(name: "heart.fill")
+  internal static let house = ImageAsset(name: "house")
   internal static let messageMF = ImageAsset(name: "messageMF")
   internal static let moreButton = ImageAsset(name: "moreButton")
   internal static let woman = ImageAsset(name: "woman")

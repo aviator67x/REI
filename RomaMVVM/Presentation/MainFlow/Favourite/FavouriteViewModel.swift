@@ -63,8 +63,6 @@ final class FavouriteViewModel: BaseViewModel {
                 return
             }
             self.favouriteHousesSubject.value.removeAll(where: {$0.id == id})
-            var isFavourite = house.isFavourite
-            isFavourite.toggle()
             model.editFavouriteHouses(with: id)
         }
     }

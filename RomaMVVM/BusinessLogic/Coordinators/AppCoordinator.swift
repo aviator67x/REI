@@ -30,6 +30,9 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
+        let vm = MyHouseViewModel()
+        let vc = MyHouseViewController(viewModel: vm)
+        
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
 

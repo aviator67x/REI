@@ -62,6 +62,10 @@
 		BC83B275D377DACEB60714C8 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BB6B90CE54A3FB9463DD52 /* SignInView.swift */; };
 		C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B987BF6DF71C9B592152ADD5 /* MainTabBarViewController.swift */; };
 		CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F16D0E37163C320B0E6859 /* UIView+Constraints.swift */; };
+		CE02BD682A12BA71007AD3C7 /* AdCreatingModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD642A12BA71007AD3C7 /* AdCreatingModuleBuilder.swift */; };
+		CE02BD692A12BA71007AD3C7 /* AdCreatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD652A12BA71007AD3C7 /* AdCreatingViewController.swift */; };
+		CE02BD6A2A12BA71007AD3C7 /* AdCreatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD662A12BA71007AD3C7 /* AdCreatingView.swift */; };
+		CE02BD6B2A12BA71007AD3C7 /* AdCreatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD672A12BA71007AD3C7 /* AdCreatingViewModel.swift */; };
 		CE0E27AF29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AB29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift */; };
 		CE0E27B029CE1DA9001EDFCD /* SearchFiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AC29CE1DA9001EDFCD /* SearchFiltersViewController.swift */; };
 		CE0E27B129CE1DA9001EDFCD /* SearchFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AD29CE1DA9001EDFCD /* SearchFiltersView.swift */; };
@@ -287,6 +291,10 @@
 		CA3BC08D121DE730EFC08F65 /* Config-STG.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-STG.xcconfig"; sourceTree = "<group>"; };
 		CA51E79F6908337E1B14DE70 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		CDC26BABD5C06A4C5B789348 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		CE02BD642A12BA71007AD3C7 /* AdCreatingModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingModuleBuilder.swift; sourceTree = "<group>"; };
+		CE02BD652A12BA71007AD3C7 /* AdCreatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingViewController.swift; sourceTree = "<group>"; };
+		CE02BD662A12BA71007AD3C7 /* AdCreatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingView.swift; sourceTree = "<group>"; };
+		CE02BD672A12BA71007AD3C7 /* AdCreatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingViewModel.swift; sourceTree = "<group>"; };
 		CE0E27AB29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersModuleBuilder.swift; sourceTree = "<group>"; };
 		CE0E27AC29CE1DA9001EDFCD /* SearchFiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersViewController.swift; sourceTree = "<group>"; };
 		CE0E27AD29CE1DA9001EDFCD /* SearchFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersView.swift; sourceTree = "<group>"; };
@@ -748,6 +756,17 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		CE02BD6C2A12BA82007AD3C7 /* AdCreating */ = {
+			isa = PBXGroup;
+			children = (
+				CE02BD642A12BA71007AD3C7 /* AdCreatingModuleBuilder.swift */,
+				CE02BD652A12BA71007AD3C7 /* AdCreatingViewController.swift */,
+				CE02BD662A12BA71007AD3C7 /* AdCreatingView.swift */,
+				CE02BD672A12BA71007AD3C7 /* AdCreatingViewModel.swift */,
+			);
+			path = AdCreating;
+			sourceTree = "<group>";
+		};
 		CE0E27AA29CE1D90001EDFCD /* SearchFilters */ = {
 			isa = PBXGroup;
 			children = (
@@ -1076,6 +1095,7 @@
 				CE13E3A629DAFDE100B948C9 /* SeaechFiltersDetailed */,
 				CE5CCEBE29FAE6B3007972CB /* Favourite */,
 				CE5CCEBF29FAE782007972CB /* MyHouse */,
+				CE02BD6C2A12BA82007AD3C7 /* AdCreating */,
 			);
 			path = MainFlow;
 			sourceTree = "<group>";
@@ -1299,6 +1319,7 @@
 				82CC8E4ECAA1B873DDFB95AB /* AppDelegate.swift in Sources */,
 				CE13E3AE29DAFE5600B948C9 /* SearchFiltersDetailedViewModel.swift in Sources */,
 				CEAA10F029DDBC5600340401 /* PhotoCell.swift in Sources */,
+				CE02BD6A2A12BA71007AD3C7 /* AdCreatingView.swift in Sources */,
 				CEE2DE6929F30B310029AFF8 /* MainCell.swift in Sources */,
 				CEAEB9E129AAA49B005BBF50 /* UserModels.swift in Sources */,
 				CEAA10ED29DDBA5200340401 /* SearchResultsViewModel.swift in Sources */,
@@ -1345,6 +1366,7 @@
 				4E49AFA694CC28CA8EB3D441 /* AxisScrollView.swift in Sources */,
 				5143110F52CB4AE108E6832F /* BaseView.swift in Sources */,
 				CE5CCEC529FAE7A6007972CB /* MyHouseViewController.swift in Sources */,
+				CE02BD6B2A12BA71007AD3C7 /* AdCreatingViewModel.swift in Sources */,
 				CEA545F0297820A3007F9962 /* TextFieldView.swift in Sources */,
 				CE1E2DDE2A0B933300328EAF /* PropertyTypeCellModel.swift in Sources */,
 				CEE2DE7329F66C550029AFF8 /* SearchResultsScreenState.swift in Sources */,
@@ -1377,6 +1399,7 @@
 				CEA2A86729E9D1B400395817 /* SearchModel.swift in Sources */,
 				CEAEB9E429AAA57E005BBF50 /* UserNetworkService.swift in Sources */,
 				CEAEB9EC29ACA6B1005BBF50 /* PasswordRestoreModuleBuilder.swift in Sources */,
+				CE02BD692A12BA71007AD3C7 /* AdCreatingViewController.swift in Sources */,
 				CE1E2DE02A0B9FF700328EAF /* NumberOfRoomsCellModel.swift in Sources */,
 				CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */,
 				E8A38D357261F60F542286DF /* FavouriteCoordinator.swift in Sources */,
@@ -1446,6 +1469,7 @@
 				62A24654EC339481A9A42790 /* SignInViewModel.swift in Sources */,
 				36F21C3E89939F36F60109C7 /* SignUpModuleBuilder.swift in Sources */,
 				D34253F8086536BA886A792C /* SignUpView.swift in Sources */,
+				CE02BD682A12BA71007AD3C7 /* AdCreatingModuleBuilder.swift in Sources */,
 				7DAA912435CD1FA23F2A86CD /* SignUpViewController.swift in Sources */,
 				CEE2DE6729F2AA820029AFF8 /* SelectView.swift in Sources */,
 				CE31637E29F94A2000E8A6B0 /* SelectScreenTransition.swift in Sources */,

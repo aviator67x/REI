@@ -13,10 +13,8 @@ final class SignInViewModel: BaseViewModel {
     private let transitionSubject = PassthroughSubject<SignInTransition, Never>()
 
     private let authService: AuthNetworkService
-    private let userService: UserService
+    private var userService: UserService
 
-//    @Published var email = ""
-//    private(set) lazy var emailPublisher = emailSubject.eraseToAnyPublisher()
     private let emailSubject = CurrentValueSubject<String, Never>("")
 
     @Published var password = ""

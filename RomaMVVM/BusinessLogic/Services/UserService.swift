@@ -20,6 +20,7 @@ protocol UserService {
     var user: UserDomainModel? { get }
     var userPublisher: AnyPublisher<UserDomainModel?, Never> { get }
     var isAuthorized: Bool { get }
+    var isFirstLoading: Bool { get set }
     var tokenStorageService: TokenStorageService { get }
 
     func logout() -> AnyPublisher<Void, UserServiceError>
@@ -28,6 +29,7 @@ protocol UserService {
     func getUser() -> UserDomainModel?
     func saveAvatar(image: Data) -> AnyPublisher<Void, UserServiceError>
     func addToFavourities(houses: [String]) -> AnyPublisher<Void, UserServiceError>
+    func getFavouriteHouses() -> AnyPublisher<Void, UserServiceError>
 }
 
 final class UserServiceImpl: UserService {
@@ -40,6 +42,16 @@ final class UserServiceImpl: UserService {
       
     private let userNetworkService: UserNetworkService
     private let userDefaults = UserDefaults.standard
+    
+    var isFirstLoading: Bool {
+            get {
+                guard let obj = UserDefaults.standard.object(forKey: "isFirstLoading") else {
+                    return true
+                }
+                return obj as! Bool
+            }
+            set { UserDefaults.standard.set(newValue, forKey: "isFirstLoading") }
+        }
 
     var user: UserDomainModel? {
         userValueSubject.value
@@ -55,6 +67,10 @@ final class UserServiceImpl: UserService {
     ) {
         self.tokenStorageService = tokenStorageService
         self.userNetworkService = userNetworkService
+        if isFirstLoading {
+            tokenStorageService.clearAccessToken()
+            isFirstLoading = false
+        }
         startUserValueSubject()
     }
 
@@ -138,19 +154,36 @@ final class UserServiceImpl: UserService {
     }
     
     func addToFavourities(houses: [String]) -> AnyPublisher<Void, UserServiceError> {
-        let userId = self.user?.id ?? ""
+        guard let userId = user?.id else {
+           return Fail(error: UserServiceError.noUser)
+                .eraseToAnyPublisher()
+        }
         return userNetworkService.saveHouseToFavourities(houses: houses, userId: userId)
-            .mapError { UserServiceError.networking($0) }
-            .flatMap { [unowned self] number -> Publishers.MapError<AnyPublisher<UpdateUserResponseModel, NetworkError>, UserServiceError> in
+            .flatMap { [unowned self] _ -> AnyPublisher<UpdateUserResponseModel, NetworkError> in
                return self.userNetworkService.getFavouriteHouses(userId: userId)
-                    .mapError { UserServiceError.networking($0) }
             }
+            .mapError { UserServiceError.networking($0) }
             .handleEvents(receiveOutput: { [unowned self] updatedUser in
                 let domainUser = UserDomainModel(networkModel: updatedUser)
                save(user: domainUser)
             })
             .map { _ in}
             .eraseToAnyPublisher()
+    }
+    
+    func getFavouriteHouses() -> AnyPublisher<Void, UserServiceError> {
+        guard let userId = user?.id else {
+            return Fail(error: UserServiceError.noUser)
+                .eraseToAnyPublisher()
+        }
+      return  userNetworkService.getFavouriteHouses(userId: userId)
+            .mapError { UserServiceError.networking($0)}
+             .handleEvents(receiveOutput: { [unowned self] user in
+                let userModel = UserDomainModel(networkModel: user)
+                save(user: userModel)
+            })
+             .map { _ in}
+             .eraseToAnyPublisher()
     }
 }
 

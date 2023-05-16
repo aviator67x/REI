@@ -108,6 +108,7 @@ final class SignInView: BaseView {
         logoView.image = UIImage(named: "loggogo")
 
         emailTextField.placeholder = Localization.email
+        emailTextField.text = "superMegaJamesBond@mi6.co.u"
 
         emailErrorMessageLabel.text = ""
         emailErrorMessageLabel.font = UIFont(name: "SFProText-Regular", size: 13)
@@ -115,7 +116,7 @@ final class SignInView: BaseView {
         emailErrorMessageLabel.numberOfLines = 0
 
         passwordTextField.placeholder = Localization.password
-        passwordTextField.text = "supe3rs3cre3"
+        passwordTextField.text = "Jame"
 
         passwordErrorMessageLabel.text = ""
         passwordErrorMessageLabel.font = UIFont(name: "SFProText-Regular", size: 13)

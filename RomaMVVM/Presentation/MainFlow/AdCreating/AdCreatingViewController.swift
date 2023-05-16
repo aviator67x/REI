@@ -1,15 +1,15 @@
 //
-//  MyHouseViewController.swift
+//  AdCreatingViewController.swift
 //  RomaMVVM
 //
-//  Created by User on 27.04.2023.
+//  Created by User on 15.05.2023.
 //
 
 import UIKit
 
-final class MyHouseViewController: BaseViewController<MyHouseViewModel> {
+final class AdCreatingViewController: BaseViewController<AdCreatingViewModel> {
     // MARK: - Views
-    private let contentView = MyHouseView()
+    private let contentView = AdCreatingView()
     
     // MARK: - Lifecycle
     override func loadView() {
@@ -18,7 +18,8 @@ final class MyHouseViewController: BaseViewController<MyHouseViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "MyHouse"
+        self.tabBarController?.tabBar.isHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
         setupBindings()
     }
 
@@ -26,8 +27,8 @@ final class MyHouseViewController: BaseViewController<MyHouseViewModel> {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .buttonDidTap:
-                   break
+                case .crossDidTap:
+                    break
                 }
             }
             .store(in: &cancellables)

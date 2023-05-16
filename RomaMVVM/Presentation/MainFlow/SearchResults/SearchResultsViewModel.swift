@@ -35,13 +35,14 @@ final class SearchResultsViewModel: BaseViewModel {
     }
 
     override func onViewWillAppear() {
-        getFavouriteHouses()
+        model.getFavouriteHouses()
     }
 
     private func setupBinding() {
         model.favouriteHousesIdPublisher
             .sinkWeakly(self, receiveValue: { (self, favouriteIds) in
                 self.favouriteIdsSubject.value = favouriteIds
+                self.createDataSource()
             })
             .store(in: &cancellables)
 
@@ -97,6 +98,10 @@ extension SearchResultsViewModel {
             break
         }
     }
+    
+    func loadHouses() {
+        model.loadHouses()
+    }
 
     func moveTo(_ screen: SelectViewAction) {
         switch screen {
@@ -112,14 +117,6 @@ extension SearchResultsViewModel {
     func setScreenState(_ state: SearchResultsScreenState) {
         screenState = state
         createDataSource()
-    }
-
-    func loadHouses() {
-        model.loadHouses()
-    }
-
-    func getFavouriteHouses() {
-        model.getFavouriteHouses()
     }
 
     func createDataSource() {

@@ -38,6 +38,7 @@ final class SearchModel {
     init(housesService: HousesService, userService: UserService) {
         self.housesService = housesService
         self.userService = userService
+    
         setupBinding()
     }
 
@@ -50,9 +51,23 @@ final class SearchModel {
     }
 
     func getFavouriteHouses() {
-        userService.user?.favouriteHouses?.forEach { house in
-            favouriteHousesIdSubject.value.append(house.id)
-        }
+        var ids: [String] = []
+        isLoadingSubject.send(true)
+        userService.getFavouriteHouses()
+            .receive(on: DispatchQueue.main)
+            .sinkWeakly(self, receiveCompletion: { (self, completion) in
+                self.isLoadingSubject.send(false)
+                switch completion {
+                case .finished:
+                    self.userService.user?.favouriteHouses?.forEach { house in
+                        ids.append(house.id)
+                    }
+                    self.favouriteHousesIdSubject.value = ids
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                }
+            })
+            .store(in: &cancellables)
     }
 
     func favouriteHouses() -> [HouseDomainModel]? {
@@ -60,6 +75,7 @@ final class SearchModel {
     }
 
     func editFavouriteHouses(with id: String) {
+        print(favouriteHousesIdSubject.value)
         if favouriteHousesIdSubject.value.contains(id) {
             guard let index = favouriteHousesIdSubject.value.firstIndex(of: id) else {
                 return
@@ -173,8 +189,8 @@ final class SearchModel {
     }
 
     func loadHouses() {
-        guard !isPaginationInProgress // ,
-//              hasMoreToLoad
+        guard !isPaginationInProgress,
+              hasMoreToLoad
         else {
             return
         }

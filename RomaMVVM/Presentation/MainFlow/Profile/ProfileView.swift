@@ -37,7 +37,7 @@ final class ProfileView: BaseView {
         let sectionProvider =
             { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection
-                var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+                let listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
                 section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
                 return section
             }

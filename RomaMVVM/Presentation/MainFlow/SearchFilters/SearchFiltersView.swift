@@ -248,6 +248,7 @@ final class SearchFiltersView: BaseView {
         resultButton.setTitle("Result", for: .normal)
         resultButton.setTitleColor(.white, for: .normal)
         resultButton.titleLabel?.textAlignment = .center
+        resultButton.layer.cornerRadius = 3
     }
 
     private func setupCollection() {
@@ -333,7 +334,7 @@ extension SearchFiltersView {
                     cell.setupCell(with: cellModel)
                     return cell
                     
-                case var .price(model):
+                case let .price(model):
                     let cell: PriceCell = collection.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(with: model)
                     return cell

@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum MyHouseTransition: Transition {
-    
+    case moveToAdCreating
 }
 
 final class MyHouseModuleBuilder {
