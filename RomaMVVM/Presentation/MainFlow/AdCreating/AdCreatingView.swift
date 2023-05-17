@@ -25,8 +25,9 @@ final class AdCreatingView: BaseView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<AdCreatingViewAction, Never>()
 
-    let layout = UICollectionViewFlowLayout()
-    let dataSourse = AdCollectionDataSource() //: [AdCollectionModel] = [.address, .propertyType, .year, .photo]
+    private let layout = UICollectionViewFlowLayout()
+    private let dataSourse = AdCollectionDataSource()
+    private var currentPage = 0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -96,6 +97,16 @@ final class AdCreatingView: BaseView {
         backButton.titleLabel?.textAlignment = .center
         backButton.layer.cornerRadius = 3
         backButton.bordered(width: 2, color: .gray)
+        let backdAction = UIAction { _ in
+            guard let indexPath = self.collectionView.indexPathsForVisibleItems.first.flatMap({
+                IndexPath(row: $0.row, section: $0.section - 1)
+            }), indexPath.section >= 0 else {
+                return
+            }
+
+            self.collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        }
+        backButton.addAction(backdAction, for: .touchUpInside)
 
         forwardButton.backgroundColor = .orange
         forwardButton.setTitle("Forward", for: .normal)
@@ -103,6 +114,16 @@ final class AdCreatingView: BaseView {
         forwardButton.titleLabel?.textAlignment = .center
         forwardButton.layer.cornerRadius = 3
         forwardButton.bordered(width: 2, color: .gray)
+        let forwardAction = UIAction { _ in
+            guard let indexPath = self.collectionView.indexPathsForVisibleItems.first.flatMap({
+                IndexPath(row: $0.row, section: $0.section + 1)
+            }), indexPath.section <= self.dataSourse.dataSource.count - 1 else {
+                return
+            }
+
+            self.collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        }
+        forwardButton.addAction(forwardAction, for: .touchUpInside)
     }
 
     private func setupLayout() {
@@ -115,7 +136,7 @@ final class AdCreatingView: BaseView {
         addSubview(crossButton) {
             $0.centerY.equalTo(pageControl.snp.centerY)
             $0.trailing.equalToSuperview().inset(16)
-            $0.size.equalTo(100)
+            $0.size.equalTo(40)
         }
         addSubview(collectionView) {
             $0.top.equalTo(pageControl.snp.bottom).offset(20)
@@ -138,6 +159,7 @@ final class AdCreatingView: BaseView {
         forwardButton.snp.makeConstraints {
             $0.height.equalTo(50)
         }
+        backButton.isHidden = currentPage == 0
         stackView.addArrangedSubviews([backButton, forwardButton])
     }
 }
@@ -149,17 +171,17 @@ extension AdCreatingView: UICollectionViewDelegate {
         didEndDisplaying cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath
     ) {
-        if collectionView == collectionView {
-            if pageControl.currentPage == indexPath.section {
-                guard let visible = collectionView.visibleCells.first else {
-                    return
-                }
-                guard let index = collectionView.indexPath(for: visible)?.section else {
-                    return
-                }
-                pageControl.currentPage = index
+            guard let visible = collectionView.visibleCells.first else {
+                return
             }
-        }
+            guard let index = collectionView.indexPath(for: visible)?.section else {
+                return
+            }
+            pageControl.currentPage = index
+            currentPage = index
+
+        backButton.isHidden = currentPage == 0
+        stackView.addArrangedSubviews([backButton, forwardButton])        
     }
 }
 
