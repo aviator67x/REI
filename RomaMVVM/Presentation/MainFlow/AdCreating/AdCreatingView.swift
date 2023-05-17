@@ -26,7 +26,7 @@ final class AdCreatingView: BaseView {
     private let actionSubject = PassthroughSubject<AdCreatingViewAction, Never>()
 
     let layout = UICollectionViewFlowLayout()
-    let dataSourse: [AdCollectionModel] = [.address, .propertyType, .year, .photo]
+    let dataSourse = AdCollectionDataSource() //: [AdCollectionModel] = [.address, .propertyType, .year, .photo]
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,7 +53,7 @@ final class AdCreatingView: BaseView {
 
     private func setupCollectionView() {
         collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionView.dataSource = dataSourse
         collectionView.register(AddressCell.self)
         collectionView.register(PropertyTypeCell.self)
         collectionView.register(YearCell.self)
@@ -143,44 +143,27 @@ final class AdCreatingView: BaseView {
 }
 
 // MARK: - UICollectionViewDataSource
-extension AdCreatingView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
-    }
-
+extension AdCreatingView: UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        let section = dataSourse[indexPath.section]
-        switch section {
-        case .address:
-            let cell: AddressCell = collectionView.dedequeueReusableCell(for: indexPath)
-            return cell
-
-        case .propertyType:
-            let cell: PropertyTypeCell = collectionView.dedequeueReusableCell(for: indexPath)
-            return cell
-            
-        case .year:
-            let cell: YearCell = collectionView.dedequeueReusableCell(for: indexPath)
-            return cell
-            
-        case .photo:
-            let cell: PictureCell = collectionView.dedequeueReusableCell(for: indexPath)
-            return cell
+        didEndDisplaying cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        if collectionView == collectionView {
+            if pageControl.currentPage == indexPath.section {
+                guard let visible = collectionView.visibleCells.first else {
+                    return
+                }
+                guard let index = collectionView.indexPath(for: visible)?.section else {
+                    return
+                }
+                pageControl.currentPage = index
+            }
         }
     }
 }
 
-// MARK: - UICollectionViewDataSource
-extension AdCreatingView: UICollectionViewDelegate {}
-
-// MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDelegateFlowLayout
 extension AdCreatingView: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
