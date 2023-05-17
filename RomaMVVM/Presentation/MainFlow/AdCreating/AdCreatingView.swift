@@ -59,7 +59,8 @@ final class AdCreatingView: BaseView {
         collectionView.register(PropertyTypeCell.self)
         collectionView.register(YearCell.self)
         collectionView.register(PictureCell.self)
-        collectionView.backgroundColor = .red
+        collectionView.isScrollEnabled = false
+        collectionView.showsHorizontalScrollIndicator = false
         layout.scrollDirection = .horizontal
     }
 
@@ -154,10 +155,10 @@ final class AdCreatingView: BaseView {
             $0.bottom.equalToSuperview().inset(100)
         }
         backButton.snp.makeConstraints {
-            $0.height.equalTo(50)
+            $0.height.equalTo(44)
         }
         forwardButton.snp.makeConstraints {
-            $0.height.equalTo(50)
+            $0.height.equalTo(44)
         }
         backButton.isHidden = currentPage == 0
         stackView.addArrangedSubviews([backButton, forwardButton])
