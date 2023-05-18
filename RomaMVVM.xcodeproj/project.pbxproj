@@ -72,6 +72,8 @@
 		CE02BD762A14051A007AD3C7 /* YearCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD752A14051A007AD3C7 /* YearCell.swift */; };
 		CE02BD782A140576007AD3C7 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD772A140576007AD3C7 /* PictureCell.swift */; };
 		CE02BD7A2A14C567007AD3C7 /* AdCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD792A14C567007AD3C7 /* AdCollectionDataSource.swift */; };
+		CE02BD7E2A1602D8007AD3C7 /* AdCreatingRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD7D2A1602D8007AD3C7 /* AdCreatingRequestModel.swift */; };
+		CE02BD802A164C3E007AD3C7 /* AddressCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD7F2A164C3E007AD3C7 /* AddressCellModel.swift */; };
 		CE0E27AF29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AB29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift */; };
 		CE0E27B029CE1DA9001EDFCD /* SearchFiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AC29CE1DA9001EDFCD /* SearchFiltersViewController.swift */; };
 		CE0E27B129CE1DA9001EDFCD /* SearchFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AD29CE1DA9001EDFCD /* SearchFiltersView.swift */; };
@@ -307,6 +309,8 @@
 		CE02BD752A14051A007AD3C7 /* YearCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCell.swift; sourceTree = "<group>"; };
 		CE02BD772A140576007AD3C7 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
 		CE02BD792A14C567007AD3C7 /* AdCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCollectionDataSource.swift; sourceTree = "<group>"; };
+		CE02BD7D2A1602D8007AD3C7 /* AdCreatingRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingRequestModel.swift; sourceTree = "<group>"; };
+		CE02BD7F2A164C3E007AD3C7 /* AddressCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCellModel.swift; sourceTree = "<group>"; };
 		CE0E27AB29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersModuleBuilder.swift; sourceTree = "<group>"; };
 		CE0E27AC29CE1DA9001EDFCD /* SearchFiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersViewController.swift; sourceTree = "<group>"; };
 		CE0E27AD29CE1DA9001EDFCD /* SearchFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersView.swift; sourceTree = "<group>"; };
@@ -797,6 +801,8 @@
 			isa = PBXGroup;
 			children = (
 				CE02BD712A140290007AD3C7 /* AdCollectionModel.swift */,
+				CE02BD7D2A1602D8007AD3C7 /* AdCreatingRequestModel.swift */,
+				CE02BD7F2A164C3E007AD3C7 /* AddressCellModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1492,12 +1498,14 @@
 				03EA4466B3EA6DF4583F862E /* SettingsViewController.swift in Sources */,
 				CE5CCEBA29FAB09F007972CB /* FavouriteModuleBuilder.swift in Sources */,
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
+				CE02BD7E2A1602D8007AD3C7 /* AdCreatingRequestModel.swift in Sources */,
 				CE13E3AC29DAFE5600B948C9 /* SearchFiltersDetailedViewController.swift in Sources */,
 				CE02BD722A140290007AD3C7 /* AdCollectionModel.swift in Sources */,
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,
 				CEE2DE6B29F3174B0029AFF8 /* ListCell.swift in Sources */,
 				1F2825C6E85F4B0D9F8DAC85 /* SignInModuleBuilder.swift in Sources */,
 				CEAEB9ED29ACA6B1005BBF50 /* PasswordRestoreViewController.swift in Sources */,
+				CE02BD802A164C3E007AD3C7 /* AddressCellModel.swift in Sources */,
 				CE5CCEBB29FAB09F007972CB /* FavouriteViewController.swift in Sources */,
 				CE5CCEC429FAE7A5007972CB /* MyHouseModuleBuilder.swift in Sources */,
 				BC83B275D377DACEB60714C8 /* SignInView.swift in Sources */,

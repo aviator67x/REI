@@ -10,6 +10,9 @@ import UIKit
 
 enum AdCreatingViewAction {
     case crossDidTap
+    case ort(String)
+    case street(String)
+    case house(String)
 }
 
 final class AdCreatingView: BaseView {
@@ -50,7 +53,20 @@ final class AdCreatingView: BaseView {
         bindActions()
     }
 
-    private func bindActions() {}
+    private func bindActions() {
+        dataSourse.actionPublisher
+            .sinkWeakly(self, receiveValue: { (self, value) in
+                switch value {
+                case .ort(let ort):
+                    self.actionSubject.send(.ort(ort))
+                case .street(let street):
+                    self.actionSubject.send(.street(street))
+                case .house(let house):
+                    self.actionSubject.send(.house(house))
+                }
+            })
+            .store(in: &cancellables)
+    }
 
     private func setupCollectionView() {
         collectionView.delegate = self
@@ -165,7 +181,18 @@ final class AdCreatingView: BaseView {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - extension
+extension AdCreatingView {
+    func showValidationLabel(_ model: AddressCellModel) {
+        self.dataSourse.updateDataSource(with: model)
+        DispatchQueue.main.async{
+            let indexSet = IndexSet(integer: 0)
+            self.collectionView.reloadSections(indexSet)
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegate
 extension AdCreatingView: UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,

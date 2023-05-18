@@ -29,8 +29,21 @@ final class AdCreatingViewController: BaseViewController<AdCreatingViewModel> {
                 switch action {
                 case .crossDidTap:
                     break
+                case .ort(let ort):
+                    viewModel.updateOrt(ort: ort)
+                case .street(let street):
+                    viewModel.updateStreet(street: street)
+                case .house(let house):
+                    viewModel.updateHouse(house: house)
                 }
             }
+            .store(in: &cancellables)
+        
+        viewModel.validationPublisher
+            .receive(on: DispatchQueue.main)
+            .sinkWeakly(self, receiveValue: { (self, model) in
+                self.contentView.showValidationLabel(model)
+            })
             .store(in: &cancellables)
     }
 }
