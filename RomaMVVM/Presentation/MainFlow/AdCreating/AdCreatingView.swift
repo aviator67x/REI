@@ -13,6 +13,12 @@ enum AdCreatingViewAction {
     case ort(String)
     case street(String)
     case house(String)
+    
+    case onTypeTap
+    case onNumberTap
+    case onYearTap
+    case onGarageTap
+    case onDistanceTap
 }
 
 final class AdCreatingView: BaseView {
@@ -63,6 +69,16 @@ final class AdCreatingView: BaseView {
                     self.actionSubject.send(.street(street))
                 case .house(let house):
                     self.actionSubject.send(.house(house))
+                case .onTypeTap:
+                    self.actionSubject.send(.onTypeTap)
+                case .onNumberTap:
+                    self.actionSubject.send(.onNumberTap)
+                case .onYearTap:
+                    self.actionSubject.send(.onYearTap)
+                case .onGarageTap:
+                    self.actionSubject.send(.onGarageTap)
+                case .onDistanceTap:
+                    self.actionSubject.send(.onDistanceTap)
                 }
             })
             .store(in: &cancellables)

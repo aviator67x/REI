@@ -13,6 +13,12 @@ enum AdCollectionDataSourceAction {
     case ort(String)
     case street(String)
     case house(String)
+    
+    case onTypeTap
+    case onNumberTap
+    case onYearTap
+    case onGarageTap
+    case onDistanceTap
 }
 
 final class AdCollectionDataSource: NSObject, UICollectionViewDataSource {
@@ -60,6 +66,22 @@ final class AdCollectionDataSource: NSObject, UICollectionViewDataSource {
 
         case .propertyType:
             let cell: PropertyTypeCell = collectionView.dedequeueReusableCell(for: indexPath)
+            cell.actionPublisher
+                .sinkWeakly(self, receiveValue: { [self] (self, value) in
+                    switch value {
+                    case .onTypeTap:
+                        actionSubject.send(.onTypeTap)
+                    case .onNumberTap:
+                        actionSubject.send(.onNumberTap)
+                    case .onYearTap:
+                        actionSubject.send(.onYearTap)
+                    case .onGarageTap:
+                        actionSubject.send(.onGarageTap)
+                    case .onDistanceTap:
+                        actionSubject.send(.onDistanceTap)
+                    }
+                })
+                .store(in: &cell.cancellables)
             return cell
 
         case .year:

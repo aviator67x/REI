@@ -17,15 +17,18 @@ enum AddressCellAction {
 
 final class AddressCell: UICollectionViewCell {
     private let titleLabel = UILabel()
-    private let ortLabel = UILabel()
     private let stackView = UIStackView()
+    private let ortLabel = UILabel()
     private let ortTextField = UITextField()
+    private let ortMessageLabel = UILabel()
     private let ortStackView = UIStackView()
     private let streetLabel = UILabel()
     private let streetTextField = UITextField()
+    private let streetMessageLabel = UILabel()
     private let streetStackView = UIStackView()
     private let houseLabel = UILabel()
     private let houseTextField = UITextField()
+    private let houseMessageLabel = UILabel()
     private let houseStackView = UIStackView()
     private let validationView = UIView()
     private let validationLabel = UILabel()
@@ -42,7 +45,7 @@ final class AddressCell: UICollectionViewCell {
         setupLayout()
         setupUI()
         setupBinding()
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(endEding))
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
         addGestureRecognizer(recognizer)
     }
 
@@ -52,7 +55,8 @@ final class AddressCell: UICollectionViewCell {
     }
     
     @objc
-    private func endEding() {
+    private func onTap() {
+        self.endEditing(true)
         resignFirstResponder()
     }
 
@@ -61,18 +65,26 @@ final class AddressCell: UICollectionViewCell {
         titleLabel.font = UIFont.systemFont(ofSize: 32)
 
         ortLabel.text = "City"
+        ortMessageLabel.text = "Please, enter your city"
         streetLabel.text = "Street"
+        streetMessageLabel.text = "Please, enter your street"
         houseLabel.text = "House"
+        houseMessageLabel.text = "Please, enter your house number"
+        
+        [ortLabel, streetLabel, houseLabel, validationLabel, ortMessageLabel, streetMessageLabel, houseMessageLabel].forEach { label in
+            label.font = UIFont.systemFont(ofSize: 20)
+            label.numberOfLines = 0
+        }
+        
+        [ortMessageLabel, streetMessageLabel, houseMessageLabel].forEach { label in
+            label.textColor = .red
+        }
 
         [ortStackView, streetStackView, houseStackView].forEach { stackView in
             stackView.axis = .vertical
             stackView.spacing = 10
         }
-
-        [ortLabel, streetLabel, houseLabel, validationLabel].forEach { label in
-            label.font = UIFont.systemFont(ofSize: 20)
-        }
-
+        
         validationLabel.numberOfLines = 0
 
         [ortTextField, streetTextField, houseTextField].forEach { textField in
@@ -96,7 +108,7 @@ final class AddressCell: UICollectionViewCell {
     private func setupLayout() {
         contentView.addSubview(titleLabel) {
             $0.top.equalToSuperview().offset(20)
-            $0.leading.equalToSuperview().inset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
         contentView.addSubview(ortStackView) {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
@@ -109,7 +121,7 @@ final class AddressCell: UICollectionViewCell {
             }
         }
 
-        ortStackView.addArrangedSubviews([ortLabel, ortTextField])
+        ortStackView.addArrangedSubviews([ortLabel, ortTextField, ortMessageLabel])
 
         contentView.addSubview(stackView) {
             $0.top.equalTo(ortStackView.snp.bottom).offset(20)
@@ -117,9 +129,9 @@ final class AddressCell: UICollectionViewCell {
         }
         stackView.addArrangedSubviews([streetStackView, houseStackView])
 
-        streetStackView.addArrangedSubviews([streetLabel, streetTextField])
+        streetStackView.addArrangedSubviews([streetLabel, streetTextField, streetMessageLabel])
 
-        houseStackView.addArrangedSubviews([houseLabel, houseTextField])
+        houseStackView.addArrangedSubviews([houseLabel, houseTextField, houseMessageLabel])
 
         addSubview(validationView) {
             $0.top.equalTo(stackView.snp.bottom).offset(20)
@@ -139,7 +151,7 @@ final class AddressCell: UICollectionViewCell {
     }
 
     private func setupBinding() {
-        ortTextField.publisher(for: \.text)
+        ortTextField.textPublisher //publisher(for: \.text)
             .sinkWeakly(self, receiveValue: { (self, text) in
                 guard let text = text else {
                     return
@@ -148,7 +160,7 @@ final class AddressCell: UICollectionViewCell {
             })
             .store(in: &cancellables)
 
-        streetTextField.publisher(for: \.text)
+        streetTextField.textPublisher//publisher(for: \.text)
             .sinkWeakly(self, receiveValue: { (self, text) in
                 guard let text = text else {
                     return
@@ -157,7 +169,7 @@ final class AddressCell: UICollectionViewCell {
             })
             .store(in: &cancellables)
 
-        houseTextField.publisher(for: \.text)
+        houseTextField.textPublisher//publisher(for: \.text)
             .sinkWeakly(self, receiveValue: { (self, text) in
                 guard let text = text else {
                     return
@@ -181,8 +193,11 @@ final class AddressCell: UICollectionViewCell {
                 return
             }
             ortTextField.text = ort
+            ortMessageLabel.isHidden = ortTextField.text == nil ? false : true
             streetTextField.text = street
+            streetMessageLabel.isHidden = streetTextField.text == nil ? false : true
             houseTextField.text = house
+            houseMessageLabel.isHidden = houseTextField.text == nil ? false : true
 
             validationLabel
                 .text = isAddressValid ? [ort, street, house].joined(separator: " ") :

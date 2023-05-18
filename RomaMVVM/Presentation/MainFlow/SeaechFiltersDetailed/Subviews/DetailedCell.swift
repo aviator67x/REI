@@ -10,7 +10,7 @@ import UIKit
 
 final class DetailedCell: UICollectionViewCell {
     static let identifier = "YearCell"
-    let titleLable = UILabel()
+    private let titleLable = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

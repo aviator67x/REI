@@ -35,6 +35,16 @@ final class AdCreatingViewController: BaseViewController<AdCreatingViewModel> {
                     viewModel.updateStreet(street: street)
                 case .house(let house):
                     viewModel.updateHouse(house: house)
+                case .onTypeTap:
+                    break
+                case .onNumberTap:
+                    break
+                case .onYearTap:
+                    break
+                case .onGarageTap:
+                    break
+                case .onDistanceTap:
+                    break
                 }
             }
             .store(in: &cancellables)
