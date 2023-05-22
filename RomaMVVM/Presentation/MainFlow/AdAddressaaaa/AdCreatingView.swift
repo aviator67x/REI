@@ -199,7 +199,7 @@ final class AdCreatingView: BaseView {
 
 // MARK: - extension
 extension AdCreatingView {
-    func showValidationLabel(_ model: AddressCellModel) {
+    func showValidationLabel(_ model: AddressModel) {
         self.dataSourse.updateDataSource(with: model)
         DispatchQueue.main.async{
             let indexSet = IndexSet(integer: 0)

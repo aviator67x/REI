@@ -13,6 +13,7 @@ struct AdCreatingRequestModel: Hashable {
     }
     var ort: String?
     var street: String?
+    var house: Int?
     var distance: Int?
     var propertyType: String?
     var price: Int?

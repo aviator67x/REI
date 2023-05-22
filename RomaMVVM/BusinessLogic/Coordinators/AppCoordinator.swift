@@ -32,8 +32,10 @@ final class AppCoordinator: Coordinator {
     func start() {
 //        let vm = MyHouseViewModel()
 //        let vc = MyHouseViewController(viewModel: vm)
-        let vm = AdCreatingViewModel()
-        let vc = AdCreatingViewController(viewModel: vm)
+//        let vm = AdCreatingViewModel(model: container.adCreatingModel)
+//        let vc = AdCreatingViewController(viewModel: vm)
+        let vm = AdAddressViewModel(model: container.adCreatingModel)
+        let vc = AdAddressViewController(viewModel: vm)
         
         window.rootViewController = vc//navigationController
         window.makeKeyAndVisible()

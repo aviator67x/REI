@@ -16,9 +16,14 @@ enum HousesServiceError: Error {
 protocol HousesService {
     func getHouses(pageSize: Int, offset: Int) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func searchHouses(_ parameters: [SearchParam]) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
+    func save(house: AdCreatingRequestModel) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
+    func save(house: AdCreatingRequestModel) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
+        return CurrentValueSubject<[HouseDomainModel], HousesServiceError>([]).eraseToAnyPublisher()
+    }
+    
     private let housesNetworkService: HousesNetworkService
 
     init(housesNetworkService: HousesNetworkService) {

@@ -15,6 +15,7 @@ protocol AppContainer: AnyObject {
     var userService: UserService { get }
     var appSettingsService: AppSettingsService { get }
     var searchModel: SearchModel { get }
+    var adCreatingModel: AdCreatingModel { get }
     var housesService: HousesService { get }
 }
 
@@ -24,20 +25,21 @@ final class AppContainerImpl: AppContainer {
     let userService: UserService
     let appSettingsService: AppSettingsService
     let searchModel: SearchModel
+    let adCreatingModel: AdCreatingModel
     let housesService: HousesService
 
     init() {
         let appConfiguration = AppConfigurationImpl()
         self.appConfiguration = appConfiguration
-        
+
         let appSettingsService = AppSettingsServiceImpl()
         self.appSettingsService = appSettingsService
-        
+
         let keychainService = Keychain(service: appConfiguration.bundleId)
         let tokenStorageService = TokenStorageServiceImpl(keychain: keychainService)
         let tokenPlugin = TokenPlugin(tokenStorage: tokenStorageService)
         let networkManagerImpl = NetworkManagerImpl(session: URLSession.shared)
-        
+
         let authNetworkServiceProvider = NetworkServiceProviderImpl<AuthEndPoint>(
             baseURLStorage: appConfiguration,
             networkManager: networkManagerImpl,
@@ -60,16 +62,18 @@ final class AppContainerImpl: AppContainer {
             userNetworkService: userNetworkService
         )
         self.userService = userService
-        
+
         let housesNetworkServiceProvider =
             NetworkServiceProviderImpl<HouseEndPoint>(
                 baseURLStorage: appConfiguration,
                 networkManager: networkManagerImpl,
                 encoder: JSONEncoder(),
-                decoder: JSONDecoder()        
-            )        
+                decoder: JSONDecoder()
+            )
         let housesNetworkService = HousesNetworkServiceImpl(housesProvider: housesNetworkServiceProvider)
         self.housesService = HousesServiceImpl(housesNetworkService: housesNetworkService)
+
+        self.adCreatingModel = AdCreatingModel(housesService: housesService)
 
         self.searchModel = SearchModel(housesService: housesService, userService: userService)
     }

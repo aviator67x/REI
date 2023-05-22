@@ -47,6 +47,7 @@ struct HouseResponseModel: Decodable {
     let livingArea: Int
     let square: Int
     let street: String
+    let house: Int
     let propertyType: String
     let roomsNumber: Int
     let price: Int

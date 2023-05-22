@@ -8,7 +8,7 @@
 import Foundation
 
 enum AdCollectionModel {
-    case address(model: AddressCellModel)
+    case address(model: AddressModel)
     case propertyType
     case year
     case photo

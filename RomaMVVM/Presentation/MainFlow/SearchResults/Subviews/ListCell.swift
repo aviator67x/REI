@@ -89,7 +89,7 @@ final class ListCell: UICollectionViewListCell {
     
     func setupCell(_ model: ListCellModel) {
         imageView.kf.setImage(with: model.image, placeholder: UIImage(systemName: "house.lodge.circle"))
-        streetLabel.text = model.street
+        streetLabel.text = [model.street, String(model.house)].joined(separator: " ")
         ortLabel.text = model.ort
         
         let fullString = NSMutableAttributedString(string: "")

@@ -17,6 +17,7 @@ final class HouseDomainModel: Codable {
     let livingArea: Int
     let square: Int
     let street: String
+    let house: Int
     let propertyType: String
     let roomsNumber: Int
     let price: Int
@@ -31,6 +32,7 @@ final class HouseDomainModel: Codable {
         livingArea: Int,
         square: Int,
         street: String,
+        house: Int,
         propertyType: String,
         roomsNumber: Int,
         price: Int
@@ -44,6 +46,7 @@ final class HouseDomainModel: Codable {
         self.livingArea = livingArea
         self.square = square
         self.street = street
+        self.house = house
         self.propertyType = propertyType
         self.roomsNumber = roomsNumber
         self.price = price
@@ -59,6 +62,7 @@ final class HouseDomainModel: Codable {
         self.livingArea = model.livingArea
         self.square = model.square
         self.street = model.street
+        self.house = model.house
         self.propertyType = model.propertyType
         self.roomsNumber = model.roomsNumber
         self.price = model.price

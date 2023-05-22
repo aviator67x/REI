@@ -17,6 +17,6 @@ final class MyHouseViewModel: BaseViewModel {
     }
     
     func moveToNextAd() {
-        transitionSubject.send(.moveToAdCreating)
+        transitionSubject.send(.moveToAdAddress)
     }
 }

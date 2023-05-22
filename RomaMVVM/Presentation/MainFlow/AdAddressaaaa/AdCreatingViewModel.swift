@@ -14,17 +14,19 @@ final class AdCreatingViewModel: BaseViewModel {
     private(set) lazy var adCreatingPublisher = adCreatingRequetSubject.eraseToAnyPublisher()
     private lazy var adCreatingRequetSubject = CurrentValueSubject<AdCreatingRequestModel, Never>(.init())
     
+    private let model: AdCreatingModel
+    
     private var ort = ""
     private var street = ""
     private var house = ""
     
     private(set) lazy var validationPublisher = validationSubject.eraseToAnyPublisher()
-    private lazy var validationSubject = PassthroughSubject<AddressCellModel, Never>()
+    private lazy var validationSubject = PassthroughSubject<AddressModel, Never>()
     
-    private var addressCellModel = AddressCellModel()
+    private var addressCellModel = AddressModel()
     
-    override init() {
-
+    init(model: AdCreatingModel) {
+        self.model = model
         super.init()
     }
     func updateOrt(ort: String) {

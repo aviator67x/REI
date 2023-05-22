@@ -179,7 +179,7 @@ final class AddressCell: UICollectionViewCell {
             .store(in: &cancellables)
     }
 
-    func setupCell(with model: AddressCellModel) {
+    func setupCell(with model: AddressModel) {
         if model.ort == nil || model.street == nil || model.house == nil {
             validationLabel.text = ""
             checkmarkImageView.isHidden = true

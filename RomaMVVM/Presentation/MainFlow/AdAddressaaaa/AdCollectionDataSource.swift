@@ -29,7 +29,7 @@ final class AdCollectionDataSource: NSObject, UICollectionViewDataSource {
 
     private(set) var dataSource: [AdCollectionModel] = [.address(model: .init()), .propertyType, .year, .photo]
     
-    func updateDataSource(with model: AddressCellModel) {
+    func updateDataSource(with model: AddressModel) {
         self.dataSource = [.address(model: model), .propertyType, .year, .photo]
     }
 
