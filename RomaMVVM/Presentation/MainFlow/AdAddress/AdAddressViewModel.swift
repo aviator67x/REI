@@ -51,10 +51,6 @@ final class AdAddressViewModel: BaseViewModel {
         validateAddress()
     }
 
-    func moveToMyHouse() {
-        transitionSubject.send(.myHouse)
-    }
-
     private func validateAddress() {
         guard let ort = validationSubject.value.ort,
               let street = validationSubject.value.street,
@@ -64,7 +60,8 @@ final class AdAddressViewModel: BaseViewModel {
         }
         let validationText = [ort, street, house].joined(separator: " ")
         validationSubject.value.isValid = validationText == "Kharkiv Khreschatik 21" ? true : false
-        guard let houseInt = Int(house) else {
+        guard let houseInt = Int(house),
+        validationSubject.value.isValid else {
             return
         }
         model.updateAdCreatingRequestModel(
@@ -72,5 +69,13 @@ final class AdAddressViewModel: BaseViewModel {
             street: street,
             house: houseInt
         )
+    }
+    
+    func moveToMyHouse() {
+        transitionSubject.send(.myHouse)
+    }
+    
+    func moveToAdDetails() {        
+        transitionSubject.send(.adDetails(model: self.model))
     }
 }

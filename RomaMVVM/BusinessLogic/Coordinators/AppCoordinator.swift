@@ -34,10 +34,12 @@ final class AppCoordinator: Coordinator {
 //        let vc = MyHouseViewController(viewModel: vm)
 //        let vm = AdCreatingViewModel(model: container.adCreatingModel)
 //        let vc = AdCreatingViewController(viewModel: vm)
-        let vm = AdAddressViewModel(model: container.adCreatingModel)
-        let vc = AdAddressViewController(viewModel: vm)
+//        let vm = AdAddressViewModel(model: container.adCreatingModel)
+//        let vc = AdAddressViewController(viewModel: vm)
+//        let vm = AdDetailsViewModel()
+//        let vc = AdDetailsViewController(viewModel: vm)
         
-        window.rootViewController = vc//navigationController
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
 
 //        container.userService.clearAccessToken()

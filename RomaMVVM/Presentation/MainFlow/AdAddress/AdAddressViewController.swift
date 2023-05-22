@@ -30,7 +30,7 @@ final class AdAddressViewController: BaseViewController<AdAddressViewModel> {
                 case .crossDidTap:
                     viewModel.moveToMyHouse()
                 case .forwardDidTap:
-                    break
+                    viewModel.moveToAdDetails()
                 case .ort(let text):
                     viewModel.validateOrt(text)
                 case .street(let text):

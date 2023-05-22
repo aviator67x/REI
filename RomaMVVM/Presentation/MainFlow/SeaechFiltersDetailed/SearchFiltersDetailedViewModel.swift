@@ -15,12 +15,10 @@ final class SearchFiltersDetailedViewModel: BaseViewModel {
     private let popDetailedSubject = PassthroughSubject<Bool, Never>()
 
     @Published private(set) var sections: [SearchFiltersDetailedCollection] = []
-//    @Published var requestModel: SearchRequestModel
     let model: SearchModel
     var screenState: SearchFiltersDetailedScreenState
 
    init(model: SearchModel, screenState: SearchFiltersDetailedScreenState) {
-//        self.requestModel = requestModel
        self.model = model
        self.screenState = screenState
         super.init()
