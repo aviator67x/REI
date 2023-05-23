@@ -32,7 +32,7 @@ final class SearchModel {
     private var isPaginationInProgress = false
     private var hasMoreToLoad = true
     private var offset = 0
-    private var pageSize = 5
+    private var pageSize = 1
     private var housesCount = 0
 
     init(housesService: HousesService, userService: UserService) {

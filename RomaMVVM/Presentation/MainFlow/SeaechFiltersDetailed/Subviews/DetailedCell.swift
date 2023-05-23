@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 final class DetailedCell: UICollectionViewCell {
-    static let identifier = "YearCell"
     private let titleLable = UILabel()
 
     override init(frame: CGRect) {

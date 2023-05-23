@@ -47,7 +47,7 @@ final class MyHouseCoordinator: Coordinator {
                 switch transition {
                 case .myHouse:
                     self.pop()
-                case .adDetails(let model):
+                case let .adDetails(model):
                     self.adDetails(model: model)
                 }
             })
@@ -62,21 +62,78 @@ final class MyHouseCoordinator: Coordinator {
                 switch trainsition {
                 case .back:
                     self.pop()
-                case .type(let model, let state):
-                    self.type(model: model, screenState: state)
-                case .number:
-                    break
-                case .year:
-                    break
-                case .garage:
-                    break
+
+                case let .type(model, state):
+                    self.type(
+                        model: model,
+                        screenState: state
+                    )
+
+                case let .number(model, state):
+                    self.number(
+                        model: model,
+                        screenState: state
+                    )
+
+                case let .year(model, state):
+                    self.year(
+                        model: model,
+                        screenState: state
+                    )
+
+                case let .garage(model, state):
+                    self.garage(
+                        model: model,
+                        screenState: state
+                    )
+                case .popScreen:
+                    self.pop()
                 }
             })
             .store(in: &cancellables)
         push(module.viewController)
     }
-    
+
     private func type(model: AdCreatingModel, screenState: AdMultiDetailsScreenState) {
+        let module = AdMultiDetailsModuleBuilder.build(container: container, model: model, screenState: screenState)
+        module.transitionPublisher
+            .sinkWeakly(self, receiveValue: { (self, transition) in
+                switch transition {
+                case .popScreen:
+                    self.pop()
+                }
+            })
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+
+    private func number(model: AdCreatingModel, screenState: AdMultiDetailsScreenState) {
+        let module = AdMultiDetailsModuleBuilder.build(container: container, model: model, screenState: screenState)
+        module.transitionPublisher
+            .sinkWeakly(self, receiveValue: { (self, transition) in
+                switch transition {
+                case .popScreen:
+                    self.pop()
+                }
+            })
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+
+    private func year(model: AdCreatingModel, screenState: AdMultiDetailsScreenState) {
+        let module = AdMultiDetailsModuleBuilder.build(container: container, model: model, screenState: screenState)
+        module.transitionPublisher
+            .sinkWeakly(self, receiveValue: { (self, transition) in
+                switch transition {
+                case .popScreen:
+                    self.pop()
+                }
+            })
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+
+    private func garage(model: AdCreatingModel, screenState: AdMultiDetailsScreenState) {
         let module = AdMultiDetailsModuleBuilder.build(container: container, model: model, screenState: screenState)
         module.transitionPublisher
             .sinkWeakly(self, receiveValue: { (self, transition) in

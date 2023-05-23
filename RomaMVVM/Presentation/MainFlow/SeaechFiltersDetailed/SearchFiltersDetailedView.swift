@@ -52,7 +52,7 @@ final class SearchFiltersDetailedView: BaseView {
     }
     
     private func setupCollection() {
-        collection.register(DetailedCell.self, forCellWithReuseIdentifier: DetailedCell.identifier)
+        collection.register(DetailedCell.self)
         setupDataSource()
     }
 
@@ -105,14 +105,13 @@ extension SearchFiltersDetailedView {
     func setupDataSource() {
         dataSource = UICollectionViewDiffableDataSource<SearchFiltersDetailedSection, SearchFiltersDetailedItem>(collectionView: collection, cellProvider: {
             collectionView, indexPath, item -> UICollectionViewCell in
+            let cell: DetailedCell = collectionView.dedequeueReusableCell(for: indexPath)
             switch item {
             case .plainYear(let year):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
                 cell.setupCell(yearTitle: year)
                 return cell
                 
             case .plainGarage(let garage):
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailedCell.identifier, for: indexPath) as? DetailedCell else { return UICollectionViewCell()}
                 cell.setupCell(garageTitle: garage)
                 return cell
             }

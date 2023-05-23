@@ -35,6 +35,8 @@ final class AdDetailsViewController: BaseViewController<AdDetailsViewModel> {
                     viewModel.moveToYear()
                 case .onGarageTap:
                     viewModel.moveToGarage()
+                case .crossDidTap:
+                    viewModel.popScreen()
                 }
             }
             .store(in: &cancellables)

@@ -9,6 +9,7 @@ import Combine
 import UIKit
 
 enum AdDetailsViewAction {
+    case crossDidTap
     case onBackTap
     case onTypeTap
     case onNumberTap
@@ -52,6 +53,12 @@ final class AdDetailsView: BaseView {
     }
 
     private func bindActions() {
+        crossButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.actionSubject.send(.crossDidTap)
+            })
+            .store(in: &cancellables)
+        
         backButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.actionSubject.send(.onBackTap)
@@ -93,6 +100,15 @@ final class AdDetailsView: BaseView {
         pageControl.currentPageIndicatorTintColor = .orange
         addressLabel.text = "Kharkiv Khreschatik 21"
         addressLabel.font = UIFont.systemFont(ofSize: 20)
+        
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(
+            systemName: "multiply",
+            withConfiguration: UIImage.SymbolConfiguration(scale: .large)
+        )
+        crossButton.configuration = config
+        crossButton.imageView?.clipsToBounds = true
+        crossButton.tintColor = .gray
 
         titleLabel.text = "What about other details?"
         titleLabel.font = UIFont.systemFont(ofSize: 32)
@@ -112,6 +128,8 @@ final class AdDetailsView: BaseView {
 
         stackView.axis = .vertical
         stackView.spacing = 10
+        
+        lineView.backgroundColor = .gray
 
         buttonStackView.axis = .horizontal
         buttonStackView.alignment = .center

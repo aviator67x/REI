@@ -5,12 +5,13 @@
 //  Created by User on 22.05.2023.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 enum AdMultiDetailsViewAction {
     case onBackTap
-case selectedItem(AdMultiDetailsItem)
+    case year(Int)
+    case selectedItem(AdMultiDetailsItem)
 }
 
 final class AdMultiDetailsView: BaseView {
@@ -20,7 +21,7 @@ final class AdMultiDetailsView: BaseView {
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<AdMultiDetailsViewAction, Never>()
-    
+
     var dataSource: UICollectionViewDiffableDataSource<AdMultiDetailsSection, AdMultiDetailsItem>?
 
     override init(frame: CGRect) {
@@ -28,6 +29,7 @@ final class AdMultiDetailsView: BaseView {
         initialSetup()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -39,7 +41,7 @@ final class AdMultiDetailsView: BaseView {
         setupUI()
         bindActions()
     }
-    
+
     private func createCollection() -> UICollectionView {
         var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         configuration.backgroundColor = .white
@@ -50,9 +52,10 @@ final class AdMultiDetailsView: BaseView {
 
         return collection
     }
-    
+
     private func setupCollection() {
         collectionView.register(DetailedCell.self)
+        collectionView.register(YearPickerCell.self)
         setupDataSource()
     }
 
@@ -62,18 +65,19 @@ final class AdMultiDetailsView: BaseView {
                 self.actionSubject.send(.onBackTap)
             })
             .store(in: &cancellables)
-        
+
         collectionView.didSelectItemPublisher
-            .compactMap {self.dataSource?.itemIdentifier(for: $0)}
-            .map {AdMultiDetailsViewAction.selectedItem($0)}
+            .compactMap { self.dataSource?.itemIdentifier(for: $0) }
+            .map { AdMultiDetailsViewAction.selectedItem($0) }
             .sink { [unowned self] in
-                actionSubject.send($0)}
+                actionSubject.send($0)
+            }
             .store(in: &cancellables)
     }
 
     private func setupUI() {
         backgroundColor = .white
-        
+
         var config = UIButton.Configuration.plain()
         config.image = UIImage(
             systemName: "multiply",
@@ -90,7 +94,7 @@ final class AdMultiDetailsView: BaseView {
             $0.trailing.equalToSuperview().inset(16)
             $0.size.equalTo(40)
         }
-        
+
         addSubview(collectionView) {
             $0.top.equalTo(crossButton.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
@@ -99,8 +103,7 @@ final class AdMultiDetailsView: BaseView {
 }
 
 // MARK: - View constants
-private enum Constant {
-}
+private enum Constant {}
 
 // MARK: - extensions
 extension AdMultiDetailsView {
@@ -112,39 +115,47 @@ extension AdMultiDetailsView {
         }
         dataSource?.apply(snapshot)
     }
-    
+
     func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<AdMultiDetailsSection, AdMultiDetailsItem>(collectionView: collectionView, cellProvider: {
+        dataSource = UICollectionViewDiffableDataSource<
+            AdMultiDetailsSection,
+            AdMultiDetailsItem
+        >(collectionView: collectionView, cellProvider: {
             collectionView, indexPath, item -> UICollectionViewCell in
             let cell: DetailedCell = collectionView.dedequeueReusableCell(for: indexPath)
             switch item {
-            case .year(let year):
-                cell.setupCell(yearTitle: year)
-                return cell
-                
-            case .garage(let garage):
+            case let .garage(garage):
                 cell.setupCell(garageTitle: garage)
                 return cell
-                
-            case .type(let type):
+
+            case let .type(type):
                 cell.setupCell(typeTitle: type)
                 return cell
-                
-            case .number(let number):
+
+            case let .number(number):
                 cell.setupCell(numberTitle: number)
+                return cell
+            case .yearPicker:
+                let cell: YearPickerCell = collectionView.dedequeueReusableCell(for: indexPath)
+                cell.actionPublisher
+                    .sinkWeakly(self, receiveValue: { (self, value) in
+                        switch value {
+                        case .yearPicker(let year):
+                            self.actionSubject.send(.year(year))
+                        }
+                    })
+                    .store(in: &cell.cancellables)
                 return cell
             }
         })
     }
 }
 
-
 #if DEBUG
-import SwiftUI
-struct AdMultiDetailsPreview: PreviewProvider {
-    
-    static var previews: some View {
-        ViewRepresentable(AdMultiDetailsView())
+    import SwiftUI
+    struct AdMultiDetailsPreview: PreviewProvider {
+        static var previews: some View {
+            ViewRepresentable(AdMultiDetailsView())
+        }
     }
-}
 #endif

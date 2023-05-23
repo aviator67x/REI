@@ -17,21 +17,21 @@ enum AdMultiDetailsSection: Hashable {
 }
 
 enum AdMultiDetailsItem: Hashable {
-    case year(PeriodOfBuilding)
     case garage(Garage)
     case type(PropertyType)
     case number(NumberOfRooms)
+    case yearPicker(Int)
 
     func hash(into hasher: inout Hasher) {
         switch self {
-        case let .year(value):
-            hasher.combine(value)
         case let .garage(value):
             hasher.combine(value)
         case let .type(type):
             hasher.combine(type)
         case let .number(number):
             hasher.combine(number)
+        case let .yearPicker(year):
+            hasher.combine(year)
         }
     }
 }

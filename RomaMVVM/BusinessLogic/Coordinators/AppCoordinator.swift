@@ -30,8 +30,8 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
-//        let vm = AdMultiDetailsViewModel(model: container.adCreatingModel, screenState: .garage)
-//        let vc = AdMultiDetailsViewController(viewModel: vm)
+        let vm = AdMultiDetailsViewModel(model: container.adCreatingModel, screenState: .year)
+        let vc = AdMultiDetailsViewController(viewModel: vm)
         
         window.rootViewController = navigationController
         window.makeKeyAndVisible()

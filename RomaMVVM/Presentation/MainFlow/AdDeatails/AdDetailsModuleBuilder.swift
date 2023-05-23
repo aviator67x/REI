@@ -14,6 +14,7 @@ enum AdDetailsTransition: Transition {
     case number(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case year(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case garage(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
+    case popScreen
 }
 
 final class AdDetailsModuleBuilder {

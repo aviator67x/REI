@@ -10,7 +10,7 @@ import UIKit
 final class AdMultiDetailsViewController: BaseViewController<AdMultiDetailsViewModel> {
     // MARK: - Views
     private let contentView = AdMultiDetailsView()
-    
+
     // MARK: - Lifecycle
     override func loadView() {
         view = contentView
@@ -25,14 +25,16 @@ final class AdMultiDetailsViewController: BaseViewController<AdMultiDetailsViewM
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .selectedItem(let item):
+                case let .selectedItem(item):
                     viewModel.updateAdCreatingModel(for: item)
                 case .onBackTap:
                     viewModel.popScreen()
+                case let .year(year):
+                    viewModel.updateAdCreatingModel(for: .yearPicker(year))
                 }
             }
             .store(in: &cancellables)
-        
+
         viewModel.sectionsPublisher
             .sinkWeakly(self, receiveValue: { (self, sections) in
                 self.contentView.setupSnapShot(sections: sections)

@@ -36,4 +36,8 @@ final class AdDetailsViewModel: BaseViewModel {
     func moveToGarage() {
         self.transitionSubject.send(.garage(model: model, screenState: .garage))
     }
+    
+    func popScreen() {
+        self.transitionSubject.send(.popScreen)
+    }
 }
