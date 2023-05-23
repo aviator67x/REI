@@ -78,6 +78,14 @@ final class MyHouseCoordinator: Coordinator {
     
     private func type(model: AdCreatingModel, screenState: AdMultiDetailsScreenState) {
         let module = AdMultiDetailsModuleBuilder.build(container: container, model: model, screenState: screenState)
+        module.transitionPublisher
+            .sinkWeakly(self, receiveValue: { (self, transition) in
+                switch transition {
+                case .popScreen:
+                    self.pop()
+                }
+            })
+            .store(in: &cancellables)
         push(module.viewController)
     }
 }

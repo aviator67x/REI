@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct cCollection {
+struct AdMultiDetailsCollection {
     var section: AdMultiDetailsSection
     var items: [AdMultiDetailsItem]
 }

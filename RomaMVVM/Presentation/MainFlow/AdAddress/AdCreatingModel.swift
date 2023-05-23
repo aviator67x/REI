@@ -42,4 +42,17 @@ final class AdCreatingModel {
         adCreatingRequetSubject.value.street = street
         adCreatingRequetSubject.value.house = house
     }
+    
+    func updateAdCreatingRequestModel(with item: AdMultiDetailsItem) {
+        switch item {
+        case .year(let year):
+            adCreatingRequetSubject.value.constructionYear = Int(year.rawValue)
+        case .garage(let garage):
+            adCreatingRequetSubject.value.garage = garage.rawValue
+        case .type(let type):
+            adCreatingRequetSubject.value.propertyType = type.rawValue
+        case .number(let number):
+            adCreatingRequetSubject.value.roomsNumber = number.rawValue
+        }
+    }
 }

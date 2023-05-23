@@ -16,18 +16,29 @@ final class DetailedCell: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor = .white
         setupLayout()
+        setupUI()
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func setupUI() {
+        backgroundColor = .secondarySystemBackground
+        titleLable.bordered(width: 1, color: .black)
+        titleLable.layer.cornerRadius = 3
+        titleLable.font = UIFont.systemFont(ofSize: 18)
+        titleLable.baselineAdjustment = .alignCenters
+        titleLable.textAlignment = .center
+    }
 
     private func setupLayout() {
         contentView.addSubview(titleLable) {
             $0.top.bottom.equalToSuperview().inset(15)
             $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(50)
         }
     }
 
@@ -37,6 +48,14 @@ final class DetailedCell: UICollectionViewCell {
     
     func setupCell(garageTitle: Garage) {
             titleLable.text = String(garageTitle.rawValue)
+    }
+    
+    func setupCell(numberTitle: NumberOfRooms) {
+            titleLable.text = String(numberTitle.rawValue)
+    }
+    
+    func setupCell(typeTitle: PropertyType) {
+            titleLable.text = String(typeTitle.rawValue)
     }
 }
 

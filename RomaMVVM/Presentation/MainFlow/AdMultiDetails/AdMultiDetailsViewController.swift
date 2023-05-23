@@ -25,8 +25,18 @@ final class AdMultiDetailsViewController: BaseViewController<AdMultiDetailsViewM
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
+                case .selectedItem(let item):
+                    viewModel.updateAdCreatingModel(for: item)
+                case .onBackTap:
+                    viewModel.popScreen()
                 }
             }
+            .store(in: &cancellables)
+        
+        viewModel.sectionsPublisher
+            .sinkWeakly(self, receiveValue: { (self, sections) in
+                self.contentView.setupSnapShot(sections: sections)
+            })
             .store(in: &cancellables)
     }
 }

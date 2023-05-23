@@ -127,10 +127,6 @@ final class AdAddressView: BaseView {
         crossButton.configuration = config
         crossButton.imageView?.clipsToBounds = true
         crossButton.tintColor = .gray
-        let action = UIAction { _ in
-            self.actionSubject.send(.crossDidTap)
-        }
-        crossButton.addAction(action, for: .touchUpInside)
 
         titleLabel.text = "What is your address?"
         titleLabel.font = UIFont.systemFont(ofSize: 32)
@@ -198,6 +194,7 @@ final class AdAddressView: BaseView {
             $0.height.equalTo(20)
             $0.width.equalTo(200)
         }
+        
         addSubview(crossButton) {
             $0.centerY.equalTo(pageControl.snp.centerY)
             $0.trailing.equalToSuperview().inset(16)

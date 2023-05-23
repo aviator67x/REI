@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum AdMultiDetailsTransition: Transition {
-    
+    case popScreen
 }
 
 final class AdMultiDetailsModuleBuilder {

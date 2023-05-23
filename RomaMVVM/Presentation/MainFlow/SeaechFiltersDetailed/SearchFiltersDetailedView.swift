@@ -25,7 +25,6 @@ final class SearchFiltersDetailedView: BaseView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        collection = createCollection()
         initialSetup()
     }
 
@@ -34,6 +33,7 @@ final class SearchFiltersDetailedView: BaseView {
     }
 
     private func initialSetup() {
+        collection = createCollection()
         setupLayout()
         setupUI()
         setupCollection()
