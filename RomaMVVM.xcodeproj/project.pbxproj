@@ -118,6 +118,10 @@
 		CE5CCECF29FFF400007972CB /* SquareCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCECE29FFF400007972CB /* SquareCellModel.swift */; };
 		CE5CCED32A042153007972CB /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCED22A042153007972CB /* InfoView.swift */; };
 		CE63F86029D4B0F600268B7E /* UniversalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63F85F29D4B0F600268B7E /* UniversalCell.swift */; };
+		CE6B906E2A1F439E00642B90 /* AdPhotosModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906A2A1F439E00642B90 /* AdPhotosModuleBuilder.swift */; };
+		CE6B906F2A1F439E00642B90 /* AdPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */; };
+		CE6B90702A1F439E00642B90 /* AdPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906C2A1F439E00642B90 /* AdPhotosView.swift */; };
+		CE6B90712A1F439E00642B90 /* AdPhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906D2A1F439E00642B90 /* AdPhotosViewModel.swift */; };
 		CE9430C629C4C20B00FFB94C /* ImageAsset+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C529C4C20B00FFB94C /* ImageAsset+Hashable.swift */; };
 		CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C829C8736400FFB94C /* ProfileModuleBuilder.swift */; };
 		CE9430CD29C8736400FFB94C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C929C8736400FFB94C /* ProfileViewController.swift */; };
@@ -362,6 +366,10 @@
 		CE5CCECE29FFF400007972CB /* SquareCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareCellModel.swift; sourceTree = "<group>"; };
 		CE5CCED22A042153007972CB /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		CE63F85F29D4B0F600268B7E /* UniversalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalCell.swift; sourceTree = "<group>"; };
+		CE6B906A2A1F439E00642B90 /* AdPhotosModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosModuleBuilder.swift; sourceTree = "<group>"; };
+		CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosViewController.swift; sourceTree = "<group>"; };
+		CE6B906C2A1F439E00642B90 /* AdPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosView.swift; sourceTree = "<group>"; };
+		CE6B906D2A1F439E00642B90 /* AdPhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosViewModel.swift; sourceTree = "<group>"; };
 		CE9430C529C4C20B00FFB94C /* ImageAsset+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageAsset+Hashable.swift"; sourceTree = "<group>"; };
 		CE9430C829C8736400FFB94C /* ProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleBuilder.swift; sourceTree = "<group>"; };
 		CE9430C929C8736400FFB94C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -922,6 +930,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		CE6B90692A1F436800642B90 /* AdPhotos */ = {
+			isa = PBXGroup;
+			children = (
+				CE6B906A2A1F439E00642B90 /* AdPhotosModuleBuilder.swift */,
+				CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */,
+				CE6B906C2A1F439E00642B90 /* AdPhotosView.swift */,
+				CE6B906D2A1F439E00642B90 /* AdPhotosViewModel.swift */,
+			);
+			path = AdPhotos;
+			sourceTree = "<group>";
+		};
 		CE9430C729C8732E00FFB94C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -1127,6 +1146,7 @@
 				CEB9F6782A17ADC00082A674 /* AdAddress */,
 				CEF83F7E2A1BB063009B0791 /* AdDeatails */,
 				CEF83F902A1BF0DE009B0791 /* AdMultiDetails */,
+				CE6B90692A1F436800642B90 /* AdPhotos */,
 			);
 			path = MainFlow;
 			sourceTree = "<group>";
@@ -1406,6 +1426,7 @@
 				82CC8E4ECAA1B873DDFB95AB /* AppDelegate.swift in Sources */,
 				CE13E3AE29DAFE5600B948C9 /* SearchFiltersDetailedViewModel.swift in Sources */,
 				CEAA10F029DDBC5600340401 /* PhotoCell.swift in Sources */,
+				CE6B906E2A1F439E00642B90 /* AdPhotosModuleBuilder.swift in Sources */,
 				CEE2DE6929F30B310029AFF8 /* MainCell.swift in Sources */,
 				CEAEB9E129AAA49B005BBF50 /* UserModels.swift in Sources */,
 				CEAA10ED29DDBA5200340401 /* SearchResultsViewModel.swift in Sources */,
@@ -1435,10 +1456,12 @@
 				CEA5F5D0299BECE300B87DD4 /* NetworkError.swift in Sources */,
 				CEA5B72C29B0A2650038A29C /* Publisher+Unwrap.swift in Sources */,
 				CEAEB9DC29AA9D58005BBF50 /* UserEndPoint.swift in Sources */,
+				CE6B90712A1F439E00642B90 /* AdPhotosViewModel.swift in Sources */,
 				CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */,
 				CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */,
 				CE1E2DD02A07C92F00328EAF /* Publisher.swift in Sources */,
 				CE9430C629C4C20B00FFB94C /* ImageAsset+Hashable.swift in Sources */,
+				CE6B90702A1F439E00642B90 /* AdPhotosView.swift in Sources */,
 				CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */,
 				CEAEB9F929AE34EC005BBF50 /* UserDomainModel.swift in Sources */,
 				CE5CCED32A042153007972CB /* InfoView.swift in Sources */,
@@ -1457,6 +1480,7 @@
 				CEA545F0297820A3007F9962 /* TextFieldView.swift in Sources */,
 				CE1E2DDE2A0B933300328EAF /* PropertyTypeCellModel.swift in Sources */,
 				CEE2DE7329F66C550029AFF8 /* SearchResultsScreenState.swift in Sources */,
+				CE6B906F2A1F439E00642B90 /* AdPhotosViewController.swift in Sources */,
 				CE990E9529CB623100120D6F /* EditProfileViewController.swift in Sources */,
 				CEADC9B5298853E8007A0650 /* BaseButton.swift in Sources */,
 				5085332B1A5B06C8C213ECDB /* BaseViewController.swift in Sources */,

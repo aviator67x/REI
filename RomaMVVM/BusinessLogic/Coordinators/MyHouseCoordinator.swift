@@ -60,9 +60,9 @@ final class MyHouseCoordinator: Coordinator {
         module.transitionPublisher
             .sinkWeakly(self, receiveValue: { (self, trainsition) in
                 switch trainsition {
-                case .back:
-                    self.pop()
-
+                case let .showAdPhoto(model):
+                    self.adPhoto(model: model)
+                    
                 case let .type(model, state):
                     self.type(
                         model: model,
@@ -87,6 +87,19 @@ final class MyHouseCoordinator: Coordinator {
                         screenState: state
                     )
                 case .popScreen:
+                    self.pop()
+                }
+            })
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    private func adPhoto(model: AdCreatingModel) {
+        let module = AdPhotosModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sinkWeakly(self, receiveValue: { (self, trainsition) in
+                switch trainsition {
+                case .pop:
                     self.pop()
                 }
             })

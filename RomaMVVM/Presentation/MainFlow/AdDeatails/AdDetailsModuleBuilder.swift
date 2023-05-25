@@ -9,12 +9,12 @@ import UIKit
 import Combine
 
 enum AdDetailsTransition: Transition {
-    case back
     case type(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case number(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case year(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case garage(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case popScreen
+    case showAdPhoto(moodel: AdCreatingModel)
 }
 
 final class AdDetailsModuleBuilder {

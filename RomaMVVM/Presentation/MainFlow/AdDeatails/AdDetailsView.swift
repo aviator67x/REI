@@ -11,6 +11,7 @@ import UIKit
 enum AdDetailsViewAction {
     case crossDidTap
     case onBackTap
+    case onForwardTap
     case onTypeTap
     case onNumberTap
     case onYearTap
@@ -65,6 +66,12 @@ final class AdDetailsView: BaseView {
             })
             .store(in: &cancellables)
         
+        forwardButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.actionSubject.send(.onForwardTap)
+            })
+            .store(in: &cancellables)
+        
         typeButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.actionSubject.send(.onTypeTap)
@@ -93,7 +100,7 @@ final class AdDetailsView: BaseView {
     private func setupUI() {
         backgroundColor = .white
         
-        pageControl.numberOfPages = 4
+        pageControl.numberOfPages = 3
         pageControl.currentPage = 1
         pageControl.tintColor = .red
         pageControl.pageIndicatorTintColor = .gray

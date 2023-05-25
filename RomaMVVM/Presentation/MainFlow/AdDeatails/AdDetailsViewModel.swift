@@ -17,8 +17,9 @@ final class AdDetailsViewModel: BaseViewModel {
         self.model = model
         super.init()
     }
-    func moveBack() {
-        self.transitionSubject.send(.back)
+    
+    func moveToAdPhoto() {
+        transitionSubject.send(.showAdPhoto(moodel: model))
     }
     
     func moveToType() {

@@ -18,8 +18,8 @@ enum AdAddressViewAction {
 
 final class AdAddressView: BaseView {
     // MARK: - Subviews
-    private var pageControl = UIPageControl()
-    private var crossButton = UIButton()
+    private let pageControl = UIPageControl()
+    private let crossButton = UIButton()
     private let titleLabel = UILabel()
     private let ortLabel = UILabel()
     private let ortTextField = UITextField()
@@ -36,9 +36,9 @@ final class AdAddressView: BaseView {
     private let validationView = UIView()
     private let validationLabel = UILabel()
     private let checkmarkImageView = UIImageView()
-    private var lineView = UIView()
-    private var stackView = UIStackView()
-    private var forwardButton = UIButton()
+    private let lineView = UIView()
+    private let stackView = UIStackView()
+    private let forwardButton = UIButton()
 
     private var isAddressValid = true
 
@@ -113,7 +113,7 @@ final class AdAddressView: BaseView {
     private func setupUI() {
         backgroundColor = .white
 
-        pageControl.numberOfPages = 4
+        pageControl.numberOfPages = 3
         pageControl.currentPage = 0
         pageControl.tintColor = .red
         pageControl.pageIndicatorTintColor = .gray
@@ -180,9 +180,6 @@ final class AdAddressView: BaseView {
         forwardButton.titleLabel?.textAlignment = .center
         forwardButton.layer.cornerRadius = 3
         forwardButton.bordered(width: 2, color: .gray)
-        let forwardAction = UIAction { _ in
-        }
-        forwardButton.addAction(forwardAction, for: .touchUpInside)
 
         validationView.backgroundColor = .red
     }
@@ -205,6 +202,7 @@ final class AdAddressView: BaseView {
             $0.top.equalTo(crossButton.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
+        
         addSubview(ortStackView) {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
@@ -273,10 +271,6 @@ final class AdAddressView: BaseView {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(50)
             $0.bottom.equalToSuperview().inset(100)
-        }
-
-        forwardButton.snp.makeConstraints {
-            $0.height.equalTo(44)
         }
 
         addSubview(lineView) {

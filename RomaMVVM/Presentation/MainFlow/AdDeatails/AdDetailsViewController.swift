@@ -26,7 +26,9 @@ final class AdDetailsViewController: BaseViewController<AdDetailsViewModel> {
             .sink { [unowned self] action in
                 switch action {
                 case .onBackTap:
-                    viewModel.moveBack()
+                    viewModel.popScreen()
+                case .onForwardTap:
+                    viewModel.moveToAdPhoto()
                 case .onTypeTap:
                     viewModel.moveToType()
                 case .onNumberTap:

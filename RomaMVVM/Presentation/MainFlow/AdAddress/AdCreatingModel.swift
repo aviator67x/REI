@@ -16,6 +16,8 @@ final class AdCreatingModel {
 
     private(set) lazy var adCreatingPublisher = adCreatingRequetSubject.eraseToAnyPublisher()
     private lazy var adCreatingRequetSubject = CurrentValueSubject<AdCreatingRequestModel, Never>(.init())
+    
+    private var images: [UIImage] = []
 
     private let housesService: HousesService
 
