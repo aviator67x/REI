@@ -95,7 +95,7 @@ final class MyHouseCoordinator: Coordinator {
     }
     
     private func adPhoto(model: AdCreatingModel) {
-        let module = AdPhotosModuleBuilder.build(container: container)
+        let module = AdPhotosModuleBuilder.build(container: container, model: model)
         module.transitionPublisher
             .sinkWeakly(self, receiveValue: { (self, trainsition) in
                 switch trainsition {

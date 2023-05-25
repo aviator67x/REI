@@ -17,7 +17,7 @@ final class AdCreatingModel {
     private(set) lazy var adCreatingPublisher = adCreatingRequetSubject.eraseToAnyPublisher()
     private lazy var adCreatingRequetSubject = CurrentValueSubject<AdCreatingRequestModel, Never>(.init())
     
-    private var images: [UIImage] = []
+    private var imagesToUpload: [Data] = []
 
     private let housesService: HousesService
 
@@ -33,6 +33,11 @@ final class AdCreatingModel {
 //ToDo: make request
             })
             .store(in: &cancellables)
+    }
+    
+    func addImages(_ images: [Data]) {
+        imagesToUpload = []
+        imagesToUpload.append(contentsOf: images)
     }
 
     func updateAdCreatingRequestModel(

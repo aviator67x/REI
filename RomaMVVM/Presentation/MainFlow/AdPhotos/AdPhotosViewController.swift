@@ -5,14 +5,14 @@
 //  Created by User on 25.05.2023.
 //
 
-import UIKit
 import PhotosUI
+import UIKit
 
 final class AdPhotosViewController: BaseViewController<AdPhotosViewModel> {
     // MARK: - Views
     private let contentView = AdPhotosView()
     private var phPickerViewControlller: PHPickerViewController!
-    
+
     // MARK: - Lifecycle
     override func loadView() {
         view = contentView
@@ -23,7 +23,7 @@ final class AdPhotosViewController: BaseViewController<AdPhotosViewModel> {
         super.viewDidLoad()
         setupBindings()
     }
-    
+
     private func phPicker() -> PHPickerViewController {
         var config = PHPickerConfiguration()
         config.selectionLimit = 10
@@ -53,17 +53,28 @@ final class AdPhotosViewController: BaseViewController<AdPhotosViewModel> {
 // MARK: - extension
 extension AdPhotosViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        let dispatchGroup = DispatchGroup()
+        var images = [Data]()
         picker.dismiss(animated: true, completion: nil)
         for result in results {
-            result.itemProvider.loadObject(ofClass: UIImage.self, completionHandler: { (object, error) in
-               if let image = object as? UIImage {
-                  DispatchQueue.main.async {
-                   
-                     print("Selected image: \(image)")
-                      let imageData = image.pngData()
-                  }
-               }
+            dispatchGroup.enter()
+            result.itemProvider.loadObject(ofClass: UIImage.self, completionHandler: { object, _ in
+                if let image = object as? UIImage {
+                    DispatchQueue.main.async {
+                        debugPrint(image)
+                        guard let imageData = image.pngData() else {
+                            return
+                        }
+                        debugPrint(imageData)
+                        images.append(imageData)
+                    }
+                }
+                dispatchGroup.leave()
             })
-         }
+           
+        }
+        dispatchGroup.notify(queue: DispatchQueue.main) {
+            self.viewModel.addImages(images)
+        }
     }
 }
