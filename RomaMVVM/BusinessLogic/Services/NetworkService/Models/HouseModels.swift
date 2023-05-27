@@ -53,3 +53,26 @@ struct HouseResponseModel: Decodable {
     let price: Int
 }
 
+struct SaveHouseImageResponseModel: Decodable {
+    let imageURL: URL
+    
+    enum CodingKeys: String, CodingKey {
+        case imageURL = "fileURL"
+    }
+}
+
+struct TemporaryHouseResponseModel: Decodable {
+    let objectId: String
+//    let distance: Int
+    let constructionYear: Int
+    let garage: String
+    let images: [URL]
+    let ort: String
+//    let livingArea: Int
+//    let square: Int
+    let street: String
+    let house: Int
+    let propertyType: String
+    let roomsNumber: Int
+//    let price: Int
+}

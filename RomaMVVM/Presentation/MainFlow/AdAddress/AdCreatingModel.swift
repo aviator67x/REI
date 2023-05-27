@@ -17,7 +17,7 @@ final class AdCreatingModel {
     private(set) lazy var adCreatingPublisher = adCreatingRequetSubject.eraseToAnyPublisher()
     private lazy var adCreatingRequetSubject = CurrentValueSubject<AdCreatingRequestModel, Never>(.init())
     
-    private var imagesToUpload: [Data] = []
+    private var houseImages: [HouseImageModel] = []
 
     private let housesService: HousesService
 
@@ -35,10 +35,24 @@ final class AdCreatingModel {
             .store(in: &cancellables)
     }
     
-    func addImages(_ images: [Data]) {
-        imagesToUpload = []
-        imagesToUpload.append(contentsOf: images)
+    func createAd() {
+        housesService.saveAd(houseImages: houseImages, house: adCreatingRequetSubject.value)
+            .sink(receiveCompletion: { [unowned self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                }
+            }, receiveValue: { [unowned self] house in
+                debugPrint(house)
+            })
+            .store(in: &cancellables)
     }
+    
+    func addImages(_ images: [Data]) {
+        houseImages = images.map { HouseImageModel(imageData: $0)}
+        }
 
     func updateAdCreatingRequestModel(
         ort: String,

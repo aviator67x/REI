@@ -26,4 +26,8 @@ final class AdPhotosViewModel: BaseViewModel {
     func addImages(_ images: [Data]) {
         model.addImages(images)
     }
+    
+    func createAd() {
+        model.createAd()
+    }
 }

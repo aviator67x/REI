@@ -59,19 +59,19 @@ final class AdDetailsView: BaseView {
                 self.actionSubject.send(.crossDidTap)
             })
             .store(in: &cancellables)
-        
+
         backButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.actionSubject.send(.onBackTap)
             })
             .store(in: &cancellables)
-        
+
         forwardButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.actionSubject.send(.onForwardTap)
             })
             .store(in: &cancellables)
-        
+
         typeButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.actionSubject.send(.onTypeTap)
@@ -99,7 +99,7 @@ final class AdDetailsView: BaseView {
 
     private func setupUI() {
         backgroundColor = .white
-        
+
         pageControl.numberOfPages = 3
         pageControl.currentPage = 1
         pageControl.tintColor = .red
@@ -107,7 +107,7 @@ final class AdDetailsView: BaseView {
         pageControl.currentPageIndicatorTintColor = .orange
         addressLabel.text = "Kharkiv Khreschatik 21"
         addressLabel.font = UIFont.systemFont(ofSize: 20)
-        
+
         var config = UIButton.Configuration.plain()
         config.image = UIImage(
             systemName: "multiply",
@@ -125,7 +125,7 @@ final class AdDetailsView: BaseView {
         numberButton.setTitle("Number of rooms", for: .normal)
         garageButton.setTitle("Type of parking", for: .normal)
         yearButton.setTitle("Year of construction", for: .normal)
-    
+
         [typeButton, numberButton, yearButton, garageButton].forEach { button in
             button.setTitleColor(.black, for: .normal)
             button.titleLabel?.textAlignment = .left
@@ -135,7 +135,7 @@ final class AdDetailsView: BaseView {
 
         stackView.axis = .vertical
         stackView.spacing = 10
-        
+
         lineView.backgroundColor = .gray
 
         buttonStackView.axis = .horizontal
@@ -143,24 +143,16 @@ final class AdDetailsView: BaseView {
         buttonStackView.spacing = 16
         buttonStackView.distribution = .fillEqually
 
-        backButton.setTitle("Back", for: .normal)
-        backButton.setTitleColor(.black, for: .normal)
-        backButton.titleLabel?.textAlignment = .center
-        backButton.layer.cornerRadius = 3
-        backButton.bordered(width: 2, color: .gray)
-        let backdAction = UIAction { _ in
+        [backButton, forwardButton].forEach { button in
+            button.setTitleColor(.black, for: .normal)
+            button.titleLabel?.textAlignment = .center
+            button.layer.cornerRadius = 3
+            button.bordered(width: 2, color: .gray)
         }
-        backButton.addAction(backdAction, for: .touchUpInside)
+        backButton.setTitle("Back", for: .normal)
 
         forwardButton.backgroundColor = .orange
         forwardButton.setTitle("Forward", for: .normal)
-        forwardButton.setTitleColor(.black, for: .normal)
-        forwardButton.titleLabel?.textAlignment = .center
-        forwardButton.layer.cornerRadius = 3
-        forwardButton.bordered(width: 2, color: .gray)
-        let forwardAction = UIAction { _ in
-        }
-        forwardButton.addAction(forwardAction, for: .touchUpInside)
     }
 
     private func setupLayout() {
@@ -196,7 +188,7 @@ final class AdDetailsView: BaseView {
                 $0.height.equalTo(50)
             }
             }
-        
+
         stackView.addArrangedSubviews([typeButton, numberButton, yearButton, garageButton])
 
         addSubview(buttonStackView) {

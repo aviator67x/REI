@@ -40,7 +40,7 @@ struct UpdateUserResponseModel: Decodable {
     }
 }
 
-struct UpdateAvatarResponceModel: Decodable {
+struct UpdateAvatarResponseModel: Decodable {
     let imageURL: URL
     
     enum CodingKeys: String, CodingKey {

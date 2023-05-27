@@ -10,6 +10,8 @@ import Foundation
 enum HouseEndPoint: Endpoint {
     case getHouses(pageSize: Int, skip: Int)
     case filter(with: [SearchParam])
+    case saveImage([MultipartItem])
+    case saveAd(AdCreatingRequestModel)
 
     var queries: HTTPQueries {
         switch self {
@@ -17,13 +19,17 @@ enum HouseEndPoint: Endpoint {
             return buildQuery(pageSize: pageSize, skip: skip) ?? [:]
         case let .filter(searchParams):
             return buildQuery(searchParams: searchParams) ?? [:]
+        case .saveImage, .saveAd:
+            return [:]
         }
     }
 
     var path: String? {
         switch self {
-        case .getHouses, .filter:
+        case .getHouses, .filter, .saveAd:
             return "/data/Houses"
+        case .saveImage:
+            return "/files/Houses"
         }
     }
     
@@ -31,13 +37,18 @@ enum HouseEndPoint: Endpoint {
         switch self {
         case .getHouses, .filter:
             return .get
+        case .saveImage, .saveAd:
+            return .post
         }
     }
 
     var headers: HTTPHeaders {
         switch self {
-        case .getHouses, .filter:
+        case .getHouses, .filter, .saveAd:
             return ["Content-Type": "application/json"]
+        case .saveImage:
+            return [:]
+//            return ["Content-Type": "multipart/form-data"]
         }
     }
     
@@ -45,6 +56,10 @@ enum HouseEndPoint: Endpoint {
             switch self {
             case .getHouses, .filter:
                 return nil
+            case .saveImage(let image):
+                return .multipartBody(image)
+            case .saveAd(let adModel):
+                return .encodable(adModel)
             }
         }
     func buildQuery(pageSize: Int, skip: Int) -> [String: String]? {

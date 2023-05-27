@@ -44,6 +44,8 @@ final class AdPhotosViewController: BaseViewController<AdPhotosViewModel> {
                     viewModel.popScreen()
                 case .addPhotoDidTap:
                     self.present(phPickerViewControlller, animated: true, completion: nil)
+                case .createAdDidTap:
+                    viewModel.createAd()
                 }
             }
             .store(in: &cancellables)
@@ -71,7 +73,6 @@ extension AdPhotosViewController: PHPickerViewControllerDelegate {
                 }
                 dispatchGroup.leave()
             })
-           
         }
         dispatchGroup.notify(queue: DispatchQueue.main) {
             self.viewModel.addImages(images)

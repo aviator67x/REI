@@ -12,6 +12,7 @@ enum AdPhotosViewAction {
     case crossDidTap
     case backDidTap
     case addPhotoDidTap
+    case createAdDidTap
 }
 
 final class AdPhotosView: BaseView {
@@ -21,7 +22,9 @@ final class AdPhotosView: BaseView {
     private let titleLabel = UILabel()
     private let addPhotoButton = UIButton()
     private let lineView = UIView()
+    private var buttonStackView = UIStackView()
     private let backButton = UIButton()
+    private let createAdButton = UIButton()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<AdPhotosViewAction, Never>()
@@ -59,6 +62,12 @@ final class AdPhotosView: BaseView {
                 self.actionSubject.send(.crossDidTap)
             })
             .store(in: &cancellables)
+        
+        createAdButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.actionSubject.send(.createAdDidTap)
+            })
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -90,13 +99,20 @@ final class AdPhotosView: BaseView {
         addPhotoButton.bordered(width: 2, color: .gray)
         
         lineView.backgroundColor = .gray
+        
+        buttonStackView.axis = .horizontal
+        buttonStackView.spacing = 16
+        buttonStackView.distribution = .fillEqually
 
-        backButton.backgroundColor = .orange
+        [backButton, createAdButton].forEach { button in
+            button.setTitleColor(.black, for: .normal)
+            button.titleLabel?.textAlignment = .center
+            button.layer.cornerRadius = 3
+            button.bordered(width: 2, color: .gray)
+        }
+        createAdButton.backgroundColor = .orange
+        createAdButton.setTitle("Create Ad", for: .normal)
         backButton.setTitle("Back", for: .normal)
-        backButton.setTitleColor(.black, for: .normal)
-        backButton.titleLabel?.textAlignment = .center
-        backButton.layer.cornerRadius = 3
-        backButton.bordered(width: 2, color: .gray)
 
     }
 
@@ -125,11 +141,20 @@ final class AdPhotosView: BaseView {
             $0.height.equalTo(50)
         }
         
-        addSubview(backButton) {
+        addSubview(buttonStackView) {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(50)
             $0.bottom.equalToSuperview().inset(100)
         }
+        
+        backButton.snp.makeConstraints {
+            $0.height.equalTo(44)
+        }
+
+        createAdButton.snp.makeConstraints {
+            $0.height.equalTo(44)
+        }
+        buttonStackView.addArrangedSubviews([backButton, createAdButton])
         
         addSubview(lineView) {
             $0.bottom.equalTo(backButton.snp.top).offset(-20)

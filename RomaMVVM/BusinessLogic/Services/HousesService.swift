@@ -16,14 +16,14 @@ enum HousesServiceError: Error {
 protocol HousesService {
     func getHouses(pageSize: Int, offset: Int) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func searchHouses(_ parameters: [SearchParam]) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
-    func save(house: AdCreatingRequestModel) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
+    func saveAd(
+        houseImages: [HouseImageModel],
+        house: AdCreatingRequestModel
+    )
+        -> AnyPublisher<TemporaryHouseResponseModel, HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
-    func save(house: AdCreatingRequestModel) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
-        return CurrentValueSubject<[HouseDomainModel], HousesServiceError>([]).eraseToAnyPublisher()
-    }
-    
     private let housesNetworkService: HousesNetworkService
 
     init(housesNetworkService: HousesNetworkService) {
@@ -44,6 +44,34 @@ final class HousesServiceImpl: HousesService {
             .mapError { HousesServiceError.networking($0) }
             .map { value -> [HouseDomainModel] in
                 value.map { HouseDomainModel(model: $0) }
+            }
+            .eraseToAnyPublisher()
+    }
+
+    func saveAd(
+        houseImages: [HouseImageModel],
+        house: AdCreatingRequestModel
+    )
+        -> AnyPublisher<TemporaryHouseResponseModel, HousesServiceError>
+    {
+        houseImages
+            .map {
+                [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: $0.imageData)]
+            }
+            .map {
+                housesNetworkService.saveHouseImage(image: $0)
+                    .eraseToAnyPublisher()
+                    .mapError { HousesServiceError.networking($0) }
+            }
+            .publisher
+            .flatMap { $0 }
+            .collect()
+            .flatMap { images -> AnyPublisher<TemporaryHouseResponseModel, HousesServiceError> in
+                var adModel = house
+                adModel.images = images.map { $0.imageURL }
+                return self.housesNetworkService.saveAd(house: adModel)
+                    .mapError { HousesServiceError.networking($0) }
+                    .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
     }

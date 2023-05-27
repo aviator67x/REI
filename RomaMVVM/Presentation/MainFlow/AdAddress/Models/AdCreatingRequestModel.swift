@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct AdCreatingRequestModel: Hashable {
+struct AdCreatingRequestModel: Encodable, Hashable {
     static var empty: Self {
-    return . init()
+        return .init()
     }
+
     var ort: String?
     var street: String?
     var house: Int?
@@ -22,4 +23,5 @@ struct AdCreatingRequestModel: Hashable {
     var livingArea: Int?
     var constructionYear: Int?
     var garage: String?
+    var images: [URL]?
 }

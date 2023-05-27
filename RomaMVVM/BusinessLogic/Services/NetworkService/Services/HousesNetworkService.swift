@@ -11,6 +11,8 @@ import Foundation
 protocol HousesNetworkService {
     func getHouses(pageSize: Int, skip: Int) -> AnyPublisher<[HouseResponseModel], NetworkError>
     func searchHouses(with parameters: [SearchParam]) -> AnyPublisher<[HouseResponseModel], NetworkError>
+    func saveHouseImage(image: [MultipartItem]) -> AnyPublisher<SaveHouseImageResponseModel, NetworkError>
+    func saveAd(house: AdCreatingRequestModel) -> AnyPublisher<TemporaryHouseResponseModel, NetworkError>
 }
 
 final class HousesNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == HouseEndPoint {
@@ -28,5 +30,13 @@ extension HousesNetworkServiceImpl: HousesNetworkService {
 
     func searchHouses(with parameters: [SearchParam]) -> AnyPublisher<[HouseResponseModel], NetworkError> {
         return housesProvider.execute(endpoint: .filter(with: parameters))
+    }
+    
+    func saveHouseImage(image: [MultipartItem]) -> AnyPublisher<SaveHouseImageResponseModel, NetworkError> {
+        return housesProvider.execute(endpoint: .saveImage(image))
+    }
+    
+    func saveAd(house: AdCreatingRequestModel) -> AnyPublisher<TemporaryHouseResponseModel, NetworkError> {
+        return housesProvider.execute(endpoint: .saveAd(house))
     }
 }
