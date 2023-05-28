@@ -16,6 +16,9 @@ enum AdDetailsViewAction {
     case onNumberTap
     case onYearTap
     case onGarageTap
+    case onLivingAreaTap
+    case onSquareTap
+    case onPriceTap
 }
 
 final class AdDetailsView: BaseView {
@@ -29,6 +32,9 @@ final class AdDetailsView: BaseView {
     private let numberButton = UIButton()
     private let yearButton = UIButton()
     private let garageButton = UIButton()
+    private let livingAreaButton = UIButton()
+    private let squareButton = UIButton()
+    private let priceButton = UIButton()
     private var lineView = UIView()
     private var buttonStackView = UIStackView()
     private var backButton = UIButton()
@@ -95,6 +101,24 @@ final class AdDetailsView: BaseView {
                 self.actionSubject.send(.onGarageTap)
             })
             .store(in: &cancellables)
+        
+        livingAreaButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.actionSubject.send(.onLivingAreaTap)
+            })
+            .store(in: &cancellables)
+        
+        squareButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.actionSubject.send(.onSquareTap)
+            })
+            .store(in: &cancellables)
+        
+        priceButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.actionSubject.send(.onPriceTap)
+            })
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -125,8 +149,11 @@ final class AdDetailsView: BaseView {
         numberButton.setTitle("Number of rooms", for: .normal)
         garageButton.setTitle("Type of parking", for: .normal)
         yearButton.setTitle("Year of construction", for: .normal)
+        livingAreaButton.setTitle("Living area", for: .normal)
+        squareButton.setTitle("Square", for: .normal)
+        priceButton.setTitle("Price", for: .normal)
 
-        [typeButton, numberButton, yearButton, garageButton].forEach { button in
+        [typeButton, numberButton, yearButton, garageButton, livingAreaButton, squareButton, priceButton].forEach { button in
             button.setTitleColor(.black, for: .normal)
             button.titleLabel?.textAlignment = .left
             button.layer.cornerRadius = 3
@@ -183,13 +210,13 @@ final class AdDetailsView: BaseView {
             $0.leading.trailing.equalToSuperview().inset(16)
         }
 
-        [typeButton, numberButton, yearButton, garageButton]
+        [typeButton, numberButton, yearButton, garageButton, livingAreaButton, squareButton, priceButton]
             .forEach { button in button.snp.makeConstraints {
                 $0.height.equalTo(50)
             }
             }
 
-        stackView.addArrangedSubviews([typeButton, numberButton, yearButton, garageButton])
+        stackView.addArrangedSubviews([typeButton, numberButton, yearButton, garageButton, livingAreaButton, squareButton, priceButton])
 
         addSubview(buttonStackView) {
             $0.leading.trailing.equalToSuperview().inset(16)

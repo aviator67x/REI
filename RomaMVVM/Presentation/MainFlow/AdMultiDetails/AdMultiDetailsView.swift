@@ -11,6 +11,9 @@ import UIKit
 enum AdMultiDetailsViewAction {
     case onBackTap
     case year(Int)
+    case livingArea(Int)
+    case square(Int)
+    case price(Int)
     case selectedItem(AdMultiDetailsItem)
 }
 
@@ -56,6 +59,9 @@ final class AdMultiDetailsView: BaseView {
     private func setupCollection() {
         collectionView.register(DetailedCell.self)
         collectionView.register(YearPickerCell.self)
+        collectionView.register(LivingAreaCell.self)
+        collectionView.register(HouseSquareCell.self)
+        collectionView.register(HousePriceCell.self)
         setupDataSource()
     }
 
@@ -135,13 +141,50 @@ extension AdMultiDetailsView {
             case let .number(number):
                 cell.setupCell(numberTitle: number)
                 return cell
+
             case .yearPicker:
                 let cell: YearPickerCell = collectionView.dedequeueReusableCell(for: indexPath)
                 cell.actionPublisher
                     .sinkWeakly(self, receiveValue: { (self, value) in
                         switch value {
-                        case .yearPicker(let year):
+                        case let .yearPicker(year):
                             self.actionSubject.send(.year(year))
+                        }
+                    })
+                    .store(in: &cell.cancellables)
+                return cell
+
+            case .livingAreaSlider:
+                let cell: LivingAreaCell = collectionView.dedequeueReusableCell(for: indexPath)
+                cell.actionPublisher
+                    .sinkWeakly(self, receiveValue: { (self, action) in
+                        switch action {
+                        case let .livingArea(value):
+                            self.actionSubject.send(.livingArea(value))
+                        }
+                    })
+                    .store(in: &cell.cancellables)
+                return cell
+                
+            case .squareSlider:
+                let cell: HouseSquareCell = collectionView.dedequeueReusableCell(for: indexPath)
+                cell.actionPublisher
+                    .sinkWeakly(self, receiveValue: { (self, action) in
+                        switch action {
+                        case let .square(value):
+                            self.actionSubject.send(.square(value))
+                        }
+                    })
+                    .store(in: &cell.cancellables)
+                return cell
+                
+            case .priceSlider:
+                let cell: HousePriceCell = collectionView.dedequeueReusableCell(for: indexPath)
+                cell.actionPublisher
+                    .sinkWeakly(self, receiveValue: { (self, action) in
+                        switch action {
+                        case let .price(value):
+                            self.actionSubject.send(.price(value))
                         }
                     })
                     .store(in: &cell.cancellables)

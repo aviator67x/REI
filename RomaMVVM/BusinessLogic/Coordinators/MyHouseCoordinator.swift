@@ -62,38 +62,56 @@ final class MyHouseCoordinator: Coordinator {
                 switch trainsition {
                 case let .showAdPhoto(model):
                     self.adPhoto(model: model)
-                    
+
                 case let .type(model, state):
-                    self.type(
+                    self.details(
                         model: model,
                         screenState: state
                     )
 
                 case let .number(model, state):
-                    self.number(
+                    self.details(
                         model: model,
                         screenState: state
                     )
 
                 case let .year(model, state):
-                    self.year(
+                    self.details(
                         model: model,
                         screenState: state
                     )
 
                 case let .garage(model, state):
-                    self.garage(
+                    self.details(
                         model: model,
                         screenState: state
                     )
                 case .popScreen:
                     self.pop()
+
+                case let .livingArea(model, state):
+                    self.details(
+                        model: model,
+                        screenState: state
+                    )
+
+                case let .square(model, state):
+                    self.details(
+                        model: model,
+                        screenState: state
+                    )
+
+                case let .price(model, state):
+                    self.details(
+                        model: model,
+                        screenState: state
+                    )
                 }
             })
             .store(in: &cancellables)
         push(module.viewController)
     }
-    
+
     private func adPhoto(model: AdCreatingModel) {
         let module = AdPhotosModuleBuilder.build(container: container, model: model)
         module.transitionPublisher
@@ -107,46 +125,7 @@ final class MyHouseCoordinator: Coordinator {
         push(module.viewController)
     }
 
-    private func type(model: AdCreatingModel, screenState: AdMultiDetailsScreenState) {
-        let module = AdMultiDetailsModuleBuilder.build(container: container, model: model, screenState: screenState)
-        module.transitionPublisher
-            .sinkWeakly(self, receiveValue: { (self, transition) in
-                switch transition {
-                case .popScreen:
-                    self.pop()
-                }
-            })
-            .store(in: &cancellables)
-        push(module.viewController)
-    }
-
-    private func number(model: AdCreatingModel, screenState: AdMultiDetailsScreenState) {
-        let module = AdMultiDetailsModuleBuilder.build(container: container, model: model, screenState: screenState)
-        module.transitionPublisher
-            .sinkWeakly(self, receiveValue: { (self, transition) in
-                switch transition {
-                case .popScreen:
-                    self.pop()
-                }
-            })
-            .store(in: &cancellables)
-        push(module.viewController)
-    }
-
-    private func year(model: AdCreatingModel, screenState: AdMultiDetailsScreenState) {
-        let module = AdMultiDetailsModuleBuilder.build(container: container, model: model, screenState: screenState)
-        module.transitionPublisher
-            .sinkWeakly(self, receiveValue: { (self, transition) in
-                switch transition {
-                case .popScreen:
-                    self.pop()
-                }
-            })
-            .store(in: &cancellables)
-        push(module.viewController)
-    }
-
-    private func garage(model: AdCreatingModel, screenState: AdMultiDetailsScreenState) {
+    private func details(model: AdCreatingModel, screenState: AdMultiDetailsScreenState) {
         let module = AdMultiDetailsModuleBuilder.build(container: container, model: model, screenState: screenState)
         module.transitionPublisher
             .sinkWeakly(self, receiveValue: { (self, transition) in

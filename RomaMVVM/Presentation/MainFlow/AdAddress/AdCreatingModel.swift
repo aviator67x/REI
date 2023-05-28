@@ -74,6 +74,12 @@ final class AdCreatingModel {
             adCreatingRequetSubject.value.roomsNumber = number.rawValue
         case let .yearPicker(year):
             adCreatingRequetSubject.value.constructionYear = year
+        case let .livingAreaSlider(livingArea):
+            adCreatingRequetSubject.value.livingArea = livingArea
+        case let .squareSlider(square):
+            adCreatingRequetSubject.value.square = square
+        case let .priceSlider(price):
+            adCreatingRequetSubject.value.price = price
         }
     }
 }

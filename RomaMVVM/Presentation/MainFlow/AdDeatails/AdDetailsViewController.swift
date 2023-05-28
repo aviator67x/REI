@@ -39,6 +39,12 @@ final class AdDetailsViewController: BaseViewController<AdDetailsViewModel> {
                     viewModel.moveToGarage()
                 case .crossDidTap:
                     viewModel.popScreen()
+                case .onLivingAreaTap:
+                    viewModel.moveToLivingArea()
+                case .onSquareTap:
+                    viewModel.moveToSquare()
+                case .onPriceTap:
+                    viewModel.moveToPrice()
                 }
             }
             .store(in: &cancellables)

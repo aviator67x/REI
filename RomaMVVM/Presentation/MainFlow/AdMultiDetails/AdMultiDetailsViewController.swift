@@ -31,6 +31,12 @@ final class AdMultiDetailsViewController: BaseViewController<AdMultiDetailsViewM
                     viewModel.popScreen()
                 case let .year(year):
                     viewModel.updateAdCreatingModel(for: .yearPicker(year))
+                case let .livingArea(livingArea):
+                    viewModel.updateAdCreatingModel(for: .livingAreaSlider(livingArea))
+                case let .square(square):
+                    viewModel.updateAdCreatingModel(for: .squareSlider(square))
+                case let .price(price):
+                    viewModel.updateAdCreatingModel(for: .priceSlider(price))
                 }
             }
             .store(in: &cancellables)

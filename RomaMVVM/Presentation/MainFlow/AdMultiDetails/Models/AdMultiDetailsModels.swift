@@ -21,6 +21,9 @@ enum AdMultiDetailsItem: Hashable {
     case type(PropertyType)
     case number(NumberOfRooms)
     case yearPicker(Int)
+    case livingAreaSlider(Int)
+    case squareSlider(Int)
+    case priceSlider(Int)
 
     func hash(into hasher: inout Hasher) {
         switch self {
@@ -32,6 +35,12 @@ enum AdMultiDetailsItem: Hashable {
             hasher.combine(number)
         case let .yearPicker(year):
             hasher.combine(year)
+        case let .livingAreaSlider(area):
+            hasher.combine(area)
+        case let .squareSlider(square):
+            hasher.combine(square)
+        case let .priceSlider(price):
+            hasher.combine(price)
         }
     }
 }
@@ -41,4 +50,7 @@ enum AdMultiDetailsScreenState {
     case garage
     case type
     case number
+    case livingArea
+    case square
+    case price
 }

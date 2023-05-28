@@ -13,6 +13,9 @@ enum AdDetailsTransition: Transition {
     case number(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case year(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case garage(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
+    case livingArea(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
+    case square(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
+    case price(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case popScreen
     case showAdPhoto(moodel: AdCreatingModel)
 }

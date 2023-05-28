@@ -38,6 +38,18 @@ final class AdDetailsViewModel: BaseViewModel {
         self.transitionSubject.send(.garage(model: model, screenState: .garage))
     }
     
+    func moveToLivingArea() {
+        self.transitionSubject.send(.livingArea(model: model, screenState: .livingArea))
+    }
+    
+    func moveToSquare() {
+        self.transitionSubject.send(.square(model: model, screenState: .square))
+    }
+    
+    func moveToPrice() {
+        self.transitionSubject.send(.price(model: model, screenState: .price))
+    }
+    
     func popScreen() {
         self.transitionSubject.send(.popScreen)
     }

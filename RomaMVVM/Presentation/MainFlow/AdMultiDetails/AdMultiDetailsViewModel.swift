@@ -93,6 +93,30 @@ private extension AdMultiDetailsViewModel {
                 )
             }()
             sectionsSubject.value = [section]
+        case .livingArea:
+            let section: AdMultiDetailsCollection = {
+                AdMultiDetailsCollection(
+                    section: .plain,
+                    items: [.livingAreaSlider(50)]
+                )
+            }()
+            sectionsSubject.value = [section]
+        case .square:
+            let section: AdMultiDetailsCollection = {
+                AdMultiDetailsCollection(
+                    section: .plain,
+                    items: [.squareSlider(100)]
+                )
+            }()
+            sectionsSubject.value = [section]
+        case .price:
+            let section: AdMultiDetailsCollection = {
+                AdMultiDetailsCollection(
+                    section: .plain,
+                    items: [.priceSlider(50000)]
+                )
+            }()
+            sectionsSubject.value = [section]
         }
     }
 }
