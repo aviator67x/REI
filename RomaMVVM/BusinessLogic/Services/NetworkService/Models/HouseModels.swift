@@ -9,7 +9,6 @@ import Foundation
 
 struct HouseRequestModel: Encodable {
     let objectId: String
-    let distance: Int?
     let constructionYear: Int?
     let garage: String?
     let images: [URL]?
@@ -21,9 +20,8 @@ struct HouseRequestModel: Encodable {
     let roomsNumber: Int
     let price: Int
     
-    init(objectId: String, distance: Int? = nil, constructionYear: Int? = nil, garage: String? = nil, images: [URL]? = nil, ort: String, livingArea: Int, square: Int, street: String, propertyType: String? = nil, roomsNumber: Int, price: Int) {
+    init(objectId: String, constructionYear: Int? = nil, garage: String? = nil, images: [URL]? = nil, ort: String, livingArea: Int, square: Int, street: String, propertyType: String? = nil, roomsNumber: Int, price: Int) {
         self.objectId = objectId
-        self.distance = distance
         self.constructionYear = constructionYear
         self.garage = garage
         self.images = images
@@ -39,17 +37,16 @@ struct HouseRequestModel: Encodable {
 
 struct HouseResponseModel: Decodable {
     let objectId: String
-    let distance: Int
-    let constructionYear: Int
-    let garage: String
-    let images: [URL]
+    let constructionYear: Int?
+    let garage: String?
+    let images: [URL]?
     let ort: String
-    let livingArea: Int
+    let livingArea: Int?
     let square: Int
     let street: String
     let house: Int
-    let propertyType: String
-    let roomsNumber: Int
+    let propertyType: String?
+    let roomsNumber: Int?
     let price: Int
 }
 
@@ -61,18 +58,3 @@ struct SaveHouseImageResponseModel: Decodable {
     }
 }
 
-struct TemporaryHouseResponseModel: Decodable {
-    let objectId: String
-//    let distance: Int
-    let constructionYear: Int
-    let garage: String
-    let images: [URL]
-    let ort: String
-//    let livingArea: Int
-//    let square: Int
-    let street: String
-    let house: Int
-    let propertyType: String
-    let roomsNumber: Int
-//    let price: Int
-}

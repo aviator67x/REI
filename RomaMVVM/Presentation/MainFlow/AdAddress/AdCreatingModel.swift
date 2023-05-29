@@ -14,8 +14,8 @@ final class AdCreatingModel {
     private(set) lazy var isLoadingPublisher = isLoadingSubject.eraseToAnyPublisher()
     private lazy var isLoadingSubject = PassthroughSubject<Bool, Never>()
 
-    private(set) lazy var adCreatingPublisher = adCreatingRequetSubject.eraseToAnyPublisher()
-    private lazy var adCreatingRequetSubject = CurrentValueSubject<AdCreatingRequestModel, Never>(.init())
+    private(set) lazy var houseRequestModelPublisher = houseRequestModelSubject.eraseToAnyPublisher()
+    private lazy var houseRequestModelSubject = CurrentValueSubject<AdCreatingRequestModel, Never>(.init())
     
     private var houseImages: [HouseImageModel] = []
 
@@ -27,16 +27,10 @@ final class AdCreatingModel {
         setupBinding()
     }
 
-    private func setupBinding() {
-        adCreatingRequetSubject
-            .sinkWeakly(self, receiveValue: { (self, _) in
-//ToDo: make request
-            })
-            .store(in: &cancellables)
-    }
+    private func setupBinding() {}
     
     func createAd() {
-        housesService.saveAd(houseImages: houseImages, house: adCreatingRequetSubject.value)
+        housesService.saveAd(houseImages: houseImages, house: houseRequestModelSubject.value)
             .sink(receiveCompletion: { [unowned self] completion in
                 switch completion {
                 case .finished:
@@ -59,27 +53,27 @@ final class AdCreatingModel {
         street: String,
         house: Int
     ) {
-        adCreatingRequetSubject.value.ort = ort
-        adCreatingRequetSubject.value.street = street
-        adCreatingRequetSubject.value.house = house
+        houseRequestModelSubject.value.ort = ort
+        houseRequestModelSubject.value.street = street
+        houseRequestModelSubject.value.house = house
     }
 
     func updateAdCreatingRequestModel(with item: AdMultiDetailsItem) {
         switch item {
         case let .garage(garage):
-            adCreatingRequetSubject.value.garage = garage.rawValue
+            houseRequestModelSubject.value.garage = garage.rawValue
         case let .type(type):
-            adCreatingRequetSubject.value.propertyType = type.rawValue
+            houseRequestModelSubject.value.propertyType = type.rawValue
         case let .number(number):
-            adCreatingRequetSubject.value.roomsNumber = number.rawValue
+            houseRequestModelSubject.value.roomsNumber = number.rawValue
         case let .yearPicker(year):
-            adCreatingRequetSubject.value.constructionYear = year
+            houseRequestModelSubject.value.constructionYear = year
         case let .livingAreaSlider(livingArea):
-            adCreatingRequetSubject.value.livingArea = livingArea
+            houseRequestModelSubject.value.livingArea = livingArea
         case let .squareSlider(square):
-            adCreatingRequetSubject.value.square = square
+            houseRequestModelSubject.value.square = square
         case let .priceSlider(price):
-            adCreatingRequetSubject.value.price = price
+            houseRequestModelSubject.value.price = price
         }
     }
 }

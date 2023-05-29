@@ -14,7 +14,7 @@ struct ListCellModel: Hashable {
     let street: String
     let house: Int
     let ort: String
-    let livingArea: Int
+    let livingArea: Int?
     let square: Int
     let numberOfRooms: String
     let price: Int
@@ -35,7 +35,7 @@ struct ListCellModel: Hashable {
     
     init(data: HouseDomainModel, isFavourite: Bool = false) {
         self.id = data.id
-        self.image = data.images.first
+        self.image = data.images?.first
         self.street = data.street
         self.house = data.house
         self.ort = data.ort

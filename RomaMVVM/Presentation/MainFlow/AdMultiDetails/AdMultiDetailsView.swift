@@ -184,7 +184,7 @@ extension AdMultiDetailsView {
                     .sinkWeakly(self, receiveValue: { (self, action) in
                         switch action {
                         case let .price(value):
-                            self.actionSubject.send(.price(value))
+                            self.actionSubject.send(.price(value * 1000))
                         }
                     })
                     .store(in: &cell.cancellables)

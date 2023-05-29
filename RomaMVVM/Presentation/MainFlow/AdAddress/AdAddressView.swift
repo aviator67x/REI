@@ -180,8 +180,8 @@ final class AdAddressView: BaseView {
         forwardButton.titleLabel?.textAlignment = .center
         forwardButton.layer.cornerRadius = 3
         forwardButton.bordered(width: 2, color: .gray)
-
-        validationView.backgroundColor = .red
+        forwardButton.alpha = 0.5
+        forwardButton.isEnabled = false
     }
 
     private func setupLayout() {
@@ -319,6 +319,9 @@ final class AdAddressView: BaseView {
             let stopImage = UIImage(systemName: "exclamationmark.octagon")
             checkmarkImageView.image = isAddressValid ? checkmarkImage : stopImage
             checkmarkImageView.tintColor = isAddressValid ? .green : .red
+            
+            forwardButton.alpha = isAddressValid ? 1 : 0.5
+            forwardButton.isEnabled = isAddressValid ? true : false
         }
     }
 }

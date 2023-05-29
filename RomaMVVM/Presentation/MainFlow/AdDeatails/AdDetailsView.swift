@@ -101,19 +101,19 @@ final class AdDetailsView: BaseView {
                 self.actionSubject.send(.onGarageTap)
             })
             .store(in: &cancellables)
-        
+
         livingAreaButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.actionSubject.send(.onLivingAreaTap)
             })
             .store(in: &cancellables)
-        
+
         squareButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.actionSubject.send(.onSquareTap)
             })
             .store(in: &cancellables)
-        
+
         priceButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.actionSubject.send(.onPriceTap)
@@ -153,12 +153,13 @@ final class AdDetailsView: BaseView {
         squareButton.setTitle("Square", for: .normal)
         priceButton.setTitle("Price", for: .normal)
 
-        [typeButton, numberButton, yearButton, garageButton, livingAreaButton, squareButton, priceButton].forEach { button in
-            button.setTitleColor(.black, for: .normal)
-            button.titleLabel?.textAlignment = .left
-            button.layer.cornerRadius = 3
-            button.bordered(width: 2, color: .gray)
-        }
+        [typeButton, numberButton, yearButton, garageButton, livingAreaButton, squareButton, priceButton]
+            .forEach { button in
+                button.setTitleColor(.black, for: .normal)
+                button.titleLabel?.textAlignment = .left
+                button.layer.cornerRadius = 3
+                button.bordered(width: 2, color: .gray)
+            }
 
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -216,7 +217,16 @@ final class AdDetailsView: BaseView {
             }
             }
 
-        stackView.addArrangedSubviews([typeButton, numberButton, yearButton, garageButton, livingAreaButton, squareButton, priceButton])
+        stackView
+            .addArrangedSubviews([
+                typeButton,
+                numberButton,
+                yearButton,
+                garageButton,
+                livingAreaButton,
+                squareButton,
+                priceButton,
+            ])
 
         addSubview(buttonStackView) {
             $0.leading.trailing.equalToSuperview().inset(16)
@@ -238,6 +248,30 @@ final class AdDetailsView: BaseView {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(2)
         }
+    }
+
+    func setupView(_ adDetails: AdCreatingRequestModel) {
+        var isRequestModelFilled = false
+        if adDetails.house != nil,
+           adDetails.price != nil,
+           adDetails.ort != nil,
+           adDetails.street != nil,
+           adDetails.square != nil
+        {
+            isRequestModelFilled = true
+        } else {
+            isRequestModelFilled = false
+        }
+        forwardButton.alpha = isRequestModelFilled ? 1 : 0.5
+        forwardButton.isEnabled = isRequestModelFilled ? true : false
+        
+        typeButton.bordered(width: 2, color: adDetails.propertyType != nil ? .green : .gray)
+        numberButton.bordered(width: 2, color: adDetails.roomsNumber != nil ? .green : .gray)
+        yearButton.bordered(width: 2, color: adDetails.constructionYear != nil ? .green : .gray)
+        garageButton.bordered(width: 2, color: adDetails.garage != nil ? .green : .gray)
+        livingAreaButton.bordered(width: 2, color: adDetails.livingArea != nil ? .green : .gray)
+        squareButton.bordered(width: 2, color: adDetails.square != nil ? .green : .gray)
+        priceButton.bordered(width: 2, color: adDetails.price != nil ? .green : .gray)
     }
 }
 

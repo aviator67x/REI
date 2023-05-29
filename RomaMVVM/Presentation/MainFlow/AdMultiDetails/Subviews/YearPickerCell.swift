@@ -25,8 +25,8 @@ final class YearPickerCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        setupLayout()
         setupDataSource()
+        setupLayout()
         setupUI()
     }
 
@@ -41,7 +41,7 @@ final class YearPickerCell: UICollectionViewCell {
         pickerView.backgroundColor = .systemGroupedBackground
         pickerView.delegate = self
         pickerView.dataSource = self
-        pickerView.selectRow(2000, inComponent: 0, animated: false)
+        pickerView.selectRow(2000, inComponent: 0, animated: true)
     }
 
     private func setupLayout() {

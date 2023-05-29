@@ -46,8 +46,16 @@ final class AdPhotosViewController: BaseViewController<AdPhotosViewModel> {
                     self.present(phPickerViewControlller, animated: true, completion: nil)
                 case .createAdDidTap:
                     viewModel.createAd()
+                case .deletePhoto(let photo):
+                    viewModel.deletePhoto(photo)
                 }
             }
+            .store(in: &cancellables)
+        
+        viewModel.sectionsPublisher
+            .sinkWeakly(self, receiveValue: { (self, sections) in
+                self.contentView.setupSnapshot(sections: sections)
+            })
             .store(in: &cancellables)
     }
 }

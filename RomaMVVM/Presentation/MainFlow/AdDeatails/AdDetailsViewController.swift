@@ -48,5 +48,11 @@ final class AdDetailsViewController: BaseViewController<AdDetailsViewModel> {
                 }
             }
             .store(in: &cancellables)
+        
+        viewModel.adModelPublisher
+            .sinkWeakly(self, receiveValue: { (self, adModel) in
+                self.contentView.setupView(adModel)
+            })
+            .store(in: &cancellables)
     }
 }

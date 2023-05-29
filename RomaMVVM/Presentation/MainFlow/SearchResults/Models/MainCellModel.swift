@@ -22,7 +22,7 @@ struct MainCellModel: Hashable {
     }
     
     init(data: HouseDomainModel) {
-        self.image = data.images.first
+        self.image = data.images?.first
         self.street = data.street
         self.ort = data.ort
         self.price = data.price

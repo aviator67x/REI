@@ -10,12 +10,27 @@ import Combine
 final class AdDetailsViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<AdDetailsTransition, Never>()
+        
+    private(set) lazy var adModelPublisher = adModelSubject.eraseToAnyPublisher()
+    private lazy var adModelSubject = PassthroughSubject<AdCreatingRequestModel, Never>()
     
     let model: AdCreatingModel
     
     init(model: AdCreatingModel) {
         self.model = model
         super.init()
+    }
+    
+    override func onViewDidLoad() {
+        setupBinding()
+    }
+    
+    func setupBinding() {
+        model.houseRequestModelPublisher
+            .sinkWeakly(self, receiveValue: { (self, adRequestModel) in
+                self.adModelSubject.send(adRequestModel)
+            })
+                .store(in: &cancellables)
     }
     
     func moveToAdPhoto() {

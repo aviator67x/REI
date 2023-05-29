@@ -12,7 +12,7 @@ protocol HousesNetworkService {
     func getHouses(pageSize: Int, skip: Int) -> AnyPublisher<[HouseResponseModel], NetworkError>
     func searchHouses(with parameters: [SearchParam]) -> AnyPublisher<[HouseResponseModel], NetworkError>
     func saveHouseImage(image: [MultipartItem]) -> AnyPublisher<SaveHouseImageResponseModel, NetworkError>
-    func saveAd(house: AdCreatingRequestModel) -> AnyPublisher<TemporaryHouseResponseModel, NetworkError>
+    func saveAd(house: AdCreatingRequestModel) -> AnyPublisher<HouseResponseModel, NetworkError>
 }
 
 final class HousesNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == HouseEndPoint {
@@ -36,7 +36,7 @@ extension HousesNetworkServiceImpl: HousesNetworkService {
         return housesProvider.execute(endpoint: .saveImage(image))
     }
     
-    func saveAd(house: AdCreatingRequestModel) -> AnyPublisher<TemporaryHouseResponseModel, NetworkError> {
+    func saveAd(house: AdCreatingRequestModel) -> AnyPublisher<HouseResponseModel, NetworkError> {
         return housesProvider.execute(endpoint: .saveAd(house))
     }
 }

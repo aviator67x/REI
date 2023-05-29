@@ -20,7 +20,7 @@ protocol HousesService {
         houseImages: [HouseImageModel],
         house: AdCreatingRequestModel
     )
-        -> AnyPublisher<TemporaryHouseResponseModel, HousesServiceError>
+        -> AnyPublisher<HouseResponseModel, HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
@@ -52,7 +52,7 @@ final class HousesServiceImpl: HousesService {
         houseImages: [HouseImageModel],
         house: AdCreatingRequestModel
     )
-        -> AnyPublisher<TemporaryHouseResponseModel, HousesServiceError>
+        -> AnyPublisher<HouseResponseModel, HousesServiceError>
     {
         houseImages
             .map {
@@ -66,7 +66,7 @@ final class HousesServiceImpl: HousesService {
             .publisher
             .flatMap { $0 }
             .collect()
-            .flatMap { images -> AnyPublisher<TemporaryHouseResponseModel, HousesServiceError> in
+            .flatMap { images -> AnyPublisher<HouseResponseModel, HousesServiceError> in
                 var adModel = house
                 adModel.images = images.map { $0.imageURL }
                 return self.housesNetworkService.saveAd(house: adModel)
