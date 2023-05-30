@@ -33,7 +33,7 @@ final class AppCoordinator: Coordinator {
         let vm = AdPhotosViewModel(model: container.adCreatingModel)
         let vc = AdPhotosViewController(viewModel: vm)
         
-        window.rootViewController = vc//navigationController
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
 
 //        container.userService.clearAccessToken()

@@ -11,7 +11,7 @@ import Foundation
 final class AdPhotosViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<AdPhotosTransition, Never>()
-
+    
     private lazy var imagesSubject = CurrentValueSubject<[Data], Never>([])
     
     private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
@@ -19,7 +19,7 @@ final class AdPhotosViewModel: BaseViewModel {
     
     private let model: AdCreatingModel
     
-     init(model: AdCreatingModel) {
+    init(model: AdCreatingModel) {
         self.model = model
         super.init()
     }
@@ -27,22 +27,17 @@ final class AdPhotosViewModel: BaseViewModel {
     override func onViewDidLoad() {
         setupBinding()
     }
-    func setupBinding() {
-        imagesSubject
-            .sinkWeakly(self, receiveValue: { (self, images) in
-                self.createDataSource()
-                self.model.addImages(images)
-            })
-            .store(in: &cancellables)
-    }
     
     func popScreen() {
-        transitionSubject.send(.pop)
+        self.transitionSubject.send(.popScreen)
+    }
+    
+    func moveToMyHouse() {
+        self.transitionSubject.send(.myHouse)
     }
     
     func addImages(_ images: [Data]) {
-        var newImages = images
-        newImages.forEach { image in
+        images.forEach { image in
             if !imagesSubject.value.contains(image) {
                 imagesSubject.value.append(image)
             }
@@ -62,11 +57,23 @@ final class AdPhotosViewModel: BaseViewModel {
     func createAd() {
         model.createAd()
     }
-    
-    func createDataSource() {
-        let items = imagesSubject.value
-            .map {HousePhotoItem.photo($0)}
-        let section = PhotoCollection(section: .photo, items: items)
-        sectionsSubject.value = [section]
-    }
 }
+    // MARK: - private extension
+    private extension AdPhotosViewModel {
+        private func setupBinding() {
+            imagesSubject
+                .sinkWeakly(self, receiveValue: { (self, images) in
+                    self.createDataSource()
+                    self.model.addImages(images)
+                })
+                .store(in: &cancellables)
+        }
+        
+        func createDataSource() {
+            let items = imagesSubject.value
+                .map {HousePhotoItem.photo($0)}
+            let section = PhotoCollection(section: .photo, items: items)
+            sectionsSubject.value = [section]
+        }
+    }
+

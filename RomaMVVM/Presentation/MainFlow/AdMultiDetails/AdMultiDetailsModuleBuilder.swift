@@ -9,6 +9,7 @@ import UIKit
 import Combine
 
 enum AdMultiDetailsTransition: Transition {
+    case myHouse
     case popScreen
 }
 

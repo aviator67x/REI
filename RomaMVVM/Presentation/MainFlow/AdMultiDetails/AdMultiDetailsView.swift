@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 enum AdMultiDetailsViewAction {
-    case onBackTap
+    case onCrossTap
     case year(Int)
     case livingArea(Int)
     case square(Int)
@@ -68,7 +68,7 @@ final class AdMultiDetailsView: BaseView {
     private func bindActions() {
         crossButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
-                self.actionSubject.send(.onBackTap)
+                self.actionSubject.send(.onCrossTap)
             })
             .store(in: &cancellables)
 

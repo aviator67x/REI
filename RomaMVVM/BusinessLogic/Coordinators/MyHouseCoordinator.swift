@@ -86,8 +86,6 @@ final class MyHouseCoordinator: Coordinator {
                         model: model,
                         screenState: state
                     )
-                case .popScreen:
-                    self.pop()
 
                 case let .livingArea(model, state):
                     self.details(
@@ -106,10 +104,19 @@ final class MyHouseCoordinator: Coordinator {
                         model: model,
                         screenState: state
                     )
+                case .popScreen:
+                    self.pop()
+                    
+                case .myHouse:
+                    self.myHouse()
                 }
             })
             .store(in: &cancellables)
         push(module.viewController)
+    }
+    
+    private func myHouse() {
+        popToViewController(ofClass: MyHouseViewController.self)
     }
 
     private func adPhoto(model: AdCreatingModel) {
@@ -117,7 +124,9 @@ final class MyHouseCoordinator: Coordinator {
         module.transitionPublisher
             .sinkWeakly(self, receiveValue: { (self, trainsition) in
                 switch trainsition {
-                case .pop:
+                case .myHouse:
+                    self.myHouse()
+                case .popScreen:
                     self.pop()
                 }
             })
@@ -130,6 +139,8 @@ final class MyHouseCoordinator: Coordinator {
         module.transitionPublisher
             .sinkWeakly(self, receiveValue: { (self, transition) in
                 switch transition {
+                case .myHouse:
+                    self.myHouse()
                 case .popScreen:
                     self.pop()
                 }

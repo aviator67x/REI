@@ -25,14 +25,6 @@ final class AdDetailsViewModel: BaseViewModel {
         setupBinding()
     }
     
-    func setupBinding() {
-        model.houseRequestModelPublisher
-            .sinkWeakly(self, receiveValue: { (self, adRequestModel) in
-                self.adModelSubject.send(adRequestModel)
-            })
-                .store(in: &cancellables)
-    }
-    
     func moveToAdPhoto() {
         transitionSubject.send(.showAdPhoto(moodel: model))
     }
@@ -65,7 +57,22 @@ final class AdDetailsViewModel: BaseViewModel {
         self.transitionSubject.send(.price(model: model, screenState: .price))
     }
     
+    func moveToMyHouse() {
+        self.transitionSubject.send(.myHouse)
+    }
+    
     func popScreen() {
         self.transitionSubject.send(.popScreen)
+    }
+}
+
+// MARK: - private extension
+private extension AdDetailsViewModel {
+    func setupBinding() {
+        model.houseRequestModelPublisher
+            .sinkWeakly(self, receiveValue: { (self, adRequestModel) in
+                self.adModelSubject.send(adRequestModel)
+            })
+                .store(in: &cancellables)
     }
 }

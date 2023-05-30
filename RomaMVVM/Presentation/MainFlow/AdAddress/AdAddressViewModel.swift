@@ -11,10 +11,10 @@ final class AdAddressViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<AdAddressTransition, Never>()
 
-    private let model: AdCreatingModel
-
     private(set) lazy var validationPublisher = validationSubject.eraseToAnyPublisher()
     private lazy var validationSubject = CurrentValueSubject<AddressModel, Never>(.init())
+
+    private let model: AdCreatingModel
 
     init(model: AdCreatingModel) {
         self.model = model
@@ -51,7 +51,18 @@ final class AdAddressViewModel: BaseViewModel {
         validateAddress()
     }
 
-    private func validateAddress() {
+    func moveToMyHouse() {
+        transitionSubject.send(.myHouse)
+    }
+
+    func moveToAdDetails() {
+        transitionSubject.send(.adDetails(model: model))
+    }
+}
+
+// MARK: - private extension
+private extension AdAddressViewModel {
+    func validateAddress() {
         guard let ort = validationSubject.value.ort,
               let street = validationSubject.value.street,
               let house = validationSubject.value.house
@@ -61,7 +72,8 @@ final class AdAddressViewModel: BaseViewModel {
         let validationText = [ort, street, house].joined(separator: " ")
         validationSubject.value.isValid = validationText == "Kharkiv Khreschatik 21" ? true : false
         guard let houseInt = Int(house),
-        validationSubject.value.isValid else {
+              validationSubject.value.isValid
+        else {
             return
         }
         model.updateAdCreatingRequestModel(
@@ -69,13 +81,5 @@ final class AdAddressViewModel: BaseViewModel {
             street: street,
             house: houseInt
         )
-    }
-    
-    func moveToMyHouse() {
-        transitionSubject.send(.myHouse)
-    }
-    
-    func moveToAdDetails() {        
-        transitionSubject.send(.adDetails(model: self.model))
     }
 }

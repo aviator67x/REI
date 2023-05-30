@@ -35,10 +35,13 @@ final class AdMultiDetailsViewModel: BaseViewModel {
     func popScreen() {
         transitionSubject.send(.popScreen)
     }
+    
+    func moveToMyHouse() {
+        transitionSubject.send(.myHouse)
+    }
 }
 
 // MARK: - extension
-
 private extension AdMultiDetailsViewModel {
     func createDataSource() {
         switch screenState {

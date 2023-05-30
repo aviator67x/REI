@@ -105,7 +105,7 @@ final class AdPhotosView: BaseView {
 
         backButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
-                self.actionSubject.send(.crossDidTap)
+                self.actionSubject.send(.backDidTap)
             })
             .store(in: &cancellables)
 

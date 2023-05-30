@@ -299,6 +299,7 @@ final class AdAddressView: BaseView {
         guard let ort = model.ort,
               let street = model.street,
               let house = model.house else {
+            forwardButton.isEnabled = true
             return
         }
 

@@ -39,7 +39,7 @@ final class AdPhotosViewController: BaseViewController<AdPhotosViewModel> {
             .sink { [unowned self] action in
                 switch action {
                 case .crossDidTap:
-                    viewModel.popScreen()
+                    viewModel.moveToMyHouse()
                 case .backDidTap:
                     viewModel.popScreen()
                 case .addPhotoDidTap:

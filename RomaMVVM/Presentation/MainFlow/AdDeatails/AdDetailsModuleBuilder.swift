@@ -16,8 +16,9 @@ enum AdDetailsTransition: Transition {
     case livingArea(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case square(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
     case price(model: AdCreatingModel, screenState: AdMultiDetailsScreenState)
-    case popScreen
     case showAdPhoto(moodel: AdCreatingModel)
+    case myHouse
+    case popScreen
 }
 
 final class AdDetailsModuleBuilder {

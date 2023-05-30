@@ -23,11 +23,7 @@ final class AdCreatingModel {
 
     init(housesService: HousesService) {
         self.housesService = housesService
-
-        setupBinding()
     }
-
-    private func setupBinding() {}
     
     func createAd() {
         housesService.saveAd(houseImages: houseImages, house: houseRequestModelSubject.value)

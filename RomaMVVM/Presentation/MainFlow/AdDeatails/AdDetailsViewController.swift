@@ -38,7 +38,7 @@ final class AdDetailsViewController: BaseViewController<AdDetailsViewModel> {
                 case .onGarageTap:
                     viewModel.moveToGarage()
                 case .crossDidTap:
-                    viewModel.popScreen()
+                    viewModel.moveToMyHouse()
                 case .onLivingAreaTap:
                     viewModel.moveToLivingArea()
                 case .onSquareTap:

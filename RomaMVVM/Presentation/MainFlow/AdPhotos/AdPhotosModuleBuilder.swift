@@ -9,7 +9,8 @@ import UIKit
 import Combine
 
 enum AdPhotosTransition: Transition {
-    case pop
+    case myHouse
+    case popScreen
 }
 
 final class AdPhotosModuleBuilder {
