@@ -181,7 +181,7 @@ final class AdPhotosView: BaseView {
         }
 
         addSubview(addPhotoButton) {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(100)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(50)
         }
@@ -189,10 +189,17 @@ final class AdPhotosView: BaseView {
         addSubview(photoCollection) {
             $0.top.equalTo(addPhotoButton.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(300)
+            $0.height.equalTo(400).priority(.low)
         }
-
+        
+        addSubview(lineView) {
+            $0.top.equalTo(photoCollection.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(2)
+        }
+        
         addSubview(buttonStackView) {
+            $0.top.equalTo(lineView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(50)
             $0.bottom.equalToSuperview().inset(100)
@@ -206,12 +213,6 @@ final class AdPhotosView: BaseView {
             $0.height.equalTo(44)
         }
         buttonStackView.addArrangedSubviews([backButton, createAdButton])
-
-        addSubview(lineView) {
-            $0.bottom.equalTo(backButton.snp.top).offset(-20)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(2)
-        }
     }
 }
 

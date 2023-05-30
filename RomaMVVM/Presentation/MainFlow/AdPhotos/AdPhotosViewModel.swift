@@ -41,7 +41,12 @@ final class AdPhotosViewModel: BaseViewModel {
     }
     
     func addImages(_ images: [Data]) {
-        imagesSubject.send(images)
+        var newImages = images
+        newImages.forEach { image in
+            if !imagesSubject.value.contains(image) {
+                imagesSubject.value.append(image)
+            }
+        }
     }
     
     func deletePhoto(_ photo: HousePhotoItem) {
