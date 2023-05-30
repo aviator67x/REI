@@ -177,11 +177,9 @@ extension SearchResultsView {
                     
                 case let .list(model):
                     let cell: ListCell = collectionView.dedequeueReusableCell(for: indexPath)
-                    cell.actionPublisher
-                        .sinkWeakly(self, receiveValue: { (self, _) in
-                            self.actionSubject.send(.onCellHeartButtonPublisher(selectedItem: item))
-                        })
-                        .store(in: &cell.cancellables)
+                    cell.heartButtonDidTap = { [weak self] in
+                        self?.actionSubject.send(.onCellHeartButtonPublisher(selectedItem: item))
+                    }
                     cell.setupCell(model)
                     return cell
                     

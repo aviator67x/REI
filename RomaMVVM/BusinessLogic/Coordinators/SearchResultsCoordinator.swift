@@ -58,7 +58,7 @@ final class SearchResultsCoordinator: Coordinator {
                 case let .detailed(requestModel, state):
                     year(model: requestModel, screenState: state)
                 case .pop:
-                    searchFiltersController.navigationController?.popViewController(animated: false)
+                    self.pop()
                 }
             }
             .store(in: &cancellables)

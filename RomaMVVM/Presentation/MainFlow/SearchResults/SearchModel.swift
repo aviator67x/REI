@@ -32,7 +32,7 @@ final class SearchModel {
     private var isPaginationInProgress = false
     private var hasMoreToLoad = true
     private var offset = 0
-    private var pageSize = 1
+    private var pageSize = 3
     private var housesCount = 0
 
     init(housesService: HousesService, userService: UserService) {
@@ -75,7 +75,6 @@ final class SearchModel {
     }
 
     func editFavouriteHouses(with id: String) {
-        print(favouriteHousesIdSubject.value)
         if favouriteHousesIdSubject.value.contains(id) {
             guard let index = favouriteHousesIdSubject.value.firstIndex(of: id) else {
                 return

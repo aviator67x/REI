@@ -76,12 +76,12 @@ final class FavouriteView: BaseView {
     }
 
     private func bindActions() {
-        itemSubject
-            .map { FavouriteViewAction.selectedItem($0) }
-            .sink { [unowned self] in
-                actionSubject.send($0)
-            }
-            .store(in: &cancellables)
+//        itemSubject
+//            .map { FavouriteViewAction.selectedItem($0) }
+//            .sink { [unowned self] in
+//                actionSubject.send($0)
+//            }
+//            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -103,6 +103,21 @@ final class FavouriteView: BaseView {
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
+    
+    private func setupDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<FavouriteSection, FavouriteItem>(
+            collectionView: collectionView,
+            cellProvider: {
+                collectionView, indexPath, item -> UICollectionViewCell in
+                switch item {
+                case let .photo(model):
+                    let cell: FavouriteCell = collectionView.dedequeueReusableCell(for: indexPath)
+                    cell.setupCell(model)
+                    return cell
+                }
+            }
+        )
+    }
 }
 
 // MARK: - extension
@@ -118,21 +133,6 @@ extension FavouriteView {
             snapshot.appendItems(section.items, toSection: section.section)
         }
         dataSource?.apply(snapshot)
-    }
-
-    func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<FavouriteSection, FavouriteItem>(
-            collectionView: collectionView,
-            cellProvider: {
-                collectionView, indexPath, item -> UICollectionViewCell in
-                switch item {
-                case let .photo(model):
-                    let cell: FavouriteCell = collectionView.dedequeueReusableCell(for: indexPath)
-                    cell.setupCell(model)
-                    return cell
-                }
-            }
-        )
     }
 }
 

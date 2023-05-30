@@ -37,8 +37,11 @@ final class SearchResultsViewModel: BaseViewModel {
     override func onViewWillAppear() {
         model.getFavouriteHouses()
     }
+}
 
-    private func setupBinding() {
+// MARK: - extension
+private extension SearchResultsViewModel {
+    func setupBinding() {
         model.favouriteHousesIdPublisher
             .sinkWeakly(self, receiveValue: { (self, favouriteIds) in
                 self.favouriteIdsSubject.value = favouriteIds
@@ -80,44 +83,6 @@ final class SearchResultsViewModel: BaseViewModel {
             })
             .store(in: &cancellables)
     }
-}
-
-// MARK: - extension
-extension SearchResultsViewModel {
-    func editToFavourites(item: SearchResultsItem) {
-        switch item {
-        case let .photo(house):
-            let id = house.id ?? ""
-            model.editFavouriteHouses(with: id)
-
-        case let .list(house):
-            let id = house.id ?? ""
-            model.editFavouriteHouses(with: id)
-
-        case .main, .map:
-            break
-        }
-    }
-    
-    func loadHouses() {
-        model.loadHouses()
-    }
-
-    func moveTo(_ screen: SelectViewAction) {
-        switch screen {
-        case .searchFilter:
-            transitionSubject.send(.searchFilters(model))
-        case .sort:
-            transitionSubject.send(.sort)
-        case .favourite:
-            transitionSubject.send(.favourite)
-        }
-    }
-
-    func setScreenState(_ state: SearchResultsScreenState) {
-        screenState = state
-        createDataSource()
-    }
 
     func createDataSource() {
         switch screenState {
@@ -142,7 +107,12 @@ extension SearchResultsViewModel {
             let manViewSection = SearchResultsCollection(section: .main, items: [item])
 
             let items = housesSubject.value
-                .map { ListCellModel(data: $0) }
+                .map { if favouriteIdsSubject.value.contains($0.id) {
+                    return ListCellModel(data: $0, isFavourite: true)
+                } else {
+                    return ListCellModel(data: $0, isFavourite: false)
+                }
+                }
                 .map { SearchResultsItem.list($0) }
             let listSection = SearchResultsCollection(section: .list, items: items)
             sectionsSubject.value = [manViewSection, listSection]
@@ -152,5 +122,43 @@ extension SearchResultsViewModel {
             let mapSection = SearchResultsCollection(section: .map, items: [mapItem])
             sectionsSubject.value = [mapSection]
         }
+    }
+}
+
+// MARK: - extension
+extension SearchResultsViewModel {
+    func editToFavourites(item: SearchResultsItem) {
+        switch item {
+        case let .photo(house):
+            let id = house.id ?? ""
+            model.editFavouriteHouses(with: id)
+
+        case let .list(house):
+            let id = house.id ?? ""
+            model.editFavouriteHouses(with: id)
+
+        case .main, .map:
+            break
+        }
+    }
+
+    func loadHouses() {
+        model.loadHouses()
+    }
+
+    func moveTo(_ screen: SelectViewAction) {
+        switch screen {
+        case .searchFilter:
+            transitionSubject.send(.searchFilters(model))
+        case .sort:
+            transitionSubject.send(.sort)
+        case .favourite:
+            transitionSubject.send(.favourite)
+        }
+    }
+
+    func setScreenState(_ state: SearchResultsScreenState) {
+        screenState = state
+        createDataSource()
     }
 }

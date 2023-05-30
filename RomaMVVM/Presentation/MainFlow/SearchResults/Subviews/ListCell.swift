@@ -8,20 +8,9 @@
 import Foundation
 import UIKit
 import Kingfisher
-import Combine
-
-enum ListCellAction {
-    case heartDidTap
-}
 
 final class ListCell: UICollectionViewListCell {
-    lazy var cancellables = Set<AnyCancellable>()
-    
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private lazy var actionSubject = PassthroughSubject<ListCellAction, Never>()
-    
-    private(set) lazy var heartButtonPublisher = heartButtonSubject.eraseToAnyPublisher()
-    private lazy var heartButtonSubject = PassthroughSubject<Void, Never>()
+    var heartButtonDidTap: (() -> ())?
     
     let imageView = UIImageView()
     let streetLabel = UILabel()
@@ -36,20 +25,11 @@ final class ListCell: UICollectionViewListCell {
         backgroundColor = .white
         setupUI()
         setupLayout()
-        setupBinding()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupBinding() {
-        heartButton.tapPublisher
-            .sinkWeakly(self, receiveValue: { (self, _) in
-                self.actionSubject.send(.heartDidTap)
-            })
-            .store(in: &cancellables)
     }
     
     private func setupUI() {
@@ -65,6 +45,11 @@ final class ListCell: UICollectionViewListCell {
             label.font = UIFont.systemFont(ofSize: 14)
         }
        priceValueLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        
+        let action = UIAction { [weak self] _ in
+            self?.heartButtonDidTap?()
+        }
+        heartButton.addAction(action, for: .touchUpInside)
     }
     
     private func setupLayout() {

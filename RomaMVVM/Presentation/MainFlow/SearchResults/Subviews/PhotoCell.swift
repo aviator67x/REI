@@ -10,6 +10,8 @@ import UIKit
 import Kingfisher
 
 final class PhotoCell: UICollectionViewListCell {
+    var heartButtonDidTap: (() -> ())?
+    
     let imageView = UIImageView()
     let streetLabel = UILabel()
     let ortLabel = UILabel()
@@ -20,8 +22,6 @@ final class PhotoCell: UICollectionViewListCell {
     let heartButton = UIButton()
     let signsButton = UIButton()
     let separatorView = UIView()
-    
-    var heartButtonDidTap: (() -> ())?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

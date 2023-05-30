@@ -21,6 +21,10 @@ final class MyHouseViewController: BaseViewController<MyHouseViewModel> {
         title = "MyHouse"
         setupBindings()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+    }
 
     private func setupBindings() {
         contentView.actionPublisher

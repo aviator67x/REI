@@ -20,7 +20,7 @@ struct ListCellModel: Hashable {
     let price: Int
     let isFavourite: Bool
     
-    init(id: String, image: URL, street: String, let house: Int, ort: String, livingArea: Int, square: Int, numberOfRooms: String, price: Int, isFavourite: Bool = false) {
+    init(id: String, image: URL, street: String, house: Int, ort: String, livingArea: Int, square: Int, numberOfRooms: String, price: Int, isFavourite: Bool = false) {
         self.image = image
         self.id = id
         self.street = street
