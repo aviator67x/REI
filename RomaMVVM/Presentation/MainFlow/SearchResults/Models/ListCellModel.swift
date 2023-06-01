@@ -14,7 +14,7 @@ struct ListCellModel: Hashable {
     let street: String
     let house: Int
     let ort: String
-    let livingArea: Int?
+    let livingArea: Int
     let square: Int
     let numberOfRooms: String
     let price: Int

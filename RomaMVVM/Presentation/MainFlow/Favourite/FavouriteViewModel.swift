@@ -59,9 +59,7 @@ final class FavouriteViewModel: BaseViewModel {
     func deleteItem(_ item: FavouriteItem) {
         switch item {
         case .photo(let house):
-            guard let id = house.id else {
-                return
-            }
+            let id = house.id 
             self.favouriteHousesSubject.value.removeAll(where: {$0.id == id})
             model.editFavouriteHouses(with: id)
         }

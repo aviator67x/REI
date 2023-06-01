@@ -9,12 +9,14 @@ import Foundation
 
 struct MainCellModel: Hashable {
     let uuid = UUID()
+    let id: String?
     let image: URL?
     let street: String
     let ort: String
     let price: Int
     
-    init(image: URL, street: String, ort: String, price: Int) {
+    init(id: String? = nil, image: URL, street: String, ort: String, price: Int) {
+        self.id = id
         self.image = image
         self.street = street
         self.ort = ort
@@ -22,6 +24,7 @@ struct MainCellModel: Hashable {
     }
     
     init(data: HouseDomainModel) {
+        self.id = data.id
         self.image = data.images?.first
         self.street = data.street
         self.ort = data.ort

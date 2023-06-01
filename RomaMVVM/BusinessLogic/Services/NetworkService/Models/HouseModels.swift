@@ -9,18 +9,18 @@ import Foundation
 
 struct HouseRequestModel: Encodable {
     let objectId: String
-    let constructionYear: Int?
-    let garage: String?
+    let constructionYear: Int
+    let garage: String
     let images: [URL]?
     let ort: String
     let livingArea: Int
     let square: Int
     let street: String
-    let propertyType: String?
+    let propertyType: String
     let roomsNumber: Int
     let price: Int
     
-    init(objectId: String, constructionYear: Int? = nil, garage: String? = nil, images: [URL]? = nil, ort: String, livingArea: Int, square: Int, street: String, propertyType: String? = nil, roomsNumber: Int, price: Int) {
+    init(objectId: String, constructionYear: Int, garage: String, images: [URL]? = nil, ort: String, livingArea: Int, square: Int, street: String, propertyType: String, roomsNumber: Int, price: Int) {
         self.objectId = objectId
         self.constructionYear = constructionYear
         self.garage = garage
@@ -37,16 +37,16 @@ struct HouseRequestModel: Encodable {
 
 struct HouseResponseModel: Decodable {
     let objectId: String
-    let constructionYear: Int?
-    let garage: String?
+    let constructionYear: Int
+    let garage: String
     let images: [URL]?
     let ort: String
-    let livingArea: Int?
+    let livingArea: Int
     let square: Int
     let street: String
     let house: Int
-    let propertyType: String?
-    let roomsNumber: Int?
+    let propertyType: String
+    let roomsNumber: Int
     let price: Int
 }
 

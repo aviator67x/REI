@@ -38,6 +38,8 @@ final class SearchResultsCoordinator: Coordinator {
                     break
                 case .favourite:
                     self.favourite()
+                case .selectedHouse(let house):
+                    self.selectedHouse(house)
                 }
             }
             .store(in: &cancellables)
@@ -75,4 +77,10 @@ final class SearchResultsCoordinator: Coordinator {
         )
         push(module.viewController)
     }
+    
+    private func selectedHouse(_ house: HouseDomainModel) {
+        let module = SelectedHouseModuleBuilder.build(container: container, house: house)
+        push(module.viewController)
+    }
+
 }

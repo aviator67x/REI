@@ -9,16 +9,16 @@ import Foundation
 
 final class HouseDomainModel: Codable {
     let id: String
-    let constructionYear: Int?
-    let garage: String?
+    let constructionYear: Int
+    let garage: String
     let images: [URL]?
     let ort: String
-    let livingArea: Int?
+    let livingArea: Int
     let square: Int
     let street: String
     let house: Int
-    let propertyType: String?
-    let roomsNumber: Int?
+    let propertyType: String
+    let roomsNumber: Int
     let price: Int
 
     init(

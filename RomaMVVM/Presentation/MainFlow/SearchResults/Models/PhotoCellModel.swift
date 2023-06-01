@@ -9,18 +9,18 @@ import Foundation
 
 struct PhotoCellModel: Hashable {
     let uuid = UUID()
-    let id: String?
+    let id: String
     let image: URL?
     let street: String
     let house: Int
     let ort: String
-    let livingArea: Int?
+    let livingArea: Int
     let square: Int
     let numberOfRooms: String
     let price: Int
     let isFavourite: Bool
     
-    init(id: String? = nil, image: URL, street: String, house: Int, ort: String, livingArea: Int, square: Int, numberOfRooms: String, price: Int, isFavourite: Bool = false) {
+    init(id: String, image: URL, street: String, house: Int, ort: String, livingArea: Int, square: Int, numberOfRooms: String, price: Int, isFavourite: Bool = false) {
         self.id = id
         self.image = image
         self.street = street
@@ -41,7 +41,7 @@ struct PhotoCellModel: Hashable {
         self.ort = data.ort
         self.livingArea = data.livingArea
         self.square = data.square
-        self.numberOfRooms = "\(data.roomsNumber)"
+        self.numberOfRooms = "\(String(describing: data.roomsNumber))"
         self.price = data.price
         self.isFavourite = isFavourite
     }

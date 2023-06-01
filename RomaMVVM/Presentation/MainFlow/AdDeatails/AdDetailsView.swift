@@ -241,6 +241,7 @@ final class AdDetailsView: BaseView {
         forwardButton.snp.makeConstraints {
             $0.height.equalTo(44)
         }
+        
         buttonStackView.addArrangedSubviews([backButton, forwardButton])
 
         addSubview(lineView) {

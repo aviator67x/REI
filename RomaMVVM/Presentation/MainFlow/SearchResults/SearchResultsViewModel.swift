@@ -156,6 +156,35 @@ extension SearchResultsViewModel {
             transitionSubject.send(.favourite)
         }
     }
+    
+    func showSelectedItem(_ item: SearchResultsItem) {
+        switch item {
+        case let .photo(model):
+           let id = model.id
+            guard let house = housesSubject.value.first(where: { $0.id == id }) else {
+                return
+            }
+            transitionSubject.send(.selectedHouse(house))
+            
+        case let .list(model):
+            let id = model.id
+             guard let house = housesSubject.value.first(where: { $0.id == id }) else {
+                 return
+             }
+             transitionSubject.send(.selectedHouse(house))
+            
+        case let .main(model):
+            let id = model.id
+             guard let house = housesSubject.value.first(where: { $0.id == id }) else {
+                 return
+             }
+             transitionSubject.send(.selectedHouse(house))
+            
+        case .main, .map:
+            break
+        }
+     
+    }
 
     func setScreenState(_ state: SearchResultsScreenState) {
         screenState = state

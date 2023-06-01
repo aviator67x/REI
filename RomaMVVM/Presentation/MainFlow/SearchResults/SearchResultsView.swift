@@ -12,6 +12,7 @@ enum SearchResultsViewAction {
     case collectionBottomDidReach
     case fromSelectViewTransition(SelectViewAction)
     case onCellHeartButtonPublisher(selectedItem: SearchResultsItem)
+    case selectedItem(SearchResultsItem)
 }
 
 final class SearchResultsView: BaseView {
@@ -84,6 +85,13 @@ final class SearchResultsView: BaseView {
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.collectionView.isUserInteractionEnabled = true
             })
+            .store(in: &cancellables)
+        
+        collectionView.didSelectItemPublisher
+            .compactMap {self.dataSource?.itemIdentifier(for: $0)}
+            .map {SearchResultsViewAction.selectedItem($0)}
+            .sink { [unowned self] in
+                actionSubject.send($0)}
             .store(in: &cancellables)
         
         collectionView.reachedBottomPublisher(offset: 500)

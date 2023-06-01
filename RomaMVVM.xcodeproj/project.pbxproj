@@ -102,6 +102,11 @@
 		CE31637A29F6D9EE00E8A6B0 /* UIView+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */; };
 		CE31637C29F7D35100E8A6B0 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637B29F7D35100E8A6B0 /* MapCell.swift */; };
 		CE31637E29F94A2000E8A6B0 /* SelectScreenTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */; };
+		CE31F8DE2A2757C4003595CA /* SelectedHouseModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8DA2A2757C4003595CA /* SelectedHouseModuleBuilder.swift */; };
+		CE31F8DF2A2757C4003595CA /* SelectedHouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8DB2A2757C4003595CA /* SelectedHouseViewController.swift */; };
+		CE31F8E02A2757C4003595CA /* SelectedHouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8DC2A2757C4003595CA /* SelectedHouseView.swift */; };
+		CE31F8E12A2757C4003595CA /* SelectedHouseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8DD2A2757C4003595CA /* SelectedHouseViewModel.swift */; };
+		CE31F8E42A2760A6003595CA /* SelectedHouseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8E32A2760A6003595CA /* SelectedHouseModel.swift */; };
 		CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FE929BC9CEA0042C2F8 /* Array.swift */; };
 		CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */; };
 		CE5CCEBA29FAB09F007972CB /* FavouriteModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEB629FAB09F007972CB /* FavouriteModuleBuilder.swift */; };
@@ -176,7 +181,6 @@
 		CEAA10ED29DDBA5200340401 /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10E929DDBA5200340401 /* SearchResultsViewModel.swift */; };
 		CEAA10F029DDBC5600340401 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10EF29DDBC5600340401 /* PhotoCell.swift */; };
 		CEAA10F329DDBDB700340401 /* SearchResultsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F229DDBDB700340401 /* SearchResultsCollection.swift */; };
-		CEAA10F529DEDAD700340401 /* HouseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F429DEDAD700340401 /* HouseModel.swift */; };
 		CEAA10F729DEDBBE00340401 /* HouseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F629DEDBBE00340401 /* HouseModels.swift */; };
 		CEAA10F929DEDC2A00340401 /* HouseEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10F829DEDC2A00340401 /* HouseEndPoint.swift */; };
 		CEAA10FB29DEE01000340401 /* HousesNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAA10FA29DEE01000340401 /* HousesNetworkService.swift */; };
@@ -356,6 +360,11 @@
 		CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+isHidden.swift"; sourceTree = "<group>"; };
 		CE31637B29F7D35100E8A6B0 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectScreenTransition.swift; sourceTree = "<group>"; };
+		CE31F8DA2A2757C4003595CA /* SelectedHouseModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseModuleBuilder.swift; sourceTree = "<group>"; };
+		CE31F8DB2A2757C4003595CA /* SelectedHouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseViewController.swift; sourceTree = "<group>"; };
+		CE31F8DC2A2757C4003595CA /* SelectedHouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseView.swift; sourceTree = "<group>"; };
+		CE31F8DD2A2757C4003595CA /* SelectedHouseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseViewModel.swift; sourceTree = "<group>"; };
+		CE31F8E32A2760A6003595CA /* SelectedHouseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseModel.swift; sourceTree = "<group>"; };
 		CE4E7FE929BC9CEA0042C2F8 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		CE5CCEB629FAB09F007972CB /* FavouriteModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteModuleBuilder.swift; sourceTree = "<group>"; };
@@ -428,7 +437,6 @@
 		CEAA10E929DDBA5200340401 /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewModel.swift; sourceTree = "<group>"; };
 		CEAA10EF29DDBC5600340401 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		CEAA10F229DDBDB700340401 /* SearchResultsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsCollection.swift; sourceTree = "<group>"; };
-		CEAA10F429DEDAD700340401 /* HouseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseModel.swift; sourceTree = "<group>"; };
 		CEAA10F629DEDBBE00340401 /* HouseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseModels.swift; sourceTree = "<group>"; };
 		CEAA10F829DEDC2A00340401 /* HouseEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseEndPoint.swift; sourceTree = "<group>"; };
 		CEAA10FA29DEE01000340401 /* HousesNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesNetworkService.swift; sourceTree = "<group>"; };
@@ -847,7 +855,7 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
-		CE13E3A629DAFDE100B948C9 /* SeaechFiltersDetailed */ = {
+		CE13E3A629DAFDE100B948C9 /* SearchFiltersDetailed */ = {
 			isa = PBXGroup;
 			children = (
 				CE13E3A729DAFE5600B948C9 /* SearchFiltersDetailedModuleBuilder.swift */,
@@ -857,7 +865,7 @@
 				CE13E3C829DC85EF00B948C9 /* Models */,
 				CE13E3AF29DB18DC00B948C9 /* Subviews */,
 			);
-			path = SeaechFiltersDetailed;
+			path = SearchFiltersDetailed;
 			sourceTree = "<group>";
 		};
 		CE13E3AF29DB18DC00B948C9 /* Subviews */ = {
@@ -899,6 +907,26 @@
 				CE1E2DD12A07C98100328EAF /* Subscriber.swift */,
 			);
 			path = CustomGesturePublishers;
+			sourceTree = "<group>";
+		};
+		CE31F8D92A275700003595CA /* SelectedHouse */ = {
+			isa = PBXGroup;
+			children = (
+				CE31F8E22A27608F003595CA /* Models */,
+				CE31F8DA2A2757C4003595CA /* SelectedHouseModuleBuilder.swift */,
+				CE31F8DB2A2757C4003595CA /* SelectedHouseViewController.swift */,
+				CE31F8DC2A2757C4003595CA /* SelectedHouseView.swift */,
+				CE31F8DD2A2757C4003595CA /* SelectedHouseViewModel.swift */,
+			);
+			path = SelectedHouse;
+			sourceTree = "<group>";
+		};
+		CE31F8E22A27608F003595CA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE31F8E32A2760A6003595CA /* SelectedHouseModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		CE5CCEBE29FAE6B3007972CB /* Favourite */ = {
@@ -1072,7 +1100,6 @@
 			isa = PBXGroup;
 			children = (
 				CEAA10F229DDBDB700340401 /* SearchResultsCollection.swift */,
-				CEAA10F429DEDAD700340401 /* HouseModel.swift */,
 				CEE2DE6429F2A17F0029AFF8 /* SearchResultViewModelResultViewModel.swift */,
 				CEE2DE6C29F322540029AFF8 /* MainCellModel.swift */,
 				CEE2DE6E29F323090029AFF8 /* ListCellModel.swift */,
@@ -1155,7 +1182,8 @@
 				CE990E5D29C8E77400120D6F /* EditProfile */,
 				CEAA10E529DDBA0200340401 /* SearchResults */,
 				CE0E27AA29CE1D90001EDFCD /* SearchFilters */,
-				CE13E3A629DAFDE100B948C9 /* SeaechFiltersDetailed */,
+				CE13E3A629DAFDE100B948C9 /* SearchFiltersDetailed */,
+				CE31F8D92A275700003595CA /* SelectedHouse */,
 				CE5CCEBE29FAE6B3007972CB /* Favourite */,
 				CE5CCEBF29FAE782007972CB /* MyHouse */,
 				CEB9F6782A17ADC00082A674 /* AdAddress */,
@@ -1519,6 +1547,7 @@
 				CEADC9B5298853E8007A0650 /* BaseButton.swift in Sources */,
 				5085332B1A5B06C8C213ECDB /* BaseViewController.swift in Sources */,
 				CE9430CE29C8736400FFB94C /* ProfileView.swift in Sources */,
+				CE31F8DE2A2757C4003595CA /* SelectedHouseModuleBuilder.swift in Sources */,
 				173F149C6D6553B04D682E9D /* BaseViewModel.swift in Sources */,
 				CEADC9A22981A22E007A0650 /* UniformKeyPathInitializable.swift in Sources */,
 				CE9CAF3229B6551B007DC31B /* SearchResultsCoordinator.swift in Sources */,
@@ -1547,6 +1576,7 @@
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
 				CEA2A86729E9D1B400395817 /* SearchModel.swift in Sources */,
 				CEAEB9E429AAA57E005BBF50 /* UserNetworkService.swift in Sources */,
+				CE31F8E12A2757C4003595CA /* SelectedHouseViewModel.swift in Sources */,
 				CEAEB9EC29ACA6B1005BBF50 /* PasswordRestoreModuleBuilder.swift in Sources */,
 				CE1E2DE02A0B9FF700328EAF /* NumberOfRoomsCellModel.swift in Sources */,
 				CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */,
@@ -1561,6 +1591,7 @@
 				CE1E2DDC2A0B92B200328EAF /* DistanceCellModel.swift in Sources */,
 				CE990E9729CB623100120D6F /* EditProfileViewModel.swift in Sources */,
 				CEE2DE6529F2A17F0029AFF8 /* SearchResultViewModelResultViewModel.swift in Sources */,
+				CE31F8DF2A2757C4003595CA /* SelectedHouseViewController.swift in Sources */,
 				CE0E27BF29D43D06001EDFCD /* HeaderView.swift in Sources */,
 				CEB9F6812A17AE410082A674 /* AdAddressView.swift in Sources */,
 				CEDDF29E29D6FA27003BF639 /* SearchFiltersCollection.swift in Sources */,
@@ -1584,7 +1615,6 @@
 				CE0E27BD29D43CBD001EDFCD /* BackgrounFooterView.swift in Sources */,
 				CEE2DE6329F2939E0029AFF8 /* ResultView.swift in Sources */,
 				8B92C57154F6E7BCFE57E7B1 /* Module.swift in Sources */,
-				CEAA10F529DEDAD700340401 /* HouseModel.swift in Sources */,
 				CEFFB9A62A24E4F90009F624 /* PhotoCollection.swift in Sources */,
 				CE1E2DD22A07C98100328EAF /* Subscriber.swift in Sources */,
 				B355206A6EA2EE9B20C77B89 /* SceneDelegate.swift in Sources */,
@@ -1607,6 +1637,8 @@
 				03EA4466B3EA6DF4583F862E /* SettingsViewController.swift in Sources */,
 				CE5CCEBA29FAB09F007972CB /* FavouriteModuleBuilder.swift in Sources */,
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
+				CE31F8E42A2760A6003595CA /* SelectedHouseModel.swift in Sources */,
+				CE31F8E02A2757C4003595CA /* SelectedHouseView.swift in Sources */,
 				CE02BD7E2A1602D8007AD3C7 /* AdCreatingRequestModel.swift in Sources */,
 				CE13E3AC29DAFE5600B948C9 /* SearchFiltersDetailedViewController.swift in Sources */,
 				CE02BD722A140290007AD3C7 /* AdCollectionModel.swift in Sources */,

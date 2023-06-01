@@ -94,6 +94,7 @@ final class PhotoCell: UICollectionViewListCell {
         imageView.kf.setImage(with: model.image, placeholder: UIImage(systemName: "house.lodge"))
         streetLabel.text = [model.street, String(model.house)].joined(separator: " ")
         ortLabel.text = model.ort
+      
         sqmLabel.text = "\(model.livingArea) sqm / \(model.square) sqm \u{00B7} \(model.numberOfRooms) rooms"
         priceValueLabel.text = "\u{20AC} \(String(model.price)) k.k."
         

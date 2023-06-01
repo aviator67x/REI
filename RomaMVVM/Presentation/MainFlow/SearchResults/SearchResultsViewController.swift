@@ -40,6 +40,8 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                     viewModel.moveTo(screen)
                 case .onCellHeartButtonPublisher(selectedItem: let selectedItem):
                     viewModel.editToFavourites(item: selectedItem)
+                case .selectedItem(let item):
+                    viewModel.showSelectedItem(item)
                 }
             }
             .store(in: &cancellables)

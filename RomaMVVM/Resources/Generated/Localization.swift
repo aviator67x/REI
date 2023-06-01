@@ -16,6 +16,39 @@ internal enum Localization {
   internal static let chooseOption = Localization.tr("Localizable", "choose-option", fallback: "Choose option")
   /// Confirm password
   internal static let confirmPassword = Localization.tr("Localizable", "confirm-password", fallback: "Confirm password")
+  ///  What a wonderful view!
+  /// 
+  ///         This neatly finished family home is located in a particularly beautiful location in the popular new housing estate De Draai. At the front of the house you can dream away with the idyllic view of a thatched farm with grassland, trees and ditch in front. You don't have the feeling that you live in a new residential area at all!
+  /// 
+  ///         At the rear you have a nice view into your own backyard. This garden is neatly laid out, located on the sunny southwest and has a gate to get to the public road. In addition, here is the detached wooden shed for storing your bicycles and garden equipment.
+  /// 
+  ///         De Draai is a child-friendly neighborhood with a relatively large number of families. Facilities such as primary and secondary education, a supermarket, public transport (bus/train), the old center of Heerhugowaard and the Middenwaard shopping center are within walking and/or cycling distance.
+  /// 
+  ///         Layout of the house:
+  /// 
+  ///         Ground floor:
+  ///         Entrance, hall, modern meter cupboard and light toilet with fountain. The garden-oriented living room has a door to the backyard and the floor is finished with a beautiful PVC floor with underfloor heating. The contemporary open kitchen consists of 2 parallel kitchen blocks that are equipped with a 5-burner gas stove, oven, extractor hood, dishwasher and fridge freezer. The first floor can be reached via the partly open staircase.
+  /// 
+  ///         First floor:
+  ///         Landing with stairs to the second floor and access to all areas on this floor. At the front of the house is the largest bedroom with 2 large skylights that let in a lot of light. Then there is a modern bathroom with shower, sink and toilet. The two smaller bedrooms can be found at the rear. The first floor is heated by radiators.
+  /// 
+  ///         Second floor:
+  ///         Via a staircase you reach the spacious attic with skylight. You can use this space as a bedroom, study / office or hobby room. Here you will find the washing machine and dryer connection. The central heating boiler and heat recovery unit are located in a closed cabinet. There is also storage space behind the knee bulkheads.
+  /// 
+  ///         Garden:
+  ///         Both the front and backyard are neatly landscaped and offer opportunities to enjoy the outdoors. The backyard is located on the southwest, so you can grab quite a few hours of sunshine. There is also a detached wooden shed here.
+  /// 
+  ///         Details:
+  ///         - Beautiful view of farm with grassland in front;
+  ///         - Underfloor heating on the ground floor;
+  ///         - Possibility to create an extra bedroom on the second floor;
+  ///         - Energy label A;
+  ///         - Very low energy and gas costs;
+  ///         - 3 solar panels on the roof;
+  ///         - Acceptance in consultation.
+  /// 
+  ///         Fished behind the net again? Call in your own Heerhugowaard NVM purchase broker immediately. Your Heerhugowaard NVM purchase broker will stand up for your interests and save you time, money and worries!
+  internal static let descriptionLabel = Localization.tr("Localizable", "descriptionLabel", fallback: " What a wonderful view!\n\n        This neatly finished family home is located in a particularly beautiful location in the popular new housing estate De Draai. At the front of the house you can dream away with the idyllic view of a thatched farm with grassland, trees and ditch in front. You don't have the feeling that you live in a new residential area at all!\n\n        At the rear you have a nice view into your own backyard. This garden is neatly laid out, located on the sunny southwest and has a gate to get to the public road. In addition, here is the detached wooden shed for storing your bicycles and garden equipment.\n\n        De Draai is a child-friendly neighborhood with a relatively large number of families. Facilities such as primary and secondary education, a supermarket, public transport (bus/train), the old center of Heerhugowaard and the Middenwaard shopping center are within walking and/or cycling distance.\n\n        Layout of the house:\n\n        Ground floor:\n        Entrance, hall, modern meter cupboard and light toilet with fountain. The garden-oriented living room has a door to the backyard and the floor is finished with a beautiful PVC floor with underfloor heating. The contemporary open kitchen consists of 2 parallel kitchen blocks that are equipped with a 5-burner gas stove, oven, extractor hood, dishwasher and fridge freezer. The first floor can be reached via the partly open staircase.\n\n        First floor:\n        Landing with stairs to the second floor and access to all areas on this floor. At the front of the house is the largest bedroom with 2 large skylights that let in a lot of light. Then there is a modern bathroom with shower, sink and toilet. The two smaller bedrooms can be found at the rear. The first floor is heated by radiators.\n\n        Second floor:\n        Via a staircase you reach the spacious attic with skylight. You can use this space as a bedroom, study / office or hobby room. Here you will find the washing machine and dryer connection. The central heating boiler and heat recovery unit are located in a closed cabinet. There is also storage space behind the knee bulkheads.\n\n        Garden:\n        Both the front and backyard are neatly landscaped and offer opportunities to enjoy the outdoors. The backyard is located on the southwest, so you can grab quite a few hours of sunshine. There is also a detached wooden shed here.\n\n        Details:\n        - Beautiful view of farm with grassland in front;\n        - Underfloor heating on the ground floor;\n        - Possibility to create an extra bedroom on the second floor;\n        - Energy label A;\n        - Very low energy and gas costs;\n        - 3 solar panels on the roof;\n        - Acceptance in consultation.\n\n        Fished behind the net again? Call in your own Heerhugowaard NVM purchase broker immediately. Your Heerhugowaard NVM purchase broker will stand up for your interests and save you time, money and worries!")
   /// Done
   internal static let done = Localization.tr("Localizable", "done", fallback: "Done")
   /// Email
