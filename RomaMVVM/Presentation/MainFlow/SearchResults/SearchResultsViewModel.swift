@@ -118,8 +118,11 @@ private extension SearchResultsViewModel {
             sectionsSubject.value = [manViewSection, listSection]
 
         case .map:
-            let mapItem = SearchResultsItem.map
+            let cellModel = MapCellModel(data: housesSubject.value)
+            let mapItem = SearchResultsItem.map(cellModel)
             let mapSection = SearchResultsCollection(section: .map, items: [mapItem])
+//            let mapItem = SearchResultsItem.map
+//            let mapSection = SearchResultsCollection(section: .map, items: [mapItem])
             sectionsSubject.value = [mapSection]
         }
     }
@@ -127,7 +130,7 @@ private extension SearchResultsViewModel {
 
 // MARK: - extension
 extension SearchResultsViewModel {
-    func editToFavourites(item: SearchResultsItem) {
+    func editFavourites(item: SearchResultsItem) {
         switch item {
         case let .photo(house):
             let id = house.id ?? ""
@@ -156,34 +159,33 @@ extension SearchResultsViewModel {
             transitionSubject.send(.favourite)
         }
     }
-    
+
     func showSelectedItem(_ item: SearchResultsItem) {
         switch item {
         case let .photo(model):
-           let id = model.id
+            let id = model.id
             guard let house = housesSubject.value.first(where: { $0.id == id }) else {
                 return
             }
             transitionSubject.send(.selectedHouse(house))
-            
+
         case let .list(model):
             let id = model.id
-             guard let house = housesSubject.value.first(where: { $0.id == id }) else {
-                 return
-             }
-             transitionSubject.send(.selectedHouse(house))
-            
+            guard let house = housesSubject.value.first(where: { $0.id == id }) else {
+                return
+            }
+            transitionSubject.send(.selectedHouse(house))
+
         case let .main(model):
             let id = model.id
-             guard let house = housesSubject.value.first(where: { $0.id == id }) else {
-                 return
-             }
-             transitionSubject.send(.selectedHouse(house))
-            
+            guard let house = housesSubject.value.first(where: { $0.id == id }) else {
+                return
+            }
+            transitionSubject.send(.selectedHouse(house))
+
         case .main, .map:
             break
         }
-     
     }
 
     func setScreenState(_ state: SearchResultsScreenState) {

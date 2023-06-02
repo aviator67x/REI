@@ -23,5 +23,5 @@ enum SearchResultsItem: Hashable {
     case photo(PhotoCellModel)
     case main(MainCellModel)
     case list(ListCellModel)
-    case map
+    case map(MapCellModel)
 }

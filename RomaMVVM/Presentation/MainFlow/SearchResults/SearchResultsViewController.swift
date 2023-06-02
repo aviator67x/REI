@@ -23,6 +23,10 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
         setupBindings()
         setupNavigationBar()
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        navigationController?.navigationBar.isHidden = false
+//    }
 
     private func setupNavigationBar() {
         navigationItem.titleView = segmentedControl
@@ -39,7 +43,7 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                 case .fromSelectViewTransition(let screen):
                     viewModel.moveTo(screen)
                 case .onCellHeartButtonPublisher(selectedItem: let selectedItem):
-                    viewModel.editToFavourites(item: selectedItem)
+                    viewModel.editFavourites(item: selectedItem)
                 case .selectedItem(let item):
                     viewModel.showSelectedItem(item)
                 }

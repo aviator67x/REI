@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import UIKit
 
 final class SignInViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -23,6 +24,9 @@ final class SignInViewModel: BaseViewModel {
     @Published var isPasswordValid: State = .invalid(errorMessage: nil)
 
     @Published private(set) var isInputValid = false
+    
+    private(set) lazy var showAlertPublisher = showAlertSubject.eraseToAnyPublisher()
+    private lazy var showAlertSubject = PassthroughSubject<Void, Never>()
 
     init(
         authService: AuthNetworkService,
@@ -72,15 +76,16 @@ final class SignInViewModel: BaseViewModel {
         authService.signIn(requestModel)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
+                self?.isLoadingSubject.send(false)
                 switch completion {
                 case let .failure(error):
                     debugPrint(error.localizedDescription)
-                    self?.errorSubject.send(error)
+//                    self?.errorSubject.send(error)
+                    self?.showAlertSubject.send()
                 case .finished:
                     debugPrint("SignIn is successfully finished")
                 }
             } receiveValue: { [weak self] user in
-                self?.isLoadingSubject.send(false)
                 let userModel = UserDomainModel(networkModel: user)
                 let token = user.accessToken
                 self?.userService.save(user: userModel)

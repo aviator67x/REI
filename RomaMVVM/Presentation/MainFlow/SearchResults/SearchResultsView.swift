@@ -75,17 +75,17 @@ final class SearchResultsView: BaseView {
     }
 
     private func bindActions() {
-        collectionView.willBeginDraggingPublisher
-            .sinkWeakly(self, receiveValue: { (self, _) in
-                self.collectionView.isUserInteractionEnabled = false
-            })
-            .store(in: &cancellables)
-        
-        collectionView.didEndDraggingPublisher
-            .sinkWeakly(self, receiveValue: { (self, _) in
-                self.collectionView.isUserInteractionEnabled = true
-            })
-            .store(in: &cancellables)
+//        collectionView.willBeginDraggingPublisher
+//            .sinkWeakly(self, receiveValue: { (self, _) in
+//                self.collectionView.isUserInteractionEnabled = false
+//            })
+//            .store(in: &cancellables)
+//        
+//        collectionView.didEndDraggingPublisher
+//            .sinkWeakly(self, receiveValue: { (self, _) in
+//                self.collectionView.isUserInteractionEnabled = true
+//            })
+//            .store(in: &cancellables)
         
         collectionView.didSelectItemPublisher
             .compactMap {self.dataSource?.itemIdentifier(for: $0)}
@@ -94,7 +94,7 @@ final class SearchResultsView: BaseView {
                 actionSubject.send($0)}
             .store(in: &cancellables)
         
-        collectionView.reachedBottomPublisher(offset: 500)
+        collectionView.reachedBottomPublisher()
             .sink { [unowned self] in
                 self.actionSubject.send(.collectionBottomDidReach)
             }
@@ -191,8 +191,9 @@ extension SearchResultsView {
                     cell.setupCell(model)
                     return cell
                     
-                case .map:
+                case .map(let model):
                     let cell: MapCell = collectionView.dedequeueReusableCell(for: indexPath)
+                    cell.setup(with: model)
                     return cell
                 }
             }

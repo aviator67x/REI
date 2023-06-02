@@ -68,5 +68,16 @@ final class SignInViewController: BaseViewController<SignInViewModel> {
         viewModel.$isInputValid
             .sink { [unowned self] in contentView.setSignInButton(enabled: $0)}
             .store(in: &cancellables)
+        
+        viewModel.showAlertPublisher
+            .sink { [unowned self] _ in
+                let alert = UIAlertController(title: "Incorrect username or password", message: "Do you wnat to create an account?", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Sign up", style: UIAlertAction.Style.default) { _ in
+                    self.viewModel.showTestSignUp()
+                })
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            .store(in: &cancellables)
     }
 }

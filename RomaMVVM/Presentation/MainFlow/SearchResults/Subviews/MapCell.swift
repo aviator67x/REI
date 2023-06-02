@@ -7,6 +7,7 @@
 
 import Foundation
 import MapKit
+import CoreLocation
 
 final class MapCell: UICollectionViewListCell {
     let mapView = MKMapView()
@@ -29,6 +30,11 @@ final class MapCell: UICollectionViewListCell {
             $0.height.equalTo(screenHeight)
             $0.edges.equalToSuperview()
         }
+    }
+    
+    func setup(with model: MapCellModel) {
+        let mapService  = MapServiceImpl()
+        model.addresses.forEach { address in mapService.showOnMap(mapView: mapView, address: address, region: 10000)}
     }
 }
 

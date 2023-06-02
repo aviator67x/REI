@@ -127,6 +127,8 @@
 		CE6B906F2A1F439E00642B90 /* AdPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */; };
 		CE6B90702A1F439E00642B90 /* AdPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906C2A1F439E00642B90 /* AdPhotosView.swift */; };
 		CE6B90712A1F439E00642B90 /* AdPhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906D2A1F439E00642B90 /* AdPhotosViewModel.swift */; };
+		CE8B29832A2A323900425FB0 /* MapCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8B29822A2A323900425FB0 /* MapCellModel.swift */; };
+		CE8B29852A2A372600425FB0 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8B29842A2A372600425FB0 /* MapService.swift */; };
 		CE9430C629C4C20B00FFB94C /* ImageAsset+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C529C4C20B00FFB94C /* ImageAsset+Hashable.swift */; };
 		CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C829C8736400FFB94C /* ProfileModuleBuilder.swift */; };
 		CE9430CD29C8736400FFB94C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C929C8736400FFB94C /* ProfileViewController.swift */; };
@@ -385,6 +387,8 @@
 		CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosViewController.swift; sourceTree = "<group>"; };
 		CE6B906C2A1F439E00642B90 /* AdPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosView.swift; sourceTree = "<group>"; };
 		CE6B906D2A1F439E00642B90 /* AdPhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosViewModel.swift; sourceTree = "<group>"; };
+		CE8B29822A2A323900425FB0 /* MapCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellModel.swift; sourceTree = "<group>"; };
+		CE8B29842A2A372600425FB0 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		CE9430C529C4C20B00FFB94C /* ImageAsset+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageAsset+Hashable.swift"; sourceTree = "<group>"; };
 		CE9430C829C8736400FFB94C /* ProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleBuilder.swift; sourceTree = "<group>"; };
 		CE9430C929C8736400FFB94C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -1106,6 +1110,7 @@
 				CEE2DE7029F323660029AFF8 /* PhotoCellModel.swift */,
 				CEE2DE7229F66C550029AFF8 /* SearchResultsScreenState.swift */,
 				CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */,
+				CE8B29822A2A323900425FB0 /* MapCellModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1337,6 +1342,7 @@
 				CEA51C4429F03C6E0030602E /* HousesService.swift */,
 				CEDDF2A129D87B65003BF639 /* KeychainService.swift */,
 				CEA5B73029B0B8D30038A29C /* TokenStorageService.swift */,
+				CE8B29842A2A372600425FB0 /* MapService.swift */,
 				CEADC9A62983D9E4007A0650 /* TextFieldValidationService */,
 				0ABA33F4C68A53878DD45650 /* NetworkService */,
 			);
@@ -1522,6 +1528,7 @@
 				CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */,
 				CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */,
 				CE1E2DD02A07C92F00328EAF /* Publisher.swift in Sources */,
+				CE8B29832A2A323900425FB0 /* MapCellModel.swift in Sources */,
 				CE9430C629C4C20B00FFB94C /* ImageAsset+Hashable.swift in Sources */,
 				CE6B90702A1F439E00642B90 /* AdPhotosView.swift in Sources */,
 				CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */,
@@ -1639,6 +1646,7 @@
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
 				CE31F8E42A2760A6003595CA /* SelectedHouseModel.swift in Sources */,
 				CE31F8E02A2757C4003595CA /* SelectedHouseView.swift in Sources */,
+				CE8B29852A2A372600425FB0 /* MapService.swift in Sources */,
 				CE02BD7E2A1602D8007AD3C7 /* AdCreatingRequestModel.swift in Sources */,
 				CE13E3AC29DAFE5600B948C9 /* SearchFiltersDetailedViewController.swift in Sources */,
 				CE02BD722A140290007AD3C7 /* AdCollectionModel.swift in Sources */,

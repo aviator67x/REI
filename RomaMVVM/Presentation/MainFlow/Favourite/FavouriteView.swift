@@ -49,7 +49,6 @@ final class FavouriteView: BaseView {
                             self?.itemSubject.send(item)
                         }
                     }
-
                     return UISwipeActionsConfiguration(actions: [del])
                 }
                 section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
@@ -76,12 +75,13 @@ final class FavouriteView: BaseView {
     }
 
     private func bindActions() {
-//        itemSubject
-//            .map { FavouriteViewAction.selectedItem($0) }
-//            .sink { [unowned self] in
-//                actionSubject.send($0)
-//            }
-//            .store(in: &cancellables)
+        itemSubject
+            .map { FavouriteViewAction.selectedItem($0) }
+            .print()
+            .sink { [unowned self] in
+                actionSubject.send($0)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
