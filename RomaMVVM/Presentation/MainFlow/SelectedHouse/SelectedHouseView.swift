@@ -6,9 +6,10 @@
 //
 
 import Combine
+import CoreLocation
+import MapKit
 import SnapKit
 import UIKit
-import MapKit
 
 enum SelectedHouseViewAction {
     case navBarAlfaOnScroll(CGFloat)
@@ -83,8 +84,9 @@ final class SelectedHouseView: BaseView {
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.isMore.toggle()
                 let nsString = Constant.text.rawValue as NSString
-                self.descriptionLabel.text = self.isMore ? Constant.text.rawValue : nsString
-                    .substring(with: NSRange(location: 0, length: nsString.length > 300 ? 300 : nsString.length))
+                self.descriptionLabel.text = self.isMore ? nsString
+                    .substring(with: NSRange(location: 0, length: nsString.length > 300 ? 300 : nsString.length)) :
+                    Constant.text.rawValue
                 self.moreButton.setTitle(self.isMore ? "Show More" : "Show Less", for: .normal)
                 self.layoutIfNeeded()
 
@@ -132,7 +134,7 @@ final class SelectedHouseView: BaseView {
         moreButton.titleLabel?.textAlignment = .center
         moreButton.layer.cornerRadius = 3
         moreButton.bordered(width: 1, color: .lightGray)
-        moreButton.setTitle("More", for: .normal)
+        moreButton.setTitle("Show more", for: .normal)
 
         buttonStack.backgroundColor = .white
         buttonStack.axis = .horizontal
@@ -195,7 +197,7 @@ final class SelectedHouseView: BaseView {
         }
 
         stackView.addArrangedSubviews([streetLabel, ortLabel, sqmLabel, spacer, priceValueLabel])
-        
+
         addSubview(descTitleLabel) {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(stackView.snp.bottom).offset(20)
@@ -212,13 +214,13 @@ final class SelectedHouseView: BaseView {
             $0.height.equalTo(20)
             $0.width.equalTo(100)
         }
-        
+
         contentView.addSubview(mapView) {
             $0.top.equalTo(moreButton.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(250)
         }
-        
+
         contentView.addSubview(downSpacer) {
             $0.top.equalTo(mapView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
@@ -266,6 +268,42 @@ final class SelectedHouseView: BaseView {
         let mediumBoldHeartFill = UIImage(systemName: "heart.fill", withConfiguration: mediumConfig)
         heartButton.setImage(model.isFavourite ? mediumBoldHeartFill : mediumBoldHeartEmpty, for: .normal)
         heartButton.tintColor = model.isFavourite ? .red : .white
+
+        let address = [model.ort, model.street, String(model.house)].joined(separator: ",")
+        showOnMap(address: address)
+    }
+
+    func showOnMap(address: String) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address, completionHandler: { placemarks, error in
+            if error != nil {
+                print("Failed to retrieve location")
+                return
+            }
+            var location: CLLocation?
+            if let placemarks = placemarks, !placemarks.isEmpty {
+                location = placemarks.first?.location
+            }
+            guard let location = location else {
+                return
+            }
+
+            let houseLocation = CLLocationCoordinate2D(
+                latitude: location.coordinate.latitude,
+                longitude: location.coordinate.longitude
+            )
+
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = houseLocation
+            annotation.title = address
+            let coordinateRegion = MKCoordinateRegion(
+                center: annotation.coordinate,
+                latitudinalMeters: 5000,
+                longitudinalMeters: 5000
+            )
+            self.mapView.setRegion(coordinateRegion, animated: true)
+            self.mapView.addAnnotation(annotation)
+        })
     }
 }
 
