@@ -80,7 +80,9 @@ final class EditProfileViewController: BaseViewController<EditProfileViewModel> 
                     lastName: user.lastName,
                     nickName: user.nickName
                 )
-                self.contentView.updateUI(userViewModel)
+                DispatchQueue.main.async {
+                    self.contentView.updateUI(userViewModel)
+                }                
             })
             .store(in: &cancellables)
 

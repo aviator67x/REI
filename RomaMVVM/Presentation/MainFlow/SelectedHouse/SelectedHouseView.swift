@@ -12,7 +12,7 @@ import SnapKit
 import UIKit
 
 enum SelectedHouseViewAction {
-    case navBarAlfaOnScroll(CGFloat)
+    case navBarAlfaOnScroll(Bool)
     case onHeartButtonTap(itemId: String)
 }
 
@@ -71,8 +71,8 @@ final class SelectedHouseView: BaseView {
                 guard let self = self else {
                     return
                 }
-                let alfa = offset.y > self.imageView.frame.height ? 1 : 0
-                self.actionSubject.send(.navBarAlfaOnScroll(CGFloat(alfa)))
+                let isHidden = offset.y > self.imageView.frame.height ? false : true
+                self.actionSubject.send(.navBarAlfaOnScroll(isHidden))
             }
             .store(in: &cancellables)
 
