@@ -19,6 +19,7 @@ final class SignInViewController: BaseViewController<SignInViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+        navigationController?.navigationBar.isHidden = true
     }
 
     private func setupBindings() {

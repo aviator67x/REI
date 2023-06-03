@@ -22,8 +22,10 @@ final class SignInView: BaseView {
     private let backgroundView = UIImageView()
     private let logoView = UIImageView()
     private let scrollView = AxisScrollView()
+    private let emailLabel =  UILabel()
     private let emailTextField = UITextField()
     private let emailErrorMessageLabel = UILabel()
+    private let passwordLabel =  UILabel()
     private let passwordTextField = UITextField()
     private let passwordErrorMessageLabel = UILabel()
     private let forgotPasswordButton = UIButton()
@@ -61,7 +63,7 @@ final class SignInView: BaseView {
             self.logoView.transform = scaledAndTranslatedTransform
         }) {
             _ in
-//            let originalTransform = self.scrollView.transform
+            let originalTransform = self.scrollView.transform
             UIView.animate(withDuration: 1, animations: {
                 self.scrollView.alpha = 1
             })
@@ -76,11 +78,15 @@ final class SignInView: BaseView {
     private func bindActions() {
         emailTextField.textPublisher
             .replaceNil(with: "")
+            .dropFirst(3)
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [unowned self] in actionSubject.send(.emailDidChange($0)) }
             .store(in: &cancellables)
 
         passwordTextField.textPublisher
             .replaceNil(with: "")
+            .dropFirst(3)
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [unowned self] in actionSubject.send(.passwordDidChange($0)) }
             .store(in: &cancellables)
 
@@ -102,46 +108,49 @@ final class SignInView: BaseView {
     }
 
     private func setupUI() {
-        backgroundColor = .yellow
-        backgroundView.image = UIImage(named: "launchBackground")
+        backgroundColor = .lightGray
+        backgroundView.image = UIImage()//named: "launchBackground")
         scrollView.alpha = 0
         logoView.image = UIImage(named: "loggogo")
+        
+        [emailLabel, passwordLabel].forEach { label in label.text = ""
+            label.font = UIFont(name: "SFProText-Regular", size: 14)
+            label.textColor = .white
+        }
 
         emailTextField.placeholder = Localization.email
         emailTextField.text = "superMegaJamesBond@mi6.co.u"
 
-        emailErrorMessageLabel.text = ""
-        emailErrorMessageLabel.font = UIFont(name: "SFProText-Regular", size: 13)
-        emailErrorMessageLabel.textColor = UIColor(named: "error")
-        emailErrorMessageLabel.numberOfLines = 0
-
+        emailLabel.text = "Email"
+        passwordLabel.text = "Password"
+        [emailErrorMessageLabel, passwordErrorMessageLabel].forEach { label in label.text = ""
+            label.font = UIFont(name: "SFProText-Regular", size: 14)
+            label.textColor = UIColor(named: "error")
+            label.numberOfLines = 0
+        }
+        
         passwordTextField.placeholder = Localization.password
         passwordTextField.text = "Jame"
 
-        passwordErrorMessageLabel.text = ""
-        passwordErrorMessageLabel.font = UIFont(name: "SFProText-Regular", size: 13)
-        passwordErrorMessageLabel.textColor = UIColor(named: "error")
-        passwordErrorMessageLabel.numberOfLines = 0
-
         [emailTextField, passwordTextField].forEach {
             $0.borderStyle = .roundedRect
-            $0.layer.cornerRadius = 6
+            $0.layer.cornerRadius = 3
         }
 
         forgotPasswordButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 14)
-        forgotPasswordButton.setTitleColor(UIColor(named: "linkButtonColor"), for: .normal)
+//        forgotPasswordButton.setTitleColor(UIColor(named: "linkButtonColor"), for: .normal)
         forgotPasswordButton.setTitle("Forgot password?", for: .normal)
         forgotPasswordButton.contentHorizontalAlignment = .right
 
         signInButton.setTitle(Localization.signIn, for: .normal)
-        signInButton.backgroundColor = UIColor(named: "fillButtonBackground")
+        signInButton.backgroundColor = .orange//UIColor(named: "fillButtonBackground")
         signInButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 21)
         signInButton.setTitleColor(.white, for: .normal)
-        signInButton.rounded(6)
+        signInButton.rounded(3)
 
         let firstAttributes: [NSAttributedString.Key: Any] =
         [.foregroundColor: UIColor(named: "textFieldsBackground")]
-        let secondAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "linkButtonColor")]
+        let secondAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]//(named: "linkButtonColor")]
         let firstString = NSMutableAttributedString(string: "Not a member? ", attributes: firstAttributes)
         let secondString = NSAttributedString(string: "Create an account", attributes: secondAttributes)
         firstString.append(secondString)
@@ -168,8 +177,10 @@ final class SignInView: BaseView {
         let stack = UIStackView()
         stack.setup(axis: .vertical, alignment: .fill, distribution: .fill, spacing: Constants.textFieldSpacing)
         stack.addSpacer(200)
+        stack.addArranged(emailLabel)
         stack.addArranged(emailTextField, size: Constants.textFieldHeight)
         stack.addArranged(emailErrorMessageLabel)
+        stack.addArranged(passwordLabel)
         stack.addArranged(passwordTextField, size: Constants.textFieldHeight)
         stack.addArranged(passwordErrorMessageLabel)
         stack.addArranged(forgotPasswordButton)

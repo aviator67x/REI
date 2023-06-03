@@ -62,16 +62,22 @@ final class SignUpView: BaseView {
 
         emailTextField.textPublisher
             .replaceNil(with: "")
+            .dropFirst(3)
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [unowned self] in actionSubject.send(.emailDidChange($0)) }
             .store(in: &cancellables)
 
         passwordTextField.textPublisher
             .replaceNil(with: "")
+            .dropFirst(3)
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [unowned self] in actionSubject.send(.passwordDidChange($0)) }
             .store(in: &cancellables)
 
         confirmPasswordTextField.textPublisher
             .replaceNil(with: "")
+            .dropFirst(3)
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [unowned self] in actionSubject.send(.confirmPasswordDidChange($0)) }
             .store(in: &cancellables)
 
@@ -82,7 +88,8 @@ final class SignUpView: BaseView {
 
     private func setupUI() {
         backgroundColor = .white
-        backgroundView.image = Assets.launchBackground.image// UIImage(named: "launchBackground")
+//        backgroundView.image = Assets.launchBackground.image
+        backgroundView.backgroundColor = .lightGray
         logoView.image = UIImage(named: "loggogo")
         nameTextField.placeholder = Localization.name
         emailTextField.placeholder = Localization.email
@@ -98,7 +105,7 @@ final class SignUpView: BaseView {
 
         [nameTextField, emailTextField, passwordTextField, confirmPasswordTextField].forEach {
             $0.borderStyle = .roundedRect
-            $0.layer.cornerRadius = 6
+            $0.layer.cornerRadius = 3
         }
         
         [nameErrorMessageLabel, emailErrorMessageLabel, passwordErrorMessageLabel].forEach { item in

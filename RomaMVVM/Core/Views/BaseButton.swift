@@ -46,7 +46,7 @@ class BaseButton: UIButton {
 
     func initialSetup() {
         setTitle(buttonState.title, for: .normal)
-        layer.cornerRadius = 6
+        layer.cornerRadius = 3
         layer.borderWidth = 0
         layer.borderColor = UIColor.clear.cgColor
         titleLabel?.font = UIFont(name: "SFProText-Bold", size: 21)
