@@ -15,8 +15,10 @@ final class SelectedHouseViewModel: BaseViewModel {
     private lazy var houseSubject = CurrentValueSubject<SelectedHouseModel?, Never>(nil)
 
     private let house: HouseDomainModel
+    private let model: SearchModel
 
-    init(house: HouseDomainModel) {
+    init(model: SearchModel, house: HouseDomainModel) {
+        self.model = model
         self.house = house
         super.init()
     }
@@ -24,5 +26,9 @@ final class SelectedHouseViewModel: BaseViewModel {
     override func onViewDidLoad() {
         let house = SelectedHouseModel(data: house)
         houseSubject.send(house)
+    }
+    
+    func editFavorites(with id: String) {
+        model.editFavouriteHouses(with: id)
     }
 }

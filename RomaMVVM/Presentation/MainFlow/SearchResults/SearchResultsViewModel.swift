@@ -133,12 +133,10 @@ extension SearchResultsViewModel {
     func editFavourites(item: SearchResultsItem) {
         switch item {
         case let .photo(house):
-            let id = house.id ?? ""
-            model.editFavouriteHouses(with: id)
+            model.editFavouriteHouses(with: house.id)
 
         case let .list(house):
-            let id = house.id ?? ""
-            model.editFavouriteHouses(with: id)
+            model.editFavouriteHouses(with: house.id)
 
         case .main, .map:
             break

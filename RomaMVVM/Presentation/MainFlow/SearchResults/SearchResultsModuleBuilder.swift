@@ -17,8 +17,7 @@ enum FindTransition: Transition {
 
 final class SearchResultsModuleBuilder {
     class func build(container: AppContainer) -> Module<FindTransition, UIViewController> {
-        let model = SearchModel(housesService: container.housesService, userService: container.userService)
-        let viewModel = SearchResultsViewModel(model: model)
+        let viewModel = SearchResultsViewModel(model: container.searchModel)
         let viewController = SearchResultsViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

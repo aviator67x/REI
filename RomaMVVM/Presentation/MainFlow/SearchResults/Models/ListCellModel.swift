@@ -9,7 +9,7 @@ import Foundation
 
 struct ListCellModel: Hashable {
     let uuid = UUID()
-    let id: String?
+    let id: String
     let image: URL?
     let street: String
     let house: Int

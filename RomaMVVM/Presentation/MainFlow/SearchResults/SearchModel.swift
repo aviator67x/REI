@@ -25,7 +25,7 @@ final class SearchModel {
 
     private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
     private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
-        
+
     private(set) lazy var favouriteHousesIdPublisher = favouriteHousesIdSubject.eraseToAnyPublisher()
     private lazy var favouriteHousesIdSubject = CurrentValueSubject<[String], Never>([])
 
@@ -38,7 +38,7 @@ final class SearchModel {
     init(housesService: HousesService, userService: UserService) {
         self.housesService = housesService
         self.userService = userService
-    
+
         setupBinding()
     }
 
@@ -63,7 +63,7 @@ final class SearchModel {
                         ids.append(house.id)
                     }
                     self.favouriteHousesIdSubject.value = ids
-                case .failure(let error):
+                case let .failure(error):
                     debugPrint(error.localizedDescription)
                 }
             })
@@ -77,14 +77,13 @@ final class SearchModel {
     func editFavouriteHouses(with id: String) {
         print("House Id: \(favouriteHousesIdSubject.value)")
         print(id)
-        if favouriteHousesIdSubject.value.contains(id) {
-            guard let index = favouriteHousesIdSubject.value.firstIndex(of: id) else {
-                return
-            }
+
+        if let index = favouriteHousesIdSubject.value.firstIndex(of: id) {
             favouriteHousesIdSubject.value.remove(at: index)
         } else {
             favouriteHousesIdSubject.value.append(id)
         }
+
         isLoadingSubject.send(true)
         userService.addToFavourities(houses: favouriteHousesIdSubject.value)
             .receive(on: DispatchQueue.main)

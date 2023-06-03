@@ -916,11 +916,11 @@
 		CE31F8D92A275700003595CA /* SelectedHouse */ = {
 			isa = PBXGroup;
 			children = (
-				CE31F8E22A27608F003595CA /* Models */,
 				CE31F8DA2A2757C4003595CA /* SelectedHouseModuleBuilder.swift */,
 				CE31F8DB2A2757C4003595CA /* SelectedHouseViewController.swift */,
 				CE31F8DC2A2757C4003595CA /* SelectedHouseView.swift */,
 				CE31F8DD2A2757C4003595CA /* SelectedHouseViewModel.swift */,
+				CE31F8E22A27608F003595CA /* Models */,
 			);
 			path = SelectedHouse;
 			sourceTree = "<group>";

@@ -18,8 +18,6 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem
-            .leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(systemName: "chevron.left")))
         setupBindings()
     }
 
@@ -29,9 +27,8 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
                 switch action {
                 case .navBarAlfaOnScroll(let alfa):
                     self.navigationController?.navigationBar.alpha = alfa
-                case .onHeartButtonTap:
-                    break
-//                    viewModel.editFavorites()
+                case .onHeartButtonTap(let id):
+                    viewModel.editFavorites(with: id)
                 }
             }
             .store(in: &cancellables)

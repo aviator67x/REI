@@ -14,7 +14,7 @@ enum SelectedHouseTransition: Transition {
 
 final class SelectedHouseModuleBuilder {
     class func build(container: AppContainer, house: HouseDomainModel) -> Module<SelectedHouseTransition, UIViewController> {
-        let viewModel = SelectedHouseViewModel(house: house)
+        let viewModel = SelectedHouseViewModel(model: container.searchModel, house: house)
         let viewController = SelectedHouseViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

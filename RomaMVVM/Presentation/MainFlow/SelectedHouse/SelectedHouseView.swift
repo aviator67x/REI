@@ -13,7 +13,7 @@ import UIKit
 
 enum SelectedHouseViewAction {
     case navBarAlfaOnScroll(CGFloat)
-    case onHeartButtonTap
+    case onHeartButtonTap(itemId: String)
 }
 
 final class SelectedHouseView: BaseView {
@@ -44,6 +44,8 @@ final class SelectedHouseView: BaseView {
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SelectedHouseViewAction, Never>()
+    
+    private var currentItemId: String?
 
     private var isMore = true
 
@@ -76,7 +78,10 @@ final class SelectedHouseView: BaseView {
 
         heartButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
-                self.actionSubject.send(.onHeartButtonTap)
+                guard let currentItemId = self.currentItemId else {
+                    return
+                }
+                self.actionSubject.send(.onHeartButtonTap(itemId: currentItemId))
             })
             .store(in: &cancellables)
 
@@ -257,6 +262,7 @@ final class SelectedHouseView: BaseView {
     }
 
     func setupView(_ model: SelectedHouseModel) {
+        currentItemId = model.id
         imageView.kf.setImage(with: model.image, placeholder: UIImage(systemName: "house.lodge"))
         streetLabel.text = [model.street, String(model.house)].joined(separator: " ")
         ortLabel.text = model.ort

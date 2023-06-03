@@ -23,10 +23,6 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
         setupBindings()
         setupNavigationBar()
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        navigationController?.navigationBar.isHidden = false
-//    }
 
     private func setupNavigationBar() {
         navigationItem.titleView = segmentedControl
