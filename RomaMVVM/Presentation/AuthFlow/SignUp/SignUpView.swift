@@ -34,9 +34,14 @@ final class SignUpView: BaseView {
     private let confirmPasswordTextField = UITextField()
     private let confirmPasswordErrorMessageLabel = UILabel()
     private let signUpButton = BaseButton(buttonState: .signUp)
+    private let passwordRightImage = UIButton()
+    private let confirmPasswordRightImage = UIButton()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SignUpViewAction, Never>()
+
+    private var isPasswordVisible = false
+    private var isConfirmPasswordVisible = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -89,20 +94,53 @@ final class SignUpView: BaseView {
         signUpButton.tapPublisher
             .sink { [unowned self] in actionSubject.send(.signUpDidTap) }
             .store(in: &cancellables)
+
+        passwordRightImage.tapPublisher
+            .sink { [unowned self] in
+                self.isPasswordVisible.toggle()
+                handlePasswordTextField()
+            }
+            .store(in: &cancellables)
+
+        confirmPasswordRightImage.tapPublisher
+            .sink { [unowned self] in
+                self.isConfirmPasswordVisible.toggle()
+                handleConfirmPasswordTextField()
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
-        backgroundColor = .white
+        backgroundColor = .systemGray
         backgroundView.backgroundColor = .lightGray
         logoView.image = UIImage(named: "newLogo")
         logoView.tintColor = .orange
+        
         nameTextField.placeholder = Localization.name
         emailTextField.placeholder = Localization.email
-        
+
         passwordTextField.placeholder = Localization.password
+        let eyeSlashImage = UIImage(systemName: "eye.slash")
+        [passwordRightImage, confirmPasswordRightImage].forEach { button in
+            button.setImage(eyeSlashImage, for: .normal)
+            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+            button.frame = CGRect(
+                x: CGFloat(passwordTextField.frame.size.width - 25),
+                y: CGFloat(5),
+                width: CGFloat(25),
+                height: CGFloat(25)
+            )
+            button.tintColor = .lightGray
+        }
+        passwordTextField.rightView = passwordRightImage
+        passwordTextField.rightViewMode = .always
+        passwordTextField.isSecureTextEntry = true
 
         confirmPasswordTextField.placeholder = Localization.confirmPassword
-        
+        confirmPasswordTextField.rightView = confirmPasswordRightImage
+        confirmPasswordTextField.rightViewMode = .always
+        confirmPasswordTextField.isSecureTextEntry = true
+
         [nameLabel, emailLabel, passwordLabel, confirmPasswordLabel].forEach { label in
             label.font = UIFont(name: "SFProText-Regular", size: 14)
             label.textColor = .white
@@ -111,15 +149,8 @@ final class SignUpView: BaseView {
         emailLabel.text = "Email"
         passwordLabel.text = "Password"
         confirmPasswordLabel.text = "Confirm password"
-      
-        signUpButton.backgroundColor = .orange
 
-        #if DEBUG
-//            nameTextField.text = "Bluberry"
-//            emailTextField.text = "bluberry@mail.co"
-//            passwordTextField.text = "Tasty@123"
-//            confirmPasswordTextField.text = "Tasty@123"
-        #endif
+        signUpButton.backgroundColor = .orange
 
         [nameTextField, emailTextField, passwordTextField, confirmPasswordTextField].forEach {
             $0.borderStyle = .roundedRect
@@ -134,20 +165,12 @@ final class SignUpView: BaseView {
     }
 
     private func setupLayout() {
-        addSubview(backgroundView) { _ in
-            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-            backgroundView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        scrollView.addSubview(logoView) {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.size.equalTo(150)
         }
-
-        addSubview(logoView) { _ in
-            logoView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.containerSpacing)
-                .isActive = true
-            logoView.topAnchor.constraint(equalTo: topAnchor, constant: 80).isActive = true
-            logoView.widthAnchor.constraint(equalToConstant: 120).isActive = true
-            logoView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        }
+        
         let stack = UIStackView()
         stack.setup(axis: .vertical, alignment: .fill, distribution: .fill, spacing: Constants.textFieldSpacing)
         stack.addSpacer(200)
@@ -167,6 +190,30 @@ final class SignUpView: BaseView {
 
         addSubview(scrollView, withEdgeInsets: .zero, safeArea: true, bottomToKeyboard: true)
         scrollView.contentView.addSubview(stack, withEdgeInsets: .all(Constants.containerSpacing))
+    }
+
+    private func handlePasswordTextField() {
+        if isPasswordVisible {
+            let eyeImage = UIImage(systemName: "eye")
+            passwordTextField.isSecureTextEntry = false
+            passwordRightImage.setImage(eyeImage, for: .normal)
+        } else {
+            let eyeSlashImage = UIImage(systemName: "eye.slash")
+            passwordTextField.isSecureTextEntry = true
+            passwordRightImage.setImage(eyeSlashImage, for: .normal)
+        }
+    }
+
+    private func handleConfirmPasswordTextField() {
+        if isConfirmPasswordVisible {
+            let eyeImage = UIImage(systemName: "eye")
+            confirmPasswordTextField.isSecureTextEntry = false
+            confirmPasswordRightImage.setImage(eyeImage, for: .normal)
+        } else {
+            let eyeSlashImage = UIImage(systemName: "eye.slash")
+            confirmPasswordTextField.isSecureTextEntry = true
+            confirmPasswordRightImage.setImage(eyeSlashImage, for: .normal)
+        }
     }
 
     func showNameErrorMessage(message: String) {

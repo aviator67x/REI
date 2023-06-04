@@ -93,7 +93,7 @@ final class SignInView: BaseView {
     }
 
     private func setupUI() {
-        backgroundColor = .lightGray
+        backgroundColor = .systemGray
         logoView.image = UIImage(named: "newLogo")
         logoView.tintColor = .orange
 
@@ -112,8 +112,8 @@ final class SignInView: BaseView {
         }
 
         emailTextField.placeholder = Localization.email
+        
         passwordTextField.placeholder = Localization.password
-
         let eyeSlashImage = UIImage(systemName: "eye.slash")
         passwordRightImage.setImage(eyeSlashImage, for: .normal)
         passwordRightImage.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
@@ -162,9 +162,8 @@ final class SignInView: BaseView {
             passwordRightImage.setImage(eyeImage, for: .normal)
         } else {
             let eyeSlashImage = UIImage(systemName: "eye.slash")
-            passwordTextField.isSecureTextEntry = false
-            passwordRightImage.setImage(eyeSlashImage, for: .normal)
             passwordTextField.isSecureTextEntry = true
+            passwordRightImage.setImage(eyeSlashImage, for: .normal)
         }
     }
 
