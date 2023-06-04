@@ -19,21 +19,23 @@ enum SignInViewAction {
 
 final class SignInView: BaseView {
     // MARK: - Subviews
-    private let backgroundView = UIImageView()
-    private let logoView = UIImageView()
     private let scrollView = AxisScrollView()
-    private let emailLabel =  UILabel()
+    private let logoView = UIImageView()
+    private let emailLabel = UILabel()
     private let emailTextField = UITextField()
     private let emailErrorMessageLabel = UILabel()
-    private let passwordLabel =  UILabel()
+    private let passwordLabel = UILabel()
     private let passwordTextField = UITextField()
     private let passwordErrorMessageLabel = UILabel()
     private let forgotPasswordButton = UIButton()
     private let createAccounButton = UIButton()
     private let signInButton = UIButton()
+    private let passwordRightImage = UIButton()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SignInViewAction, Never>()
+
+    private var isPasswordVisible = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,30 +51,6 @@ final class SignInView: BaseView {
         setupLayout()
         setupUI()
         bindActions()
-        animation()
-    }
-
-    private func animation() {
-        let originalTransform = logoView.transform
-        let scaledTransform = originalTransform.scaledBy(x: 0.4, y: 0.4)
-        let scaledAndTranslatedTransform = scaledTransform.translatedBy(
-            x: -UIScreen.main.bounds.width / 1.4,
-            y: -UIScreen.main.bounds.height / 1.1
-        )
-        UIView.animate(withDuration: 0, delay: 0, animations: {
-            self.logoView.transform = scaledAndTranslatedTransform
-        }) {
-            _ in
-            let originalTransform = self.scrollView.transform
-            UIView.animate(withDuration: 1, animations: {
-                self.scrollView.alpha = 1
-            })
-        }
-    }
-
-    func setSignInButton(enabled: Bool) {
-        signInButton.isEnabled = enabled
-        signInButton.alpha = enabled ? 1 : 0.5
     }
 
     private func bindActions() {
@@ -99,38 +77,57 @@ final class SignInView: BaseView {
                 actionSubject.send(.createAccontDidTap)
             }
             .store(in: &cancellables)
-        
+
         forgotPasswordButton.tapPublisher
-            .sink{ [unowned self] in
+            .sink { [unowned self] in
                 actionSubject.send(.forgotPasswordButtonDidTap)
+            }
+            .store(in: &cancellables)
+
+        passwordRightImage.tapPublisher
+            .sink { [unowned self] in
+                self.isPasswordVisible.toggle()
+                handleTap()
             }
             .store(in: &cancellables)
     }
 
     private func setupUI() {
         backgroundColor = .lightGray
-        backgroundView.image = UIImage()//named: "launchBackground")
-        scrollView.alpha = 0
-        logoView.image = UIImage(named: "loggogo")
-        
-        [emailLabel, passwordLabel].forEach { label in label.text = ""
+        logoView.image = UIImage(named: "newLogo")
+        logoView.tintColor = .orange
+
+        [emailLabel, passwordLabel].forEach { label in
             label.font = UIFont(name: "SFProText-Regular", size: 14)
             label.textColor = .white
         }
-
-        emailTextField.placeholder = Localization.email
-        emailTextField.text = "superMegaJamesBond@mi6.co.u"
-
         emailLabel.text = "Email"
         passwordLabel.text = "Password"
-        [emailErrorMessageLabel, passwordErrorMessageLabel].forEach { label in label.text = ""
+
+        [emailErrorMessageLabel, passwordErrorMessageLabel].forEach { label in
+            label.text = ""
             label.font = UIFont(name: "SFProText-Regular", size: 14)
             label.textColor = UIColor(named: "error")
             label.numberOfLines = 0
         }
-        
+
+        emailTextField.placeholder = Localization.email
         passwordTextField.placeholder = Localization.password
-        passwordTextField.text = "Jame"
+
+        let eyeSlashImage = UIImage(systemName: "eye.slash")
+        passwordRightImage.setImage(eyeSlashImage, for: .normal)
+        passwordRightImage.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        passwordRightImage.frame = CGRect(
+            x: CGFloat(passwordTextField.frame.size.width - 25),
+            y: CGFloat(5),
+            width: CGFloat(25),
+            height: CGFloat(25)
+        )
+
+        passwordRightImage.tintColor = .lightGray
+        passwordTextField.rightView = passwordRightImage
+        passwordTextField.rightViewMode = .always
+        passwordTextField.isSecureTextEntry = true
 
         [emailTextField, passwordTextField].forEach {
             $0.borderStyle = .roundedRect
@@ -138,19 +135,18 @@ final class SignInView: BaseView {
         }
 
         forgotPasswordButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 14)
-//        forgotPasswordButton.setTitleColor(UIColor(named: "linkButtonColor"), for: .normal)
         forgotPasswordButton.setTitle("Forgot password?", for: .normal)
         forgotPasswordButton.contentHorizontalAlignment = .right
 
         signInButton.setTitle(Localization.signIn, for: .normal)
-        signInButton.backgroundColor = .orange//UIColor(named: "fillButtonBackground")
+        signInButton.backgroundColor = .orange
         signInButton.titleLabel?.font = UIFont(name: "SFProText-Bold", size: 21)
         signInButton.setTitleColor(.white, for: .normal)
         signInButton.rounded(3)
 
         let firstAttributes: [NSAttributedString.Key: Any] =
-        [.foregroundColor: UIColor(named: "textFieldsBackground")]
-        let secondAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]//(named: "linkButtonColor")]
+            [.foregroundColor: UIColor(named: "textFieldsBackground")]
+        let secondAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]
         let firstString = NSMutableAttributedString(string: "Not a member? ", attributes: firstAttributes)
         let secondString = NSAttributedString(string: "Create an account", attributes: secondAttributes)
         firstString.append(secondString)
@@ -159,21 +155,26 @@ final class SignInView: BaseView {
         createAccounButton.contentHorizontalAlignment = .center
     }
 
+    private func handleTap() {
+        if isPasswordVisible {
+            let eyeImage = UIImage(systemName: "eye")
+            passwordTextField.isSecureTextEntry = false
+            passwordRightImage.setImage(eyeImage, for: .normal)
+        } else {
+            let eyeSlashImage = UIImage(systemName: "eye.slash")
+            passwordTextField.isSecureTextEntry = false
+            passwordRightImage.setImage(eyeSlashImage, for: .normal)
+            passwordTextField.isSecureTextEntry = true
+        }
+    }
+
     private func setupLayout() {
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(backgroundView)
-        backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        backgroundView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-
-        logoView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(logoView)
-        logoView.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        logoView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        logoView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        logoView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-
+        scrollView.addSubview(logoView) {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.size.equalTo(150)
+        }
+        
         let stack = UIStackView()
         stack.setup(axis: .vertical, alignment: .fill, distribution: .fill, spacing: Constants.textFieldSpacing)
         stack.addSpacer(200)
@@ -195,8 +196,9 @@ final class SignInView: BaseView {
 
 // MARK: - Internal extension
 extension SignInView {
-    func setsignInButton(enabled: Bool) {
+    func setSignInButton(enabled: Bool) {
         signInButton.isEnabled = enabled
+        signInButton.alpha = enabled ? 1 : 0.5
     }
 
     func showEmailErrorMessage(message: String) {

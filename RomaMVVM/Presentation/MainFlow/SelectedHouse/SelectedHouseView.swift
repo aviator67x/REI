@@ -44,7 +44,7 @@ final class SelectedHouseView: BaseView {
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SelectedHouseViewAction, Never>()
-    
+
     private var currentItemId: String?
 
     private var isMore = true
@@ -71,8 +71,8 @@ final class SelectedHouseView: BaseView {
                 guard let self = self else {
                     return
                 }
-                let isHidden = offset.y > self.imageView.frame.height ? false : true
-                self.actionSubject.send(.navBarAlfaOnScroll(isHidden))
+//                let isHidden = offset.y > self.imageView.frame.height ? false : true
+//                self.actionSubject.send(.navBarAlfaOnScroll(isHidden))
             }
             .store(in: &cancellables)
 
@@ -103,7 +103,6 @@ final class SelectedHouseView: BaseView {
         backgroundColor = .white
         scrollView.contentInsetAdjustmentBehavior = .never
 
-//        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.backgroundColor = .red
 
@@ -170,7 +169,7 @@ final class SelectedHouseView: BaseView {
     private func setupLayout() {
         addSubview(scrollView) {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(self.snp.top)
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top)
             $0.bottom.equalToSuperview()
         }
 

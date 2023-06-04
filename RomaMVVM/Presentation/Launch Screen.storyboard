@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,26 +16,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="launchBackground" translatesAutoresizingMaskIntoConstraints="NO" id="IH7-zd-xv4">
-                                <rect key="frame" x="-7" y="2" width="407" height="852"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="loggogo" translatesAutoresizingMaskIntoConstraints="NO" id="xOR-gr-QF0">
-                                <rect key="frame" x="75.333333333333314" y="364" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="8cz-6M-QPi"/>
-                                    <constraint firstAttribute="width" constant="240" id="yPx-Cb-glt"/>
-                                </constraints>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="newLogo" translatesAutoresizingMaskIntoConstraints="NO" id="uOL-sO-0YM">
+                                <rect key="frame" x="46" y="239" width="300" height="283"/>
+                                <color key="tintColor" red="0.35507186114859857" green="0.22765373309931936" blue="0.08099292536086429" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hyn-y7-fnl"/>
-                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="IH7-zd-xv4" secondAttribute="bottom" constant="-36" id="8dy-3e-TxJ"/>
-                            <constraint firstItem="IH7-zd-xv4" firstAttribute="top" secondItem="2kj-Je-Cp5" secondAttribute="topMargin" constant="-57" id="MUi-5m-Vo1"/>
-                            <constraint firstItem="xOR-gr-QF0" firstAttribute="leading" secondItem="Hyn-y7-fnl" secondAttribute="leading" constant="75.394891944998562" id="ZZJ-tQ-Fbv"/>
-                            <constraint firstItem="IH7-zd-xv4" firstAttribute="leading" secondItem="2kj-Je-Cp5" secondAttribute="leadingMargin" constant="-23" id="gVL-zC-ywz"/>
-                            <constraint firstItem="IH7-zd-xv4" firstAttribute="centerX" secondItem="2kj-Je-Cp5" secondAttribute="centerX" id="h6o-sY-ZfC"/>
-                            <constraint firstItem="xOR-gr-QF0" firstAttribute="top" secondItem="Hyn-y7-fnl" secondAttribute="top" constant="304.85461689588737" id="qmI-Pf-zq4"/>
+                            <constraint firstItem="uOL-sO-0YM" firstAttribute="leading" secondItem="Hyn-y7-fnl" secondAttribute="leading" constant="46" id="5hJ-wj-WUj"/>
+                            <constraint firstItem="uOL-sO-0YM" firstAttribute="top" secondItem="Hyn-y7-fnl" secondAttribute="top" constant="180" id="7Hg-Yx-VmO"/>
+                            <constraint firstItem="Hyn-y7-fnl" firstAttribute="bottom" secondItem="uOL-sO-0YM" secondAttribute="bottom" constant="296" id="Suu-E4-PYe"/>
+                            <constraint firstItem="Hyn-y7-fnl" firstAttribute="trailing" secondItem="uOL-sO-0YM" secondAttribute="trailing" constant="47" id="mjE-cQ-TdL"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -46,10 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launchBackground" width="375" height="811"/>
-        <image name="loggogo" width="613" height="400"/>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="newLogo" width="300" height="283"/>
     </resources>
 </document>

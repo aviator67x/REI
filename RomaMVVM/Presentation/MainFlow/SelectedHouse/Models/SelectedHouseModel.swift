@@ -18,7 +18,7 @@ final class  SelectedHouseModel {
     let square: Int
     let numberOfRooms: String
     let price: Int
-    let isFavourite: Bool
+    var isFavourite: Bool
     
     init(data: HouseDomainModel, isFavourite: Bool = false) {
         self.id = data.id

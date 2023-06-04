@@ -19,6 +19,7 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+
     }
 
     private func setupBindings() {
@@ -26,13 +27,7 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
             .sink { [unowned self] action in
                 switch action {
                 case let .navBarAlfaOnScroll(isHidden):
-                    let appearance = UINavigationBarAppearance()
-                    appearance.configureWithOpaqueBackground()
-                    appearance.backgroundColor = isHidden ? .clear : .orange
-                    self.navigationController?.navigationBar.standardAppearance = appearance
-//                    self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
-//                    self.navigationController?.navigationBar.backgroundColor = isHidden ? .clear : .orange
-//                    self.view.layoutIfNeeded()
+                    self.navigationController?.navigationBar.isHidden = isHidden ? false : false
                 case let .onHeartButtonTap(id):
                     viewModel.editFavorites(with: id)
                 }
