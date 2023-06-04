@@ -168,7 +168,7 @@ final class SignInView: BaseView {
     }
 
     private func setupLayout() {
-        scrollView.addSubview(logoView) {
+        scrollView.contentView.addSubview(logoView) {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview()
             $0.size.equalTo(150)

@@ -7,6 +7,7 @@
 
 import Combine
 import UIKit
+import SnapKit
 
 enum SignUpViewAction {
     case nameDidChange(String)
@@ -14,11 +15,13 @@ enum SignUpViewAction {
     case passwordDidChange(String)
     case confirmPasswordDidChange(String)
     case signUpDidTap
+    case crossDidTap
 }
 
 final class SignUpView: BaseView {
     // MARK: - Subviews
-    private let backgroundView = UIImageView()
+    private let contentView = UIView()
+    private let crossButton = UIButton()
     private let logoView = UIImageView()
     private let scrollView = AxisScrollView()
     private let nameLabel = UILabel()
@@ -59,7 +62,7 @@ final class SignUpView: BaseView {
         bindActions()
     }
 
-    func setDoneButton(enabled: Bool) {
+    func setSignUpButton(enabled: Bool) {
         signUpButton.isEnabled = enabled
         signUpButton.alpha = enabled ? 1 : 0.5
     }
@@ -108,13 +111,28 @@ final class SignUpView: BaseView {
                 handleConfirmPasswordTextField()
             }
             .store(in: &cancellables)
+        
+        crossButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.actionSubject.send(.crossDidTap)
+            })
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
         backgroundColor = .systemGray
-        backgroundView.backgroundColor = .lightGray
+
         logoView.image = UIImage(named: "newLogo")
         logoView.tintColor = .orange
+        
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(
+            systemName: "multiply",
+            withConfiguration: UIImage.SymbolConfiguration(scale: .large)
+        )
+        crossButton.configuration = config
+        crossButton.imageView?.clipsToBounds = true
+        crossButton.tintColor = .white
         
         nameTextField.placeholder = Localization.name
         emailTextField.placeholder = Localization.email
@@ -165,7 +183,7 @@ final class SignUpView: BaseView {
     }
 
     private func setupLayout() {
-        scrollView.addSubview(logoView) {
+        scrollView.contentView.addSubview(logoView) {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview()
             $0.size.equalTo(150)
@@ -190,6 +208,12 @@ final class SignUpView: BaseView {
 
         addSubview(scrollView, withEdgeInsets: .zero, safeArea: true, bottomToKeyboard: true)
         scrollView.contentView.addSubview(stack, withEdgeInsets: .all(Constants.containerSpacing))
+        
+        scrollView.contentView.addSubview(crossButton) {
+            $0.top.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.size.equalTo(40)
+        }
     }
 
     private func handlePasswordTextField() {

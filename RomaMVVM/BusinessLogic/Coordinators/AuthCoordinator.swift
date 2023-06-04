@@ -55,6 +55,8 @@ final class AuthCoordinator: Coordinator {
                 case .success:
                     didFinishSubject.send()
                     didFinishSubject.send(completion: .finished)
+                case .popScreen:
+                    self.pop()
                 }
             }
             .store(in: &cancellables)

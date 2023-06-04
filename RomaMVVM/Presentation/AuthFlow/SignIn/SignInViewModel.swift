@@ -56,12 +56,12 @@ final class SignInViewModel: BaseViewModel {
             .store(in: &cancellables)
 
         $isEmailValid.combineLatest($isPasswordValid)
+            .dropFirst()
             .map {
                 ($0 == .valid) && ($1 == .valid)
             }
             .sink { [unowned self] in
-                isInputValid = true
-//                isInputValid = $0
+                isInputValid = $0
             }
             .store(in: &cancellables)
     }

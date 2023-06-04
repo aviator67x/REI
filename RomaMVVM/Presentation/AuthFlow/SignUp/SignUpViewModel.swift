@@ -33,6 +33,7 @@ final class SignUpViewModel: BaseViewModel {
 
     override func onViewDidLoad() {
         $name
+            .dropFirst(2)
             .map { name in
                 TextFieldValidator(type: .fullName).validateText(text: name)
             }
@@ -42,6 +43,7 @@ final class SignUpViewModel: BaseViewModel {
             .store(in: &cancellables)
 
         $email
+            .dropFirst(2)
             .map { email in
                 TextFieldValidator(type: .email).validateText(text: email)
             }
@@ -51,6 +53,7 @@ final class SignUpViewModel: BaseViewModel {
             .store(in: &cancellables)
 
         $password
+            .dropFirst(2)
             .map { password in
                 TextFieldValidator(type: .password).validateText(text: password)
             }
@@ -59,9 +62,14 @@ final class SignUpViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
 
-        $name.combineLatest($email, $password, $confirmPassword)
-            .map { !$0.0.isEmpty && !$0.1.isEmpty && !$0.2.isEmpty && !$0.3.isEmpty }
-            .sink { [unowned self] in isInputValid = $0 }
+//        $name.combineLatest($email, $password, $confirmPassword)
+//            .map { !$0.0.isEmpty && !$0.1.isEmpty && !$0.2.isEmpty && !$0.3.isEmpty }
+//            .sink { [unowned self] in isInputValid = $0 }
+//            .store(in: &cancellables)
+        
+        isNameValid.combineLatest(isEmailValid, isPasswordValid)
+            .map { _ in self.isNameValid.value == .valid && self.isEmailValid.value == .valid && self.isPasswordValid.value == .valid }
+            .sink { [unowned self] in isInputValid = $0}
             .store(in: &cancellables)
     }
 
@@ -112,5 +120,9 @@ final class SignUpViewModel: BaseViewModel {
                 self?.transitionSubject.send(completion: .finished)
             }
             .store(in: &cancellables)
+    }
+    
+    func popScreen() {
+        transitionSubject.send(.popScreen)
     }
 }

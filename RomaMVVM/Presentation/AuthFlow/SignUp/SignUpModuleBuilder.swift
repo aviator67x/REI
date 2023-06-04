@@ -10,6 +10,7 @@ import Combine
 
 enum SignUpTransition: Transition {
     case success
+    case popScreen
 }
 
 final class SignUpModuleBuilder {

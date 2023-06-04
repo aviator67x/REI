@@ -40,6 +40,9 @@ final class SignUpViewController: BaseViewController<SignUpViewModel> {
 
                 case .signUpDidTap:
                     viewModel.signUp()
+                    
+                case .crossDidTap:
+                    viewModel.popScreen()
                 }
             }
             .store(in: &cancellables)
@@ -83,7 +86,7 @@ final class SignUpViewController: BaseViewController<SignUpViewModel> {
         
         viewModel.$isInputValid
             .sink { [unowned self] isValid in
-                contentView.setDoneButton(enabled: isValid)
+                contentView.setSignUpButton(enabled: isValid)
             }
             .store(in: &cancellables)
     }
