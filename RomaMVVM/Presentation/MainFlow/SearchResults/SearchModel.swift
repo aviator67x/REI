@@ -28,6 +28,9 @@ final class SearchModel {
 
     private(set) lazy var favouriteHousesIdPublisher = favouriteHousesIdSubject.eraseToAnyPublisher()
     private lazy var favouriteHousesIdSubject = CurrentValueSubject<[String], Never>([])
+    
+    private(set) lazy var housesCountPublisher = housesCountSubject.eraseToAnyPublisher()
+    private lazy var housesCountSubject = PassthroughSubject<Int, Never>()
 
     private var isPaginationInProgress = false
     private var hasMoreToLoad = true
@@ -213,6 +216,24 @@ final class SearchModel {
                 self.hasMoreToLoad = offset >= pageSize
                 self.isPaginationInProgress = false
             })
+            .store(in: &cancellables)
+    }
+    
+    func getHousesCount() {
+        isLoadingSubject.send(true)
+        housesService.getHousesCount()
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] completion in
+                isLoadingSubject.send(false)
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                }
+            } receiveValue: { [unowned self] count in
+                self.housesCountSubject.send(count)
+            }
             .store(in: &cancellables)
     }
 

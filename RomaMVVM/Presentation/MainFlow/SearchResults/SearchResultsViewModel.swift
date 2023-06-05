@@ -31,6 +31,7 @@ final class SearchResultsViewModel: BaseViewModel {
 
     override func onViewDidLoad() {
         loadHouses()
+        getHousesCount()
         setupBinding()
     }
 
@@ -61,27 +62,27 @@ private extension SearchResultsViewModel {
             })
             .store(in: &cancellables)
 
-        sectionsSubject.combineLatest(model.searchParametersPublisher)
-            .sink { [unowned self] sections, searchParams in
-                var resultCount = 0
-                if let section = sections.first(where: { $0.section == .photo }) {
-                    resultCount = section.items.count
-                } else if let section = sections.first(where: { $0.section == .list }) {
-                    resultCount = section.items.count
-                }
-                self.resultViewModelSubject.value = ResultViewModel(
-                    country: "Netherlands",
-                    result: resultCount,
-                    filters: searchParams.count
-                )
-            }
-            .store(in: &cancellables)
+        housesSubject.combineLatest(
+            model.searchParametersPublisher, model.housesCountPublisher.first()
+        )
+        .sink { [unowned self] houses, searchParams, housesCount in
+            self.resultViewModelSubject.value = ResultViewModel(
+                country: "Netherlands",
+                result: (housesCount.hashValue != 0) ? housesCount : houses.count,
+                filters: searchParams.count
+            )
+        }
+        .store(in: &cancellables)
 
         model.isLoadingPublisher
             .sinkWeakly(self, receiveValue: { (self, value) in
                 self.isLoadingSubject.send(value)
             })
             .store(in: &cancellables)
+    }
+
+    func getHousesCount() {
+        model.getHousesCount()
     }
 
     func createDataSource() {
@@ -130,6 +131,10 @@ private extension SearchResultsViewModel {
 
 // MARK: - extension
 extension SearchResultsViewModel {
+    func loadHouses() {
+        model.loadHouses()
+    }
+
     func editFavourites(item: SearchResultsItem) {
         switch item {
         case let .photo(house):
@@ -141,10 +146,6 @@ extension SearchResultsViewModel {
         case .main, .map:
             break
         }
-    }
-
-    func loadHouses() {
-        model.loadHouses()
     }
 
     func moveTo(_ screen: SelectViewAction) {

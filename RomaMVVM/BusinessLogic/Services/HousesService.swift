@@ -21,6 +21,7 @@ protocol HousesService {
         house: AdCreatingRequestModel
     )
         -> AnyPublisher<HouseResponseModel, HousesServiceError>
+    func getHousesCount() -> AnyPublisher<Int, HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
@@ -28,6 +29,12 @@ final class HousesServiceImpl: HousesService {
 
     init(housesNetworkService: HousesNetworkService) {
         self.housesNetworkService = housesNetworkService
+    }
+    
+    func getHousesCount() -> AnyPublisher<Int, HousesServiceError> {
+        housesNetworkService.getHousesCount()
+            .mapError { HousesServiceError.networking($0)}
+            .eraseToAnyPublisher()
     }
 
     func getHouses(pageSize: Int, offset: Int) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {

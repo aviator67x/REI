@@ -32,6 +32,8 @@ final class AppCoordinator: Coordinator {
     func start() {
 //        let vm = AdPhotosViewModel(model: container.adCreatingModel)
 //        let vc = AdPhotosViewController(viewModel: vm)
+//        let vm = ProfileViewModel(userService: container.userService)
+//        let vc = ProfileViewController(viewModel: vm)
         
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
