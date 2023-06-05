@@ -89,7 +89,6 @@ final class ListCell: UICollectionViewListCell {
        let image2String = NSAttributedString(attachment: image2Attachment)
         fullString.append(image2String)
         fullString.append(NSAttributedString(string: "\(model.numberOfRooms)"))
-        print("number of rooms \(model.numberOfRooms)")
         sqmLabel.attributedText = fullString
         
         priceValueLabel.text = "\u{20AC} \(String(model.price)) k.k."

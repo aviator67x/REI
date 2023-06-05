@@ -135,12 +135,12 @@ final class SearchModel {
 
         if let constructionYear = searchRequestModelSubject.value.constructionYear {
             searchParametersSubject.value
-                .append(.init(key: .roomsNumber, value: .equalToInt(parameter: constructionYear.rawValue)))
+                .append(.init(key: .constructionYear, value: .more(than: constructionYear.rawValue)))
         }
 
         if let garage = searchRequestModelSubject.value.garage {
             searchParametersSubject.value
-                .append(.init(key: .roomsNumber, value: .equalToString(parameter: garage.rawValue)))
+                .append(.init(key: .garage, value: .equalToString(parameter: garage.rawValue)))
         }
     }
 
@@ -221,9 +221,10 @@ final class SearchModel {
         housesService.searchHouses(searchParametersSubject.value)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
+                self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
-                    self.isLoadingSubject.send(false)
+                    break
                 case let .failure(error):
                     debugPrint(error.localizedDescription)
                 }

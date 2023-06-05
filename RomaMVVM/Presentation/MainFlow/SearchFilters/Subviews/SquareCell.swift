@@ -86,11 +86,13 @@ final class SquareCell: UICollectionViewListCell {
     }
     
     func setupCell(with model: SquareCellModel) {
-        minTextField.publisher(for: \.text)
+        minTextField.textPublisher
+            .dropFirst()
             .assign(to: \.value, on: model.minSquare)
             .store(in: &cancellables)
         
-        maxTextField.publisher(for: \.text)
+        maxTextField.textPublisher
+            .dropFirst()
             .assign(to: \.value, on: model.maxSquare)
             .store(in: &cancellables)
     }
