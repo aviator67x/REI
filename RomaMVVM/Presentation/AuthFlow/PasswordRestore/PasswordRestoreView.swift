@@ -11,6 +11,7 @@ import Combine
 enum PasswordRestoreViewAction {
     case restoreDidTap
     case emailTextFieldDidChange(inputText: String)
+    case crossDidTap
 }
 
 final class PasswordRestoreView: BaseView {
@@ -22,6 +23,7 @@ final class PasswordRestoreView: BaseView {
     
     private let restorePasswordButton = BaseButton(buttonState: .restorePassword)
     private let emailTextField = UITextField()
+    private let crossButton = UIButton()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,33 +49,62 @@ final class PasswordRestoreView: BaseView {
         
         emailTextField.textPublisher
             .sink { [unowned self] text in
-                actionSubject.send(.emailTextFieldDidChange(inputText: text ?? ""))
+                guard let text = text else {
+                    return
+                }
+                actionSubject.send(.emailTextFieldDidChange(inputText: text))
+            }
+            .store(in: &cancellables)
+        
+        crossButton.tapPublisher
+            .sink { [unowned self] _ in
+                actionSubject.send(.crossDidTap)
             }
             .store(in: &cancellables)
     }
 
     private func setupUI() {
-        backgroundColor = .white
-        emailTextField.text = "aviator67x@gmail.com"
+        backgroundColor = .systemGray
+        emailTextField.placeholder = "Email"
         emailTextField.textAlignment = .center
         emailTextField.borderStyle = .roundedRect
         emailTextField.layer.borderWidth = 1
+        
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(
+            systemName: "multiply",
+            withConfiguration: UIImage.SymbolConfiguration(scale: .large)
+        )
+        crossButton.configuration = config
+        crossButton.imageView?.clipsToBounds = true
+        crossButton.tintColor = .white
+        
+        restorePasswordButton.backgroundColor = .orange
+
     }
 
     private func setupLayout() {
-        addSubview(restorePasswordButton) {_ in
-            restorePasswordButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-            restorePasswordButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            restorePasswordButton.widthAnchor.constraint(equalToConstant: 350).isActive = true
-            restorePasswordButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-            
-            addSubview(emailTextField)
-            emailTextField.translatesAutoresizingMaskIntoConstraints = false
-            emailTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-            emailTextField.widthAnchor.constraint(equalToConstant: 350).isActive = true
-            emailTextField.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-            emailTextField.centerYAnchor.constraint(equalTo: restorePasswordButton.centerYAnchor, constant: 100).isActive = true
+        addSubview(crossButton) {
+            $0.trailing.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().offset(50)
+            $0.size.equalTo(40)
         }
+
+        addSubview(emailTextField) {
+            $0.centerX.centerY.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(50)
+        }
+        
+        addSubview(restorePasswordButton) {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(50)
+            $0.bottom.equalToSuperview().offset(-120)
+        }
+    }
+    
+    func updateRestoreButton(_ value: Bool) {
+        self.restorePasswordButton.alpha = value ? 1 : 0.5
     }
 }
 

@@ -40,6 +40,7 @@ final class SignInViewModel: BaseViewModel {
 
     override func onViewDidLoad() {
         emailSubject
+            .dropFirst()
             .map { login in
                 TextFieldValidator(type: .email).validateText(text: login)
             }
@@ -49,9 +50,11 @@ final class SignInViewModel: BaseViewModel {
             .store(in: &cancellables)
 
         $password
-            .map { password in TextFieldValidator(type: .password).validateText(text: password) }
+//            .map { password in TextFieldValidator(type: .password).validateText(text: password) }
+            .dropFirst()
+            .map { $0.count > 8 }
             .sink { [unowned self] state in
-                isPasswordValid = state
+                isPasswordValid = state ? .valid : .invalid(errorMessage: "Password doesn't meet minimal requirements")
             }
             .store(in: &cancellables)
 

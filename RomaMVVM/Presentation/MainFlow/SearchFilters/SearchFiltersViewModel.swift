@@ -46,7 +46,8 @@ final class SearchFiltersViewModel: BaseViewModel {
         .init(numberOfRooms: .five),
     ]
     
-    private var searchRequestModel: SearchRequestModel = .init()
+    private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
+    private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
 
     init(model: SearchModel) {
         self.model = model
@@ -60,7 +61,7 @@ final class SearchFiltersViewModel: BaseViewModel {
     }
 
     func checkSearchRequestModel() {
-        switch searchRequestModel.distance {
+        switch searchRequestModelSubject.value.distance {
         case .none:
             return
         case let .some(distance):
@@ -70,7 +71,7 @@ final class SearchFiltersViewModel: BaseViewModel {
             distanceCellModels[index].isSelected = true
             updateDataSource()
         }
-        switch searchRequestModel.propertyType {
+        switch searchRequestModelSubject.value.propertyType {
         case .none:
             return
         case let .some(type):
@@ -80,7 +81,7 @@ final class SearchFiltersViewModel: BaseViewModel {
             propertyTypeCellModels[index].isSelected = true
             updateDataSource()
         }
-        switch searchRequestModel.roomsNumber {
+        switch searchRequestModelSubject.value.roomsNumber {
         case .none:
             return
         case let .some(number):
@@ -159,7 +160,7 @@ private extension SearchFiltersViewModel {
     func setupBinding() {
         model.searchRequestModelPublisher
             .sinkWeakly(self, receiveValue: { (self, requestModel) in
-                self.searchRequestModel = requestModel
+                self.searchRequestModelSubject.value = requestModel
             })
             .store(in: &cancellables)
         

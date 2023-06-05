@@ -28,7 +28,7 @@ final class AdMultiDetailsViewController: BaseViewController<AdMultiDetailsViewM
                 case let .selectedItem(item):
                     viewModel.updateAdCreatingModel(for: item)
                 case .onCrossTap:
-                    viewModel.moveToMyHouse()
+                    viewModel.popScreen()
                 case let .year(year):
                     viewModel.updateAdCreatingModel(for: .yearPicker(year))
                 case let .livingArea(livingArea):

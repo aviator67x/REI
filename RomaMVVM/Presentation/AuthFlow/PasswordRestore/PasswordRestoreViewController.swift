@@ -29,9 +29,17 @@ final class PasswordRestoreViewController: BaseViewController<PasswordRestoreVie
                 case .restoreDidTap:
                     viewModel.restorePassword()
                 case .emailTextFieldDidChange(inputText: let inputText):
-                    viewModel.email = inputText
+                    viewModel.updateEmail(inputText)
+                case .crossDidTap:
+                    viewModel.popScreen()
                 }
             }
+            .store(in: &cancellables)
+        
+        viewModel.isInputValidSubjectPublisher
+            .sinkWeakly(self, receiveValue: { (self, value) in
+                self.contentView.updateRestoreButton(value)
+            })
             .store(in: &cancellables)
     }
 }

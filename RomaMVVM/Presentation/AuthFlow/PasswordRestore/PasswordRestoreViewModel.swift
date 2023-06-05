@@ -14,16 +14,29 @@ final class PasswordRestoreViewModel: BaseViewModel {
     
     private let authService: AuthNetworkService
     
-    @Published var email: String = "aviator67x@gmail.com"
+//    private(set) lazy var emailPublisher = emailSubject.eraseToAnyPublisher()
+    private lazy var emailSubject = CurrentValueSubject<String, Never>("")
+    
+    private(set) lazy var isInputValidSubjectPublisher = isInputValidSubject.eraseToAnyPublisher()
+    private lazy var isInputValidSubject = CurrentValueSubject<Bool, Never>(false)
     
     init(authServicw: AuthNetworkService) {
         self.authService = authServicw
 
         super.init()
+        setupBinding()
+    }
+    
+    private func setupBinding() {
+        emailSubject
+            .sinkWeakly(self, receiveValue: { (self, text) in
+                self.isInputValidSubject.value = text.isEmpty ? false : true
+            })
+            .store(in: &cancellables)
     }
     
     func restorePassword() {
-        let requestModel = RestoreRequest(email: email)
+        let requestModel = RestoreRequest(email: emailSubject.value)
         authService.restorePassword(requestModel)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -41,4 +54,11 @@ final class PasswordRestoreViewModel: BaseViewModel {
             .store(in: &cancellables)
     }
     
+    func updateEmail(_ email: String) {
+        self.emailSubject.value = email
+    }
+    
+    func popScreen() {
+        self.transitionSubject.send(.popScreen)
+    }
 }
