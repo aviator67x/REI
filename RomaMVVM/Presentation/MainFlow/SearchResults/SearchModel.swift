@@ -80,9 +80,6 @@ final class SearchModel {
     }
 
     func editFavouriteHouses(with id: String) {
-        print("House Id: \(favouriteHousesIdSubject.value)")
-        print(id)
-
         if let index = favouriteHousesIdSubject.value.firstIndex(of: id) {
             favouriteHousesIdSubject.value.remove(at: index)
         } else {
@@ -93,10 +90,10 @@ final class SearchModel {
         userService.addToFavourities(houses: favouriteHousesIdSubject.value)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
-                self.isLoadingSubject.send(false)
+            self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
-                    debugPrint("finished")
+                    break
                 case let .failure(error):
                     debugPrint(error.localizedDescription)
                 }

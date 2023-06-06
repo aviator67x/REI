@@ -31,6 +31,13 @@ final class SearchFiltersView: BaseView {
         super.init(frame: frame)
         self.collection = createCollection()
         initialSetup()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTappingOutside))
+        addGestureRecognizer(tap)
+    }
+
+    @objc
+    func hideKeyboardByTappingOutside() {
+        endEditing(true)
     }
 
     @available(*, unavailable)
@@ -336,7 +343,8 @@ extension SearchFiltersView {
                     
                 case let .price(model):
                     let cell: PriceCell = collection.dedequeueReusableCell(for: indexPath)
-                    cell.setupCell(with: model)
+                        cell.setupCell(with: model)
+                   
                     return cell
                     
                 case let .type(title):

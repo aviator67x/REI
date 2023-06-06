@@ -60,6 +60,13 @@ final class SignUpView: BaseView {
         setupLayout()
         setupUI()
         bindActions()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTappingOutside))
+        addGestureRecognizer(tap)
+    }
+
+    @objc
+    func hideKeyboardByTappingOutside() {
+        endEditing(true)
     }
 
     func setSignUpButton(enabled: Bool) {

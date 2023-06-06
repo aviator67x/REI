@@ -29,10 +29,11 @@ final class SelectedHouseViewModel: BaseViewModel {
         setupBinding()
     }
 
+
     private func setupBinding() {
         model.favouriteHousesIdPublisher
             .sinkWeakly(self, receiveValue: { (self, ids) in
-                self.houseSubject.value?.isFavourite = ids.contains(self.house.id) ? true : false
+                self.houseSubject.value?.isFavourite = ids.contains(self.house.id)
             })
             .store(in: &cancellables)
     }

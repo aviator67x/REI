@@ -159,6 +159,7 @@ extension SearchFiltersViewModel {
 private extension SearchFiltersViewModel {
     func setupBinding() {
         model.searchRequestModelPublisher
+            .receive(on: DispatchQueue.main)
             .sinkWeakly(self, receiveValue: { (self, requestModel) in
                 self.searchRequestModelSubject.value = requestModel
             })
@@ -168,6 +169,7 @@ private extension SearchFiltersViewModel {
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
                 self.model.updateSearchRequestModel(minPrice: price)
+                   
             })
             .store(in: &cancellables)
 
@@ -175,6 +177,7 @@ private extension SearchFiltersViewModel {
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
                 self.model.updateSearchRequestModel(maxPrice: price)
+                  
             })
             .store(in: &cancellables)
 

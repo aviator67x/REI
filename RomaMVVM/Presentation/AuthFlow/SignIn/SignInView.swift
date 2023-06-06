@@ -40,6 +40,13 @@ final class SignInView: BaseView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTappingOutside))
+        addGestureRecognizer(tap)
+    }
+
+    @objc
+    func hideKeyboardByTappingOutside() {
+        endEditing(true)
     }
 
     @available(*, unavailable)

@@ -86,12 +86,11 @@ final class PriceCell: UICollectionViewCell {
     }
 
     func setupCell(with model: PriceCellModel) {
-        minTextField.text = model.minPrice.value
         minTextField.textPublisher
             .dropFirst()
             .assignWeakly(to: \.value, on: model.minPrice)
             .store(in: &cancellables)
-        maxTextField.text = model.maxPrice.value
+        
         maxTextField.textPublisher
             .dropFirst()
             .assignWeakly(to: \.value, on: model.maxPrice)

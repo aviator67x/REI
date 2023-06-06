@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class  SelectedHouseModel {
+struct  SelectedHouseModel {
     let uuid = UUID()
     let id: String
     let image: URL?

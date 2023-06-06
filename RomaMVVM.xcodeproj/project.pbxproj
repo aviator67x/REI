@@ -107,6 +107,12 @@
 		CE31F8E02A2757C4003595CA /* SelectedHouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8DC2A2757C4003595CA /* SelectedHouseView.swift */; };
 		CE31F8E12A2757C4003595CA /* SelectedHouseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8DD2A2757C4003595CA /* SelectedHouseViewModel.swift */; };
 		CE31F8E42A2760A6003595CA /* SelectedHouseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8E32A2760A6003595CA /* SelectedHouseModel.swift */; };
+		CE481C722A2FBB84000E00BC /* HouseImagesModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C6E2A2FBB84000E00BC /* HouseImagesModuleBuilder.swift */; };
+		CE481C732A2FBB84000E00BC /* HouseImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C6F2A2FBB84000E00BC /* HouseImagesViewController.swift */; };
+		CE481C742A2FBB84000E00BC /* HouseImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C702A2FBB84000E00BC /* HouseImagesView.swift */; };
+		CE481C752A2FBB84000E00BC /* HouseImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C712A2FBB84000E00BC /* HouseImagesViewModel.swift */; };
+		CE481C7A2A2FC095000E00BC /* HouseImagesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C792A2FC095000E00BC /* HouseImagesCollection.swift */; };
+		CE481C7C2A2FC6A2000E00BC /* CrossButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C7B2A2FC6A2000E00BC /* CrossButton.swift */; };
 		CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FE929BC9CEA0042C2F8 /* Array.swift */; };
 		CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */; };
 		CE5CCEBA29FAB09F007972CB /* FavouriteModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEB629FAB09F007972CB /* FavouriteModuleBuilder.swift */; };
@@ -367,6 +373,12 @@
 		CE31F8DC2A2757C4003595CA /* SelectedHouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseView.swift; sourceTree = "<group>"; };
 		CE31F8DD2A2757C4003595CA /* SelectedHouseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseViewModel.swift; sourceTree = "<group>"; };
 		CE31F8E32A2760A6003595CA /* SelectedHouseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseModel.swift; sourceTree = "<group>"; };
+		CE481C6E2A2FBB84000E00BC /* HouseImagesModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseImagesModuleBuilder.swift; sourceTree = "<group>"; };
+		CE481C6F2A2FBB84000E00BC /* HouseImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseImagesViewController.swift; sourceTree = "<group>"; };
+		CE481C702A2FBB84000E00BC /* HouseImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseImagesView.swift; sourceTree = "<group>"; };
+		CE481C712A2FBB84000E00BC /* HouseImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseImagesViewModel.swift; sourceTree = "<group>"; };
+		CE481C792A2FC095000E00BC /* HouseImagesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseImagesCollection.swift; sourceTree = "<group>"; };
+		CE481C7B2A2FC6A2000E00BC /* CrossButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossButton.swift; sourceTree = "<group>"; };
 		CE4E7FE929BC9CEA0042C2F8 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		CE5CCEB629FAB09F007972CB /* FavouriteModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteModuleBuilder.swift; sourceTree = "<group>"; };
@@ -679,6 +691,7 @@
 				3B572022A129B903AC8D421F /* AxisScrollView.swift */,
 				32FD317D0DD756F6A7D767A2 /* LoadingView.swift */,
 				CEA545E9297820A3007F9962 /* MainTextField */,
+				CE481C7B2A2FC6A2000E00BC /* CrossButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -929,6 +942,26 @@
 			isa = PBXGroup;
 			children = (
 				CE31F8E32A2760A6003595CA /* SelectedHouseModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE481C6D2A2FBB1E000E00BC /* HouseImages */ = {
+			isa = PBXGroup;
+			children = (
+				CE481C6E2A2FBB84000E00BC /* HouseImagesModuleBuilder.swift */,
+				CE481C6F2A2FBB84000E00BC /* HouseImagesViewController.swift */,
+				CE481C702A2FBB84000E00BC /* HouseImagesView.swift */,
+				CE481C712A2FBB84000E00BC /* HouseImagesViewModel.swift */,
+				CE481C762A2FBDE8000E00BC /* Models */,
+			);
+			path = HouseImages;
+			sourceTree = "<group>";
+		};
+		CE481C762A2FBDE8000E00BC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE481C792A2FC095000E00BC /* HouseImagesCollection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1189,6 +1222,7 @@
 				CE0E27AA29CE1D90001EDFCD /* SearchFilters */,
 				CE13E3A629DAFDE100B948C9 /* SearchFiltersDetailed */,
 				CE31F8D92A275700003595CA /* SelectedHouse */,
+				CE481C6D2A2FBB1E000E00BC /* HouseImages */,
 				CE5CCEBE29FAE6B3007972CB /* Favourite */,
 				CE5CCEBF29FAE782007972CB /* MyHouse */,
 				CEB9F6782A17ADC00082A674 /* AdAddress */,
@@ -1518,6 +1552,7 @@
 				CEAEB9F629AE2609005BBF50 /* Colors.swift in Sources */,
 				CEF83F832A1BB09A009B0791 /* AdDetailsModuleBuilder.swift in Sources */,
 				CEAA10FB29DEE01000340401 /* HousesNetworkService.swift in Sources */,
+				CE481C7C2A2FC6A2000E00BC /* CrossButton.swift in Sources */,
 				CEA545E52977FF04007F9962 /* Creatable.swift in Sources */,
 				CE13E3AB29DAFE5600B948C9 /* SearchFiltersDetailedModuleBuilder.swift in Sources */,
 				69FC756CA7A3ECBB0ADBB994 /* TokenPlugin.swift in Sources */,
@@ -1525,6 +1560,7 @@
 				CEA5B72C29B0A2650038A29C /* Publisher+Unwrap.swift in Sources */,
 				CEAEB9DC29AA9D58005BBF50 /* UserEndPoint.swift in Sources */,
 				CE6B90712A1F439E00642B90 /* AdPhotosViewModel.swift in Sources */,
+				CE481C722A2FBB84000E00BC /* HouseImagesModuleBuilder.swift in Sources */,
 				CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */,
 				CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */,
 				CE1E2DD02A07C92F00328EAF /* Publisher.swift in Sources */,
@@ -1534,6 +1570,7 @@
 				CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */,
 				CEAEB9F929AE34EC005BBF50 /* UserDomainModel.swift in Sources */,
 				CE5CCED32A042153007972CB /* InfoView.swift in Sources */,
+				CE481C752A2FBB84000E00BC /* HouseImagesViewModel.swift in Sources */,
 				CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */,
 				656F7BA65C21EC792A53FC1A /* AuthNetworkService.swift in Sources */,
 				CEAA10F329DDBDB700340401 /* SearchResultsCollection.swift in Sources */,
@@ -1599,6 +1636,7 @@
 				CE990E9729CB623100120D6F /* EditProfileViewModel.swift in Sources */,
 				CEE2DE6529F2A17F0029AFF8 /* SearchResultViewModelResultViewModel.swift in Sources */,
 				CE31F8DF2A2757C4003595CA /* SelectedHouseViewController.swift in Sources */,
+				CE481C7A2A2FC095000E00BC /* HouseImagesCollection.swift in Sources */,
 				CE0E27BF29D43D06001EDFCD /* HeaderView.swift in Sources */,
 				CEB9F6812A17AE410082A674 /* AdAddressView.swift in Sources */,
 				CEDDF29E29D6FA27003BF639 /* SearchFiltersCollection.swift in Sources */,
@@ -1645,9 +1683,11 @@
 				CE5CCEBA29FAB09F007972CB /* FavouriteModuleBuilder.swift in Sources */,
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
 				CE31F8E42A2760A6003595CA /* SelectedHouseModel.swift in Sources */,
+				CE481C742A2FBB84000E00BC /* HouseImagesView.swift in Sources */,
 				CE31F8E02A2757C4003595CA /* SelectedHouseView.swift in Sources */,
 				CE8B29852A2A372600425FB0 /* MapService.swift in Sources */,
 				CE02BD7E2A1602D8007AD3C7 /* AdCreatingRequestModel.swift in Sources */,
+				CE481C732A2FBB84000E00BC /* HouseImagesViewController.swift in Sources */,
 				CE13E3AC29DAFE5600B948C9 /* SearchFiltersDetailedViewController.swift in Sources */,
 				CE02BD722A140290007AD3C7 /* AdCollectionModel.swift in Sources */,
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,

@@ -5,8 +5,8 @@
 //  Created by User on 27.02.2023.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 enum PasswordRestoreViewAction {
     case restoreDidTap
@@ -17,10 +17,9 @@ enum PasswordRestoreViewAction {
 final class PasswordRestoreView: BaseView {
     // MARK: - Subviews
 
-
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<PasswordRestoreViewAction, Never>()
-    
+
     private let restorePasswordButton = BaseButton(buttonState: .restorePassword)
     private let emailTextField = UITextField()
     private let crossButton = UIButton()
@@ -30,6 +29,7 @@ final class PasswordRestoreView: BaseView {
         initialSetup()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -38,6 +38,13 @@ final class PasswordRestoreView: BaseView {
         setupLayout()
         setupUI()
         bindActions()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTappingOutside))
+        addGestureRecognizer(tap)
+    }
+
+    @objc
+    func hideKeyboardByTappingOutside() {
+        endEditing(true)
     }
 
     private func bindActions() {
@@ -46,7 +53,7 @@ final class PasswordRestoreView: BaseView {
                 actionSubject.send(.restoreDidTap)
             }
             .store(in: &cancellables)
-        
+
         emailTextField.textPublisher
             .sink { [unowned self] text in
                 guard let text = text else {
@@ -55,7 +62,7 @@ final class PasswordRestoreView: BaseView {
                 actionSubject.send(.emailTextFieldDidChange(inputText: text))
             }
             .store(in: &cancellables)
-        
+
         crossButton.tapPublisher
             .sink { [unowned self] _ in
                 actionSubject.send(.crossDidTap)
@@ -69,7 +76,7 @@ final class PasswordRestoreView: BaseView {
         emailTextField.textAlignment = .center
         emailTextField.borderStyle = .roundedRect
         emailTextField.layer.borderWidth = 1
-        
+
         var config = UIButton.Configuration.plain()
         config.image = UIImage(
             systemName: "multiply",
@@ -78,9 +85,8 @@ final class PasswordRestoreView: BaseView {
         crossButton.configuration = config
         crossButton.imageView?.clipsToBounds = true
         crossButton.tintColor = .white
-        
-        restorePasswordButton.backgroundColor = .orange
 
+        restorePasswordButton.backgroundColor = .orange
     }
 
     private func setupLayout() {
@@ -95,29 +101,27 @@ final class PasswordRestoreView: BaseView {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(50)
         }
-        
+
         addSubview(restorePasswordButton) {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(50)
             $0.bottom.equalToSuperview().offset(-120)
         }
     }
-    
+
     func updateRestoreButton(_ value: Bool) {
-        self.restorePasswordButton.alpha = value ? 1 : 0.5
+        restorePasswordButton.alpha = value ? 1 : 0.5
     }
 }
 
 // MARK: - View constants
-private enum Constant {
-}
+private enum Constant {}
 
 #if DEBUG
-import SwiftUI
-struct PasswordRestorePreview: PreviewProvider {
-    
-    static var previews: some View {
-        ViewRepresentable(PasswordRestoreView())
+    import SwiftUI
+    struct PasswordRestorePreview: PreviewProvider {
+        static var previews: some View {
+            ViewRepresentable(PasswordRestoreView())
+        }
     }
-}
 #endif
