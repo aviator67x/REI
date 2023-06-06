@@ -63,12 +63,13 @@ private extension SearchResultsViewModel {
             .store(in: &cancellables)
 
         housesSubject.combineLatest(
-            model.searchParametersPublisher, model.housesCountPublisher.first()
+            model.searchParametersPublisher,
+            model.housesCountPublisher.first()
         )
         .sink { [unowned self] houses, searchParams, housesCount in
             self.resultViewModelSubject.value = ResultViewModel(
                 country: "Netherlands",
-                result: (housesCount.hashValue != 0) ? housesCount : houses.count,
+                result: model.isFilterActive ? houses.count : housesCount,
                 filters: searchParams.count
             )
         }
@@ -122,8 +123,6 @@ private extension SearchResultsViewModel {
             let cellModel = MapCellModel(data: housesSubject.value)
             let mapItem = SearchResultsItem.map(cellModel)
             let mapSection = SearchResultsCollection(section: .map, items: [mapItem])
-//            let mapItem = SearchResultsItem.map
-//            let mapSection = SearchResultsCollection(section: .map, items: [mapItem])
             sectionsSubject.value = [mapSection]
         }
     }
@@ -182,7 +181,7 @@ extension SearchResultsViewModel {
             }
             transitionSubject.send(.selectedHouse(house))
 
-        case .main, .map:
+        case .map:
             break
         }
     }

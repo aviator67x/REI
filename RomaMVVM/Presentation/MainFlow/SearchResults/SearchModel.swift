@@ -35,8 +35,10 @@ final class SearchModel {
     private var isPaginationInProgress = false
     private var hasMoreToLoad = true
     private var offset = 0
-    private var pageSize = 4
+    private var pageSize = 5
     private var housesCount = 0
+    
+    var isFilterActive = false
 
     init(housesService: HousesService, userService: UserService) {
         self.housesService = housesService
@@ -148,6 +150,7 @@ final class SearchModel {
     }
 
     func cleanSearchRequestModel() {
+        isFilterActive = false
         searchRequestModelSubject.value = SearchRequestModel.empty
         hasMoreToLoad = true
         offset = 0
@@ -238,10 +241,11 @@ final class SearchModel {
     }
 
     func executeSearch() {
+        isFilterActive = true
         isLoadingSubject.send(true)
         housesService.searchHouses(searchParametersSubject.value)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
+            .sink( receiveCompletion: { [unowned self] completion in
                 self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
@@ -251,7 +255,7 @@ final class SearchModel {
                 }
             }, receiveValue: { [unowned self] houses in
                 self.housesSubject.value = houses
-                self.searchRequestModelSubject.value = SearchRequestModel.empty
+//                self.searchRequestModelSubject.value = SearchRequestModel.empty
                 self.hasMoreToLoad = false
             })
             .store(in: &cancellables)

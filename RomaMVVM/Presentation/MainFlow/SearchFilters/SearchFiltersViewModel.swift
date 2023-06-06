@@ -63,7 +63,7 @@ final class SearchFiltersViewModel: BaseViewModel {
     func checkSearchRequestModel() {
         switch searchRequestModelSubject.value.distance {
         case .none:
-            return
+          return
         case let .some(distance):
             guard let index = distanceCellModels.firstIndex(where: { $0.distance == distance }) else {
                 return
@@ -83,7 +83,7 @@ final class SearchFiltersViewModel: BaseViewModel {
         }
         switch searchRequestModelSubject.value.roomsNumber {
         case .none:
-            return
+            updateDataSource()
         case let .some(number):
             guard let index = numberOfRoomsCellModels.firstIndex(where: { $0.numberOfRooms == number }) else {
                 return
