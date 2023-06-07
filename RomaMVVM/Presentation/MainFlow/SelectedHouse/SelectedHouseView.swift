@@ -98,6 +98,16 @@ final class SelectedHouseView: BaseView {
 
             })
             .store(in: &cancellables)
+        
+        callButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                guard let url = URL(string: "tel://+318902345678"),
+                    UIApplication.shared.canOpenURL(url) else {
+                   return
+                }
+                UIApplication.shared.open(url)
+            })
+            .store(in: &cancellables)
     }
 
     @objc
@@ -153,6 +163,7 @@ final class SelectedHouseView: BaseView {
         buttonStack.axis = .horizontal
         buttonStack.alignment = .center
         buttonStack.distribution = .fillEqually
+        buttonStack.spacing = 16
         buttonStack.bordered(width: 0.5, color: .lightGray)
         buttonStack.layoutMargins = UIEdgeInsets(top: 5, left: 16, bottom: 0, right: 16)
         buttonStack.isLayoutMarginsRelativeArrangement = true
@@ -170,6 +181,8 @@ final class SelectedHouseView: BaseView {
         }
         callButton.setTitle("+ 31 890 2345678", for: .normal)
         callButton.backgroundColor = .white
+        callButton.layer.cornerRadius = 3
+        callButton.bordered(width: 1, color: .lightGray)
 
         writeButton.backgroundColor = .orange
         writeButton.setTitle("Apply for the listing", for: .normal)
