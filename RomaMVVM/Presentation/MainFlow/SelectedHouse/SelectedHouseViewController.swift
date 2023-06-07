@@ -5,6 +5,7 @@
 //  Created by User on 31.05.2023.
 //
 
+import MessageUI
 import UIKit
 
 final class SelectedHouseViewController: BaseViewController<SelectedHouseViewModel> {
@@ -19,7 +20,6 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
-
     }
 
     private func setupBindings() {
@@ -32,6 +32,8 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
                     viewModel.editFavorites(with: id)
                 case .imageDidTap:
                     viewModel.showHouseImages()
+                case .sendEmail:
+                    sendEmail()
                 }
             }
             .store(in: &cancellables)
@@ -42,5 +44,29 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
                 self.contentView.setupView(house)
             })
             .store(in: &cancellables)
+    }
+
+    func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["you@yoursite.com"])
+            mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
+
+            present(mail, animated: true)
+        } else {
+            return
+        }
+    }
+}
+
+// MARK: - extension MFMailComposeViewControllerDelegate
+extension SelectedHouseViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(
+        _ controller: MFMailComposeViewController,
+        didFinishWith result: MFMailComposeResult,
+        error: Error?
+    ) {
+        controller.dismiss(animated: true)
     }
 }

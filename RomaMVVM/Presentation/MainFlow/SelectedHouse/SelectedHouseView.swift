@@ -15,6 +15,7 @@ enum SelectedHouseViewAction {
     case navBarAlfaOnScroll(Bool)
     case onHeartButtonTap(itemId: String)
     case imageDidTap
+    case sendEmail
 }
 
 final class SelectedHouseView: BaseView {
@@ -106,6 +107,12 @@ final class SelectedHouseView: BaseView {
                    return
                 }
                 UIApplication.shared.open(url)
+            })
+            .store(in: &cancellables)
+        
+        writeButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                        self.actionSubject.send(.sendEmail)
             })
             .store(in: &cancellables)
     }
