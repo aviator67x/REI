@@ -38,7 +38,7 @@ final class SearchResultsCoordinator: Coordinator {
                     break
                 case .favourite:
                     self.favourite()
-                case .selectedHouse(let house):
+                case let .selectedHouse(house):
                     self.selectedHouse(house)
                 }
             }
@@ -77,10 +77,30 @@ final class SearchResultsCoordinator: Coordinator {
         )
         push(module.viewController)
     }
-    
+
     private func selectedHouse(_ house: HouseDomainModel) {
         let module = SelectedHouseModuleBuilder.build(container: container, house: house)
+        module.transitionPublisher
+            .sinkWeakly(self, receiveValue: { (self, transition) in
+                switch transition {
+                case let .showHouse(images: images):
+                    self.houseImages(images)
+                }
+            })
+            .store(in: &cancellables)
         push(module.viewController)
     }
 
+    private func houseImages(_ images: [URL]) {
+        let module = HouseImagesModuleBuilder.build(container: container, images: images)
+        module.transitionPublisher
+            .sinkWeakly(self, receiveValue: { (self, transition) in
+                switch transition {
+                case .popScreen:
+                    self.pop()
+                }
+            })
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
 }

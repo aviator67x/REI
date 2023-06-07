@@ -5,16 +5,16 @@
 //  Created by User on 06.06.2023.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 enum HouseImagesViewAction {
-
+    case current(page: Int)
 }
 
 final class HouseImagesView: BaseView {
-    var dataSource: UICollectionViewDiffableDataSource<HousePhotoSection, HousePhotoItem>?
-    
+    var dataSource: UICollectionViewDiffableDataSource<HouseImagesSection, HouseImagesItem>?
+
     // MARK: - Subviews
     private let crossButton = CrossButton()
     private var collectionView: UICollectionView!
@@ -27,28 +27,28 @@ final class HouseImagesView: BaseView {
         initialSetup()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     private func initialSetup() {
+        setupCollectionView()
         setupLayout()
         setupUI()
         bindActions()
-        setupCollectionView()
     }
 
-    private func bindActions() {
-    }
+    private func bindActions() {}
     
     private func setupCollectionView() {
-        self.collectionView = createPhotoCollectionView()
-        collectionView.register(HousePhotoCell.self)
+        collectionView = createPhotoCollectionView()
+        collectionView.register(HouseImagesCell.self)
         setupDataSource()
     }
+
     private func compositionalLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
-
             let itemsPerRow = 1
             let fraction: CGFloat = 1 / CGFloat(itemsPerRow)
             let itemSize = NSCollectionLayoutSize(
@@ -66,11 +66,25 @@ final class HouseImagesView: BaseView {
 
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(fraction)
+                heightDimension: .fractionalHeight(1)
             )
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
             let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuous
+            
+            section.visibleItemsInvalidationHandler = { [weak self] _, offset, _ in
+                guard  let self = self else {
+                    return
+                }
+                let width = self.bounds.width
+                let pageDouble = offset.x / width
+                guard !(pageDouble.isNaN || pageDouble.isInfinite) else {
+                    return
+                }
+                let page = Int(round(pageDouble)) + 1
+                self.actionSubject.send(.current(page: page))
+            }
             return section
         }
         return layout
@@ -86,34 +100,32 @@ final class HouseImagesView: BaseView {
     }
 
     private func setupLayout() {
-        addSubview(crossButton) {
-            $0.top.trailing.equalToSuperview().inset(20)
+        addSubview(collectionView) {
+            $0.center.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(300)
         }
     }
-    
-    func setupSnapshot(sections: [PhotoCollection]) {
-        var snapshot = NSDiffableDataSourceSnapshot<HousePhotoSection, HousePhotoItem>()
+
+    func setupSnapshot(sections: [HouseImagesCollection]) {
+        var snapshot = NSDiffableDataSourceSnapshot<HouseImagesSection, HouseImagesItem>()
         for section in sections {
             snapshot.appendSections([section.section])
             snapshot.appendItems(section.items, toSection: section.section)
         }
         dataSource?.apply(snapshot)
     }
-    
+
     func setupDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<HousePhotoSection, HousePhotoItem>(
+        dataSource = UICollectionViewDiffableDataSource<HouseImagesSection, HouseImagesItem>(
             collectionView: collectionView,
             cellProvider: {
                 collectionView, indexPath, item -> UICollectionViewCell in
                 switch item {
                 case let .photo(cellModel):
-                    let cell: HousePhotoCell = collectionView.dedequeueReusableCell(for: indexPath)
+                    let cell: HouseImagesCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(cellModel)
-                    cell.actionPublisher
-                        .sinkWeakly(self, receiveValue: { (self, _) in
-//                            self.actionSubject.send(.deletePhoto(item))
-                        })
-                        .store(in: &cell.cancellables)
+
                     return cell
                 }
             }
@@ -122,15 +134,13 @@ final class HouseImagesView: BaseView {
 }
 
 // MARK: - View constants
-private enum Constant {
-}
+private enum Constant {}
 
 #if DEBUG
-import SwiftUI
-struct HouseImagesPreview: PreviewProvider {
-    
-    static var previews: some View {
-        ViewRepresentable(HouseImagesView())
+    import SwiftUI
+    struct HouseImagesPreview: PreviewProvider {
+        static var previews: some View {
+            ViewRepresentable(HouseImagesView())
+        }
     }
-}
 #endif

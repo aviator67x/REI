@@ -30,15 +30,15 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
                     self.navigationController?.navigationBar.isHidden = isHidden ? false : false
                 case let .onHeartButtonTap(id):
                     viewModel.editFavorites(with: id)
+                case .imageDidTap:
+                    viewModel.showHouseImages()
                 }
             }
             .store(in: &cancellables)
 
         viewModel.housePublisher
+            .unwrap()
             .sinkWeakly(self, receiveValue: { (self, house) in
-                guard let house = house else {
-                    return
-                }
                 self.contentView.setupView(house)
             })
             .store(in: &cancellables)

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 final class SelectedHouseViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -40,5 +41,12 @@ final class SelectedHouseViewModel: BaseViewModel {
 
     func editFavorites(with id: String) {
         model.editFavouriteHouses(with: id)
+    }
+    
+    func showHouseImages() {
+        guard let images = house.images else {
+            return
+        }
+        transitionSubject.send(.showHouse(images: images))
     }
 }

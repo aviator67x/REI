@@ -14,6 +14,7 @@ import UIKit
 enum SelectedHouseViewAction {
     case navBarAlfaOnScroll(Bool)
     case onHeartButtonTap(itemId: String)
+    case imageDidTap
 }
 
 final class SelectedHouseView: BaseView {
@@ -67,7 +68,7 @@ final class SelectedHouseView: BaseView {
 
     private func bindActions() {
         scrollView.contentOffsetPublisher
-            .sink { [weak self] offset in
+            .sink { [weak self] _ in
                 guard let self = self else {
                     return
                 }
@@ -99,12 +100,20 @@ final class SelectedHouseView: BaseView {
             .store(in: &cancellables)
     }
 
+    @objc
+    func imageDidTap() {
+        actionSubject.send(.imageDidTap)
+    }
+
     private func setupUI() {
         backgroundColor = .white
         scrollView.contentInsetAdjustmentBehavior = .never
 
         imageView.clipsToBounds = true
         imageView.backgroundColor = .red
+        let tap = UITapGestureRecognizer(target: self, action: #selector(imageDidTap))
+        imageView.addGestureRecognizer(tap)
+        imageView.isUserInteractionEnabled = true
 
         stackView.axis = .vertical
         stackView.spacing = 1

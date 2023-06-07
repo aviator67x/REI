@@ -8,7 +8,14 @@
 import Foundation
 
 struct HouseImagesCollection {
-    var section: HousePhotoSection
-    var items: [HousePhotoItem]
+    var section: HouseImagesSection
+    var items: [HouseImagesItem]
 }
 
+enum HouseImagesSection: Hashable {
+    case photo
+}
+
+enum HouseImagesItem: Hashable {
+    case photo(URL)
+}

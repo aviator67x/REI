@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum SelectedHouseTransition: Transition {
-    
+    case showHouse(images: [URL])
 }
 
 final class SelectedHouseModuleBuilder {
