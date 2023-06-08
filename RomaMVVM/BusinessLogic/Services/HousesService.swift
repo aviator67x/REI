@@ -23,6 +23,7 @@ protocol HousesService {
         -> AnyPublisher<HouseResponseModel, HousesServiceError>
     func getHousesCount() -> AnyPublisher<Int, HousesServiceError>
     func getUserAds(ownerId: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
+    func deleteAd(with id: String) -> AnyPublisher<Void, HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
@@ -92,5 +93,11 @@ final class HousesServiceImpl: HousesService {
                 value.map { HouseDomainModel(model: $0) }
             }
                 .eraseToAnyPublisher()
+    }
+    
+    func deleteAd(with id: String) -> AnyPublisher<Void, HousesServiceError> {
+        housesNetworkService.deleteAd(with: id)
+            .mapError { HousesServiceError.networking($0)}
+            .eraseToAnyPublisher()
     }
 }

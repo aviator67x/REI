@@ -14,8 +14,8 @@ enum AdAddressTransition: Transition {
 }
 
 final class AdAddressModuleBuilder {
-    class func build(container: AppContainer) -> Module<AdAddressTransition, UIViewController> {
-        let viewModel = AdAddressViewModel(model: container.adCreatingModel)
+    class func build(container: AppContainer, model: AdCreatingModel) -> Module<AdAddressTransition, UIViewController> {
+        let viewModel = AdAddressViewModel(model: model)
         let viewController = AdAddressViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

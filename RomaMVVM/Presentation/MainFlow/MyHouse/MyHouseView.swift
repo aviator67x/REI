@@ -26,8 +26,6 @@ final class MyHouseView: BaseView {
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MyHouseViewAction, Never>()
-    
-    private var itemSubject = PassthroughSubject<MyHouseItem, Never>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,7 +63,7 @@ final class MyHouseView: BaseView {
                     let del = UIContextualAction(style: .destructive, title: "Delete") {
                         [weak self] _, _, _ in
                         if let item = self?.dataSource?.itemIdentifier(for: indexPath) {
-                            self?.itemSubject.send(item)
+                            self?.actionSubject.send(.selectedItem(item))
                         }
                     }
                     return UISwipeActionsConfiguration(actions: [del])

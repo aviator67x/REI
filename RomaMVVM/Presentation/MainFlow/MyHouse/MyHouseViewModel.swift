@@ -16,13 +16,11 @@ final class MyHouseViewModel: BaseViewModel {
     private lazy var sectionsSubject = CurrentValueSubject<[MyHouseCollection], Never>([])
 
     private lazy var myHousesSubject = CurrentValueSubject<[HouseDomainModel], Never>([])
+    
+    private let model: AdCreatingModel
 
-    private let userService: UserService
-    private let housesService: HousesService
-
-    init(userService: UserService, housesService: HousesService) {
-        self.userService = userService
-        self.housesService = housesService
+    init(model: AdCreatingModel) {
+        self.model = model
         super.init()
     }
     
@@ -35,6 +33,12 @@ final class MyHouseViewModel: BaseViewModel {
     }
     
     private func setupBinding() {
+        model.myHousePublisher
+            .sinkWeakly(self, receiveValue: { (self, houses) in
+                self.myHousesSubject.value = houses
+            })
+            .store(in: &cancellables)
+        
         myHousesSubject
             .dropFirst()
             .sinkWeakly(
@@ -54,32 +58,15 @@ final class MyHouseViewModel: BaseViewModel {
         sectionsSubject.value = [section]
     }
     
-    private func getUserAds() {
-        guard let userId = userService.user?.id else {
-            return
-        }
-        isLoadingSubject.send(true)
-        housesService.getUserAds(ownerId: userId)
-            .receive(on: DispatchQueue.main)
-            .sinkWeakly( self, receiveValue: { (sefl, houses) in
-                self.isLoadingSubject.send(false)
-                self.myHousesSubject.value = houses
-            })
-            .store(in: &cancellables)
-    }
-
-    func delete(_ item: MyHouseItem) {
-        switch item {
-        case .photo(let house):
-            let id = house.id
-            //            self.favouriteHousesSubject.value.removeAll(where: {$0.id == id})
-            //            model.editFavouriteHouses(with: id)
-        }
-    }
-    
-    
-    
     func moveToNextAd() {
-        transitionSubject.send(.moveToAdAddress)
+        transitionSubject.send(.moveToAdAddress(model: model))
+    }
+    
+    func getUserAds() {
+        model.getUserAds()
+    }
+    
+    func delete(_ item: MyHouseItem)  {
+        model.delete(item)
     }
 }

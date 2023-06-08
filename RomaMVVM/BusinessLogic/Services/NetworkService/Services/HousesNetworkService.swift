@@ -15,6 +15,7 @@ protocol HousesNetworkService {
     func saveAd(house: AdCreatingRequestModel) -> AnyPublisher<HouseResponseModel, NetworkError>
     func getHousesCount() -> AnyPublisher<Int, NetworkError>
     func getUserAds(ownerId: String) -> AnyPublisher<[HouseResponseModel], NetworkError>
+    func deleteAd(with id: String) -> AnyPublisher<Void, NetworkError>
 }
 
 final class HousesNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == HouseEndPoint {
@@ -48,5 +49,9 @@ extension HousesNetworkServiceImpl: HousesNetworkService {
     
     func getUserAds(ownerId: String) -> AnyPublisher<[HouseResponseModel], NetworkError> {
         return housesProvider.execute(endpoint: .getUserAds(ownerId: ownerId))
+    }
+    
+    func deleteAd(with id: String) -> AnyPublisher<Void, NetworkError> {
+        return housesProvider.execute(endpoint: .deleteAd(objectId: id))
     }
 }

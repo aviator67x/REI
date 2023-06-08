@@ -23,8 +23,6 @@ final class FavouriteView: BaseView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<FavouriteViewAction, Never>()
 
-    private var itemSubject = PassthroughSubject<FavouriteItem, Never>()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
@@ -46,7 +44,7 @@ final class FavouriteView: BaseView {
                     let del = UIContextualAction(style: .destructive, title: "Delete") {
                         [weak self] _, _, _ in
                         if let item = self?.dataSource?.itemIdentifier(for: indexPath) {
-                            self?.itemSubject.send(item)
+                            self?.actionSubject.send(.selectedItem(item))
                         }
                     }
                     return UISwipeActionsConfiguration(actions: [del])
@@ -75,13 +73,6 @@ final class FavouriteView: BaseView {
     }
 
     private func bindActions() {
-        itemSubject
-            .map { FavouriteViewAction.selectedItem($0) }
-            .print()
-            .sink { [unowned self] in
-                actionSubject.send($0)
-            }
-            .store(in: &cancellables)
     }
 
     private func setupUI() {

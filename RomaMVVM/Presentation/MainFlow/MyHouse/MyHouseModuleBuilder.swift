@@ -9,12 +9,13 @@ import UIKit
 import Combine
 
 enum MyHouseTransition: Transition {
-    case moveToAdAddress
+    case moveToAdAddress(model: AdCreatingModel)
+    
 }
 
 final class MyHouseModuleBuilder {
     class func build(container: AppContainer) -> Module<MyHouseTransition, UIViewController> {
-        let viewModel = MyHouseViewModel(userService: container.userService, housesService: container.housesService)
+        let viewModel = MyHouseViewModel(model: container.adCreatingModel)
         let viewController = MyHouseViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

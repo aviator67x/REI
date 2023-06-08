@@ -11,7 +11,7 @@ struct AdCreatingRequestModel: Encodable, Hashable {
     static var empty: Self {
         return .init()
     }
-
+    var ownerId: String?
     var ort: String?
     var street: String?
     var house: Int?

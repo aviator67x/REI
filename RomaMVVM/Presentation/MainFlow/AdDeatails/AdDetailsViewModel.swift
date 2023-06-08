@@ -69,7 +69,7 @@ final class AdDetailsViewModel: BaseViewModel {
 // MARK: - private extension
 private extension AdDetailsViewModel {
     func setupBinding() {
-        model.houseRequestModelPublisher
+        model.adCreatingRequestModelPublisher
             .sinkWeakly(self, receiveValue: { (self, adRequestModel) in
                 self.adModelSubject.send(adRequestModel)
             })

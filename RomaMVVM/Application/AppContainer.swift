@@ -73,7 +73,7 @@ final class AppContainerImpl: AppContainer {
         let housesNetworkService = HousesNetworkServiceImpl(housesProvider: housesNetworkServiceProvider)
         self.housesService = HousesServiceImpl(housesNetworkService: housesNetworkService)
 
-        self.adCreatingModel = AdCreatingModel(housesService: housesService)
+        self.adCreatingModel = AdCreatingModel(housesService: housesService, userService: userService)
 
         self.searchModel = SearchModel(housesService: housesService, userService: userService)
     }

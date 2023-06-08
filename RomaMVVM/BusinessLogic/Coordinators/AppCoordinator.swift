@@ -30,8 +30,6 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
-        let vm = MyHouseViewModel(userService: container.userService, housesService: container.housesService)
-        let vc = MyHouseViewController(viewModel: vm)
 //        let vm = LoremIpsumViewModel(state: .blueprint)
 //        let vc = LoremIpsumViewController(viewModel: vm)
         

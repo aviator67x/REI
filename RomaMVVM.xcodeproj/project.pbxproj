@@ -1041,6 +1041,7 @@
 				CE5CCEC129FAE7A5007972CB /* MyHouseViewController.swift */,
 				CE5CCEC229FAE7A5007972CB /* MyHouseView.swift */,
 				CE5CCEC329FAE7A5007972CB /* MyHouseViewModel.swift */,
+				CEF83F7C2A1B8318009B0791 /* AdCreatingModel.swift */,
 				CE481C8E2A31F574000E00BC /* Models */,
 			);
 			path = MyHouse;
@@ -1296,7 +1297,6 @@
 				CEB9F67C2A17AE410082A674 /* AdAddressViewController.swift */,
 				CEB9F67D2A17AE410082A674 /* AdAddressView.swift */,
 				CEB9F67E2A17AE410082A674 /* AdAddressViewModel.swift */,
-				CEF83F7C2A1B8318009B0791 /* AdCreatingModel.swift */,
 				CE02BD702A14026C007AD3C7 /* Models */,
 			);
 			path = AdAddress;

@@ -20,14 +20,21 @@ final class MyHouseViewController: BaseViewController<MyHouseViewModel> {
         super.viewDidLoad()
         title = "MyHouse"
         setupBindings()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create more", style: .plain, target: self, action: #selector(create))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    @objc
+    func create() {
+        viewModel.moveToNextAd()
     }
 
     private func setupBindings() {

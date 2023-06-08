@@ -32,16 +32,16 @@ final class MyHouseCoordinator: Coordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .moveToAdAddress:
-                    moveToAdAddress()
+                case .moveToAdAddress(let model):
+                    moveToAdAddress(model: model)
                 }
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
     }
 
-    private func moveToAdAddress() {
-        let adAddressModule = AdAddressModuleBuilder.build(container: container)
+    private func moveToAdAddress(model: AdCreatingModel) {
+        let adAddressModule = AdAddressModuleBuilder.build(container: container, model: model)
         adAddressModule.transitionPublisher
             .sinkWeakly(self, receiveValue: { (self, transition) in
                 switch transition {
