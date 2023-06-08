@@ -55,6 +55,4 @@ final class SelectedHouseViewModel: BaseViewModel {
     }
     
     func moveToAllaround() {}
-    
-    func moveToVideo() {}
 }

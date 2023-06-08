@@ -119,6 +119,7 @@
 		CE481C872A31149F000E00BC /* LorenIpsumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C832A31149F000E00BC /* LorenIpsumView.swift */; };
 		CE481C882A31149F000E00BC /* LorenIpsumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C842A31149F000E00BC /* LorenIpsumViewModel.swift */; };
 		CE481C8B2A31B4C5000E00BC /* LoremState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C8A2A31B4C5000E00BC /* LoremState.swift */; };
+		CE481C8D2A31D547000E00BC /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE481C8C2A31D475000E00BC /* video.mp4 */; };
 		CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FE929BC9CEA0042C2F8 /* Array.swift */; };
 		CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */; };
 		CE5CCEBA29FAB09F007972CB /* FavouriteModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCEB629FAB09F007972CB /* FavouriteModuleBuilder.swift */; };
@@ -391,6 +392,7 @@
 		CE481C832A31149F000E00BC /* LorenIpsumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LorenIpsumView.swift; sourceTree = "<group>"; };
 		CE481C842A31149F000E00BC /* LorenIpsumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LorenIpsumViewModel.swift; sourceTree = "<group>"; };
 		CE481C8A2A31B4C5000E00BC /* LoremState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoremState.swift; sourceTree = "<group>"; };
+		CE481C8C2A31D475000E00BC /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		CE4E7FE929BC9CEA0042C2F8 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		CE4E7FED29C095C10042C2F8 /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		CE5CCEB629FAB09F007972CB /* FavouriteModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteModuleBuilder.swift; sourceTree = "<group>"; };
@@ -793,6 +795,7 @@
 				D6541A1C4A888E2C3F3EAC3F /* Fonts */,
 				808D0239321E5346A79AAF3C /* Assets.xcassets */,
 				C806C14FB5ED29380D1334EB /* Colors.xcassets */,
+				CE481C8C2A31D475000E00BC /* video.mp4 */,
 				C45ACBA4748A93450674CFAA /* Info.plist */,
 				69AFA02F2BF8513E7A1E3CB0 /* Localizable.strings */,
 			);
@@ -1494,6 +1497,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE481C8D2A31D547000E00BC /* video.mp4 in Resources */,
 				1C9B683B9130C2EFBB507339 /* Assets.xcassets in Resources */,
 				3254610A16C6322C3DDBE696 /* Colors.xcassets in Resources */,
 				CEAEB9D029A8B7E1005BBF50 /* Launch Screen.storyboard in Resources */,

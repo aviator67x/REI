@@ -5,6 +5,8 @@
 //  Created by User on 31.05.2023.
 //
 
+import AVFoundation
+import AVKit
 import MessageUI
 import UIKit
 
@@ -33,13 +35,15 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
                 case .imageDidTap:
                     viewModel.showHouseImages()
                 case .sendEmail:
-                    sendEmail()
+                    self.sendEmail()
                 case .onBlueprintTap:
                     viewModel.moveToBlueprint()
                 case .onAllaroundTap:
                     viewModel.moveToAllaround()
                 case .onVideoTap:
-                    viewModel.moveToVideo()
+                    self.playVideo()
+                case .call:
+                    self.call()
                 }
             }
             .store(in: &cancellables)
@@ -52,7 +56,16 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
             .store(in: &cancellables)
     }
 
-    func sendEmail() {
+    private func call() {
+        guard let url = URL(string: "tel://+318902345678"),
+              UIApplication.shared.canOpenURL(url)
+        else {
+            return
+        }
+        UIApplication.shared.open(url)
+    }
+
+    private func sendEmail() {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
@@ -62,6 +75,19 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
             present(mail, animated: true)
         } else {
             return
+        }
+    }
+
+    private func playVideo() {
+        guard let url = Bundle.main.url(forResource: "video", withExtension: "mp4") else {
+            debugPrint("video.mp4 not found")
+            return
+        }
+        let player = AVPlayer(url: url)
+        let playerController = AVPlayerViewController()
+        playerController.player = player
+        present(playerController, animated: true) {
+            player.play()
         }
     }
 }

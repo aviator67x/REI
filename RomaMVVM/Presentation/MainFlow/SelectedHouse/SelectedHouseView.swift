@@ -15,6 +15,7 @@ enum SelectedHouseViewAction {
     case navBarAlfaOnScroll(Bool)
     case onHeartButtonTap(itemId: String)
     case imageDidTap
+    case call
     case sendEmail
     case onBlueprintTap
     case onAllaroundTap
@@ -105,11 +106,7 @@ final class SelectedHouseView: BaseView {
         
         callButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
-                guard let url = URL(string: "tel://+318902345678"),
-                    UIApplication.shared.canOpenURL(url) else {
-                   return
-                }
-                UIApplication.shared.open(url)
+                self.actionSubject.send(.call)
             })
             .store(in: &cancellables)
         
