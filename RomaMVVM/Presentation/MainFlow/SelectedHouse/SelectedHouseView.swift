@@ -16,6 +16,9 @@ enum SelectedHouseViewAction {
     case onHeartButtonTap(itemId: String)
     case imageDidTap
     case sendEmail
+    case onBlueprintTap
+    case onAllaroundTap
+    case onVideoTap
 }
 
 final class SelectedHouseView: BaseView {
@@ -113,6 +116,24 @@ final class SelectedHouseView: BaseView {
         writeButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                         self.actionSubject.send(.sendEmail)
+            })
+            .store(in: &cancellables)
+        
+        blueprintButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                        self.actionSubject.send(.onBlueprintTap)
+            })
+            .store(in: &cancellables)
+        
+        allaroundButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                        self.actionSubject.send(.onAllaroundTap)
+            })
+            .store(in: &cancellables)
+        
+        videoButton.tapPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                        self.actionSubject.send(.onVideoTap)
             })
             .store(in: &cancellables)
     }

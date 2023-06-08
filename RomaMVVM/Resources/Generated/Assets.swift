@@ -29,6 +29,7 @@ internal enum Assets {
   internal static let facebookLogo = ImageAsset(name: "facebookLogo")
   internal static let googleLogo = ImageAsset(name: "googleLogo")
   internal static let internGramLogo = ImageAsset(name: "internGramLogo")
+  internal static let blueprint = ImageAsset(name: "blueprint")
   internal static let launchBackground = ImageAsset(name: "launchBackground")
   internal static let loggogo = ImageAsset(name: "loggogo")
   internal static let logo = ImageAsset(name: "logo")

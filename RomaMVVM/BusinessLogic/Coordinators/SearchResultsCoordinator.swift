@@ -85,6 +85,8 @@ final class SearchResultsCoordinator: Coordinator {
                 switch transition {
                 case let .showHouse(images: images):
                     self.houseImages(images)
+                case .moveToBlueprint(let state):
+                    self.lorem(state)
                 }
             })
             .store(in: &cancellables)
@@ -99,6 +101,16 @@ final class SearchResultsCoordinator: Coordinator {
                 case .popScreen:
                     self.pop()
                 }
+            })
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    private func lorem(_ state: LoremState) {
+        let module = LoremIpsumModuleBuilder.build(container: container, state: .blueprint)
+        module.transitionPublisher
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.pop()
             })
             .store(in: &cancellables)
         push(module.viewController)

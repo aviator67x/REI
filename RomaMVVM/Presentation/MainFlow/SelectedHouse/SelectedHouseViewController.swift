@@ -34,6 +34,12 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
                     viewModel.showHouseImages()
                 case .sendEmail:
                     sendEmail()
+                case .onBlueprintTap:
+                    viewModel.moveToBlueprint()
+                case .onAllaroundTap:
+                    viewModel.moveToAllaround()
+                case .onVideoTap:
+                    viewModel.moveToVideo()
                 }
             }
             .store(in: &cancellables)

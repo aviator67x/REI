@@ -10,6 +10,7 @@ import Combine
 
 enum SelectedHouseTransition: Transition {
     case showHouse(images: [URL])
+    case moveToBlueprint(LoremState)
 }
 
 final class SelectedHouseModuleBuilder {
