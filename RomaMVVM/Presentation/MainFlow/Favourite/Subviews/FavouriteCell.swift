@@ -18,6 +18,7 @@ final class FavouriteCell: UICollectionViewListCell {
     private let priceValueLabel = UILabel()
     private let stackView = UIStackView()
     private let signsButton = UIButton()
+    private let separatorView = UIView()
 
     var heartButtonDidTap: (() -> Void)?
 
@@ -47,12 +48,20 @@ final class FavouriteCell: UICollectionViewListCell {
 
         let buttonTitle = "\u{2B6F}  \u{95E8} \u{27C1}"
         signsButton.setTitle(buttonTitle, for: .normal)
+
+        separatorView.backgroundColor = .white
     }
 
     private func setupLayout() {
         contentView.addSubview(imageView) {
-            $0.edges.equalToSuperview()
+            $0.leading.top.trailing.equalToSuperview()
             $0.height.equalTo(200)
+        }
+
+        contentView.addSubview(separatorView) {
+            $0.top.equalTo(imageView.snp.bottom)
+            $0.leading.bottom.trailing.equalToSuperview()
+            $0.height.equalTo(4)
         }
 
         contentView.addSubview(stackView) {

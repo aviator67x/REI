@@ -22,11 +22,12 @@ protocol HousesService {
     )
         -> AnyPublisher<HouseResponseModel, HousesServiceError>
     func getHousesCount() -> AnyPublisher<Int, HousesServiceError>
+    func getUserAds(ownerId: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
     private let housesNetworkService: HousesNetworkService
-
+    
     init(housesNetworkService: HousesNetworkService) {
         self.housesNetworkService = housesNetworkService
     }
@@ -36,7 +37,7 @@ final class HousesServiceImpl: HousesService {
             .mapError { HousesServiceError.networking($0)}
             .eraseToAnyPublisher()
     }
-
+    
     func getHouses(pageSize: Int, offset: Int) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
         housesNetworkService.getHouses(pageSize: pageSize, skip: offset)
             .mapError { HousesServiceError.networking($0) }
@@ -45,7 +46,7 @@ final class HousesServiceImpl: HousesService {
             }
             .eraseToAnyPublisher()
     }
-
+    
     func searchHouses(_ parameters: [SearchParam]) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
         housesNetworkService.searchHouses(with: parameters)
             .mapError { HousesServiceError.networking($0) }
@@ -54,12 +55,12 @@ final class HousesServiceImpl: HousesService {
             }
             .eraseToAnyPublisher()
     }
-
+    
     func saveAd(
         houseImages: [HouseImageModel],
         house: AdCreatingRequestModel
     )
-        -> AnyPublisher<HouseResponseModel, HousesServiceError>
+    -> AnyPublisher<HouseResponseModel, HousesServiceError>
     {
         houseImages
             .map {
@@ -81,5 +82,15 @@ final class HousesServiceImpl: HousesService {
                     .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
+    }
+    
+    func getUserAds(ownerId: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
+        
+        return housesNetworkService.getUserAds(ownerId: ownerId)
+            .mapError { HousesServiceError.networking($0)}
+            .map { value -> [HouseDomainModel] in
+                value.map { HouseDomainModel(model: $0) }
+            }
+                .eraseToAnyPublisher()
     }
 }

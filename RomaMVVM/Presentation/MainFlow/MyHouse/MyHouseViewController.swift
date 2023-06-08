@@ -23,7 +23,11 @@ final class MyHouseViewController: BaseViewController<MyHouseViewModel> {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = false
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
 
     private func setupBindings() {
@@ -32,8 +36,16 @@ final class MyHouseViewController: BaseViewController<MyHouseViewModel> {
                 switch action {
                 case .buttonDidTap:
                     viewModel.moveToNextAd()
+                case .selectedItem(let item):
+                    viewModel.delete(item)
                 }
             }
+            .store(in: &cancellables)
+        
+        viewModel.sectionsPublisher
+            .sinkWeakly(self, receiveValue: { (self, sections) in
+                self.contentView.setupSnapShot(sections: sections)
+            })
             .store(in: &cancellables)
     }
 }

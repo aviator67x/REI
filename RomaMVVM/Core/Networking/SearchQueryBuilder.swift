@@ -15,6 +15,7 @@ enum SearchType: Equatable {
 }
 
 enum HouseColumn: CaseIterable {
+    case ownerId
     case distance
     case price
     case propertyType

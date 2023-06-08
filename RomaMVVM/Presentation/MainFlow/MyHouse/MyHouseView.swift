@@ -10,17 +10,24 @@ import UIKit
 
 enum MyHouseViewAction {
     case buttonDidTap
+    case selectedItem(MyHouseItem)
 }
 
 final class MyHouseView: BaseView {
+    var dataSource: UICollectionViewDiffableDataSource<MyHouseSection, MyHouseItem>?
+    
     // MARK: - Subviews
+    private let backgroundView = UIView()
     private let imageView = UIImageView()
     private let questionLabel = UILabel()
     private let textLabel = UILabel()
     private let button = UIButton()
+    private lazy var collectionView: UICollectionView = createCollectionView()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<MyHouseViewAction, Never>()
+    
+    private var itemSubject = PassthroughSubject<MyHouseItem, Never>()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,6 +40,7 @@ final class MyHouseView: BaseView {
     }
 
     private func initialSetup() {
+        setupCollectionView()
         setupLayout()
         setupUI()
         bindActions()
@@ -45,6 +53,39 @@ final class MyHouseView: BaseView {
             })
             .store(in: &cancellables)
     }
+    
+    private func createCollectionView() -> UICollectionView {
+        let sectionProvider =
+            { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+                var section: NSCollectionLayoutSection
+                var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
+                listConfiguration.showsSeparators = true
+
+                listConfiguration.trailingSwipeActionsConfigurationProvider = { indexPath in
+                    let del = UIContextualAction(style: .destructive, title: "Delete") {
+                        [weak self] _, _, _ in
+                        if let item = self?.dataSource?.itemIdentifier(for: indexPath) {
+                            self?.itemSubject.send(item)
+                        }
+                    }
+                    return UISwipeActionsConfiguration(actions: [del])
+                }
+                section = NSCollectionLayoutSection.list(using: listConfiguration, layoutEnvironment: layoutEnvironment)
+
+                return section
+            }
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+
+        return collection
+    }
+
+    private func setupCollectionView() {
+        collectionView.register(FavouriteCell.self)
+        collectionView.backgroundView = backgroundView
+        setupDataSource()
+    }
+
 
     private func setupUI() {
         backgroundColor = .white
@@ -71,27 +112,61 @@ final class MyHouseView: BaseView {
     }
 
     private func setupLayout() {
-        addSubview(imageView) {
+        addSubview(collectionView) {
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top)
+            $0.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            $0.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        backgroundView.addSubview(imageView) {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().offset(250)
             $0.size.equalTo(100)
         }
-        addSubview(questionLabel) {
+        backgroundView.addSubview(questionLabel) {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(imageView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
-        addSubview(textLabel) {
+        backgroundView.addSubview(textLabel) {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(questionLabel.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
-        addSubview(button) {
+        backgroundView.addSubview(button) {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(textLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(50)
         }
+    }
+    
+    private func setupDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<MyHouseSection, MyHouseItem>(
+            collectionView: collectionView,
+            cellProvider: {
+                collectionView, indexPath, item -> UICollectionViewCell in
+                switch item {
+                case let .photo(model):
+                    let cell: FavouriteCell = collectionView.dedequeueReusableCell(for: indexPath)
+                    cell.setupCell(model)
+                    return cell
+                }
+            }
+        )
+    }
+}
+
+// MARK: - extension
+extension MyHouseView {
+    func setupSnapShot(sections: [MyHouseCollection]) {
+        var snapshot = NSDiffableDataSourceSnapshot<MyHouseSection, MyHouseItem>()
+        for section in sections {
+            snapshot.appendSections([section.section])
+            snapshot.appendItems(section.items, toSection: section.section)
+        }
+        dataSource?.apply(snapshot)
     }
 }
 

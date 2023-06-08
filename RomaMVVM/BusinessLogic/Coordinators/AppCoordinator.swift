@@ -30,10 +30,10 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
-//        let vm = AdPhotosViewModel(model: container.adCreatingModel)
-//        let vc = AdPhotosViewController(viewModel: vm)
-        let vm = LoremIpsumViewModel(state: .blueprint)
-        let vc = LoremIpsumViewController(viewModel: vm)
+        let vm = MyHouseViewModel(userService: container.userService, housesService: container.housesService)
+        let vc = MyHouseViewController(viewModel: vm)
+//        let vm = LoremIpsumViewModel(state: .blueprint)
+//        let vc = LoremIpsumViewController(viewModel: vm)
         
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
