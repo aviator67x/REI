@@ -38,6 +38,10 @@ final class DetaileHouseCoordinator: Coordinator {
                     self.houseImages(images)
                 case .moveToBlueprint(let state):
                     self.lorem(state)
+                case .popScreen:
+                    self.pop()
+                    self.didFinishSubject.send()
+                    self.didFinishSubject.send(completion: .finished)
                 }
             })
             .store(in: &cancellables)

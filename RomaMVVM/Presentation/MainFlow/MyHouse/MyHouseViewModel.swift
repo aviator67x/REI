@@ -36,10 +36,6 @@ final class MyHouseViewModel: BaseViewModel {
         model.myHousePublisher
             .sinkWeakly(self, receiveValue: { (self, houses) in
                 self.myHousesSubject.value = houses
-                guard let house = houses.first else {
-                    return
-                }
-                self.transitionSubject.send(.detail(house))
             })
             .store(in: &cancellables)
         
@@ -62,7 +58,7 @@ final class MyHouseViewModel: BaseViewModel {
         sectionsSubject.value = [section]
     }
     
-    func moveToNextAd() {
+    func moveToAddAdress() {
         transitionSubject.send(.moveToAdAddress(model: model))
     }
     
@@ -72,5 +68,16 @@ final class MyHouseViewModel: BaseViewModel {
     
     func delete(_ item: MyHouseItem)  {
         model.delete(item)
+    }
+    
+    func showDetail(_ item: MyHouseItem) {
+        switch item {
+        case .photo(let house):
+            let id = house.id
+            guard let house = myHousesSubject.value.first(where: { $0.id == id }) else {
+                return
+            }
+            self.transitionSubject.send(.detail(house))
+        }
     }
 }

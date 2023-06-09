@@ -54,5 +54,9 @@ final class SelectedHouseViewModel: BaseViewModel {
         transitionSubject.send(.moveToBlueprint(.blueprint))
     }
     
+    func popScreen() {
+        self.transitionSubject.send(.popScreen)
+    }
+    
     func moveToAllaround() {}
 }

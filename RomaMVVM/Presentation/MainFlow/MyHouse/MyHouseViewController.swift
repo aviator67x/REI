@@ -34,7 +34,7 @@ final class MyHouseViewController: BaseViewController<MyHouseViewModel> {
     
     @objc
     func create() {
-        viewModel.moveToNextAd()
+        viewModel.moveToAddAdress()
     }
 
     private func setupBindings() {
@@ -42,9 +42,11 @@ final class MyHouseViewController: BaseViewController<MyHouseViewModel> {
             .sink { [unowned self] action in
                 switch action {
                 case .buttonDidTap:
-                    viewModel.moveToNextAd()
-                case .selectedItem(let item):
+                    viewModel.moveToAddAdress()
+                case .swipedItem(let item):
                     viewModel.delete(item)
+                case .selectedItem(let item):
+                    viewModel.showDetail(item)
                 }
             }
             .store(in: &cancellables)

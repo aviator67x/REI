@@ -152,13 +152,13 @@ final class MyHouseCoordinator: Coordinator {
     }
     
     private func showDetail(_ house: HouseDomainModel) {
-        let detaileCoordinator = DetaileHouseCoordinator(navigationController: navigationController, container: container, house: house)
-        childCoordinators.append(detaileCoordinator)
-        detaileCoordinator.didFinishPublisher
+        let detailCoordinator = DetaileHouseCoordinator(navigationController: navigationController, container: container, house: house)
+        childCoordinators.append(detailCoordinator)
+        detailCoordinator.didFinishPublisher
             .sink { [unowned self] in
-                removeChild(coordinator: detaileCoordinator)
+                removeChild(coordinator: detailCoordinator)
             }
             .store(in: &cancellables)
-        detaileCoordinator.start()
+        detailCoordinator.start()
     }
 }

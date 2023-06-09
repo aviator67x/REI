@@ -24,6 +24,13 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
         setupBindings()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            viewModel.popScreen()
+        }
+    }
+
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in

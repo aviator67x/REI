@@ -10,6 +10,7 @@ import UIKit
 
 enum MyHouseViewAction {
     case buttonDidTap
+    case swipedItem(MyHouseItem)
     case selectedItem(MyHouseItem)
 }
 
@@ -50,6 +51,13 @@ final class MyHouseView: BaseView {
                 self.actionSubject.send(.buttonDidTap)
             })
             .store(in: &cancellables)
+        
+        collectionView.didSelectItemPublisher
+            .compactMap {self.dataSource?.itemIdentifier(for: $0)}
+            .map {MyHouseViewAction.selectedItem($0)}
+            .sink { [unowned self] in
+                actionSubject.send($0)}
+            .store(in: &cancellables)
     }
     
     private func createCollectionView() -> UICollectionView {
@@ -63,7 +71,7 @@ final class MyHouseView: BaseView {
                     let del = UIContextualAction(style: .destructive, title: "Delete") {
                         [weak self] _, _, _ in
                         if let item = self?.dataSource?.itemIdentifier(for: indexPath) {
-                            self?.actionSubject.send(.selectedItem(item))
+                            self?.actionSubject.send(.swipedItem(item))
                         }
                     }
                     return UISwipeActionsConfiguration(actions: [del])

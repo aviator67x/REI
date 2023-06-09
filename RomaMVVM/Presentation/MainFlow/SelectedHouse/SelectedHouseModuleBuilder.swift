@@ -11,6 +11,7 @@ import Combine
 enum SelectedHouseTransition: Transition {
     case showHouse(images: [URL])
     case moveToBlueprint(LoremState)
+    case popScreen
 }
 
 final class SelectedHouseModuleBuilder {
