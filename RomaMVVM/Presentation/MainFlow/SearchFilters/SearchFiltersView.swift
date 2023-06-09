@@ -54,6 +54,8 @@ final class SearchFiltersView: BaseView {
                     switch sectionType {
                     case .segmentControl:
                         section = self?.segmentControlSectionLayout()
+                    case .ort:
+                        section = self?.ortSectionLayout()
                     case .distance:
                         section = self?.distanceSectionLayout()
                     case .price:
@@ -84,6 +86,14 @@ final class SearchFiltersView: BaseView {
         let footer = sectionFooterBuilder()
         section.boundarySupplementaryItems = [footer]
 
+        return section
+    }
+    
+    private func ortSectionLayout() -> NSCollectionLayoutSection {
+        let section = sectionLayoutBuilder(section: .ort)
+        let footer = sectionFooterBuilder()
+        section.boundarySupplementaryItems = [footer]
+        
         return section
     }
 
@@ -161,6 +171,11 @@ final class SearchFiltersView: BaseView {
         case .segmentControl:
             itemWidthDimension = .fractionalWidth(1)
             groupHeight = 70
+            groupLeadingInset = 0
+            groupInterItemSpacing = nil
+        case .ort:
+            itemWidthDimension = .fractionalWidth(1)
+            groupHeight = 30
             groupLeadingInset = 0
             groupInterItemSpacing = nil
         case .distance, .roomsNumber, .type:
@@ -270,6 +285,7 @@ final class SearchFiltersView: BaseView {
             withReuseIdentifier: "Header"
         )
         collection.register(SegmentControlCell.self)
+        collection.register(OrtCell.self)
         collection.register(DistanceCell.self)
         collection.register(PriceCell.self)
         collection.register(TypeCell.self)
@@ -278,6 +294,8 @@ final class SearchFiltersView: BaseView {
         collection.register(RoomsNumberCell.self)
         collection.register(TypeCell.self)
         collection.register(BackgroundCell.self)
+        
+        collection.isUserInteractionEnabled = true
         
         setupDataSource()
     }
@@ -334,6 +352,12 @@ extension SearchFiltersView {
                             }                           
                         })
                         .store(in: &cancellables)
+                    return cell
+                    
+                case .ort(let model):
+                    let cell: OrtCell = collection.dedequeueReusableCell(for: indexPath)
+                    cell.setupCell(with: model)
+                    
                     return cell
                     
                 case let .distance(cellModel):

@@ -82,6 +82,8 @@ final class SearchFiltersViewController: BaseViewController<SearchFiltersViewMod
                         viewModel.showDetailed(state: .garage)
                     case .backgroundItem:
                         break
+                    case .ort:
+                       break
                     }
                 case .segmentControl(let index):
                     viewModel.configureScreen(for: index)

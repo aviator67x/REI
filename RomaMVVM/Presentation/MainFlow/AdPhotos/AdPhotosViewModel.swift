@@ -67,6 +67,12 @@ final class AdPhotosViewModel: BaseViewModel {
                     self.model.addImages(images)
                 })
                 .store(in: &cancellables)
+            
+            model.transitionPublisher
+                .sinkWeakly(self, receiveValue: { (self, value) in
+                    self.transitionSubject.send(.myHouse)
+                })
+                    .store(in: &cancellables)
         }
         
         func createDataSource() {

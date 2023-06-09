@@ -15,6 +15,7 @@ final class SearchFiltersViewModel: BaseViewModel {
     @Published var screenConfiguration = 0
     @Published private(set) var sections: [SearchFiltersCollection] = []
 
+    private lazy var ortSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var minPriceSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var maxPriceSubject = CurrentValueSubject<String?, Never>(nil)
     private lazy var minSquareSubject = CurrentValueSubject<String?, Never>(nil)
@@ -200,6 +201,11 @@ private extension SearchFiltersViewModel {
         let segmentControlSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .segmentControl, items: [.segmentControl])
         }()
+        
+        let model = OrtCellModel(ort: ortSubject)
+        let ortSection: SearchFiltersCollection = {
+            SearchFiltersCollection(sections: .ort, items: [.ort(model)])
+        }()
 
         let distanceItems = distanceCellModels
             .map { SearchFiltersItem.distance($0) }
@@ -246,6 +252,7 @@ private extension SearchFiltersViewModel {
 
         sections = [
             segmentControlSection,
+            ortSection,
             distanceSection,
             priceSection,
             typeSection,

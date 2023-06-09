@@ -252,6 +252,8 @@
 		CEF83F9C2A1BF3E2009B0791 /* AdMultiDetailsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF83F9B2A1BF3E2009B0791 /* AdMultiDetailsModels.swift */; };
 		CEF83F9E2A1CFC8E009B0791 /* YearPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF83F9D2A1CFC8E009B0791 /* YearPickerCell.swift */; };
 		CEFE0A482A33174B00B6ECA6 /* DetaileHouseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE0A472A33174B00B6ECA6 /* DetaileHouseCoordinator.swift */; };
+		CEFE0A4A2A33613B00B6ECA6 /* OrtCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE0A492A33613B00B6ECA6 /* OrtCellModel.swift */; };
+		CEFE0A4C2A33656900B6ECA6 /* OrtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE0A4B2A33656900B6ECA6 /* OrtCell.swift */; };
 		CEFEA50F29A7881F0085AB1D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEA50E29A7881F0085AB1D /* NetworkLogger.swift */; };
 		CEFFB99E2A20AB420009F624 /* HouseImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFFB99D2A20AB420009F624 /* HouseImageModel.swift */; };
 		CEFFB9A02A2295CA0009F624 /* LivingAreaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFFB99F2A2295CA0009F624 /* LivingAreaCell.swift */; };
@@ -525,6 +527,8 @@
 		CEF83F9B2A1BF3E2009B0791 /* AdMultiDetailsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMultiDetailsModels.swift; sourceTree = "<group>"; };
 		CEF83F9D2A1CFC8E009B0791 /* YearPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPickerCell.swift; sourceTree = "<group>"; };
 		CEFE0A472A33174B00B6ECA6 /* DetaileHouseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetaileHouseCoordinator.swift; sourceTree = "<group>"; };
+		CEFE0A492A33613B00B6ECA6 /* OrtCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrtCellModel.swift; sourceTree = "<group>"; };
+		CEFE0A4B2A33656900B6ECA6 /* OrtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrtCell.swift; sourceTree = "<group>"; };
 		CEFEA50E29A7881F0085AB1D /* NetworkLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
 		CEFFB99D2A20AB420009F624 /* HouseImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseImageModel.swift; sourceTree = "<group>"; };
 		CEFFB99F2A2295CA0009F624 /* LivingAreaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivingAreaCell.swift; sourceTree = "<group>"; };
@@ -888,6 +892,7 @@
 				CE0E27C429D43DC4001EDFCD /* SquareCell.swift */,
 				CE0E27C629D43DE9001EDFCD /* RoomsNumberCell.swift */,
 				CE13E3BA29DC5AFA00B948C9 /* BackgroundCell.swift */,
+				CEFE0A4B2A33656900B6ECA6 /* OrtCell.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1315,6 +1320,7 @@
 				CE1E2DDB2A0B92B200328EAF /* DistanceCellModel.swift */,
 				CE1E2DDD2A0B933300328EAF /* PropertyTypeCellModel.swift */,
 				CE1E2DDF2A0B9FF700328EAF /* NumberOfRoomsCellModel.swift */,
+				CEFE0A492A33613B00B6ECA6 /* OrtCellModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1615,6 +1621,7 @@
 				CEAA10FB29DEE01000340401 /* HousesNetworkService.swift in Sources */,
 				CE481C7C2A2FC6A2000E00BC /* CrossButton.swift in Sources */,
 				CEA545E52977FF04007F9962 /* Creatable.swift in Sources */,
+				CEFE0A4A2A33613B00B6ECA6 /* OrtCellModel.swift in Sources */,
 				CE13E3AB29DAFE5600B948C9 /* SearchFiltersDetailedModuleBuilder.swift in Sources */,
 				69FC756CA7A3ECBB0ADBB994 /* TokenPlugin.swift in Sources */,
 				CEA5F5D0299BECE300B87DD4 /* NetworkError.swift in Sources */,
@@ -1674,6 +1681,7 @@
 				CE0E27B229CE1DA9001EDFCD /* SearchFiltersViewModel.swift in Sources */,
 				CE0E27C729D43DE9001EDFCD /* RoomsNumberCell.swift in Sources */,
 				CE13E3C129DC82AB00B948C9 /* UserDataCell.swift in Sources */,
+				CEFE0A4C2A33656900B6ECA6 /* OrtCell.swift in Sources */,
 				501CE75C4EB6601A82AD5409 /* Fonts.swift in Sources */,
 				CEFFB9A02A2295CA0009F624 /* LivingAreaCell.swift in Sources */,
 				CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */,

@@ -15,6 +15,7 @@ struct SearchFiltersCollection {
 
 enum SearchFiltersSection: Hashable, CaseIterable {
     case segmentControl
+    case ort
     case distance
     case price
     case type
@@ -36,7 +37,7 @@ enum SearchFiltersSection: Hashable, CaseIterable {
             return"Square of the property in sqm"
         case .roomsNumber:
             return "Number of rooms"
-        case .segmentControl, .year, .garage, .backgroundItem:
+        case .segmentControl, .year, .garage, .backgroundItem, .ort:
             return nil
         }
     }
@@ -53,14 +54,14 @@ enum SearchFiltersSection: Hashable, CaseIterable {
             return "light.panel"
         case .roomsNumber:
             return "door.right.hand.open"
-        case .segmentControl, .year, .garage, .backgroundItem:
+        case .segmentControl, .year, .garage, .backgroundItem, .ort:
             return nil
         }
     }
     
     var isFooterNeeded: Bool {
         switch self {
-        case .distance, .price, .type, .square, .roomsNumber, .year, .segmentControl, .garage:
+        case .distance, .price, .type, .square, .roomsNumber, .year, .segmentControl, .garage, .ort:
             return true
         case .backgroundItem:
             return false
@@ -70,6 +71,7 @@ enum SearchFiltersSection: Hashable, CaseIterable {
 
 enum SearchFiltersItem: Hashable {
     case segmentControl
+    case ort(OrtCellModel)
     case distance(DistanceCellModel)
     case price(model: PriceCellModel)
     case type(PropertyTypeCellModel)
