@@ -34,6 +34,8 @@ final class MyHouseCoordinator: Coordinator {
                 switch transition {
                 case .moveToAdAddress(let model):
                     moveToAdAddress(model: model)
+                case .detail(let house):
+                    self.showDetail(house)
                 }
             }
             .store(in: &cancellables)
@@ -147,5 +149,16 @@ final class MyHouseCoordinator: Coordinator {
             })
             .store(in: &cancellables)
         push(module.viewController)
+    }
+    
+    private func showDetail(_ house: HouseDomainModel) {
+        let detaileCoordinator = DetaileHouseCoordinator(navigationController: navigationController, container: container, house: house)
+        childCoordinators.append(detaileCoordinator)
+        detaileCoordinator.didFinishPublisher
+            .sink { [unowned self] in
+                removeChild(coordinator: detaileCoordinator)
+            }
+            .store(in: &cancellables)
+        detaileCoordinator.start()
     }
 }

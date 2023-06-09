@@ -10,7 +10,7 @@ import Combine
 
 enum MyHouseTransition: Transition {
     case moveToAdAddress(model: AdCreatingModel)
-    
+    case detail(HouseDomainModel)
 }
 
 final class MyHouseModuleBuilder {

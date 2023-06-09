@@ -36,6 +36,10 @@ final class MyHouseViewModel: BaseViewModel {
         model.myHousePublisher
             .sinkWeakly(self, receiveValue: { (self, houses) in
                 self.myHousesSubject.value = houses
+                guard let house = houses.first else {
+                    return
+                }
+                self.transitionSubject.send(.detail(house))
             })
             .store(in: &cancellables)
         
