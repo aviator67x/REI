@@ -75,6 +75,19 @@ final class SettingsCoordinator: Coordinator {
     
     private func password() {
         let module = PasswordRestoreModuleBuilder.build(container: container)
-        push(module.viewController)
+        module.transitionPublisher
+            .sink { [unowned self] transiton in
+                switch transiton {
+                case .success:
+                    didFinishSubject.send()
+                    didFinishSubject.send(completion: .finished)
+                case .popScreen:
+                    self.pop()
+                }
+            }
+            .store(in: &cancellables)
+        let viewController = module.viewController
+        viewController.tabBarController?.tabBar.isHidden = true
+        push(viewController)
     }
 }

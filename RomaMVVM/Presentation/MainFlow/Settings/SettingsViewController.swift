@@ -25,23 +25,25 @@ final class SettingsViewController: BaseViewController<SettingsViewModel> {
     private func setupBindings() {
         viewModel.$sections
             .sink { [unowned self] value in
-            contentView.setupSnapShot(sections: value)
-        }
-        .store(in: &cancellables)
-        
+                contentView.setupSnapShot(sections: value)
+            }
+            .store(in: &cancellables)
+
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .selectedItem(let item):
+                case let .selectedItem(item):
                     switch item {
                     case .userProfile:
                         break
-                    case .plain(title: let title):
+                    case let .plain(title: title):
                         switch title {
-                        case "Profile": viewModel.showProfile()
-                        case "Terms and Conditions": viewModel.showTerms()
+                        case "Profile":
+                            viewModel.showProfile()
+                        case "Terms and Conditions":
+                            viewModel.showTerms()
                         default:
-                            break
+                            viewModel.showTerms()
                         }
                     }
                 }

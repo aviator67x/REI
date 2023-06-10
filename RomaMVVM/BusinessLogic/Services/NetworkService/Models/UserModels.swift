@@ -8,14 +8,14 @@
 import Foundation
 
 struct UpdateUserRequestModel: Encodable {
-    let firstName: String?
+    let name: String?
     let lastName: String?
     let nickName: String?
     let imageURL: URL?
     let id: String
     
     init(firstName: String? = nil, lastName: String? = nil, nickName: String? = nil, imageURL: URL?, id: String) {
-        self.firstName = firstName
+        self.name = firstName
         self.lastName = lastName
         self.nickName = nickName
         self.imageURL = imageURL

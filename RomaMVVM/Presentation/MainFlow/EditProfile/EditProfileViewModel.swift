@@ -45,9 +45,11 @@ final class EditProfileViewModel: BaseViewModel {
             nickName: self.nickName == "" ? nil : self.nickName,
             imageURL: nil,
             id: userId)
+        isLoadingSubject.send(true)
         userService.update(user: userModel)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [unowned self]completion in
+                isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
                     print("User has been updated with a new value")
@@ -60,9 +62,6 @@ final class EditProfileViewModel: BaseViewModel {
                 popEditSubject.send(true)
             })
             .store(in: &cancellables)
-    }
-    deinit {
-        print("Edit prifile deinit")
     }
 
     func update(firstName: String) {
