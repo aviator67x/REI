@@ -24,10 +24,10 @@ enum HouseEndPoint: Endpoint {
             return buildQuery(searchParams: searchParams) ?? [:]
         case .saveImage, .saveAd, .housesCount:
             return [:]
-        case .getUserAds(ownerId: let ownerId):
+        case let .getUserAds(ownerId: ownerId):
             let searchParams = [SearchParam(key: .ownerId, value: .equalToString(parameter: ownerId))]
             return buildQuery(searchParams: searchParams) ?? [:]
-        case .deleteAd(objectId: let objectId):
+        case .deleteAd:
             return [:]
         }
     }
@@ -40,11 +40,11 @@ enum HouseEndPoint: Endpoint {
             return "/files/Houses"
         case .housesCount:
             return "/data/Houses/count"
-        case .deleteAd(objectId: let objectId):
-            return  "data/Houses/\(objectId)"
+        case let .deleteAd(objectId: objectId):
+            return "data/Houses/\(objectId)"
         }
     }
-    
+
     var method: HTTPMethod {
         switch self {
         case .getHouses, .filter, .housesCount, .getUserAds:
@@ -64,20 +64,22 @@ enum HouseEndPoint: Endpoint {
             return [:]
         }
     }
-    
-        var body: RequestBody? {
-            switch self {
-            case .getHouses, .filter, .housesCount, .getUserAds, .deleteAd:
-                return nil
-            case .saveImage(let image):
-                return .multipartBody(image)
-            case .saveAd(let adModel):
-                return .encodable(adModel)
-            }
+
+    var body: RequestBody? {
+        switch self {
+        case .getHouses, .filter, .housesCount, .getUserAds, .deleteAd:
+            return nil
+        case let .saveImage(image):
+            return .multipartBody(image)
+        case let .saveAd(adModel):
+            return .encodable(adModel)
         }
+    }
+
     func buildQuery(pageSize: Int, skip: Int) -> [String: String]? {
         return [
-            "pageSize":"\(pageSize)",
-            "offset":"\(skip)"]
+            "pageSize": "\(pageSize)",
+            "offset": "\(skip)",
+        ]
     }
 }

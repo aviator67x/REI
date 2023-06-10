@@ -24,6 +24,7 @@ class NetworkManagerImpl: NetworkManager {
         print(request.cURL())
         return session.dataTaskPublisher(for: request)
             .tryMap { [unowned self] data, response in
+                
                 guard let response = response as? HTTPURLResponse else {
                     throw NetworkError.noResponse
                 }

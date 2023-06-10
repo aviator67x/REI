@@ -115,18 +115,18 @@ final class EditProfileView: BaseView {
             stack.setup(
                 axis: .horizontal,
                 alignment: .center,
-                distribution: .fill,
+                distribution: .fillProportionally,
                 spacing: Constants.stackSpacing
             )
         }
         firstNameStack.addSpacer(10)
-        firstNameStack.addArranged(firstNameLabel, size: 80)
+        firstNameStack.addArranged(firstNameLabel, size: 90)
         firstNameStack.addArranged(firstNameTextField)
         lastNameStack.addSpacer(10)
-        lastNameStack.addArranged(lastNameLabel, size: 80)
+        lastNameStack.addArranged(lastNameLabel, size: 90)
         lastNameStack.addArranged(lastNameTextField)
         nickNameStack.addSpacer(10)
-        nickNameStack.addArranged(nickNameLable, size: 80)
+        nickNameStack.addArranged(nickNameLable, size: 90)
         nickNameStack.addArranged(nickNameTextField)
 
         stackView.addArrangedSubviews([firstNameStack, lastNameStack, nickNameStack])

@@ -50,7 +50,7 @@ final class AdCreatingModel {
                     debugPrint(error.localizedDescription)
                 }
             }, receiveValue: { [unowned self] house in
-                debugPrint(house)
+                debugPrint("Created new ad \(house)")
                 let domainHouse = HouseDomainModel(model: house)
                 self.myHousesSubject.value.append(domainHouse)
                 self.transitionSubject.send(.myHouse)
@@ -70,6 +70,34 @@ final class AdCreatingModel {
         adCreatingRequestModelSubject.value.ort = ort
         adCreatingRequestModelSubject.value.street = street
         adCreatingRequestModelSubject.value.house = house
+    }
+    
+    func updateAdCreatingRequestModel(type: String) {
+        adCreatingRequestModelSubject.value.propertyType = type
+    }
+    
+    func updateAdCreatingRequestModel(number: Int) {
+        adCreatingRequestModelSubject.value.roomsNumber = number
+    }
+    
+    func updateAdCreatingRequestModel(year: Int) {
+        adCreatingRequestModelSubject.value.constructionYear = year
+    }
+    
+    func updateAdCreatingRequestModel(garage: String) {
+        adCreatingRequestModelSubject.value.garage = garage
+    }
+    
+    func updateAdCreatingRequestModel(livingArea: Int) {
+        adCreatingRequestModelSubject.value.livingArea = livingArea
+    }
+    
+    func updateAdCreatingRequestModel(square: Int) {
+        adCreatingRequestModelSubject.value.square = square
+    }
+    
+    func updateAdCreatingRequestModel(price: Int) {
+        adCreatingRequestModelSubject.value.price = price
     }
     
     func updateAdCreatingRequestModel(with item: AdMultiDetailsItem) {

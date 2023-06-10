@@ -12,18 +12,16 @@ enum AdDetailsViewAction {
     case crossDidTap
     case onBackTap
     case onForwardTap
-    case onTypeTap
-    case onNumberTap
-    case onYearTap
-    case onGarageTap
-    case onLivingAreaTap
-    case onSquareTap
-    case onPriceTap
+    case typeTextField(String)
+    case numberTextField(String)
+    case yearTextField(String)
+    case garageTextField(String)
+    case livingAreaTextField(String)
+    case squareTextField(String)
+    case priceTextField(String)
 }
 
-final class AdDetailsView: BaseView, UIPickerViewDataSource, UIPickerViewDelegate {
-
-    
+final class AdDetailsView: BaseView {
     // MARK: - Subviews
     private var pageControl = UIPageControl()
     private var crossButton = UIButton()
@@ -51,51 +49,47 @@ final class AdDetailsView: BaseView, UIPickerViewDataSource, UIPickerViewDelegat
     private let priceStack = UIStackView()
     private let priceLabel = UILabel()
     private let priceTextField = UITextField()
-//    private let typeButton = UIButton()
-//    private let numberButton = UIButton()
-//    private let yearButton = UIButton()
-//    private let garageButton = UIButton()
-//    private let livingAreaButton = UIButton()
-//    private let squareButton = UIButton()
-//    private let priceButton = UIButton()
-    private var lineView = UIView()
-    private var buttonStackView = UIStackView()
-    private var backButton = UIButton()
-    private var forwardButton = UIButton()
-    private var typePicker: UIPickerView = UIPickerView(frame: CGRectMake(0, 100, 200, 200))//frame.width, 200))
-     
-    private lazy var numberPicker: UIPickerView = { let picker = UIPickerView(frame: CGRectMake(0, 100, frame.width, 200))
-        picker.delegate = self
-        picker.dataSource = self
-        return picker
-    }()
-    
-    private lazy var garagePicker: UIPickerView = { let picker = UIPickerView(frame: CGRectMake(0, 100, frame.width, 200))
-        picker.delegate = self
-        picker.dataSource = self
-        return picker
-    }()
-    
+    private let lineView = UIView()
+    private let buttonStackView = UIStackView()
+    private let backButton = UIButton()
+    private let forwardButton = UIButton()
+    private let typePicker = UIPickerView(frame: CGRectMake(0, 100, 200, 200))
+    private let numberPicker = UIPickerView(frame: CGRectMake(0, 100, 200, 200))
+    private let garagePicker = UIPickerView(frame: CGRectMake(0, 100, 200, 200))
+
     private lazy var toolBar: UIToolbar = {
         let toolBar = UIToolbar()
-      toolBar.barStyle = UIBarStyle.default
-      toolBar.isTranslucent = true
-      toolBar.tintColor = .black
-      toolBar.sizeToFit()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = .black
+        toolBar.sizeToFit()
 
-      let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
-      let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-      let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
+        let doneButton = UIBarButtonItem(
+            title: "Done",
+            style: UIBarButtonItem.Style.done,
+            target: self,
+            action: #selector(self.donePicker)
+        )
+        let spaceButton = UIBarButtonItem(
+            barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace,
+            target: nil,
+            action: nil
+        )
+        let cancelButton = UIBarButtonItem(
+            title: "Cancel",
+            style: UIBarButtonItem.Style.plain,
+            target: self,
+            action: #selector(self.donePicker)
+        )
 
-      toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-      toolBar.isUserInteractionEnabled = true
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
         return toolBar
     }()
-       
+
     private let typePickerData = ["apartment", "house", "land"]
     private let numberPickerData = ["1", "2", "3", "4", "5"]
     private let garagePickerData = ["Garage", "Free parking", "Municipal parking", "Hourly parking", "No parking"]
-    let pickerData = ["11", "12", "13"]
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<AdDetailsViewAction, Never>()
@@ -115,57 +109,12 @@ final class AdDetailsView: BaseView, UIPickerViewDataSource, UIPickerViewDelegat
         setupUI()
         bindActions()
     }
-    
+
     @objc
     func donePicker() {
         typeTextField.resignFirstResponder()
         numberTextField.resignFirstResponder()
         garageTextField.resignFirstResponder()
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch pickerView {
-        case typePicker:
-            return typePickerData.count
-        case numberPicker:
-            return numberPickerData.count
-        case garagePicker:
-            return garagePickerData.count
-        default:
-            return pickerData.count
-        }
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch pickerView {
-        case typePicker:
-            return typePickerData[row]
-        case numberPicker:
-            return numberPickerData[row]
-        case garagePicker:
-            return garagePickerData[row]
-        default:
-            return pickerData[row]
-        }
-       
-    }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        switch pickerView {
-        case typePicker:
-            return typeTextField.text = typePickerData[row]
-        case numberPicker:
-            return numberTextField.text = numberPickerData[row]
-        case garagePicker:
-            return garageTextField.text = garagePickerData[row]
-        default:
-           break
-        }
-        
     }
 
     private func bindActions() {
@@ -187,52 +136,59 @@ final class AdDetailsView: BaseView, UIPickerViewDataSource, UIPickerViewDelegat
             })
             .store(in: &cancellables)
 
-//        typeButton.tapPublisher
-//            .sinkWeakly(self, receiveValue: { (self, _) in
-//                self.actionSubject.send(.onTypeTap)
-//            })
-//            .store(in: &cancellables)
-//
-//        numberButton.tapPublisher
-//            .sinkWeakly(self, receiveValue: { (self, _) in
-//                self.actionSubject.send(.onNumberTap)
-//            })
-//            .store(in: &cancellables)
-//
-//        yearButton.tapPublisher
-//            .sinkWeakly(self, receiveValue: { (self, _) in
-//                self.actionSubject.send(.onYearTap)
-//            })
-//            .store(in: &cancellables)
-//
-//        garageButton.tapPublisher
-//            .sinkWeakly(self, receiveValue: { (self, _) in
-//                self.actionSubject.send(.onGarageTap)
-//            })
-//            .store(in: &cancellables)
-//
-//        livingAreaButton.tapPublisher
-//            .sinkWeakly(self, receiveValue: { (self, _) in
-//                self.actionSubject.send(.onLivingAreaTap)
-//            })
-//            .store(in: &cancellables)
-//
-//        squareButton.tapPublisher
-//            .sinkWeakly(self, receiveValue: { (self, _) in
-//                self.actionSubject.send(.onSquareTap)
-//            })
-//            .store(in: &cancellables)
-//
-//        priceButton.tapPublisher
-//            .sinkWeakly(self, receiveValue: { (self, _) in
-//                self.actionSubject.send(.onPriceTap)
-//            })
-//            .store(in: &cancellables)
+        typeTextField.textPublisher
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, text) in
+                self.actionSubject.send(.typeTextField(text))
+            })
+            .store(in: &cancellables)
+
+        numberTextField.textPublisher
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, text) in
+                self.actionSubject.send(.numberTextField(text))
+            })
+            .store(in: &cancellables)
+
+        garageTextField.textPublisher
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, text) in
+                self.actionSubject.send(.garageTextField(text))
+            })
+            .store(in: &cancellables)
+
+        livingAreaTextField.textPublisher
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, text) in
+                self.actionSubject.send(.livingAreaTextField(text))
+            })
+            .store(in: &cancellables)
+
+        squareTextField.textPublisher
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, text) in
+                self.actionSubject.send(.squareTextField(text))
+            })
+            .store(in: &cancellables)
+
+        priceTextField.textPublisher
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, text) in
+                self.actionSubject.send(.priceTextField(text))
+            })
+            .store(in: &cancellables)
+
+        yearTextField.textPublisher
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, text) in
+                self.actionSubject.send(.yearTextField(text))
+            })
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
         [typePicker, numberPicker, garagePicker].forEach { picker in
-            picker.backgroundColor = .lightGray
+            picker.backgroundColor = .systemGray
             picker.delegate = self
             picker.dataSource = self
         }
@@ -266,41 +222,37 @@ final class AdDetailsView: BaseView, UIPickerViewDataSource, UIPickerViewDelegat
         livingAreaLabel.text = " Living area"
         squareLabel.text = " Square"
         priceLabel.text = " Price"
-        
+
         typeTextField.inputAccessoryView = toolBar
         typeTextField.inputView = typePicker
         numberTextField.inputAccessoryView = toolBar
         numberTextField.inputView = numberPicker
         garageTextField.inputAccessoryView = toolBar
         garageTextField.inputView = garagePicker
-        
-        [typeTextField, numberTextField, yearTextField, garageTextField, livingAreaTextField, squareTextField, priceTextField].forEach { textField in
-            textField.delegate = self
-            textField.placeholder = "Waiting for your input"
-            textField.textAlignment = .right
+
+        [yearTextField, livingAreaTextField, squareTextField, priceTextField].forEach { textField in
+            textField.keyboardType = .decimalPad
+            textField.addDoneButtonOnKeyboard()
         }
 
-            
-//        typeButton.setTitle("Type of property", for: .normal)
-//        numberButton.setTitle("Number of rooms", for: .normal)
-//        garageButton.setTitle("Type of parking", for: .normal)
-//        yearButton.setTitle("Year of construction", for: .normal)
-//        livingAreaButton.setTitle("Living area", for: .normal)
-//        squareButton.setTitle("Square", for: .normal)
-//        priceButton.setTitle("Price", for: .normal)
-//
-//        [typeButton, numberButton, yearButton, garageButton, livingAreaButton, squareButton, priceButton]
-//            .forEach { button in
-//                button.setTitleColor(.black, for: .normal)
-//                button.titleLabel?.textAlignment = .left
-//                button.layer.cornerRadius = 3
-//                button.bordered(width: 2, color: .gray)
-//            }
+        [
+            typeTextField,
+            numberTextField,
+            yearTextField,
+            garageTextField,
+            livingAreaTextField,
+            squareTextField,
+            priceTextField,
+        ].forEach { textField in
+            textField.delegate = self
+            textField.placeholder = "Waiting for your input"
+            textField.textAlignment = .center
+        }
 
         stackView.axis = .vertical
         stackView.spacing = 10
-        
-        [typeStack, numberStack, yearStack, garageStack, livingAreaStack, squareStack, priceStack].forEach {stack in
+
+        [typeStack, numberStack, yearStack, garageStack, livingAreaStack, squareStack, priceStack].forEach { stack in
             stack.axis = .horizontal
             stack.layer.cornerRadius = 3
             stack.bordered(width: 2, color: .gray)
@@ -354,16 +306,31 @@ final class AdDetailsView: BaseView, UIPickerViewDataSource, UIPickerViewDelegat
             $0.leading.trailing.equalToSuperview().inset(16)
         }
 
-//        [typeButton, numberButton, yearButton, garageButton, livingAreaButton, squareButton, priceButton]
-        [typeLabel, typeTextField, numberLabel, numberTextField, yearLabel, yearTextField, garageLabel, garageTextField, livingAreaLabel, livingAreaTextField, squareLabel, squareTextField,  priceLabel, priceTextField]
-            .forEach { button in button.snp.makeConstraints {
-                $0.height.equalTo(50)
-            }
-            }
-        
+        [
+            typeLabel,
+            typeTextField,
+            numberLabel,
+            numberTextField,
+            yearLabel,
+            yearTextField,
+            garageLabel,
+            garageTextField,
+            livingAreaLabel,
+            livingAreaTextField,
+            squareLabel,
+            squareTextField,
+            priceLabel,
+            priceTextField,
+        ]
+        .forEach { button in button.snp.makeConstraints {
+            $0.height.equalTo(50)
+        }
+        }
+
         typeStack.addArrangedSubviews([typeLabel, typeTextField])
         numberStack.addArrangedSubviews([numberLabel, numberTextField])
-        yearStack.addArrangedSubviews([yearLabel, yearTextField]
+        yearStack.addArrangedSubviews(
+            [yearLabel, yearTextField]
         )
         garageStack.addArrangedSubviews([garageLabel, garageTextField])
         livingAreaStack.addArrangedSubviews([livingAreaLabel, livingAreaTextField])
@@ -371,20 +338,13 @@ final class AdDetailsView: BaseView, UIPickerViewDataSource, UIPickerViewDelegat
         priceStack.addArrangedSubviews([priceLabel, priceTextField])
         stackView
             .addArrangedSubviews([
-//                typeButton,
-//                numberButton,
-//                yearButton,
-//                garageButton,
-//                livingAreaButton,
-//                squareButton,
-//                priceButton,
                 typeStack,
                 numberStack,
                 yearStack,
                 garageStack,
                 livingAreaStack,
                 squareStack,
-                priceStack
+                priceStack,
             ])
 
         addSubview(buttonStackView) {
@@ -400,7 +360,7 @@ final class AdDetailsView: BaseView, UIPickerViewDataSource, UIPickerViewDelegat
         forwardButton.snp.makeConstraints {
             $0.height.equalTo(44)
         }
-        
+
         buttonStackView.addArrangedSubviews([backButton, forwardButton])
 
         addSubview(lineView) {
@@ -424,14 +384,6 @@ final class AdDetailsView: BaseView, UIPickerViewDataSource, UIPickerViewDelegat
         }
         forwardButton.alpha = isRequestModelFilled ? 1 : 0.5
         forwardButton.isEnabled = isRequestModelFilled ? true : false
-        
-//        typeButton.bordered(width: 2, color: adDetails.propertyType != nil ? .green : .gray)
-//        numberButton.bordered(width: 2, color: adDetails.roomsNumber != nil ? .green : .gray)
-//        yearButton.bordered(width: 2, color: adDetails.constructionYear != nil ? .green : .gray)
-//        garageButton.bordered(width: 2, color: adDetails.garage != nil ? .green : .gray)
-//        livingAreaButton.bordered(width: 2, color: adDetails.livingArea != nil ? .green : .gray)
-//        squareButton.bordered(width: 2, color: adDetails.square != nil ? .green : .gray)
-//        priceButton.bordered(width: 2, color: adDetails.price != nil ? .green : .gray)
     }
 }
 
@@ -440,6 +392,82 @@ extension AdDetailsView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         endEditing(true)
         return false
+    }
+}
+
+// MARK: - extension
+extension AdDetailsView: UITextViewDelegate {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        switch textField {
+        case yearTextField:
+            let maxLength = 4
+            let currentString = (textField.text ?? "") as NSString
+            let newString = currentString.replacingCharacters(in: range, with: string)
+
+            return newString.count <= maxLength
+        case livingAreaTextField, squareTextField:
+            let maxLength = 5
+            let currentString = (textField.text ?? "") as NSString
+            let newString = currentString.replacingCharacters(in: range, with: string)
+
+            return newString.count <= maxLength
+        default:
+            let maxLength = 11
+            let currentString = (textField.text ?? "") as NSString
+            let newString = currentString.replacingCharacters(in: range, with: string)
+
+            return newString.count <= maxLength
+        }
+    }
+}
+
+// MARK: - extension
+extension AdDetailsView: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch pickerView {
+        case typePicker:
+            return typePickerData.count
+        case numberPicker:
+            return numberPickerData.count
+        case garagePicker:
+            return garagePickerData.count
+        default:
+            return garagePickerData.count
+        }
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch pickerView {
+        case typePicker:
+            return typePickerData[row]
+        case numberPicker:
+            return numberPickerData[row]
+        case garagePicker:
+            return garagePickerData[row]
+        default:
+            return garagePickerData[row]
+        }
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch pickerView {
+        case typePicker:
+            return typeTextField.text = typePickerData[row]
+        case numberPicker:
+            return numberTextField.text = numberPickerData[row]
+        case garagePicker:
+            return garageTextField.text = garagePickerData[row]
+        default:
+            break
+        }
     }
 }
 
