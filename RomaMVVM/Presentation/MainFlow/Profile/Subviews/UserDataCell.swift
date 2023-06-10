@@ -58,6 +58,7 @@ final class UserDataCell: UICollectionViewCell {
         nameLabel.text = user.name
         emailLabel.text = user.email
         photo.setIMage(imageResource: user.image)
+        photo.tintColor = .systemGray
     }
 }
 

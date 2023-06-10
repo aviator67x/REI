@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 enum ImageResource: Hashable {
     case imageURL(URL?)
@@ -19,7 +20,7 @@ extension UIImageView {
     func setIMage(imageResource: ImageResource) {
         switch imageResource {
         case .imageURL(let url):
-            self.kf.setImage(with: url)
+            self.kf.setImage(with: url, placeholder: UIImage(systemName: "person.circle"))
             
         case .imageData(let data):
             self.image = UIImage(data: data)

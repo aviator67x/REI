@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import Kingfisher
+import UIKit
 
 final class UserProfileCell: UICollectionViewCell {
     static let identifier = "UserProfileCell"
@@ -52,8 +52,8 @@ final class UserProfileCell: UICollectionViewCell {
     func setupCell(model: UserProfileCellModel) {
         let imageResouce = model.image
         photo.setIMage(imageResource: imageResouce)
+        photo.tintColor = .systemGray
         nameLabel.text = model.name
         emailLabel.text = model.email
     }
 }
-

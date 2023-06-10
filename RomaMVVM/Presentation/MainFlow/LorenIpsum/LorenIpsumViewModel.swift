@@ -15,9 +15,18 @@ final class LoremIpsumViewModel: BaseViewModel {
     private lazy var screenStateSubject = CurrentValueSubject<LoremState, Never>(.blueprint)
     
    init(state: LoremState) {
-
         super.init()
+       self.screenStateSubject.value = state
     }
+    
+    override func onViewDidLoad() {
+        setupBinding()
+    }
+    
+    private func setupBinding() {
+        
+    }
+    
     func popScreen() {
         transitionSubject.send(.popScreen)
     }

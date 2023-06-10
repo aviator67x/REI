@@ -1006,11 +1006,11 @@
 		CE481C802A3113C3000E00BC /* LorenIpsum */ = {
 			isa = PBXGroup;
 			children = (
-				CE481C892A31B4A4000E00BC /* Models */,
 				CE481C812A31149F000E00BC /* LorenIpsumModuleBuilder.swift */,
 				CE481C822A31149F000E00BC /* LorenIpsumViewController.swift */,
 				CE481C832A31149F000E00BC /* LorenIpsumView.swift */,
 				CE481C842A31149F000E00BC /* LorenIpsumViewModel.swift */,
+				CE481C892A31B4A4000E00BC /* Models */,
 			);
 			path = LorenIpsum;
 			sourceTree = "<group>";

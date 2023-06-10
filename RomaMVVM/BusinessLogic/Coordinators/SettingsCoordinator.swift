@@ -59,7 +59,12 @@ final class SettingsCoordinator: Coordinator {
     }
     
     private func terms() {
-        let module = TermsModuleBuilder.build(container: container)
+        let module = LoremIpsumModuleBuilder.build(container: container, state: .text)
+        module.transitionPublisher
+            .sinkWeakly(self, receiveValue: { (self, value) in
+                self.pop()
+            })
+            .store(in: &cancellables)
         push(module.viewController)
     }
     
