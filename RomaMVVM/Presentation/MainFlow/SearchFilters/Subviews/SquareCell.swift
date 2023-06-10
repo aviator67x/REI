@@ -37,24 +37,22 @@ final class SquareCell: UICollectionViewListCell {
     private func setupUI() {
         middleLabel.text = "to:"
         minTextField.placeholder = " 0"
-        minTextField.layer.cornerRadius = 2
+        minTextField.layer.cornerRadius = 3
         minTextField.layer.borderColor = UIColor.lightGray.cgColor
         minTextField.layer.borderWidth = 1
         minTextField.keyboardType = .decimalPad
+        minTextField.addDoneButtonOnKeyboard()
         
         maxTextField.placeholder = " Max square"
-        maxTextField.layer.cornerRadius = 2
+        maxTextField.layer.cornerRadius = 3
         maxTextField.layer.borderColor = UIColor.lightGray.cgColor
         maxTextField.layer.borderWidth = 1
         maxTextField.keyboardType = .decimalPad
+        maxTextField.addDoneButtonOnKeyboard()
         
         stack.alignment = .center
         stack.distribution = .equalSpacing
         stack.spacing = 16
-        
-        contentView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        contentView.addGestureRecognizer(tap)
     }
 
     private func setupLayout() {
@@ -79,18 +77,14 @@ final class SquareCell: UICollectionViewListCell {
 
     private func setupBinding() {}
     
-    @objc
-    private func handleTap(_ sender: UITapGestureRecognizer? = nil) {
-        minTextField.resignFirstResponder()
-        maxTextField.resignFirstResponder()
-    }
-    
     func setupCell(with model: SquareCellModel) {
+        minTextField.text = model.minSquare.value
         minTextField.textPublisher
             .dropFirst()
             .assign(to: \.value, on: model.minSquare)
             .store(in: &cancellables)
         
+        maxTextField.text = model.maxSquare.value
         maxTextField.textPublisher
             .dropFirst()
             .assign(to: \.value, on: model.maxSquare)

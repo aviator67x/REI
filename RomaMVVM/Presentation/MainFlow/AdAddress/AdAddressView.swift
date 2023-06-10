@@ -182,6 +182,10 @@ final class AdAddressView: BaseView {
         forwardButton.bordered(width: 2, color: .gray)
         forwardButton.alpha = 0.5
         forwardButton.isEnabled = false
+        
+        ortTextField.text = "Kharkiv"
+        streetTextField.text = "Khreschatik"
+        houseTextField.text = "21"
     }
 
     private func setupLayout() {

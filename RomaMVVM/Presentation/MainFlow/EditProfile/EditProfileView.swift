@@ -72,12 +72,12 @@ final class EditProfileView: BaseView {
         backgroundColor = .systemGroupedBackground
         stackView.backgroundColor = .white
         stackView.layer.cornerRadius = 8
-        firstNameLabel.text = "First"
-        firstNameTextField.text = "firstNameTextField"
-        lastNameLabel.text = "Last"
-        lastNameTextField.text = "lastNameTextField"
-        nickNameLable.text = "Nickname"
-        nickNameTextField.text = "nickNameTextField"
+        firstNameLabel.text = " First"
+//        firstNameTextField.text = "firstNameTextField"
+        lastNameLabel.text = " Last"
+//        lastNameTextField.text = "lastNameTextField"
+        nickNameLable.text = " Nickname"
+//        nickNameTextField.text = "nickNameTextField"
     }
 
      func setupLayout(_ configuration: EditProfileConfiguration) {

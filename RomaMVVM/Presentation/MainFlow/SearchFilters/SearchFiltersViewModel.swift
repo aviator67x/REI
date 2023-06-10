@@ -163,6 +163,7 @@ private extension SearchFiltersViewModel {
             .receive(on: DispatchQueue.main)
             .sinkWeakly(self, receiveValue: { (self, requestModel) in
                 self.searchRequestModelSubject.value = requestModel
+                self.checkSearchRequestModel()
             })
             .store(in: &cancellables)
         
@@ -201,7 +202,6 @@ private extension SearchFiltersViewModel {
         let segmentControlSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .segmentControl, items: [.segmentControl])
         }()
-        
         let model = OrtCellModel(ort: ortSubject)
         let ortSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .ort, items: [.ort(model)])

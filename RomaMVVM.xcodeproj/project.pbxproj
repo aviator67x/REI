@@ -141,6 +141,7 @@
 		CE6B906F2A1F439E00642B90 /* AdPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */; };
 		CE6B90702A1F439E00642B90 /* AdPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906C2A1F439E00642B90 /* AdPhotosView.swift */; };
 		CE6B90712A1F439E00642B90 /* AdPhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906D2A1F439E00642B90 /* AdPhotosViewModel.swift */; };
+		CE7153072A339011000CC3C5 /* UITextField+doneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7153062A339011000CC3C5 /* UITextField+doneButton.swift */; };
 		CE8B29832A2A323900425FB0 /* MapCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8B29822A2A323900425FB0 /* MapCellModel.swift */; };
 		CE8B29852A2A372600425FB0 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8B29842A2A372600425FB0 /* MapService.swift */; };
 		CE9430C629C4C20B00FFB94C /* ImageAsset+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C529C4C20B00FFB94C /* ImageAsset+Hashable.swift */; };
@@ -418,6 +419,7 @@
 		CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosViewController.swift; sourceTree = "<group>"; };
 		CE6B906C2A1F439E00642B90 /* AdPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosView.swift; sourceTree = "<group>"; };
 		CE6B906D2A1F439E00642B90 /* AdPhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosViewModel.swift; sourceTree = "<group>"; };
+		CE7153062A339011000CC3C5 /* UITextField+doneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+doneButton.swift"; sourceTree = "<group>"; };
 		CE8B29822A2A323900425FB0 /* MapCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellModel.swift; sourceTree = "<group>"; };
 		CE8B29842A2A372600425FB0 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		CE9430C529C4C20B00FFB94C /* ImageAsset+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageAsset+Hashable.swift"; sourceTree = "<group>"; };
@@ -650,6 +652,7 @@
 				CE1E2DD72A0946C700328EAF /* UIView+gesturePublisher.swift */,
 				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
 				CEFFB9AA2A260B6E0009F624 /* UINavigationController+popToSpecificController.swift */,
+				CE7153062A339011000CC3C5 /* UITextField+doneButton.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1775,6 +1778,7 @@
 				CEFFB9A22A2395A80009F624 /* HouseSquareCell.swift in Sources */,
 				CE5CCEC429FAE7A5007972CB /* MyHouseModuleBuilder.swift in Sources */,
 				BC83B275D377DACEB60714C8 /* SignInView.swift in Sources */,
+				CE7153072A339011000CC3C5 /* UITextField+doneButton.swift in Sources */,
 				CEA546032978379B007F9962 /* RegEx.swift in Sources */,
 				CEA545EF297820A3007F9962 /* TextFieldType.swift in Sources */,
 				CE5CCECD29FFF3D8007972CB /* PriceCellModel.swift in Sources */,

@@ -31,13 +31,6 @@ final class SearchFiltersView: BaseView {
         super.init(frame: frame)
         self.collection = createCollection()
         initialSetup()
-        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTappingOutside))
-        addGestureRecognizer(tap)
-    }
-
-    @objc
-    func hideKeyboardByTappingOutside() {
-        endEditing(true)
     }
 
     @available(*, unavailable)

@@ -37,24 +37,26 @@ final class PriceCell: UICollectionViewCell {
     private func setupUI() {
         middleLabel.text = "to:"
         minTextField.placeholder = " 0"
-        minTextField.layer.cornerRadius = 2
+        minTextField.layer.cornerRadius = 3
         minTextField.layer.borderColor = UIColor.lightGray.cgColor
         minTextField.layer.borderWidth = 1
         minTextField.keyboardType = .decimalPad
+        minTextField.addDoneButtonOnKeyboard()
 
         maxTextField.placeholder = " Max price"
-        maxTextField.layer.cornerRadius = 2
+        maxTextField.layer.cornerRadius = 3
         maxTextField.layer.borderColor = UIColor.lightGray.cgColor
         maxTextField.layer.borderWidth = 1
         maxTextField.keyboardType = .decimalPad
+        maxTextField.addDoneButtonOnKeyboard()
 
         stack.alignment = .center
         stack.distribution = .equalSpacing
         stack.spacing = 16
 
-        contentView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        contentView.addGestureRecognizer(tap)
+//        contentView.isUserInteractionEnabled = true
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+//        contentView.addGestureRecognizer(tap)
     }
 
     private func setupLayout() {
@@ -86,11 +88,13 @@ final class PriceCell: UICollectionViewCell {
     }
 
     func setupCell(with model: PriceCellModel) {
+        minTextField.text = model.minPrice.value
         minTextField.textPublisher
             .dropFirst()
             .assignWeakly(to: \.value, on: model.minPrice)
             .store(in: &cancellables)
         
+        maxTextField.text = model.maxPrice.value
         maxTextField.textPublisher
             .dropFirst()
             .assignWeakly(to: \.value, on: model.maxPrice)

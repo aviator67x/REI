@@ -252,7 +252,7 @@ final class SearchModel {
                 }
             }, receiveValue: { [unowned self] houses in
                 self.housesSubject.value = houses
-//                self.searchRequestModelSubject.value = SearchRequestModel.empty
+                self.searchRequestModelSubject.value = SearchRequestModel.empty
                 self.hasMoreToLoad = false
             })
             .store(in: &cancellables)
