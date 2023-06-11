@@ -10,7 +10,8 @@ import Combine
 
 struct OrtCellModel: Hashable {
     let uuid = UUID()
-    let ort: CurrentValueSubject<String?, Never>
+//    let ort: CurrentValueSubject<String?, Never>
+    let ort: String
     
     static func == (lhs: OrtCellModel, rhs: OrtCellModel) -> Bool {
         return lhs.uuid == rhs.uuid

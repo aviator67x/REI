@@ -66,8 +66,7 @@ final class SearchFiltersViewController: BaseViewController<SearchFiltersViewMod
                     case .segmentControl:
                        break
                     case .distance(let distance):
-                        let param =  distance
-                       viewModel.updateDistance(param)
+                       viewModel.updateDistance(distance)
                     case .price:
                         break
                     case .type(let type):
@@ -89,6 +88,14 @@ final class SearchFiltersViewController: BaseViewController<SearchFiltersViewMod
                     viewModel.configureScreen(for: index)
                 case .resultButtonDidTap:
                     viewModel.executeSearch()
+                case .minPrice(let min):
+                    viewModel.updateMinPrice(min)
+                case .maxPrice(let max):
+                    viewModel.updateMaxPrice(max)
+                case .minSquare(let min):
+                    viewModel.updateMinSquare(min)
+                case .maxSquare(let max):
+                    viewModel.updateMaxSquare(max)
                 }
             }
             .store(in: &cancellables)

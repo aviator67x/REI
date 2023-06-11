@@ -36,6 +36,7 @@ final class PhotoCell: UICollectionViewListCell {
     }
 
     private func setupUI() {
+        backgroundColor = .lightGray
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
 

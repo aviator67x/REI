@@ -11,8 +11,10 @@ import Combine
 
 struct SquareCellModel: Hashable {
     let uuid = UUID()
-    let minSquare: CurrentValueSubject<String?, Never>
-    let maxSquare: CurrentValueSubject<String?, Never>
+//    let minSquare: CurrentValueSubject<String?, Never>
+//    let maxSquare: CurrentValueSubject<String?, Never>
+    let minSquare: String
+    let maxSquare: String
 
     static func == (lhs: SquareCellModel, rhs: SquareCellModel) -> Bool {
         return lhs.uuid == rhs.uuid

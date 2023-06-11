@@ -41,7 +41,7 @@ enum PeriodOfBuilding: Int
     case since2020 = 2020
 }
 
-enum Distance: Int, CaseIterable {
+enum Distance: Int, CaseIterable, Equatable {
     case one = 1
     case two = 2
     case five = 5
@@ -52,13 +52,13 @@ enum Distance: Int, CaseIterable {
     case oneHundred = 100
 }
 
-enum PropertyType: String, CaseIterable {
+enum PropertyType: String, CaseIterable, Equatable {
     case apartment
     case house
     case land
 }
 
-enum NumberOfRooms: Int, CaseIterable {
+enum NumberOfRooms: Int, CaseIterable, Equatable {
     case one = 1
     case two = 2
     case three = 3

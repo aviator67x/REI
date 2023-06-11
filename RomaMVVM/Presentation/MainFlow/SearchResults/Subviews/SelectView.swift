@@ -43,7 +43,7 @@ final class SelectView: UIView {
         stackView.axis = .horizontal
         findButton.setTitle("\u{1F50D} Find", for: .normal)
         sortButton.setTitle("\u{2550} Sort", for: .normal)
-        favouriteButton.setTitle("\u{1F514} Favourite", for: .normal)
+        favouriteButton.setTitle("\u{1F514} Last", for: .normal)
         [findButton, sortButton, favouriteButton].forEach { button in
             button.setTitleColor(.systemBlue, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)

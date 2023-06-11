@@ -127,6 +127,7 @@ final class MyHouseCoordinator: Coordinator {
             .sinkWeakly(self, receiveValue: { (self, trainsition) in
                 switch trainsition {
                 case .myHouse:
+//                    self.pop()
                     self.myHouse()
                 case .popScreen:
                     self.pop()

@@ -15,11 +15,11 @@ final class SearchFiltersViewModel: BaseViewModel {
     @Published var screenConfiguration = 0
     @Published private(set) var sections: [SearchFiltersCollection] = []
 
-    private lazy var ortSubject = CurrentValueSubject<String?, Never>(nil)
-    private lazy var minPriceSubject = CurrentValueSubject<String?, Never>(nil)
-    private lazy var maxPriceSubject = CurrentValueSubject<String?, Never>(nil)
-    private lazy var minSquareSubject = CurrentValueSubject<String?, Never>(nil)
-    private lazy var maxSquareSubject = CurrentValueSubject<String?, Never>(nil)
+    private lazy var ortSubject = CurrentValueSubject<String, Never>("")
+    private lazy var minPriceSubject = CurrentValueSubject<String, Never>("")
+    private lazy var maxPriceSubject = CurrentValueSubject<String, Never>("")
+    private lazy var minSquareSubject = CurrentValueSubject<String, Never>("")
+    private lazy var maxSquareSubject = CurrentValueSubject<String, Never>("")
 
     private let model: SearchModel
     private var distanceCellModels: [DistanceCellModel] = [
@@ -46,7 +46,7 @@ final class SearchFiltersViewModel: BaseViewModel {
         .init(numberOfRooms: .four),
         .init(numberOfRooms: .five),
     ]
-    
+
     private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
     private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
 
@@ -58,41 +58,6 @@ final class SearchFiltersViewModel: BaseViewModel {
     override func onViewDidLoad() {
         setupBinding()
         updateDataSource()
-        checkSearchRequestModel()
-    }
-
-    func checkSearchRequestModel() {
-        switch searchRequestModelSubject.value.distance {
-        case .none:
-          return
-        case let .some(distance):
-            guard let index = distanceCellModels.firstIndex(where: { $0.distance == distance }) else {
-                return
-            }
-            distanceCellModels[index].isSelected = true
-            updateDataSource()
-        }
-        switch searchRequestModelSubject.value.propertyType {
-        case .none:
-            return
-        case let .some(type):
-            guard let index = propertyTypeCellModels.firstIndex(where: { $0.propertyType == type }) else {
-                return
-            }
-            propertyTypeCellModels[index].isSelected = true
-            updateDataSource()
-        }
-        switch searchRequestModelSubject.value.roomsNumber {
-        case .none:
-            updateDataSource()
-        case let .some(number):
-            guard let index = numberOfRoomsCellModels.firstIndex(where: { $0.numberOfRooms == number }) else {
-                return
-            }
-            numberOfRoomsCellModels[index].isSelected = true
-            updateDataSource()
-            
-        }
     }
 }
 
@@ -100,6 +65,20 @@ final class SearchFiltersViewModel: BaseViewModel {
 extension SearchFiltersViewModel {
     func cleanFilters() {
         model.cleanSearchRequestModel()
+        minPriceSubject.value = ""
+        maxPriceSubject.value = ""
+        minSquareSubject.value = ""
+        maxSquareSubject.value = ""
+        for index in distanceCellModels.indices {
+            distanceCellModels[index].isSelected = false
+        }
+        for index in propertyTypeCellModels.indices {
+            propertyTypeCellModels[index].isSelected = false
+        }
+        for index in numberOfRoomsCellModels.indices {
+            numberOfRoomsCellModels[index].isSelected = false
+        }
+        updateDataSource()
     }
 
     func configureScreen(for index: Int) {
@@ -107,7 +86,6 @@ extension SearchFiltersViewModel {
     }
 
     func updateDistance(_ distance: DistanceCellModel) {
-        model.updateSearchRequestModel(distance: distance.distance)
         for (index, _) in distanceCellModels.enumerated() {
             distanceCellModels[index].isSelected = false
         }
@@ -115,11 +93,27 @@ extension SearchFiltersViewModel {
             return
         }
         distanceCellModels[selectedItemIndex].isSelected.toggle()
+        model.updateSearchRequestModel(distance: distance.distance)
         updateDataSource()
     }
 
+    func updateMinPrice(_ min: String) {
+        minPriceSubject.value = min
+    }
+
+    func updateMaxPrice(_ max: String) {
+        maxPriceSubject.value = max
+    }
+    
+    func updateMinSquare(_ min: String) {
+        minSquareSubject.value = min
+    }
+    
+    func updateMaxSquare(_ max: String) {
+        maxSquareSubject.value = max
+    }
+
     func updateType(_ type: PropertyTypeCellModel) {
-        model.updateSearchRequestModel(propertyType: type.propertyType)
         for (index, _) in propertyTypeCellModels.enumerated() {
             propertyTypeCellModels[index].isSelected = false
         }
@@ -127,11 +121,11 @@ extension SearchFiltersViewModel {
             return
         }
         propertyTypeCellModels[selectedItemIndex].isSelected.toggle()
+        model.updateSearchRequestModel(propertyType: type.propertyType)
         updateDataSource()
     }
 
     func updateNumberOfRooms(_ number: NumberOfRoomsCellModel) {
-        model.updateSearchRequestModel(roomsNumber: number.numberOfRooms)
         for (index, _) in numberOfRoomsCellModels.enumerated() {
             numberOfRoomsCellModels[index].isSelected = false
         }
@@ -139,11 +133,12 @@ extension SearchFiltersViewModel {
             return
         }
         numberOfRoomsCellModels[selectedItemIndex].isSelected.toggle()
+        model.updateSearchRequestModel(roomsNumber: number.numberOfRooms)
         updateDataSource()
     }
 
     func executeSearch() {
-        model.executeSearch()
+        model.hasFilters ? model.executeSearch() : model.loadHouses()
         transitionSubject.send(.pop)
     }
 
@@ -159,39 +154,27 @@ extension SearchFiltersViewModel {
 // MARK: - private extension
 private extension SearchFiltersViewModel {
     func setupBinding() {
-        model.searchRequestModelPublisher
-            .receive(on: DispatchQueue.main)
-            .sinkWeakly(self, receiveValue: { (self, requestModel) in
-                self.searchRequestModelSubject.value = requestModel
-                self.checkSearchRequestModel()
-            })
-            .store(in: &cancellables)
-        
         minPriceSubject
-            .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
                 self.model.updateSearchRequestModel(minPrice: price)
-                   
+
             })
             .store(in: &cancellables)
 
         maxPriceSubject
-            .unwrap()
             .sinkWeakly(self, receiveValue: { (self, price) in
                 self.model.updateSearchRequestModel(maxPrice: price)
-                  
+
             })
             .store(in: &cancellables)
 
         minSquareSubject
-            .unwrap()
             .sinkWeakly(self, receiveValue: { (self, square) in
                 self.model.updateSearchRequestModel(minSquare: square)
             })
             .store(in: &cancellables)
 
         maxSquareSubject
-            .unwrap()
             .sinkWeakly(self, receiveValue: { (self, square) in
                 self.model.updateSearchRequestModel(maxSquare: square)
             })
@@ -202,7 +185,7 @@ private extension SearchFiltersViewModel {
         let segmentControlSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .segmentControl, items: [.segmentControl])
         }()
-        let model = OrtCellModel(ort: ortSubject)
+        let model = OrtCellModel(ort: ortSubject.value)
         let ortSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .ort, items: [.ort(model)])
         }()
@@ -215,7 +198,7 @@ private extension SearchFiltersViewModel {
         )
 
         let priceSection: SearchFiltersCollection = {
-            let model = PriceCellModel(minPrice: minPriceSubject, maxPrice: maxPriceSubject)
+            let model = PriceCellModel(minPrice: minPriceSubject.value, maxPrice: maxPriceSubject.value)
             return SearchFiltersCollection(sections: .price, items: [.price(model: model)])
         }()
 
@@ -224,7 +207,7 @@ private extension SearchFiltersViewModel {
         }()
 
         let squareSection: SearchFiltersCollection = {
-            let model = SquareCellModel(minSquare: minSquareSubject, maxSquare: maxSquareSubject)
+            let model = SquareCellModel(minSquare: minSquareSubject.value, maxSquare: maxSquareSubject.value)
             return SearchFiltersCollection(sections: .square, items: [.square(model: model)])
         }()
 

@@ -17,6 +17,9 @@ final class SquareCell: UICollectionViewListCell {
     
     private var cancellables = Set<AnyCancellable>()
 
+    var minValue: ((String) -> ())?
+    var maxValue: ((String) -> ())?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -78,16 +81,24 @@ final class SquareCell: UICollectionViewListCell {
     private func setupBinding() {}
     
     func setupCell(with model: SquareCellModel) {
-        minTextField.text = model.minSquare.value
+        minTextField.text = model.minSquare
         minTextField.textPublisher
             .dropFirst()
-            .assign(to: \.value, on: model.minSquare)
+            .unwrap()
+            .removeDuplicates()
+            .sinkWeakly(self, receiveValue: { (self, min) in
+                self.minValue?(min)
+            })
             .store(in: &cancellables)
-        
-        maxTextField.text = model.maxSquare.value
+       
+        maxTextField.text = model.maxSquare
         maxTextField.textPublisher
             .dropFirst()
-            .assign(to: \.value, on: model.maxSquare)
+            .unwrap()
+            .removeDuplicates()
+            .sinkWeakly(self, receiveValue: { (self, min) in
+                self.maxValue?(min)
+            })
             .store(in: &cancellables)
     }
 }

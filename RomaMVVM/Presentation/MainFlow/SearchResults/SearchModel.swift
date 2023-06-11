@@ -32,13 +32,17 @@ final class SearchModel {
     private(set) lazy var housesCountPublisher = housesCountSubject.eraseToAnyPublisher()
     private lazy var housesCountSubject = PassthroughSubject<Int, Never>()
 
+
     private var isPaginationInProgress = false
     private var hasMoreToLoad = true
     private var offset = 0
-    private var pageSize = 5
+    private var pageSize = 7
     private var housesCount = 0
     
     var isFilterActive = false
+    var hasFilters: Bool {
+        searchParametersSubject.value.count > 0
+    }
 
     init(housesService: HousesService, userService: UserService) {
         self.housesService = housesService
@@ -253,6 +257,7 @@ final class SearchModel {
             }, receiveValue: { [unowned self] houses in
                 self.housesSubject.value = houses
                 self.searchRequestModelSubject.value = SearchRequestModel.empty
+//                isFilterActive = false
                 self.hasMoreToLoad = false
             })
             .store(in: &cancellables)

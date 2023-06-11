@@ -11,11 +11,14 @@ import UIKit
 
 final class PriceCell: UICollectionViewCell {
     private let stack = UIStackView()
-    private(set) var minTextField = UITextField()
+    private let minTextField = UITextField()
     private let maxTextField = UITextField()
     private let middleLabel = UILabel()
 
     private var cancellables = Set<AnyCancellable>()
+    
+    var minValue: ((String) -> ())?
+    var maxValue: ((String) -> ())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +31,7 @@ final class PriceCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         cancellables = []
@@ -53,10 +56,6 @@ final class PriceCell: UICollectionViewCell {
         stack.alignment = .center
         stack.distribution = .equalSpacing
         stack.spacing = 16
-
-//        contentView.isUserInteractionEnabled = true
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-//        contentView.addGestureRecognizer(tap)
     }
 
     private func setupLayout() {
@@ -81,23 +80,25 @@ final class PriceCell: UICollectionViewCell {
 
     private func setupBinding() {}
 
-    @objc
-    private func handleTap(_ sender: UITapGestureRecognizer? = nil) {
-        minTextField.resignFirstResponder()
-        maxTextField.resignFirstResponder()
-    }
-
     func setupCell(with model: PriceCellModel) {
-        minTextField.text = model.minPrice.value
+        minTextField.text = model.minPrice
         minTextField.textPublisher
             .dropFirst()
-            .assignWeakly(to: \.value, on: model.minPrice)
+            .unwrap()
+            .removeDuplicates()
+            .sinkWeakly(self, receiveValue: { (self, min) in
+                self.minValue?(min)
+            })
             .store(in: &cancellables)
         
-        maxTextField.text = model.maxPrice.value
+        maxTextField.text = model.maxPrice
         maxTextField.textPublisher
             .dropFirst()
-            .assignWeakly(to: \.value, on: model.maxPrice)
+            .unwrap()
+            .removeDuplicates()
+            .sinkWeakly(self, receiveValue: { (self, max) in
+                self.maxValue?(max)
+            })
             .store(in: &cancellables)
     }
 }

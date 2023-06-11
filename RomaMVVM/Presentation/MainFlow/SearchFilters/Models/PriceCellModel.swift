@@ -10,8 +10,10 @@ import Combine
 
 struct PriceCellModel: Hashable {
     let uuid = UUID()
-    let minPrice: CurrentValueSubject<String?, Never>
-    let maxPrice: CurrentValueSubject<String?, Never>
+//    let minPrice: CurrentValueSubject<String?, Never>
+//    let maxPrice: CurrentValueSubject<String?, Never>
+    let minPrice: String
+    let maxPrice: String
 
     static func == (lhs: PriceCellModel, rhs: PriceCellModel) -> Bool {
         return lhs.uuid == rhs.uuid

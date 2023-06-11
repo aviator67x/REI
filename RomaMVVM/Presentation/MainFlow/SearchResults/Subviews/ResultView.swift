@@ -29,18 +29,18 @@ final class ResultView: UIView {
         countryLabel.textAlignment = .left
         countryLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         countryLabel.textColor = .systemBlue
-        countryLabel.text = "Country"
+        countryLabel.text = ""
 
         resultLabel.textAlignment = .left
         resultLabel.font = UIFont.systemFont(ofSize: 14)
-        resultLabel.text = "125 results in find"
+        resultLabel.text = ""
 
         filterCounterLabel.backgroundColor = .orange
         filterCounterLabel.textAlignment = .center
         filterCounterLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         filterCounterLabel.textColor = .white
         filterCounterLabel.rounded(7)
-        filterCounterLabel.text = "5"
+        filterCounterLabel.text = "0"
 
         filterLabel.textAlignment = .center
         filterLabel.font = UIFont.systemFont(ofSize: 14)

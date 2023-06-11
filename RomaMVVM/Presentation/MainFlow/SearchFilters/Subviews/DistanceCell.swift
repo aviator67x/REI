@@ -22,7 +22,7 @@ final class DistanceCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupUI() {
         distanceLabel.layer.masksToBounds = true
         distanceLabel.layer.cornerRadius = 6

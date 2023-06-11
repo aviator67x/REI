@@ -52,9 +52,10 @@ final class OrtCell: UICollectionViewCell {
     }
 
     func setupCell(with model: OrtCellModel) {
-        textField.textPublisher
-            .dropFirst()
-            .assignWeakly(to: \.value, on: model.ort)
-            .store(in: &cancellables)
+        textField.text = model.ort
+//        textField.textPublisher
+//            .dropFirst()
+//            .assignWeakly(to: \.value, on: model.ort)
+//            .store(in: &cancellables)
     }
 }

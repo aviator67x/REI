@@ -13,6 +13,10 @@ enum SearchFiltersViewAction {
     case selectedItem(SearchFiltersItem)
     case segmentControl(Int)
     case resultButtonDidTap
+    case minPrice(String)
+    case maxPrice(String)
+    case minSquare(String)
+    case maxSquare(String)
 }
 
 final class SearchFiltersView: BaseView {
@@ -360,6 +364,12 @@ extension SearchFiltersView {
                     
                 case let .price(model):
                     let cell: PriceCell = collection.dedequeueReusableCell(for: indexPath)
+                    cell.minValue = { [weak self] in
+                        self?.actionSubject.send(.minPrice($0))
+                    }
+                    cell.maxValue = { [weak self] in
+                        self?.actionSubject.send(.maxPrice($0))
+                    }
                         cell.setupCell(with: model)
                    
                     return cell
@@ -391,6 +401,12 @@ extension SearchFiltersView {
                     
                 case let .square(model):
                     let cell: SquareCell = collection.dedequeueReusableCell(for: indexPath)
+                    cell.minValue = { [weak self] in
+                        self?.actionSubject.send(.minSquare($0))
+                    }
+                    cell.maxValue = { [weak self] in
+                        self?.actionSubject.send(.maxSquare($0))
+                    }
                     cell.setupCell(with: model)
                     return cell
                     

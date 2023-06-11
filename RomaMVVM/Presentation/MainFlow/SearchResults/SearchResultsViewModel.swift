@@ -64,7 +64,7 @@ private extension SearchResultsViewModel {
 
         housesSubject.combineLatest(
             model.searchParametersPublisher,
-            model.housesCountPublisher.first()
+            model.housesCountPublisher//.first()
         )
         .sink { [unowned self] houses, searchParams, housesCount in
             self.resultViewModelSubject.value = ResultViewModel(
