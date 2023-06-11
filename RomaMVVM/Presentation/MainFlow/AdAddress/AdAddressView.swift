@@ -18,6 +18,7 @@ enum AdAddressViewAction {
 
 final class AdAddressView: BaseView {
     // MARK: - Subviews
+    private let scrollView = AxisScrollView()
     private let pageControl = UIPageControl()
     private let crossButton = UIButton()
     private let titleLabel = UILabel()
@@ -112,6 +113,10 @@ final class AdAddressView: BaseView {
 
     private func setupUI() {
         backgroundColor = .white
+        
+        
+        scrollView.isDirectionalLockEnabled = true
+        scrollView.alwaysBounceHorizontal = false
 
         pageControl.numberOfPages = 3
         pageControl.currentPage = 0
@@ -189,27 +194,32 @@ final class AdAddressView: BaseView {
     }
 
     private func setupLayout() {
-        addSubview(pageControl) {
+        addSubview(scrollView) {
+            $0.leading.top.trailing.bottom.equalToSuperview()
+        }
+        
+        scrollView.addSubview(pageControl) {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(70)
+            $0.top.equalToSuperview().offset(20)
             $0.height.equalTo(20)
             $0.width.equalTo(200)
         }
         
-        addSubview(crossButton) {
+        scrollView.addSubview(crossButton) {
             $0.centerY.equalTo(pageControl.snp.centerY)
             $0.trailing.equalToSuperview().inset(16)
             $0.size.equalTo(40)
         }
 
-        addSubview(titleLabel) {
-            $0.top.equalTo(crossButton.snp.bottom).offset(20)
+        scrollView.addSubview(titleLabel) {
+            $0.top.equalTo(pageControl.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         
-        addSubview(ortStackView) {
+        scrollView.addSubview(ortStackView) {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
+            $0.width.equalTo(UIScreen.main.bounds.width - 32)
         }
 
         [ortTextField, streetTextField, houseTextField].forEach { textField in
@@ -220,10 +230,11 @@ final class AdAddressView: BaseView {
 
         ortStackView.addArrangedSubviews([ortLabel, ortTextField, ortMessageLabel])
 
-        addSubview(stackView) {
+        scrollView.addSubview(stackView) {
             $0.top.equalTo(ortStackView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(140)
+            $0.width.equalTo(UIScreen.main.bounds.width - 32)
         }
         stackView.addArrangedSubviews([streetView, houseView])
 
@@ -255,7 +266,7 @@ final class AdAddressView: BaseView {
             $0.leading.trailing.equalToSuperview()
         }
 
-        addSubview(validationView) {
+        scrollView.addSubview(validationView) {
             $0.top.equalTo(stackView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
@@ -270,17 +281,18 @@ final class AdAddressView: BaseView {
             $0.leading.equalTo(checkmarkImageView.snp.trailing).offset(10)
             $0.trailing.equalToSuperview()
         }
-
-        addSubview(forwardButton) {
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(50)
-            $0.bottom.equalToSuperview().inset(100)
-        }
-
-        addSubview(lineView) {
-            $0.bottom.equalTo(forwardButton.snp.top).offset(-20)
+        
+        scrollView.addSubview(lineView) {
+            $0.top.equalTo(stackView.snp.bottom).offset(260)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(2)
+        }
+
+        scrollView.addSubview(forwardButton) {
+            $0.top.equalTo(lineView.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(50)
+            $0.bottom.equalToSuperview().inset(500)
         }
     }
     

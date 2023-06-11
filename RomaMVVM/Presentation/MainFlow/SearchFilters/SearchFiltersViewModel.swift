@@ -112,6 +112,10 @@ extension SearchFiltersViewModel {
     func updateMaxSquare(_ max: String) {
         maxSquareSubject.value = max
     }
+    
+    func updateOrt(_ ort: String) {
+        ortSubject.value = ort
+    }
 
     func updateType(_ type: PropertyTypeCellModel) {
         for (index, _) in propertyTypeCellModels.enumerated() {
@@ -177,6 +181,12 @@ private extension SearchFiltersViewModel {
         maxSquareSubject
             .sinkWeakly(self, receiveValue: { (self, square) in
                 self.model.updateSearchRequestModel(maxSquare: square)
+            })
+            .store(in: &cancellables)
+        
+        ortSubject
+            .sinkWeakly(self, receiveValue: { (self, square) in
+//                self.model.updateSearchRequestModel(maxSquare: square)
             })
             .store(in: &cancellables)
     }

@@ -72,34 +72,6 @@ final class AdDetailsViewModel: BaseViewModel {
         model.updateAdCreatingRequestModel(price: price)
     }
     
-    func moveToType() {
-        self.transitionSubject.send(.type(model: model, screenState: .type))
-    }
-    
-    func moveToNumber() {
-        self.transitionSubject.send(.number(model: model, screenState: .number))
-    }
-    
-    func moveToYear() {
-        self.transitionSubject.send(.year(model: model, screenState: .year))
-    }
-    
-    func moveToGarage() {
-        self.transitionSubject.send(.garage(model: model, screenState: .garage))
-    }
-    
-    func moveToLivingArea() {
-        self.transitionSubject.send(.livingArea(model: model, screenState: .livingArea))
-    }
-    
-    func moveToSquare() {
-        self.transitionSubject.send(.square(model: model, screenState: .square))
-    }
-    
-    func moveToPrice() {
-        self.transitionSubject.send(.price(model: model, screenState: .price))
-    }
-    
     func moveToMyHouse() {
         self.transitionSubject.send(.myHouse)
     }

@@ -23,8 +23,9 @@ enum AdDetailsViewAction {
 
 final class AdDetailsView: BaseView {
     // MARK: - Subviews
-    private var pageControl = UIPageControl()
-    private var crossButton = UIButton()
+    private let scrollView = AxisScrollView()
+    private let pageControl = UIPageControl()
+    private let crossButton = UIButton()
     private let addressLabel = UILabel()
     private let titleLabel = UILabel()
     private let stackView = UIStackView()
@@ -276,32 +277,39 @@ final class AdDetailsView: BaseView {
 
         forwardButton.backgroundColor = .orange
         forwardButton.setTitle("Forward", for: .normal)
+        forwardButton.alpha = 0.5
+        forwardButton.isEnabled = false
     }
 
     private func setupLayout() {
-        addSubview(pageControl) {
+        addSubview(scrollView) {
+            $0.leading.top.trailing.bottom.equalToSuperview()
+        }
+        
+        scrollView.addSubview(pageControl) {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(70)
+            $0.top.equalToSuperview().offset(20)
             $0.height.equalTo(20)
             $0.width.equalTo(200)
         }
-        addSubview(crossButton) {
+        
+        scrollView.addSubview(crossButton) {
             $0.centerY.equalTo(pageControl.snp.centerY)
             $0.trailing.equalToSuperview().inset(16)
             $0.size.equalTo(40)
         }
 
-        addSubview(addressLabel) {
-            $0.top.equalTo(crossButton.snp.bottom).offset(10)
+        scrollView.addSubview(addressLabel) {
+            $0.top.equalTo(pageControl.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
 
-        addSubview(titleLabel) {
+        scrollView.addSubview(titleLabel) {
             $0.top.equalTo(addressLabel.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
 
-        addSubview(stackView) {
+        scrollView.addSubview(stackView) {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
@@ -346,11 +354,18 @@ final class AdDetailsView: BaseView {
                 squareStack,
                 priceStack,
             ])
+        
+        scrollView.addSubview(lineView) {
+            $0.top.equalTo(stackView.snp.bottom).offset(70)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(2)
+        }
 
-        addSubview(buttonStackView) {
+        scrollView.addSubview(buttonStackView) {
+            $0.top.equalTo(lineView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(50)
-            $0.bottom.equalToSuperview().inset(100)
+            $0.bottom.equalToSuperview().inset(500)
         }
 
         backButton.snp.makeConstraints {
@@ -362,12 +377,6 @@ final class AdDetailsView: BaseView {
         }
 
         buttonStackView.addArrangedSubviews([backButton, forwardButton])
-
-        addSubview(lineView) {
-            $0.bottom.equalTo(buttonStackView.snp.top).offset(-20)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(2)
-        }
     }
 
     func setupView(_ adDetails: AdCreatingRequestModel) {

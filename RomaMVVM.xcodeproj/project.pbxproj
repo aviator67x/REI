@@ -1293,10 +1293,10 @@
 				CE5CCEBF29FAE782007972CB /* MyHouse */,
 				CEB9F6782A17ADC00082A674 /* AdAddress */,
 				CEF83F7E2A1BB063009B0791 /* AdDeatails */,
-				CEF83F902A1BF0DE009B0791 /* AdMultiDetails */,
 				CE6B90692A1F436800642B90 /* AdPhotos */,
 				CE481C6D2A2FBB1E000E00BC /* HouseImages */,
 				CE481C802A3113C3000E00BC /* LorenIpsum */,
+				CEF83F902A1BF0DE009B0791 /* AdMultiDetails */,
 			);
 			path = MainFlow;
 			sourceTree = "<group>";

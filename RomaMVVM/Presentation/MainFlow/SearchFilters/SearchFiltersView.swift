@@ -17,6 +17,7 @@ enum SearchFiltersViewAction {
     case maxPrice(String)
     case minSquare(String)
     case maxSquare(String)
+    case ort(String)
 }
 
 final class SearchFiltersView: BaseView {
@@ -353,6 +354,9 @@ extension SearchFiltersView {
                     
                 case .ort(let model):
                     let cell: OrtCell = collection.dedequeueReusableCell(for: indexPath)
+                    cell.ortValue = { [weak self] in
+                        self?.actionSubject.send(.ort($0))
+                    }
                     cell.setupCell(with: model)
                     
                     return cell

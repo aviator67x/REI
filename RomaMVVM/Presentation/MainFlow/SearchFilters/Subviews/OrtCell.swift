@@ -14,6 +14,8 @@ final class OrtCell: UICollectionViewCell {
     private let textField = UITextField()
     
     private var cancellables = Set<AnyCancellable>()
+    
+    var ortValue: ((String) -> ())?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,9 +55,13 @@ final class OrtCell: UICollectionViewCell {
 
     func setupCell(with model: OrtCellModel) {
         textField.text = model.ort
-//        textField.textPublisher
-//            .dropFirst()
-//            .assignWeakly(to: \.value, on: model.ort)
-//            .store(in: &cancellables)
+        textField.textPublisher
+            .dropFirst()
+            .unwrap()
+            .removeDuplicates()
+            .sinkWeakly(self, receiveValue: { (self, ort) in
+                self.ortValue?(ort)
+            })
+            .store(in: &cancellables)
     }
 }

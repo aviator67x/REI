@@ -39,6 +39,7 @@ final class AdPhotosViewController: BaseViewController<AdPhotosViewModel> {
             .sink { [unowned self] action in
                 switch action {
                 case .crossDidTap:
+                    phPickerViewControlller.dismiss(animated: true)
                     viewModel.moveToMyHouse()
                 case .backDidTap:
                     viewModel.popScreen()

@@ -169,14 +169,14 @@ final class AdPhotosView: BaseView {
             $0.width.equalTo(200)
         }
 
-        addSubview(crossButton) {
-            $0.centerY.equalTo(pageControl.snp.centerY)
-            $0.trailing.equalToSuperview().inset(16)
-            $0.size.equalTo(40)
-        }
+//        addSubview(crossButton) {
+//            $0.centerY.equalTo(pageControl.snp.centerY)
+//            $0.trailing.equalToSuperview().inset(16)
+//            $0.size.equalTo(40)
+//        }
 
         addSubview(titleLabel) {
-            $0.top.equalTo(crossButton.snp.bottom).offset(20)
+            $0.top.equalTo(pageControl.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
 
@@ -193,7 +193,7 @@ final class AdPhotosView: BaseView {
         }
         
         addSubview(lineView) {
-            $0.top.equalTo(photoCollection.snp.bottom).offset(10)
+            $0.top.equalTo(photoCollection.snp.bottom).offset(4)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(2)
         }

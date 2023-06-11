@@ -96,6 +96,8 @@ final class SearchFiltersViewController: BaseViewController<SearchFiltersViewMod
                     viewModel.updateMinSquare(min)
                 case .maxSquare(let max):
                     viewModel.updateMaxSquare(max)
+                case .ort(let ort):
+                    viewModel.updateOrt(ort)
                 }
             }
             .store(in: &cancellables)
