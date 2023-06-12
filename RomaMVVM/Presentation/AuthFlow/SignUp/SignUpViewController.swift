@@ -89,5 +89,13 @@ final class SignUpViewController: BaseViewController<SignUpViewModel> {
                 contentView.setSignUpButton(enabled: isValid)
             }
             .store(in: &cancellables)
+        
+        viewModel.showAlertPublisher
+            .sink { [unowned self] _ in
+                let alert = UIAlertController(title: "This Email already exists", message: "Please, creare a new one", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            .store(in: &cancellables)
     }
 }

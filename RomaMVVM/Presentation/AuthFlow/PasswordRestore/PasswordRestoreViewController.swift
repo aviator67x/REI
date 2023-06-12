@@ -41,5 +41,13 @@ final class PasswordRestoreViewController: BaseViewController<PasswordRestoreVie
                 self.contentView.updateRestoreButton(value)
             })
             .store(in: &cancellables)
+        
+        viewModel.showAlertPublisher
+            .sink { [unowned self] _ in
+                let alert = UIAlertController(title: "Incorrect Email", message: "Try another Email address", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            .store(in: &cancellables)
     }
 }

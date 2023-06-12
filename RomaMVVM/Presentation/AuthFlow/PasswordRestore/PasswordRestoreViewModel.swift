@@ -14,6 +14,9 @@ final class PasswordRestoreViewModel: BaseViewModel {
     
     private let authService: AuthNetworkService
     
+    private(set) lazy var showAlertPublisher = showAlertSubject.eraseToAnyPublisher()
+    private lazy var showAlertSubject = PassthroughSubject<Void, Never>()
+    
 //    private(set) lazy var emailPublisher = emailSubject.eraseToAnyPublisher()
     private lazy var emailSubject = CurrentValueSubject<String, Never>("")
     
@@ -43,7 +46,8 @@ final class PasswordRestoreViewModel: BaseViewModel {
                 switch completion {
                 case let .failure(error):
                     debugPrint(error.localizedDescription)
-                    self?.errorSubject.send(error)
+//                    self?.errorSubject.send(error)
+                    self?.showAlertSubject.send()
                 case .finished:
                     debugPrint("Restore password is successfully finfished")
                 }

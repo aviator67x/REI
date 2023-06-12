@@ -20,6 +20,9 @@ final class SignUpViewModel: BaseViewModel {
 
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SignUpTransition, Never>()
+    
+    private(set) lazy var showAlertPublisher = showAlertSubject.eraseToAnyPublisher()
+    private lazy var showAlertSubject = PassthroughSubject<Void, Never>()
 
     private let authService: AuthNetworkService
     private let userService: UserService
@@ -79,13 +82,14 @@ final class SignUpViewModel: BaseViewModel {
         authService.signUp(requestModel)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
+                self?.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
                     print("SignUp is successfully finished")
-                    self?.isLoadingSubject.send(false)
                 case let .failure(error):
                     print(error.localizedDescription)
-                    self?.errorSubject.send(error)
+//                    self?.errorSubject.send(error)
+                    self?.showAlertSubject.send()
                 }
             } receiveValue: { [weak self] signUpInfo in
                 debugPrint("signUpInfo", signUpInfo.name)

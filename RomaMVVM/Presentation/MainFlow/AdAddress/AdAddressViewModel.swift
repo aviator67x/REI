@@ -70,7 +70,7 @@ private extension AdAddressViewModel {
             return
         }
         let validationText = [ort, street, house].joined(separator: " ")
-        validationSubject.value.isValid = validationText == "Kharkiv Khreschatik 21" ? true : false
+        validationSubject.value.isValid = validationText == "Broek-Op-Langedejk Dorpstraat 41" ? true : false
         guard let houseInt = Int(house),
               validationSubject.value.isValid
         else {
