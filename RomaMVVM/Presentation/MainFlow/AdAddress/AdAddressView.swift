@@ -172,7 +172,7 @@ final class AdAddressView: BaseView {
             textField.leftViewMode = .always
             textField.delegate = self
         }
-
+      
         stackView.axis = .horizontal
         stackView.spacing = 16
         stackView.distribution = .fillEqually
@@ -188,9 +188,9 @@ final class AdAddressView: BaseView {
         forwardButton.alpha = 0.5
         forwardButton.isEnabled = false
         
-        ortTextField.text = ""
-        streetTextField.text = ""
-        houseTextField.text = ""
+        ortTextField.text = "Broek-Op-Langedijk"
+        streetTextField.text = "Dorpstraat"
+        houseTextField.text = "41"
     }
 
     private func setupLayout() {

@@ -37,4 +37,3 @@ final class MapCell: UICollectionViewListCell {
         model.addresses.forEach { address in mapService.showOnMap(mapView: mapView, address: address, region: 10000)}
     }
 }
-

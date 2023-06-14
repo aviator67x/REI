@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreLocation
 
 final class AdAddressViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -69,17 +70,43 @@ private extension AdAddressViewModel {
         else {
             return
         }
-        let validationText = [ort, street, house].joined(separator: " ")
-        validationSubject.value.isValid = validationText == "Broek-Op-Langedejk Dorpstraat 41" ? true : false
+        let address = [ort, street, house].joined(separator: " ")
+        validationSubject.value.isValid = address == "Broek-Op-Langedijk Dorpstraat 41" ? true : false
         guard let houseInt = Int(house),
               validationSubject.value.isValid
         else {
             return
         }
-        model.updateAdCreatingRequestModel(
-            ort: ort,
-            street: street,
-            house: houseInt
-        )
+        
+        getHouseLocation(from: address)
+            .sinkWeakly(self, receiveValue: { (self, location) in
+                self.model.updateAdCreatingRequestModel(
+                    location: location,
+                    ort: ort,
+                    street: street,
+                    house: houseInt
+                )
+            })
+            .store(in: &cancellables)
     }
-}
+    
+        func getHouseLocation(from address: String) -> AnyPublisher<Location, Never> {
+            let geoCoder = CLGeocoder()
+            let publisher = PassthroughSubject<Location, Never>()
+            geoCoder.geocodeAddressString(address) { [weak self] placemarks, _ in
+                guard
+                    let placemarks = placemarks,
+                    let location = placemarks.first?.location
+                else {
+                    return
+                }
+                let lat = location.coordinate.latitude
+                let long = location.coordinate.longitude
+
+                publisher.send(.init(latitude: lat, longitude: long))
+            }
+            return publisher
+                .eraseToAnyPublisher()
+        }
+    }
+

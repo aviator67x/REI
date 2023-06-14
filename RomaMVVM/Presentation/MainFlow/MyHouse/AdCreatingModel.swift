@@ -63,10 +63,12 @@ final class AdCreatingModel {
     }
     
     func updateAdCreatingRequestModel(
+        location: Location,
         ort: String,
         street: String,
         house: Int
     ) {
+        adCreatingRequestModelSubject.value.location = location
         adCreatingRequestModelSubject.value.ort = ort
         adCreatingRequestModelSubject.value.street = street
         adCreatingRequestModelSubject.value.house = house
