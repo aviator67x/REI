@@ -10,6 +10,7 @@ import MapKit
 
 protocol MapService {
     func showOnMap(mapView: MKMapView, address: String, region: Double)
+    func showOnMap(mapView: MKMapView, location: Location, address: String)
 }
 
 final class MapServiceImpl: MapService {
@@ -44,5 +45,23 @@ final class MapServiceImpl: MapService {
             mapView.setRegion(coordinateRegion, animated: true)
             mapView.addAnnotation(annotation)
         })
+    }
+
+    func showOnMap(mapView: MKMapView, location: Location, address: String) {
+        let houseLocation = CLLocationCoordinate2D(
+            latitude: location.latitude,
+            longitude: location.longitude
+        )
+
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = houseLocation
+        annotation.title = address
+        let coordinateRegion = MKCoordinateRegion(
+            center: annotation.coordinate,
+            latitudinalMeters: 5000,
+            longitudinalMeters: 5000
+        )
+        mapView.setRegion(coordinateRegion, animated: true)
+        mapView.addAnnotation(annotation)
     }
 }

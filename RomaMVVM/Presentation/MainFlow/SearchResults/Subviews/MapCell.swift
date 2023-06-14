@@ -34,6 +34,10 @@ final class MapCell: UICollectionViewListCell {
     
     func setup(with model: MapCellModel) {
         let mapService  = MapServiceImpl()
-        model.addresses.forEach { address in mapService.showOnMap(mapView: mapView, address: address, region: 10000)}
+        model.points.forEach { point in
+            let address = point.address
+            let location = point.location
+            mapService.showOnMap(mapView: mapView, location: location, address: address)            
+        }
     }
 }

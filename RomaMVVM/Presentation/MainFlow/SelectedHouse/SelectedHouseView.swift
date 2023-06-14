@@ -322,27 +322,14 @@ final class SelectedHouseView: BaseView {
         heartButton.tintColor = model.isFavourite ? .red : .white
 
         let address = [model.ort, model.street, String(model.house)].joined(separator: ",")
-        showOnMap(address: address)
+        let location = model.location
+        showOnMap(location: location, address: address)
     }
 
-    func showOnMap(address: String) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address, completionHandler: { placemarks, error in
-            if error != nil {
-                print("Failed to retrieve location")
-                return
-            }
-            var location: CLLocation?
-            if let placemarks = placemarks, !placemarks.isEmpty {
-                location = placemarks.first?.location
-            }
-            guard let location = location else {
-                return
-            }
-
+    func showOnMap(location: Location, address: String) {
             let houseLocation = CLLocationCoordinate2D(
-                latitude: location.coordinate.latitude,
-                longitude: location.coordinate.longitude
+                latitude: location.latitude,
+                longitude: location.longitude
             )
 
             let annotation = MKPointAnnotation()
@@ -355,9 +342,9 @@ final class SelectedHouseView: BaseView {
             )
             self.mapView.setRegion(coordinateRegion, animated: true)
             self.mapView.addAnnotation(annotation)
-        })
+        }
     }
-}
+//}
 
 // MARK: - View constants
 private enum Constant: String {

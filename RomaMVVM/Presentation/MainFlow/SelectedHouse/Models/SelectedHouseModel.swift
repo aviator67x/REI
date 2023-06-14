@@ -13,6 +13,7 @@ struct  SelectedHouseModel {
     let image: URL?
     let street: String
     let house: Int
+    let location: Location
     let ort: String
     let livingArea: Int
     let square: Int
@@ -25,6 +26,7 @@ struct  SelectedHouseModel {
         self.image = data.images?.first
         self.street = data.street
         self.house = data.house
+        self.location = data.location
         self.ort = data.ort
         self.livingArea = data.livingArea
         self.square = data.square
