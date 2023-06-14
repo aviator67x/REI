@@ -69,8 +69,9 @@ final class AuthCoordinator: Coordinator {
             .sink { [unowned self] transiton in
                 switch transiton {
                 case .success:
-                    didFinishSubject.send()
-                    didFinishSubject.send(completion: .finished)
+                    self.pop()
+//                    didFinishSubject.send()
+//                    didFinishSubject.send(completion: .finished)
                 case .popScreen:
                     self.pop()
                 }
