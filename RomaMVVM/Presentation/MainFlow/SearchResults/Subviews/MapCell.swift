@@ -33,11 +33,24 @@ final class MapCell: UICollectionViewListCell {
     }
     
     func setup(with model: MapCellModel) {
-        let mapService  = MapServiceImpl()
         model.points.forEach { point in
             let address = point.address
             let location = point.location
-            mapService.showOnMap(mapView: mapView, location: location, address: address)            
+            let houseLocation = CLLocationCoordinate2D(
+                latitude: location.coordinates[0],
+                longitude: location.coordinates[1]
+            )
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = houseLocation
+            annotation.title = address
+            mapView.addAnnotation(annotation)
         }
+        let centerNetherlandsCoordintate = CLLocationCoordinate2D(latitude: 52.1326, longitude: 5.2913)
+        let coordinateRegion = MKCoordinateRegion(
+            center: centerNetherlandsCoordintate,
+            latitudinalMeters: 320000,
+            longitudinalMeters: 160000
+        )
+        mapView.setRegion(coordinateRegion, animated: true)
     }
 }

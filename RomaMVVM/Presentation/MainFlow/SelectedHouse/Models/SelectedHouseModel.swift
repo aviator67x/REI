@@ -13,7 +13,7 @@ struct  SelectedHouseModel {
     let image: URL?
     let street: String
     let house: Int
-    let location: Location
+    let location: Point
     let ort: String
     let livingArea: Int
     let square: Int

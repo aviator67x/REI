@@ -20,7 +20,7 @@ final class HouseDomainModel: Codable {
     let propertyType: String
     let roomsNumber: Int
     let price: Int
-    let location: Location
+    let location: Point
 
     init(
         id: String,
@@ -35,7 +35,7 @@ final class HouseDomainModel: Codable {
         propertyType: String,
         roomsNumber: Int,
         price: Int,
-        location: Location
+        location: Point
     ) {
         self.id = id
         self.constructionYear = constructionYear

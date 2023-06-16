@@ -17,5 +17,5 @@ struct MapCellModel: Hashable {
 
 struct Address: Hashable {
     let address: String
-    let location: Location
+    let location: Point
 }

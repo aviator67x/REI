@@ -326,10 +326,10 @@ final class SelectedHouseView: BaseView {
         showOnMap(location: location, address: address)
     }
 
-    func showOnMap(location: Location, address: String) {
+    func showOnMap(location: Point, address: String) {
             let houseLocation = CLLocationCoordinate2D(
-                latitude: location.latitude,
-                longitude: location.longitude
+                latitude: location.coordinates[0],
+                longitude: location.coordinates[1]
             )
 
             let annotation = MKPointAnnotation()

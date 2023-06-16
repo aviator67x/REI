@@ -77,11 +77,12 @@ private extension AdAddressViewModel {
         else {
             return
         }
-        
+
         getHouseLocation(from: address)
             .sinkWeakly(self, receiveValue: { (self, location) in
+                let pointLocation = Point(type: "Point", coordinates: [location.coordinates[0], location.coordinates[1]])
                 self.model.updateAdCreatingRequestModel(
-                    location: location,
+                    location: pointLocation,
                     ort: ort,
                     street: street,
                     house: houseInt
@@ -89,24 +90,23 @@ private extension AdAddressViewModel {
             })
             .store(in: &cancellables)
     }
-    
-        func getHouseLocation(from address: String) -> AnyPublisher<Location, Never> {
-            let geoCoder = CLGeocoder()
-            let publisher = PassthroughSubject<Location, Never>()
-            geoCoder.geocodeAddressString(address) { [weak self] placemarks, _ in
-                guard
-                    let placemarks = placemarks,
-                    let location = placemarks.first?.location
-                else {
-                    return
-                }
-                let lat = location.coordinate.latitude
-                let long = location.coordinate.longitude
 
-                publisher.send(.init(latitude: lat, longitude: long))
+    func getHouseLocation(from address: String) -> AnyPublisher<Point, Never> {
+        let geoCoder = CLGeocoder()
+        let publisher = PassthroughSubject<Point, Never>()
+        geoCoder.geocodeAddressString(address) { [weak self] placemarks, _ in
+            guard
+                let placemarks = placemarks,
+                let location = placemarks.first?.location
+            else {
+                return
             }
-            return publisher
-                .eraseToAnyPublisher()
+            let lat = location.coordinate.latitude
+            let long = location.coordinate.longitude
+            let point = Point(type: "Point", coordinates: [lat, long])
+            publisher.send(point)
         }
+        return publisher
+            .eraseToAnyPublisher()
     }
-
+}

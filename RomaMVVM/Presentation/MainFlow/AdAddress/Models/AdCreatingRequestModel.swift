@@ -11,8 +11,9 @@ struct AdCreatingRequestModel: Encodable, Hashable {
     static var empty: Self {
         return .init()
     }
+
     var ownerId: String?
-    var location: Location?
+    var location: Point?
     var ort: String?
     var street: String?
     var house: Int?
@@ -25,4 +26,9 @@ struct AdCreatingRequestModel: Encodable, Hashable {
     var constructionYear: Int?
     var garage: String?
     var images: [URL]?
+}
+
+struct Point: Codable, Hashable {
+    var type: String
+    var coordinates: [Double]
 }
