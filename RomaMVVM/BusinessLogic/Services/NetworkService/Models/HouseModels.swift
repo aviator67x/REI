@@ -48,7 +48,7 @@ struct HouseResponseModel: Decodable {
     let propertyType: String
     let roomsNumber: Int
     let price: Int
-    let location: Point
+    let location: Point?
 }
 
 struct SaveHouseImageResponseModel: Decodable {

@@ -6,6 +6,8 @@
 //
 
 import Combine
+import CoreLocation
+import MapKit
 import UIKit
 
 enum SearchResultsViewAction {
@@ -17,12 +19,14 @@ enum SearchResultsViewAction {
 
 final class SearchResultsView: BaseView {
     var dataSource: UICollectionViewDiffableDataSource<SearchResultsSection, SearchResultsItem>?
+    var locationManager: CLLocationManager?
 
     // MARK: - Subviews
     private lazy var stackView = UIStackView()
     private lazy var selectView = SelectView()
     private lazy var resultView = ResultView()
     private lazy var collectionView: UICollectionView = createCollectionView()
+    private lazy var mapView = MKMapView()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchResultsViewAction, Never>()
@@ -75,25 +79,14 @@ final class SearchResultsView: BaseView {
     }
 
     private func bindActions() {
-//        collectionView.willBeginDraggingPublisher
-//            .sinkWeakly(self, receiveValue: { (self, _) in
-//                self.collectionView.isUserInteractionEnabled = false
-//            })
-//            .store(in: &cancellables)
-//        
-//        collectionView.didEndDraggingPublisher
-//            .sinkWeakly(self, receiveValue: { (self, _) in
-//                self.collectionView.isUserInteractionEnabled = true
-//            })
-//            .store(in: &cancellables)
-        
         collectionView.didSelectItemPublisher
-            .compactMap {self.dataSource?.itemIdentifier(for: $0)}
-            .map {SearchResultsViewAction.selectedItem($0)}
+            .compactMap { self.dataSource?.itemIdentifier(for: $0) }
+            .map { SearchResultsViewAction.selectedItem($0) }
             .sink { [unowned self] in
-                actionSubject.send($0)}
+                actionSubject.send($0)
+            }
             .store(in: &cancellables)
-        
+
         collectionView.reachedBottomPublisher()
             .sink { [unowned self] in
                 self.actionSubject.send(.collectionBottomDidReach)
@@ -111,9 +104,9 @@ final class SearchResultsView: BaseView {
                 }
             }
             .store(in: &cancellables)
-        
+
         selectView.actionPublisher
-            .sinkWeakly(self, receiveValue: {(self, transition) in
+            .sinkWeakly(self, receiveValue: { (self, transition) in
                 self.actionSubject.send(.fromSelectViewTransition(transition))
             })
             .store(in: &cancellables)
@@ -123,12 +116,18 @@ final class SearchResultsView: BaseView {
         backgroundColor = .white
         stackView.axis = .vertical
         stackView.distribution = .fill
+
+        mapView.isHidden = true
     }
 
     private func setupLayout() {
+        resultView.snp.removeConstraints()
+        mapView.snp.removeConstraints()
+
         stackView.addArrangedSubview(selectView)
         stackView.addArrangedSubview(resultView)
         stackView.addArrangedSubview(collectionView)
+        stackView.addArrangedSubview(mapView)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
@@ -147,14 +146,30 @@ private enum Constant {}
 
 // MARK: - extension
 extension SearchResultsView {
+    func showCollection(sections: [SearchResultsCollection]) {
+        collectionView.isHidden = false
+        mapView.isHidden = true
+        setupSnapShot(sections: sections)
+    }
+
+    func showMapView(model: MapCellModel) {
+        if locationManager == nil {
+            locationManager = CLLocationManager()
+            guard let locationManager = locationManager else {
+                return
+            }
+            locationManager.delegate = self
+        }
+    }
+
     func makeSelectView(isVisible: Bool) {
         selectView.isHidden = !isVisible
     }
-    
+
     func updateResultView(with data: ResultViewModel) {
         resultView.setup(with: data)
     }
-    
+
     func setupSnapShot(sections: [SearchResultsCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<SearchResultsSection, SearchResultsItem>()
         for section in sections {
@@ -177,12 +192,12 @@ extension SearchResultsView {
                         self?.actionSubject.send(.onCellHeartButtonPublisher(selectedItem: item))
                     }
                     return cell
-                    
+
                 case let .main(model):
                     let cell: MainCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
                     return cell
-                    
+
                 case let .list(model):
                     let cell: ListCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.heartButtonDidTap = { [weak self] in
@@ -190,14 +205,43 @@ extension SearchResultsView {
                     }
                     cell.setupCell(model)
                     return cell
-                    
-                case .map(let model):
-                    let cell: MapCell = collectionView.dedequeueReusableCell(for: indexPath)
-                    cell.setup(with: model)
-                    return cell
+
+//                case .map(let model):
+//                    let cell: MapCell = collectionView.dedequeueReusableCell(for: indexPath)
+//                    cell.setup(with: model)
+//                    return cell
                 }
             }
         )
+    }
+}
+
+// MARK: - extension CLLocationManagerDelegate
+extension SearchResultsView: CLLocationManagerDelegate {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse:
+            collectionView.isHidden = true
+            mapView.isHidden = false
+            manager.startUpdatingLocation()
+        case .restricted, .denied:
+            let alert = UIAlertController(
+                title: "Access to user location is restricted",
+                message: "Change your setting in General",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "User location", style: .default) { _ in
+                manager.requestWhenInUseAuthorization()
+            })
+        case .notDetermined:
+            manager.requestWhenInUseAuthorization()
+        default:
+            break
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // handle location as needed
     }
 }
 

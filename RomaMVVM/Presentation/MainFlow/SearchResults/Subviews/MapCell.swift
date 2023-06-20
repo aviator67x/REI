@@ -35,7 +35,9 @@ final class MapCell: UICollectionViewListCell {
     func setup(with model: MapCellModel) {
         model.points.forEach { point in
             let address = point.address
-            let location = point.location
+            guard let location = point.location else {
+                return
+            }
             let houseLocation = CLLocationCoordinate2D(
                 latitude: location.coordinates[0],
                 longitude: location.coordinates[1]

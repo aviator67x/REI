@@ -38,7 +38,7 @@ final class AuthCoordinator: Coordinator {
                     didFinishSubject.send()
                     didFinishSubject.send(completion: .finished)
                 case .forgotPassword:
-                    forgotPassword()
+                    password()
                 case .signUp:
                     signUp()
                 }
@@ -63,20 +63,14 @@ final class AuthCoordinator: Coordinator {
         push(module.viewController)
     }
 
-    private func forgotPassword() {
-        let module = PasswordRestoreModuleBuilder.build(container: container)
-        module.transitionPublisher
-            .sink { [unowned self] transiton in
-                switch transiton {
-                case .success:
-                    self.pop()
-//                    didFinishSubject.send()
-//                    didFinishSubject.send(completion: .finished)
-                case .popScreen:
-                    self.pop()
-                }
+    private func password() {
+        let passwordCoordinator = PasswordCoordinator(navigationController: navigationController, container: container)
+        childCoordinators.append(passwordCoordinator)
+        passwordCoordinator.didFinishPublisher
+            .sink { [unowned self] in
+                removeChild(coordinator: passwordCoordinator)
             }
             .store(in: &cancellables)
-        push(module.viewController)
+        passwordCoordinator.start()
     }
 }

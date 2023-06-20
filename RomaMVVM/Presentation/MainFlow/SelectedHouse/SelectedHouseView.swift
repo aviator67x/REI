@@ -322,7 +322,9 @@ final class SelectedHouseView: BaseView {
         heartButton.tintColor = model.isFavourite ? .red : .white
 
         let address = [model.ort, model.street, String(model.house)].joined(separator: ",")
-        let location = model.location
+        guard let location = model.location else {
+            return
+        }
         showOnMap(location: location, address: address)
     }
 

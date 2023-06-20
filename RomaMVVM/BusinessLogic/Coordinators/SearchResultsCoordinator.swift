@@ -79,51 +79,13 @@ final class SearchResultsCoordinator: Coordinator {
     }
     
     private func selectedHouse(_ house: HouseDomainModel) {
-        let detaileCoordinator = DetaileHouseCoordinator(navigationController: navigationController, container: container, house: house)
-        childCoordinators.append(detaileCoordinator)
-        detaileCoordinator.didFinishPublisher
+        let detailCoordinator = DetaileHouseCoordinator(navigationController: navigationController, container: container, house: house)
+        childCoordinators.append(detailCoordinator)
+        detailCoordinator.didFinishPublisher
             .sink { [unowned self] in
-                removeChild(coordinator: detaileCoordinator)
+                removeChild(coordinator: detailCoordinator)
             }
             .store(in: &cancellables)
-        detaileCoordinator.start()
+        detailCoordinator.start()
     }
-
-//    private func selectedHouse(_ house: HouseDomainModel) {
-//        let module = SelectedHouseModuleBuilder.build(container: container, house: house)
-//        module.transitionPublisher
-//            .sinkWeakly(self, receiveValue: { (self, transition) in
-//                switch transition {
-//                case let .showHouse(images: images):
-//                    self.houseImages(images)
-//                case .moveToBlueprint(let state):
-//                    self.lorem(state)
-//                }
-//            })
-//            .store(in: &cancellables)
-//        push(module.viewController)
-//    }
-
-//    private func houseImages(_ images: [URL]) {
-//        let module = HouseImagesModuleBuilder.build(container: container, images: images)
-//        module.transitionPublisher
-//            .sinkWeakly(self, receiveValue: { (self, transition) in
-//                switch transition {
-//                case .popScreen:
-//                    self.pop()
-//                }
-//            })
-//            .store(in: &cancellables)
-//        push(module.viewController)
-//    }
-//
-//    private func lorem(_ state: LoremState) {
-//        let module = LoremIpsumModuleBuilder.build(container: container, state: .blueprint)
-//        module.transitionPublisher
-//            .sinkWeakly(self, receiveValue: { (self, _) in
-//                self.pop()
-//            })
-//            .store(in: &cancellables)
-//        push(module.viewController)
-//    }
 }

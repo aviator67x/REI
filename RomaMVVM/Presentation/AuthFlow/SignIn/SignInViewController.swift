@@ -72,8 +72,8 @@ final class SignInViewController: BaseViewController<SignInViewModel> {
         
         viewModel.showAlertPublisher
             .sink { [unowned self] _ in
-                let alert = UIAlertController(title: "Incorrect username or password", message: "Do you wnat to create an account?", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Sign up", style: UIAlertAction.Style.default) { _ in
+                let alert = UIAlertController(title: "Incorrect username or password", message: "Do you wnat to create an account?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Sign up", style: .default) { _ in
                     self.viewModel.showTestSignUp()
                 })
                 alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))

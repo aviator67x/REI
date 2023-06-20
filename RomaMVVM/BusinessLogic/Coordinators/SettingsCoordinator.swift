@@ -5,12 +5,12 @@
 //  Created by Roman Savchenko on 28.11.2021.
 //
 
-import UIKit
 import Combine
+import UIKit
 
 final class SettingsCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
-    
+
     var navigationController: UINavigationController
     private(set) lazy var didFinishPublisher = didFinishSubject.eraseToAnyPublisher()
     private let didFinishSubject = PassthroughSubject<Void, Never>()
@@ -20,6 +20,10 @@ final class SettingsCoordinator: Coordinator {
     init(navigationController: UINavigationController, container: AppContainer) {
         self.navigationController = navigationController
         self.container = container
+    }
+    
+    deinit {
+        debugPrint("deinit of", String(describing: self))
     }
 
     func start() {
@@ -40,15 +44,15 @@ final class SettingsCoordinator: Coordinator {
             .store(in: &cancellables)
         setRoot(module.viewController)
     }
-    
-    private func  profile() {
+
+    private func profile() {
         let module = ProfileModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
                 case .logout:
                     didFinishSubject.send()
-                case .showEditProfile(let configuration):
+                case let .showEditProfile(configuration):
                     editProfile(configuration)
                 case .showPassword:
                     password()
@@ -57,37 +61,30 @@ final class SettingsCoordinator: Coordinator {
             .store(in: &cancellables)
         push(module.viewController)
     }
-    
+
     private func terms() {
         let module = LoremIpsumModuleBuilder.build(container: container, state: .text)
         module.transitionPublisher
-            .sinkWeakly(self, receiveValue: { (self, value) in
+            .sinkWeakly(self, receiveValue: { (self, _) in
                 self.pop()
             })
             .store(in: &cancellables)
         push(module.viewController)
     }
-    
+
     private func editProfile(_ configuration: EditProfileConfiguration) {
         let module = EditProfileModuleBuilder.build(container: container, configuration: configuration)
         push(module.viewController)
     }
-    
+
     private func password() {
-        let module = PasswordRestoreModuleBuilder.build(container: container)
-        module.transitionPublisher
-            .sink { [unowned self] transiton in
-                switch transiton {
-                case .success:
-                    didFinishSubject.send()
-                    didFinishSubject.send(completion: .finished)
-                case .popScreen:
-                    self.pop()
-                }
+        let passwordCoordinator = PasswordCoordinator(navigationController: navigationController, container: container)
+        childCoordinators.append(passwordCoordinator)
+        passwordCoordinator.didFinishPublisher
+            .sink { [unowned self] in
+                removeChild(coordinator: passwordCoordinator)
             }
             .store(in: &cancellables)
-        let viewController = module.viewController
-        viewController.tabBarController?.tabBar.isHidden = true
-        push(viewController)
+        passwordCoordinator.start()
     }
 }

@@ -17,6 +17,9 @@ final class SearchResultsViewModel: BaseViewModel {
 
     private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
     private lazy var sectionsSubject = CurrentValueSubject<[SearchResultsCollection], Never>([])
+    
+    private(set) lazy var mapViewPublisher = mapViewSubject.eraseToAnyPublisher()
+    private lazy var mapViewSubject = CurrentValueSubject<MapCellModel?, Never>(nil)
 
     private(set) lazy var resultViewModelPublisher = resultViewModelSubject.eraseToAnyPublisher()
     private lazy var resultViewModelSubject = CurrentValueSubject<ResultViewModel?, Never>(nil)
@@ -120,10 +123,11 @@ private extension SearchResultsViewModel {
             sectionsSubject.value = [manViewSection, listSection]
 
         case .map:
-            let cellModel = MapCellModel(data: housesSubject.value)
-            let mapItem = SearchResultsItem.map(cellModel)
-            let mapSection = SearchResultsCollection(section: .map, items: [mapItem])
-            sectionsSubject.value = [mapSection]
+            break
+//            let cellModel = MapCellModel(data: housesSubject.value)
+//            let mapItem = SearchResultsItem.map(cellModel)
+//            let mapSection = SearchResultsCollection(section: .map, items: [mapItem])
+//            sectionsSubject.value = [mapSection]
         }
     }
 }
@@ -142,7 +146,7 @@ extension SearchResultsViewModel {
         case let .list(house):
             model.editFavouriteHouses(with: house.id)
 
-        case .main, .map:
+        case .main:
             break
         }
     }
@@ -181,13 +185,19 @@ extension SearchResultsViewModel {
             }
             transitionSubject.send(.selectedHouse(house))
 
-        case .map:
-            break
+//        case .map:
+//            break
         }
     }
 
     func setScreenState(_ state: SearchResultsScreenState) {
         screenState = state
-        createDataSource()
+        switch screenState {
+        case .photo, .list:
+            createDataSource()
+        case .map:
+            let mapViewModel = MapCellModel(data: housesSubject.value)
+            mapViewSubject.value = mapViewModel
+        }
     }
 }

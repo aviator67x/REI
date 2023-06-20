@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1200"
-   version = "1.7">
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES"
-      runPostActionsOnFailure = "NO">
+      buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -18,33 +17,30 @@
                BlueprintIdentifier = "A811F3B6541B825175643714"
                BuildableName = "RomaMVVM.app"
                BlueprintName = "RomaMVVM"
-               ReferencedContainer = "container:RomaMVVM.xcodeproj">
+               ReferencedContainer = "container:REI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Debug DEV"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "NO">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A811F3B6541B825175643714"
             BuildableName = "RomaMVVM.app"
             BlueprintName = "RomaMVVM"
-            ReferencedContainer = "container:RomaMVVM.xcodeproj">
+            ReferencedContainer = "container:REI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
       </Testables>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Debug DEV"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -60,14 +56,12 @@
             BlueprintIdentifier = "A811F3B6541B825175643714"
             BuildableName = "RomaMVVM.app"
             BlueprintName = "RomaMVVM"
-            ReferencedContainer = "container:RomaMVVM.xcodeproj">
+            ReferencedContainer = "container:REI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Release DEV"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -79,18 +73,16 @@
             BlueprintIdentifier = "A811F3B6541B825175643714"
             BuildableName = "RomaMVVM.app"
             BlueprintName = "RomaMVVM"
-            ReferencedContainer = "container:RomaMVVM.xcodeproj">
+            ReferencedContainer = "container:REI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Debug DEV">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
-      customArchiveName = "RomaMVVM"
+      buildConfiguration = "Release DEV"
+      customArchiveName = "RomaMVVM DEV"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

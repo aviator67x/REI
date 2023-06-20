@@ -6,11 +6,19 @@
 //
 
 import UIKit
+import Combine
+
+enum PasswordRestoreViewControllerAction {
+    case backButton
+}
 
 final class PasswordRestoreViewController: BaseViewController<PasswordRestoreViewModel> {
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private lazy var actionSubject = PassthroughSubject<PasswordRestoreViewControllerAction, Never>()
+    
     // MARK: - Views
     private let contentView = PasswordRestoreView()
-    
+
     // MARK: - Lifecycle
     override func loadView() {
         view = contentView
@@ -19,7 +27,16 @@ final class PasswordRestoreViewController: BaseViewController<PasswordRestoreVie
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Restore password"
+        tabBarController?.tabBar.isHidden = true
         setupBindings()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
+        if self.isMovingFromParent {
+            viewModel.onBackDidTap()
+        }
     }
 
     private func setupBindings() {
@@ -28,23 +45,27 @@ final class PasswordRestoreViewController: BaseViewController<PasswordRestoreVie
                 switch action {
                 case .restoreDidTap:
                     viewModel.restorePassword()
-                case .emailTextFieldDidChange(inputText: let inputText):
+                case let .emailTextFieldDidChange(inputText: inputText):
                     viewModel.updateEmail(inputText)
                 case .crossDidTap:
                     viewModel.popScreen()
                 }
             }
             .store(in: &cancellables)
-        
+
         viewModel.isInputValidSubjectPublisher
             .sinkWeakly(self, receiveValue: { (self, value) in
                 self.contentView.updateRestoreButton(value)
             })
             .store(in: &cancellables)
-        
+
         viewModel.showAlertPublisher
             .sink { [unowned self] _ in
-                let alert = UIAlertController(title: "Incorrect Email", message: "Try another Email address", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(
+                    title: "Incorrect Email",
+                    message: "Try another Email address",
+                    preferredStyle: UIAlertController.Style.alert
+                )
                 alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }

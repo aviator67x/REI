@@ -11,6 +11,7 @@ import Combine
 enum PasswordRestoreTransition: Transition {
     case success
     case popScreen
+    case finishFow
 }
 
 final class PasswordRestoreModuleBuilder {

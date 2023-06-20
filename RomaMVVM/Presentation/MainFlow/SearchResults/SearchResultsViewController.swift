@@ -47,8 +47,16 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
             .store(in: &cancellables)
 
         viewModel.sectionsPublisher
+            .dropFirst()
             .sinkWeakly(self, receiveValue: { (self, sections) in
-                self.contentView.setupSnapShot(sections: sections)
+                self.contentView.showCollection(sections: sections)
+            })
+            .store(in: &cancellables)
+        
+        viewModel.mapViewPublisher
+            .unwrap()
+            .sinkWeakly(self, receiveValue: { (self, model) in
+                self.contentView.showMapView(model: model)
             })
             .store(in: &cancellables)
         

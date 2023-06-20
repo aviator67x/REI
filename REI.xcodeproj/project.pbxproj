@@ -142,6 +142,7 @@
 		CE6B90702A1F439E00642B90 /* AdPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906C2A1F439E00642B90 /* AdPhotosView.swift */; };
 		CE6B90712A1F439E00642B90 /* AdPhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906D2A1F439E00642B90 /* AdPhotosViewModel.swift */; };
 		CE7153072A339011000CC3C5 /* UITextField+doneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7153062A339011000CC3C5 /* UITextField+doneButton.swift */; };
+		CE82633E2A3F887500113AF9 /* PasswordCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE82633D2A3F887500113AF9 /* PasswordCoordinator.swift */; };
 		CE8B29832A2A323900425FB0 /* MapCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8B29822A2A323900425FB0 /* MapCellModel.swift */; };
 		CE9430C629C4C20B00FFB94C /* ImageAsset+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C529C4C20B00FFB94C /* ImageAsset+Hashable.swift */; };
 		CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9430C829C8736400FFB94C /* ProfileModuleBuilder.swift */; };
@@ -240,6 +241,7 @@
 		CEE2DE6F29F323090029AFF8 /* ListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE6E29F323090029AFF8 /* ListCellModel.swift */; };
 		CEE2DE7129F323660029AFF8 /* PhotoCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE7029F323660029AFF8 /* PhotoCellModel.swift */; };
 		CEE2DE7329F66C550029AFF8 /* SearchResultsScreenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE7229F66C550029AFF8 /* SearchResultsScreenState.swift */; };
+		CEF13C782A40826A001EA946 /* VasylView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF13C772A40826A001EA946 /* VasylView.swift */; };
 		CEF83F7D2A1B8318009B0791 /* AdCreatingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF83F7C2A1B8318009B0791 /* AdCreatingModel.swift */; };
 		CEF83F832A1BB09A009B0791 /* AdDetailsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF83F7F2A1BB09A009B0791 /* AdDetailsModuleBuilder.swift */; };
 		CEF83F842A1BB09A009B0791 /* AdDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF83F802A1BB09A009B0791 /* AdDetailsViewController.swift */; };
@@ -419,6 +421,7 @@
 		CE6B906C2A1F439E00642B90 /* AdPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosView.swift; sourceTree = "<group>"; };
 		CE6B906D2A1F439E00642B90 /* AdPhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosViewModel.swift; sourceTree = "<group>"; };
 		CE7153062A339011000CC3C5 /* UITextField+doneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+doneButton.swift"; sourceTree = "<group>"; };
+		CE82633D2A3F887500113AF9 /* PasswordCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCoordinator.swift; sourceTree = "<group>"; };
 		CE8B29822A2A323900425FB0 /* MapCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellModel.swift; sourceTree = "<group>"; };
 		CE9430C529C4C20B00FFB94C /* ImageAsset+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageAsset+Hashable.swift"; sourceTree = "<group>"; };
 		CE9430C829C8736400FFB94C /* ProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleBuilder.swift; sourceTree = "<group>"; };
@@ -515,6 +518,7 @@
 		CEE2DE6E29F323090029AFF8 /* ListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellModel.swift; sourceTree = "<group>"; };
 		CEE2DE7029F323660029AFF8 /* PhotoCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellModel.swift; sourceTree = "<group>"; };
 		CEE2DE7229F66C550029AFF8 /* SearchResultsScreenState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsScreenState.swift; sourceTree = "<group>"; };
+		CEF13C772A40826A001EA946 /* VasylView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VasylView.swift; sourceTree = "<group>"; };
 		CEF83F7C2A1B8318009B0791 /* AdCreatingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingModel.swift; sourceTree = "<group>"; };
 		CEF83F7F2A1BB09A009B0791 /* AdDetailsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailsModuleBuilder.swift; sourceTree = "<group>"; };
 		CEF83F802A1BB09A009B0791 /* AdDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailsViewController.swift; sourceTree = "<group>"; };
@@ -704,6 +708,7 @@
 				CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */,
 				CE5CCEC829FAEB71007972CB /* MyHouseCoordinator.swift */,
 				CEFE0A472A33174B00B6ECA6 /* DetaileHouseCoordinator.swift */,
+				CE82633D2A3F887500113AF9 /* PasswordCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -1295,6 +1300,7 @@
 				CE481C6D2A2FBB1E000E00BC /* HouseImages */,
 				CE481C802A3113C3000E00BC /* LorenIpsum */,
 				CEF83F902A1BF0DE009B0791 /* AdMultiDetails */,
+				CEF13C772A40826A001EA946 /* VasylView.swift */,
 			);
 			path = MainFlow;
 			sourceTree = "<group>";
@@ -1485,7 +1491,7 @@
 			attributes = {
 				LastUpgradeCheck = 1200;
 			};
-			buildConfigurationList = C2DE4C4BA8CC13D1AABE3E88 /* Build configuration list for PBXProject "RomaMVVM" */;
+			buildConfigurationList = C2DE4C4BA8CC13D1AABE3E88 /* Build configuration list for PBXProject "REI" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1687,6 +1693,7 @@
 				CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */,
 				CEE2DE7129F323660029AFF8 /* PhotoCellModel.swift in Sources */,
 				CE9430D529C8873200FFB94C /* TermsModuleBuilder.swift in Sources */,
+				CE82633E2A3F887500113AF9 /* PasswordCoordinator.swift in Sources */,
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
 				CEA2A86729E9D1B400395817 /* SearchModel.swift in Sources */,
 				CEAEB9E429AAA57E005BBF50 /* UserNetworkService.swift in Sources */,
@@ -1719,6 +1726,7 @@
 				CE0E27BB29D43C81001EDFCD /* DistanceCell.swift in Sources */,
 				744F123129D6DC930015A4D3 /* UserDataCellModel.swift in Sources */,
 				BA4407035F877122802C3D47 /* Localization.swift in Sources */,
+				CEF13C782A40826A001EA946 /* VasylView.swift in Sources */,
 				CE1E2E042A0D54B200328EAF /* FavouriteCell.swift in Sources */,
 				EDFD24AA92041FD400F9F11D /* MainTabBarCoordinator.swift in Sources */,
 				936E18287F780641A997D742 /* MainTabBarModuleBuilder.swift in Sources */,
@@ -2376,7 +2384,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		C2DE4C4BA8CC13D1AABE3E88 /* Build configuration list for PBXProject "RomaMVVM" */ = {
+		C2DE4C4BA8CC13D1AABE3E88 /* Build configuration list for PBXProject "REI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FFE2FE42C431B9EC703D360 /* Debug */,

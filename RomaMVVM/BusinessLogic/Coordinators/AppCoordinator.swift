@@ -36,7 +36,7 @@ final class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
 
-//        container.userService.clearAccessToken()
+//        container.userService.tokenStorageService.clearAccessToken()
         container.userService.isAuthorized ? mainFlow() : authFlow()
     }
 

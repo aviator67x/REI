@@ -43,6 +43,13 @@ final class MainTabBarCoordinator: Coordinator {
         )
         let coordinator = FavouriteCoordinator(navigationController: navController, container: container)
         childCoordinators.append(coordinator)
+        coordinator.didFinishPublisher
+            .sink { [unowned self] in
+                childCoordinators.forEach { removeChild(coordinator: $0) }
+                didFinishSubject.send()
+                didFinishSubject.send(completion: .finished)
+            }
+            .store(in: &cancellables)
         coordinator.start()
     }
 

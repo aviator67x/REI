@@ -46,14 +46,12 @@ final class PasswordRestoreViewModel: BaseViewModel {
                 switch completion {
                 case let .failure(error):
                     debugPrint(error.localizedDescription)
-//                    self?.errorSubject.send(error)
                     self?.showAlertSubject.send()
                 case .finished:
                     debugPrint("Restore password is successfully finfished")
                 }
             } receiveValue: { [weak self] value in
                 debugPrint("API  response for restoring password is: \(value)")
-//                self?.transitionSubject.send(completion: .finished)
                 self?.transitionSubject.send(.success)
             }
             .store(in: &cancellables)
@@ -65,5 +63,9 @@ final class PasswordRestoreViewModel: BaseViewModel {
     
     func popScreen() {
         self.transitionSubject.send(.popScreen)
+    }
+    
+    func onBackDidTap() {
+        self.transitionSubject.send(.finishFow)
     }
 }

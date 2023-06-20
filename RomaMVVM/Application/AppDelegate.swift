@@ -13,9 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-//        Thread.sleep(forTimeInterval: 1.0)
         customizeNavBar()
-        // Override point for customization after application launch.
+
         return true
     }
 

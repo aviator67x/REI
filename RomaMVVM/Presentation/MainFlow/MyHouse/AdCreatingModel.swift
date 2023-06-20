@@ -34,10 +34,10 @@ final class AdCreatingModel {
     }
 
     func createAd() {
-//        guard let userId = userService.user?.id else {
-//            return
-//        }
-        adCreatingRequestModelSubject.value.ownerId = "666" // userId
+        guard let userId = userService.user?.id else {
+            return
+        }
+        adCreatingRequestModelSubject.value.ownerId = userId
         isLoadingSubject.send(true)
         housesService.saveAd(houseImages: houseImages, house: adCreatingRequestModelSubject.value)
             .receive(on: DispatchQueue.main)
