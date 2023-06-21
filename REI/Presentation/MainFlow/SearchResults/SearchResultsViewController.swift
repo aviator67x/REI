@@ -44,6 +44,8 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                     viewModel.showSelectedItem(item)
                 case .showAlert(let alert):
                     self.present(alert, animated: true)
+                case .availableHousesDidTap:
+                    viewModel.getAvailableHouses()
                 }
             }
             .store(in: &cancellables)

@@ -67,7 +67,7 @@ private extension SearchResultsViewModel {
 
         housesSubject.combineLatest(
             model.searchParametersPublisher,
-            model.housesCountPublisher//.first()
+            model.housesCountPublisher
         )
         .sink { [unowned self] houses, searchParams, housesCount in
             self.resultViewModelSubject.value = ResultViewModel(
@@ -133,6 +133,8 @@ extension SearchResultsViewModel {
     func loadHouses() {
         model.loadHouses()
     }
+    
+    func getAvailableHouses() {}
 
     func editFavourites(item: SearchResultsItem) {
         switch item {
@@ -180,9 +182,6 @@ extension SearchResultsViewModel {
                 return
             }
             transitionSubject.send(.selectedHouse(house))
-
-//        case .map:
-//            break
         }
     }
 

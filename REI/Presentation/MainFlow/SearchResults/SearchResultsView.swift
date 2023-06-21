@@ -16,6 +16,7 @@ enum SearchResultsViewAction {
     case onCellHeartButtonPublisher(selectedItem: SearchResultsItem)
     case selectedItem(SearchResultsItem)
     case showAlert(UIAlertController)
+    case availableHousesDidTap
 }
 
 final class SearchResultsView: BaseView {
@@ -28,6 +29,7 @@ final class SearchResultsView: BaseView {
     private lazy var resultView = ResultView()
     private lazy var collectionView: UICollectionView = createCollectionView()
     private lazy var mapView = MKMapView()
+    private lazy var availableHousesButton = UIButton()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchResultsViewAction, Never>()
@@ -111,6 +113,13 @@ final class SearchResultsView: BaseView {
                 self.actionSubject.send(.fromSelectViewTransition(transition))
             })
             .store(in: &cancellables)
+        
+        availableHousesButton.tapPublisher
+            .sinkWeakly(self, receiveValue: {(self, _) in
+                let visibleRect = self.mapView.visibleMapRect
+                self.actionSubject.send(.availableHousesDidTap)
+            })
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -121,12 +130,16 @@ final class SearchResultsView: BaseView {
         mapView.userTrackingMode = .follow
         mapView.isHidden = true
         mapView.showsUserLocation = true
+        
+        availableHousesButton.rounded(3)
+        availableHousesButton.bordered(width: 2, color: .gray)
+        availableHousesButton.backgroundColor = .orange
+        availableHousesButton.tintColor = .white
+        availableHousesButton.setTitle("Get suggestions in this area", for: .normal)
+        availableHousesButton.isHidden = true
     }
 
     private func setupLayout() {
-        resultView.snp.removeConstraints()
-        mapView.snp.removeConstraints()
-
         stackView.addArrangedSubview(selectView)
         stackView.addArrangedSubview(resultView)
         stackView.addArrangedSubview(collectionView)
@@ -141,6 +154,12 @@ final class SearchResultsView: BaseView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
         ])
+        
+        addSubview(availableHousesButton) {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().offset(-100)
+            $0.height.equalTo(50)
+        }
     }
 }
 
@@ -216,6 +235,7 @@ extension SearchResultsView: CLLocationManagerDelegate {
         case .authorizedWhenInUse:
             collectionView.isHidden = true
             mapView.isHidden = false
+            availableHousesButton.isHidden = false
             manager.startUpdatingLocation()
         case .restricted, .denied:
             // TODO: from this state requestWhenInUseAuthorization() isn't being called
