@@ -1,5 +1,5 @@
-input_dir: RomaMVVM/Resources
-output_dir: RomaMVVM/Resources/Generated
+input_dir: REI/Resources
+output_dir: REI/Resources/Generated
 xcassets:
   - inputs: Assets.xcassets
     outputs:

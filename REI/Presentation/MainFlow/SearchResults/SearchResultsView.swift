@@ -15,11 +15,12 @@ enum SearchResultsViewAction {
     case fromSelectViewTransition(SelectViewAction)
     case onCellHeartButtonPublisher(selectedItem: SearchResultsItem)
     case selectedItem(SearchResultsItem)
+    case showAlert(UIAlertController)
 }
 
 final class SearchResultsView: BaseView {
     var dataSource: UICollectionViewDiffableDataSource<SearchResultsSection, SearchResultsItem>?
-    var locationManager: CLLocationManager?
+    private let locationManager = CLLocationManager()
 
     // MARK: - Subviews
     private lazy var stackView = UIStackView()
@@ -117,7 +118,9 @@ final class SearchResultsView: BaseView {
         stackView.axis = .vertical
         stackView.distribution = .fill
 
+        mapView.userTrackingMode = .follow
         mapView.isHidden = true
+        mapView.showsUserLocation = true
     }
 
     private func setupLayout() {
@@ -153,13 +156,8 @@ extension SearchResultsView {
     }
 
     func showMapView(model: MapCellModel) {
-        if locationManager == nil {
-            locationManager = CLLocationManager()
-            guard let locationManager = locationManager else {
-                return
-            }
-            locationManager.delegate = self
-        }
+        locationManager.delegate = self
+        locationManagerDidChangeAuthorization(locationManager)
     }
 
     func makeSelectView(isVisible: Bool) {
@@ -205,11 +203,6 @@ extension SearchResultsView {
                     }
                     cell.setupCell(model)
                     return cell
-
-//                case .map(let model):
-//                    let cell: MapCell = collectionView.dedequeueReusableCell(for: indexPath)
-//                    cell.setup(with: model)
-//                    return cell
                 }
             }
         )
@@ -225,6 +218,7 @@ extension SearchResultsView: CLLocationManagerDelegate {
             mapView.isHidden = false
             manager.startUpdatingLocation()
         case .restricted, .denied:
+            // TODO: from this state requestWhenInUseAuthorization() isn't being called
             let alert = UIAlertController(
                 title: "Access to user location is restricted",
                 message: "Change your setting in General",
@@ -232,16 +226,30 @@ extension SearchResultsView: CLLocationManagerDelegate {
             )
             alert.addAction(UIAlertAction(title: "User location", style: .default) { _ in
                 manager.requestWhenInUseAuthorization()
+                print(String(describing: manager.authorizationStatus))
             })
+            actionSubject.send(.showAlert(alert))
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
         default:
-            break
+            manager.requestWhenInUseAuthorization()
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // handle location as needed
+        guard let location = locations.last else {
+            return
+        }
+
+        let center = CLLocationCoordinate2D(
+            latitude: location.coordinate.latitude,
+            longitude: location.coordinate.longitude
+        )
+        let region = MKCoordinateRegion(
+            center: center,
+            span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        )
+        mapView.setCenter(center, animated: true)
     }
 }
 

@@ -10,6 +10,8 @@
 	<string>$(APP_ENVIRONMENT)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -24,10 +26,16 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>The REI appliction wants to access you camera. OK?</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>"We will Always use your location"</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>"We will use your location when in use"</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-BlackItalic.ttf</string>

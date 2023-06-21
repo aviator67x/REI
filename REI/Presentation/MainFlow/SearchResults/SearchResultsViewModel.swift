@@ -124,10 +124,6 @@ private extension SearchResultsViewModel {
 
         case .map:
             break
-//            let cellModel = MapCellModel(data: housesSubject.value)
-//            let mapItem = SearchResultsItem.map(cellModel)
-//            let mapSection = SearchResultsCollection(section: .map, items: [mapItem])
-//            sectionsSubject.value = [mapSection]
         }
     }
 }

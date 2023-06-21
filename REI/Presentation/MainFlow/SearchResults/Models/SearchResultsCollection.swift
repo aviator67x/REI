@@ -16,12 +16,11 @@ enum SearchResultsSection: Hashable {
     case photo
     case list
     case main
-//    case map
 }
 
 enum SearchResultsItem: Hashable {
     case photo(PhotoCellModel)
     case main(MainCellModel)
     case list(ListCellModel)
-//    case map(MapCellModel)
 }
+

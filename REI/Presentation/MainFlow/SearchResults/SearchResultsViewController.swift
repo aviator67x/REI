@@ -42,6 +42,8 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                     viewModel.editFavourites(item: selectedItem)
                 case .selectedItem(let item):
                     viewModel.showSelectedItem(item)
+                case .showAlert(let alert):
+                    self.present(alert, animated: true)
                 }
             }
             .store(in: &cancellables)

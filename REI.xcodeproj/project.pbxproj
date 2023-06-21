@@ -547,7 +547,7 @@
 		D7BB6B90CE54A3FB9463DD52 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		DE8FD48F3E7B67CE19F2ACBB /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.ttf"; sourceTree = "<group>"; };
 		E23D40C86BEC784EDA067A6B /* SignUpModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModuleBuilder.swift; sourceTree = "<group>"; };
-		E6353D0F1511E20E206B1634 /* RomaMVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RomaMVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6353D0F1511E20E206B1634 /* REI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = REI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E722D2C413B04E108431D849 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		EBA716F47AF0AB3063BF8B2F /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		F8A8B757B8EE2BE4E25AAD32 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -609,7 +609,7 @@
 		0F77B0E79EA561C52848C73B = {
 			isa = PBXGroup;
 			children = (
-				CC0A1CA43C51CE9B7E60BECF /* RomaMVVM */,
+				CC0A1CA43C51CE9B7E60BECF /* REI */,
 				DE3F1EFB85403EF50F47B481 /* Products */,
 				47F11462ACEDD10BC6A4F32A /* Frameworks */,
 			);
@@ -719,8 +719,8 @@
 				CEADC9B4298853E8007A0650 /* BaseButton.swift */,
 				3B572022A129B903AC8D421F /* AxisScrollView.swift */,
 				32FD317D0DD756F6A7D767A2 /* LoadingView.swift */,
-				CEA545E9297820A3007F9962 /* MainTextField */,
 				CE481C7B2A2FC6A2000E00BC /* CrossButton.swift */,
+				CEA545E9297820A3007F9962 /* MainTextField */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -837,7 +837,7 @@
 			path = Plugins;
 			sourceTree = "<group>";
 		};
-		CC0A1CA43C51CE9B7E60BECF /* RomaMVVM */ = {
+		CC0A1CA43C51CE9B7E60BECF /* REI */ = {
 			isa = PBXGroup;
 			children = (
 				31198723FAF01FF164AB8EA8 /* Application */,
@@ -846,7 +846,7 @@
 				2CEF3D113BA2321C36B6B26A /* Presentation */,
 				95F497E859FA2443FCE41158 /* Resources */,
 			);
-			path = RomaMVVM;
+			path = REI;
 			sourceTree = "<group>";
 		};
 		CCA876F88893001B36189960 /* Settings */ = {
@@ -1424,7 +1424,7 @@
 		DE3F1EFB85403EF50F47B481 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E6353D0F1511E20E206B1634 /* RomaMVVM.app */,
+				E6353D0F1511E20E206B1634 /* REI.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1457,9 +1457,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A811F3B6541B825175643714 /* RomaMVVM */ = {
+		A811F3B6541B825175643714 /* REI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C2ABEDB542B8ED8F0A67F0E8 /* Build configuration list for PBXNativeTarget "RomaMVVM" */;
+			buildConfigurationList = C2ABEDB542B8ED8F0A67F0E8 /* Build configuration list for PBXNativeTarget "REI" */;
 			buildPhases = (
 				CEAEB9F029ACEB8B005BBF50 /* SwiftGen */,
 				AF4E37F04136084B318ABFAC /* Sources */,
@@ -1470,7 +1470,7 @@
 			);
 			dependencies = (
 			);
-			name = RomaMVVM;
+			name = REI;
 			packageProductDependencies = (
 				46591B6523B9F80FF1980D05 /* CombineCocoa */,
 				F9B3C2B9154FB09DA3076F6C /* KeyboardLayoutGuide */,
@@ -1480,7 +1480,7 @@
 				CE9CAF3D29B678BE007DC31B /* Kingfisher */,
 			);
 			productName = RomaMVVM;
-			productReference = E6353D0F1511E20E206B1634 /* RomaMVVM.app */;
+			productReference = E6353D0F1511E20E206B1634 /* REI.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1513,7 +1513,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A811F3B6541B825175643714 /* RomaMVVM */,
+				A811F3B6541B825175643714 /* REI */,
 			);
 		};
 /* End PBXProject section */
@@ -1846,13 +1846,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1910,7 +1910,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1975,7 +1975,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1998,13 +1998,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2023,13 +2023,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2087,7 +2087,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -2152,7 +2152,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2214,7 +2214,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -2235,13 +2235,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2260,13 +2260,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2285,13 +2285,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.RomaMVVM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2354,7 +2354,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = RomaMVVM/Resources/Info.plist;
+				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2371,7 +2371,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C2ABEDB542B8ED8F0A67F0E8 /* Build configuration list for PBXNativeTarget "RomaMVVM" */ = {
+		C2ABEDB542B8ED8F0A67F0E8 /* Build configuration list for PBXNativeTarget "REI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9456B3A0801F4FB88F4ED7D6 /* Debug */,

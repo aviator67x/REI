@@ -47,12 +47,5 @@ final class MapCell: UICollectionViewListCell {
             annotation.title = address
             mapView.addAnnotation(annotation)
         }
-        let centerNetherlandsCoordintate = CLLocationCoordinate2D(latitude: 52.1326, longitude: 5.2913)
-        let coordinateRegion = MKCoordinateRegion(
-            center: centerNetherlandsCoordintate,
-            latitudinalMeters: 320000,
-            longitudinalMeters: 160000
-        )
-        mapView.setRegion(coordinateRegion, animated: true)
     }
 }

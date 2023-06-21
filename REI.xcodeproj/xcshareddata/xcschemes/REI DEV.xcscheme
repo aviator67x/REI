@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A811F3B6541B825175643714"
-               BuildableName = "RomaMVVM.app"
-               BlueprintName = "RomaMVVM"
+               BuildableName = "REI.app"
+               BlueprintName = "REI"
                ReferencedContainer = "container:REI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -31,8 +31,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A811F3B6541B825175643714"
-            BuildableName = "RomaMVVM.app"
-            BlueprintName = "RomaMVVM"
+            BuildableName = "REI.app"
+            BlueprintName = "REI"
             ReferencedContainer = "container:REI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -54,8 +54,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A811F3B6541B825175643714"
-            BuildableName = "RomaMVVM.app"
-            BlueprintName = "RomaMVVM"
+            BuildableName = "REI.app"
+            BlueprintName = "REI"
             ReferencedContainer = "container:REI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,8 +71,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A811F3B6541B825175643714"
-            BuildableName = "RomaMVVM.app"
-            BlueprintName = "RomaMVVM"
+            BuildableName = "REI.app"
+            BlueprintName = "REI"
             ReferencedContainer = "container:REI.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
