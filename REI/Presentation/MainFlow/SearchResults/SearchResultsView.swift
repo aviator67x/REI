@@ -249,7 +249,14 @@ extension SearchResultsView: CLLocationManagerDelegate {
             center: center,
             span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         )
-        mapView.setCenter(center, animated: true)
+//        mapView.setRegion(region, animated: true)
+        
+        // Temporary solution to center the map on the Netherlands:
+        let alkmaarCenter = CLLocationCoordinate2D(
+            latitude: 52.6324,
+            longitude: 4.7534
+        )
+        mapView.setCenter(alkmaarCenter, animated: true)
     }
 }
 
