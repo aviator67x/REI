@@ -27,7 +27,6 @@
 		421CA8089DB349E1CA1773B9 /* Montserrat-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90EE64FB62B4F0DA0D6D7E60 /* Montserrat-ExtraLightItalic.ttf */; };
 		4BBC1C6C73AD3474B558E18F /* ViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C7152A8E208B7E01FFC61 /* ViewRepresentable.swift */; };
 		4E49AFA694CC28CA8EB3D441 /* AxisScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B572022A129B903AC8D421F /* AxisScrollView.swift */; };
-		501CE75C4EB6601A82AD5409 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454D1933EFC1212910E6E44D /* Fonts.swift */; };
 		5085332B1A5B06C8C213ECDB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769D97159DCA1E4F7AED29AB /* BaseViewController.swift */; };
 		5143110F52CB4AE108E6832F /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A8B757B8EE2BE4E25AAD32 /* BaseView.swift */; };
 		54796C8496C2F4F5AE71B114 /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44877D35F71384240EE9120B /* Montserrat-Thin.ttf */; };
@@ -58,7 +57,6 @@
 		A1FB9DDE9AE854CA8142158A /* Montserrat-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4847B1064C253079965B2D5A /* Montserrat-ExtraBoldItalic.ttf */; };
 		B33A99E3AECD58D23DDA8E79 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88268A96479C5F8F827D3181 /* Coordinator.swift */; };
 		B355206A6EA2EE9B20C77B89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8950C95EB462563B82B6C517 /* SceneDelegate.swift */; };
-		BA4407035F877122802C3D47 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC8AB22F87FE1AB0050D7F8 /* Localization.swift */; };
 		BC83B275D377DACEB60714C8 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BB6B90CE54A3FB9463DD52 /* SignInView.swift */; };
 		C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B987BF6DF71C9B592152ADD5 /* MainTabBarViewController.swift */; };
 		CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F16D0E37163C320B0E6859 /* UIView+Constraints.swift */; };
@@ -107,6 +105,10 @@
 		CE31F8E02A2757C4003595CA /* SelectedHouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8DC2A2757C4003595CA /* SelectedHouseView.swift */; };
 		CE31F8E12A2757C4003595CA /* SelectedHouseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8DD2A2757C4003595CA /* SelectedHouseViewModel.swift */; };
 		CE31F8E42A2760A6003595CA /* SelectedHouseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31F8E32A2760A6003595CA /* SelectedHouseModel.swift */; };
+		CE403E222A4337BD0069621F /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE403E1E2A4337BD0069621F /* Fonts.swift */; };
+		CE403E232A4337BD0069621F /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE403E1F2A4337BD0069621F /* Localization.swift */; };
+		CE403E242A4337BD0069621F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE403E202A4337BD0069621F /* Colors.swift */; };
+		CE403E252A4337BD0069621F /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE403E212A4337BD0069621F /* Assets.swift */; };
 		CE481C722A2FBB84000E00BC /* HouseImagesModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C6E2A2FBB84000E00BC /* HouseImagesModuleBuilder.swift */; };
 		CE481C732A2FBB84000E00BC /* HouseImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C6F2A2FBB84000E00BC /* HouseImagesViewController.swift */; };
 		CE481C742A2FBB84000E00BC /* HouseImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE481C702A2FBB84000E00BC /* HouseImagesView.swift */; };
@@ -220,8 +222,6 @@
 		CEAEB9ED29ACA6B1005BBF50 /* PasswordRestoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9E929ACA6B1005BBF50 /* PasswordRestoreViewController.swift */; };
 		CEAEB9EE29ACA6B1005BBF50 /* PasswordRestoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9EA29ACA6B1005BBF50 /* PasswordRestoreView.swift */; };
 		CEAEB9EF29ACA6B1005BBF50 /* PasswordRestoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9EB29ACA6B1005BBF50 /* PasswordRestoreViewModel.swift */; };
-		CEAEB9F629AE2609005BBF50 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9F429AE2609005BBF50 /* Colors.swift */; };
-		CEAEB9F729AE2609005BBF50 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9F529AE2609005BBF50 /* Assets.swift */; };
 		CEAEB9F929AE34EC005BBF50 /* UserDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAEB9F829AE34EB005BBF50 /* UserDomainModel.swift */; };
 		CEB0FCC42A077FB6009EEABA /* UICollectionView+dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB0FCC32A077FB6009EEABA /* UICollectionView+dequeue.swift */; };
 		CEB9F67F2A17AE410082A674 /* AdAddressModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9F67B2A17AE410082A674 /* AdAddressModuleBuilder.swift */; };
@@ -293,11 +293,9 @@
 		37F16D0E37163C320B0E6859 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		3A13A6DA44E01BE29C91D87B /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		3B572022A129B903AC8D421F /* AxisScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisScrollView.swift; sourceTree = "<group>"; };
-		3EC8AB22F87FE1AB0050D7F8 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		404B00B670BDF26304438EE4 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
 		4204A762E062DA5EEE513D13 /* FavouriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCoordinator.swift; sourceTree = "<group>"; };
 		44877D35F71384240EE9120B /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.ttf"; sourceTree = "<group>"; };
-		454D1933EFC1212910E6E44D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		46B001527DE0C8233D769738 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic.ttf"; sourceTree = "<group>"; };
 		4847B1064C253079965B2D5A /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		51CFD4204AC5C192A2EB09E5 /* AuthNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkService.swift; sourceTree = "<group>"; };
@@ -386,6 +384,10 @@
 		CE31F8DC2A2757C4003595CA /* SelectedHouseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseView.swift; sourceTree = "<group>"; };
 		CE31F8DD2A2757C4003595CA /* SelectedHouseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseViewModel.swift; sourceTree = "<group>"; };
 		CE31F8E32A2760A6003595CA /* SelectedHouseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHouseModel.swift; sourceTree = "<group>"; };
+		CE403E1E2A4337BD0069621F /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		CE403E1F2A4337BD0069621F /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		CE403E202A4337BD0069621F /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		CE403E212A4337BD0069621F /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		CE481C6E2A2FBB84000E00BC /* HouseImagesModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseImagesModuleBuilder.swift; sourceTree = "<group>"; };
 		CE481C6F2A2FBB84000E00BC /* HouseImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseImagesViewController.swift; sourceTree = "<group>"; };
 		CE481C702A2FBB84000E00BC /* HouseImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseImagesView.swift; sourceTree = "<group>"; };
@@ -497,8 +499,6 @@
 		CEAEB9E929ACA6B1005BBF50 /* PasswordRestoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRestoreViewController.swift; sourceTree = "<group>"; };
 		CEAEB9EA29ACA6B1005BBF50 /* PasswordRestoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRestoreView.swift; sourceTree = "<group>"; };
 		CEAEB9EB29ACA6B1005BBF50 /* PasswordRestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRestoreViewModel.swift; sourceTree = "<group>"; };
-		CEAEB9F429AE2609005BBF50 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		CEAEB9F529AE2609005BBF50 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		CEAEB9F829AE34EB005BBF50 /* UserDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomainModel.swift; sourceTree = "<group>"; };
 		CEB0FCC32A077FB6009EEABA /* UICollectionView+dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+dequeue.swift"; sourceTree = "<group>"; };
 		CEB9F67B2A17AE410082A674 /* AdAddressModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdAddressModuleBuilder.swift; sourceTree = "<group>"; };
@@ -652,9 +652,9 @@
 				CEB0FCC32A077FB6009EEABA /* UICollectionView+dequeue.swift */,
 				CE1E2DCC2A078E1300328EAF /* UICollectionReusableView+identifiier.swift */,
 				CE1E2DD72A0946C700328EAF /* UIView+gesturePublisher.swift */,
-				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
 				CEFFB9AA2A260B6E0009F624 /* UINavigationController+popToSpecificController.swift */,
 				CE7153062A339011000CC3C5 /* UITextField+doneButton.swift */,
+				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -820,10 +820,10 @@
 		A5FC917D64B4B150762D2D84 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
-				CEAEB9F529AE2609005BBF50 /* Assets.swift */,
-				CEAEB9F429AE2609005BBF50 /* Colors.swift */,
-				454D1933EFC1212910E6E44D /* Fonts.swift */,
-				3EC8AB22F87FE1AB0050D7F8 /* Localization.swift */,
+				CE403E212A4337BD0069621F /* Assets.swift */,
+				CE403E202A4337BD0069621F /* Colors.swift */,
+				CE403E1E2A4337BD0069621F /* Fonts.swift */,
+				CE403E1F2A4337BD0069621F /* Localization.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -1622,7 +1622,6 @@
 				CEAE383929BB19680046198A /* SearchQueryBuilder.swift in Sources */,
 				CEA545F3297820A3007F9962 /* ChecmarkView.swift in Sources */,
 				CE5CCECF29FFF400007972CB /* SquareCellModel.swift in Sources */,
-				CEAEB9F629AE2609005BBF50 /* Colors.swift in Sources */,
 				CEF83F832A1BB09A009B0791 /* AdDetailsModuleBuilder.swift in Sources */,
 				CEAA10FB29DEE01000340401 /* HousesNetworkService.swift in Sources */,
 				CE481C7C2A2FC6A2000E00BC /* CrossButton.swift in Sources */,
@@ -1688,7 +1687,6 @@
 				CE0E27C729D43DE9001EDFCD /* RoomsNumberCell.swift in Sources */,
 				CE13E3C129DC82AB00B948C9 /* UserDataCell.swift in Sources */,
 				CEFE0A4C2A33656900B6ECA6 /* OrtCell.swift in Sources */,
-				501CE75C4EB6601A82AD5409 /* Fonts.swift in Sources */,
 				CEFFB9A02A2295CA0009F624 /* LivingAreaCell.swift in Sources */,
 				CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */,
 				CEE2DE7129F323660029AFF8 /* PhotoCellModel.swift in Sources */,
@@ -1725,12 +1723,10 @@
 				CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */,
 				CE0E27BB29D43C81001EDFCD /* DistanceCell.swift in Sources */,
 				744F123129D6DC930015A4D3 /* UserDataCellModel.swift in Sources */,
-				BA4407035F877122802C3D47 /* Localization.swift in Sources */,
 				CEF13C782A40826A001EA946 /* VasylView.swift in Sources */,
 				CE1E2E042A0D54B200328EAF /* FavouriteCell.swift in Sources */,
 				EDFD24AA92041FD400F9F11D /* MainTabBarCoordinator.swift in Sources */,
 				936E18287F780641A997D742 /* MainTabBarModuleBuilder.swift in Sources */,
-				CEAEB9F729AE2609005BBF50 /* Assets.swift in Sources */,
 				CEA5B72829B0A1B80038A29C /* Publisher+Sink.swift in Sources */,
 				C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */,
 				8DEAEE4E8A532047AAF41423 /* MainTabBarViewModel.swift in Sources */,
@@ -1762,8 +1758,10 @@
 				CE9881BA29A4F3550086F583 /* Endpoint.swift in Sources */,
 				03EA4466B3EA6DF4583F862E /* SettingsViewController.swift in Sources */,
 				CE5CCEBA29FAB09F007972CB /* FavouriteModuleBuilder.swift in Sources */,
+				CE403E252A4337BD0069621F /* Assets.swift in Sources */,
 				CE9430D829C8873200FFB94C /* TermsViewModel.swift in Sources */,
 				CE31F8E42A2760A6003595CA /* SelectedHouseModel.swift in Sources */,
+				CE403E242A4337BD0069621F /* Colors.swift in Sources */,
 				CE481C7F2A309FE5000E00BC /* HouseImagesCell.swift in Sources */,
 				CE481C742A2FBB84000E00BC /* HouseImagesView.swift in Sources */,
 				CE31F8E02A2757C4003595CA /* SelectedHouseView.swift in Sources */,
@@ -1780,6 +1778,7 @@
 				CE02BD802A164C3E007AD3C7 /* AddressModel.swift in Sources */,
 				CE5CCEBB29FAB09F007972CB /* FavouriteViewController.swift in Sources */,
 				CEFFB9A22A2395A80009F624 /* HouseSquareCell.swift in Sources */,
+				CE403E232A4337BD0069621F /* Localization.swift in Sources */,
 				CE5CCEC429FAE7A5007972CB /* MyHouseModuleBuilder.swift in Sources */,
 				BC83B275D377DACEB60714C8 /* SignInView.swift in Sources */,
 				CE7153072A339011000CC3C5 /* UITextField+doneButton.swift in Sources */,
@@ -1802,6 +1801,7 @@
 				CE63F86029D4B0F600268B7E /* UniversalCell.swift in Sources */,
 				CE0E27B029CE1DA9001EDFCD /* SearchFiltersViewController.swift in Sources */,
 				CEFEA50F29A7881F0085AB1D /* NetworkLogger.swift in Sources */,
+				CE403E222A4337BD0069621F /* Fonts.swift in Sources */,
 				E4CB518683283ED390099429 /* UIStackView+Ext.swift in Sources */,
 				CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */,
 				CE13E3BB29DC5AFA00B948C9 /* BackgroundCell.swift in Sources */,

@@ -15,6 +15,7 @@ enum HouseEndPoint: Endpoint {
     case housesCount
     case getUserAds(ownerId: String)
     case deleteAd(objectId: String)
+    case getHousesIn(poligon: String)
 
     var queries: HTTPQueries {
         switch self {
@@ -29,12 +30,15 @@ enum HouseEndPoint: Endpoint {
             return buildQuery(searchParams: searchParams) ?? [:]
         case .deleteAd:
             return [:]
+        case .getHousesIn(let poligon):
+            let searchParams = [SearchParam(key: .location, value: .inside(poligon: poligon))]
+            return buildQuery(searchParams: searchParams) ?? [:]
         }
     }
 
     var path: String? {
         switch self {
-        case .getHouses, .filter, .saveAd, .getUserAds:
+        case .getHouses, .filter, .saveAd, .getUserAds, .getHousesIn:
             return "/data/Houses"
         case .saveImage:
             return "/files/Houses"
@@ -47,7 +51,7 @@ enum HouseEndPoint: Endpoint {
 
     var method: HTTPMethod {
         switch self {
-        case .getHouses, .filter, .housesCount, .getUserAds:
+        case .getHouses, .filter, .housesCount, .getUserAds, .getHousesIn:
             return .get
         case .saveImage, .saveAd:
             return .post
@@ -58,7 +62,7 @@ enum HouseEndPoint: Endpoint {
 
     var headers: HTTPHeaders {
         switch self {
-        case .getHouses, .filter, .saveAd, .housesCount, .getUserAds, .deleteAd:
+        case .getHouses, .filter, .saveAd, .housesCount, .getUserAds, .deleteAd, .getHousesIn:
             return ["Content-Type": "application/json"]
         case .saveImage:
             return [:]
@@ -67,7 +71,7 @@ enum HouseEndPoint: Endpoint {
 
     var body: RequestBody? {
         switch self {
-        case .getHouses, .filter, .housesCount, .getUserAds, .deleteAd:
+        case .getHouses, .filter, .housesCount, .getUserAds, .deleteAd, .getHousesIn:
             return nil
         case let .saveImage(image):
             return .multipartBody(image)

@@ -12,7 +12,7 @@ struct SearchRequestModel: Hashable {
     return . init()
     }
     
-    var distance: Distance?
+    var distanceOnSphere: String?
     var propertyType: PropertyType?
     var minPrice: Int?
     var maxPrice: Int?
@@ -21,6 +21,7 @@ struct SearchRequestModel: Hashable {
     var maxSquare: Int?
     var constructionYear: PeriodOfBuilding?
     var garage: Garage?
+    var ortPolygon: String?
 }
 
 enum Garage: String, CaseIterable {

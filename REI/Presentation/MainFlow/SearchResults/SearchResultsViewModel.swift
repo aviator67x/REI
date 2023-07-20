@@ -33,13 +33,13 @@ final class SearchResultsViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
-        loadHouses()
-        getHousesCount()
+//        loadHouses()
+//        getHousesCount()
         setupBinding()
     }
 
     override func onViewWillAppear() {
-        model.getFavouriteHouses()
+//        model.getFavouriteHouses()
     }
 }
 
@@ -134,7 +134,9 @@ extension SearchResultsViewModel {
         model.loadHouses()
     }
     
-    func getAvailableHouses() {}
+    func getAvailableHouses(in poligon: String) {
+        model.getAvailableHouses(in: poligon)
+    }
 
     func editFavourites(item: SearchResultsItem) {
         switch item {

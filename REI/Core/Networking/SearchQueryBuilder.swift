@@ -12,17 +12,20 @@ enum SearchType: Equatable {
     case equalToString(parameter: String)
     case more(than: Int)
     case less(than: Int)
+    case inside(poligon: String)
+    case within(distance: String)
 }
 
 enum HouseColumn: CaseIterable {
     case ownerId
-    case distance
     case price
     case propertyType
     case square
     case roomsNumber
     case constructionYear
     case garage
+    case location
+    case distanceOnSphere
 }
 
 struct SearchParam: Equatable {
@@ -47,9 +50,15 @@ enum Search {
                     searchItems.append("\(param.key) >= \(value)")
                 case let .less(value):
                     searchItems.append("\(param.key) <= \(value)")
+                case let .inside(poligon):
+                    searchItems.append("Within(\(param.key), '\(poligon)') = True")
+                case let .within(distance):
+//                    searchItems.append("\(param.key)(location, 'POINT(52.6324 4.7534)') <= 10000")
+                    searchItems.append("\(param.key)\(distance)000")
                 }
             }
             let result = searchItems.joined(separator: " and ")
+            print("result: \(result)")
             return ["where": result]
         }
     }

@@ -55,6 +55,7 @@ final class AdPhotosView: BaseView {
         photoCollection.register(HousePhotoCell.self)
         setupDataSource()
     }
+    
     private func compositionalLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
 

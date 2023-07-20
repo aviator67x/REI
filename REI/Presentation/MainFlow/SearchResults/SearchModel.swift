@@ -108,9 +108,9 @@ final class SearchModel {
     func updateSearchFilters() {
         searchParametersSubject.value = []
 
-        if let distance = searchRequestModelSubject.value.distance {
+        if let distance = searchRequestModelSubject.value.distanceOnSphere {
             searchParametersSubject.value
-                .append(.init(key: .distance, value: .equalToInt(parameter: distance.rawValue)))
+                .append(.init(key: .distanceOnSphere, value: .within(distance: distance)))
         }
 
         if let minPrice = searchRequestModelSubject.value.minPrice {
@@ -158,9 +158,13 @@ final class SearchModel {
         housesSubject.value = []
         loadHouses()
     }
+    
+    func updateSearchRequestModel(ortPolygon: String) {
+        searchRequestModelSubject.value.ortPolygon = ortPolygon
+    }
 
-    func updateSearchRequestModel(distance: Distance) {
-        searchRequestModelSubject.value.distance = distance
+    func updateSearchRequestModel(distance: String) {
+        searchRequestModelSubject.value.distanceOnSphere = distance
     }
 
     func updateSearchRequestModel(minPrice: String) {
@@ -259,6 +263,24 @@ final class SearchModel {
                 self.searchRequestModelSubject.value = SearchRequestModel.empty
 //                isFilterActive = false
                 self.hasMoreToLoad = false
+            })
+            .store(in: &cancellables)
+    }
+    
+    func getAvailableHouses(in poligon: String) {
+        isLoadingSubject.send(true)
+        housesService.getAvailableHouses(in: poligon)
+            .receive(on: DispatchQueue.main)
+            .sinkWeakly ( self, receiveCompletion: { (self, completion) in
+                self.isLoadingSubject.send(false)
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                }
+            }, receiveValue: { (self, houses) in
+                print(houses)
             })
             .store(in: &cancellables)
     }

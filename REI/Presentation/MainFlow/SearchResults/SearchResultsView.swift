@@ -16,7 +16,7 @@ enum SearchResultsViewAction {
     case onCellHeartButtonPublisher(selectedItem: SearchResultsItem)
     case selectedItem(SearchResultsItem)
     case showAlert(UIAlertController)
-    case availableHousesDidTap
+    case visiblePoligon(coordinates: String)
 }
 
 final class SearchResultsView: BaseView {
@@ -117,7 +117,21 @@ final class SearchResultsView: BaseView {
         availableHousesButton.tapPublisher
             .sinkWeakly(self, receiveValue: {(self, _) in
                 let visibleRect = self.mapView.visibleMapRect
-                self.actionSubject.send(.availableHousesDidTap)
+                let region = self.mapView.region
+                let regionCenter = region.center
+                let spanLatitude = region.span.latitudeDelta
+                let spanLongitude = region.span.longitudeDelta
+                let nwLatitude = regionCenter.latitude + spanLatitude/2
+                let nwLongitude = regionCenter.longitude - spanLongitude/2
+                let swLatitude = regionCenter.latitude - spanLatitude/2
+                let swLongitude = nwLongitude
+                let seLatitude = swLatitude
+                let seLongitude = regionCenter.longitude + spanLongitude/2
+                let neLatitude = nwLatitude
+                let neLongitude = seLongitude
+                let poligon = "POLYGON((\(nwLongitude) \(nwLatitude), \(swLongitude) \(swLatitude), \(seLongitude) \(seLatitude), \(neLongitude) \(neLatitude), \(nwLongitude) \(nwLatitude)))"
+            
+                self.actionSubject.send(.visiblePoligon(coordinates: poligon))
             })
             .store(in: &cancellables)
     }

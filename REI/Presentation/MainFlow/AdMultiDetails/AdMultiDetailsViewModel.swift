@@ -31,8 +31,6 @@ final class AdMultiDetailsViewModel: BaseViewModel {
         model.updateAdCreatingRequestModel(with: item)
         transitionSubject.send(.popScreen)
     }
-    
-//    func updateAdCreatingModel(type: 
 
     func popScreen() {
         transitionSubject.send(.popScreen)

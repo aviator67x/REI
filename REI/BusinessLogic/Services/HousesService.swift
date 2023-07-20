@@ -24,21 +24,22 @@ protocol HousesService {
     func getHousesCount() -> AnyPublisher<Int, HousesServiceError>
     func getUserAds(ownerId: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func deleteAd(with id: String) -> AnyPublisher<Void, HousesServiceError>
+    func getAvailableHouses(in poligon: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
     private let housesNetworkService: HousesNetworkService
-    
+
     init(housesNetworkService: HousesNetworkService) {
         self.housesNetworkService = housesNetworkService
     }
-    
+
     func getHousesCount() -> AnyPublisher<Int, HousesServiceError> {
         housesNetworkService.getHousesCount()
-            .mapError { HousesServiceError.networking($0)}
+            .mapError { HousesServiceError.networking($0) }
             .eraseToAnyPublisher()
     }
-    
+
     func getHouses(pageSize: Int, offset: Int) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
         housesNetworkService.getHouses(pageSize: pageSize, skip: offset)
             .mapError { HousesServiceError.networking($0) }
@@ -47,7 +48,7 @@ final class HousesServiceImpl: HousesService {
             }
             .eraseToAnyPublisher()
     }
-    
+
     func searchHouses(_ parameters: [SearchParam]) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
         housesNetworkService.searchHouses(with: parameters)
             .mapError { HousesServiceError.networking($0) }
@@ -56,12 +57,12 @@ final class HousesServiceImpl: HousesService {
             }
             .eraseToAnyPublisher()
     }
-    
+
     func saveAd(
         houseImages: [HouseImageModel],
         house: AdCreatingRequestModel
     )
-    -> AnyPublisher<HouseResponseModel, HousesServiceError>
+        -> AnyPublisher<HouseResponseModel, HousesServiceError>
     {
         houseImages
             .map {
@@ -84,20 +85,27 @@ final class HousesServiceImpl: HousesService {
             }
             .eraseToAnyPublisher()
     }
-    
+
     func getUserAds(ownerId: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
-        
         return housesNetworkService.getUserAds(ownerId: ownerId)
-            .mapError { HousesServiceError.networking($0)}
+            .mapError { HousesServiceError.networking($0) }
             .map { value -> [HouseDomainModel] in
                 value.map { HouseDomainModel(model: $0) }
             }
-                .eraseToAnyPublisher()
+            .eraseToAnyPublisher()
     }
-    
+
     func deleteAd(with id: String) -> AnyPublisher<Void, HousesServiceError> {
         housesNetworkService.deleteAd(with: id)
-            .mapError { HousesServiceError.networking($0)}
+            .mapError { HousesServiceError.networking($0) }
+            .eraseToAnyPublisher()
+    }
+
+    func getAvailableHouses(in poligon: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
+        housesNetworkService.getAvailableHouses(in: poligon)
+            .mapError { HousesServiceError.networking($0) }
+            .map { value -> [HouseDomainModel] in value.map { HouseDomainModel(model: $0) }
+            }
             .eraseToAnyPublisher()
     }
 }

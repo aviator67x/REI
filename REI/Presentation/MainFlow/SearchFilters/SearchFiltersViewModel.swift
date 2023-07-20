@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import CoreLocation
 
 final class SearchFiltersViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -14,12 +15,18 @@ final class SearchFiltersViewModel: BaseViewModel {
 
     @Published var screenConfiguration = 0
     @Published private(set) var sections: [SearchFiltersCollection] = []
+    
+    private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
+    private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
 
     private lazy var ortSubject = CurrentValueSubject<String, Never>("")
+    private var point: String = ""
     private lazy var minPriceSubject = CurrentValueSubject<String, Never>("")
     private lazy var maxPriceSubject = CurrentValueSubject<String, Never>("")
     private lazy var minSquareSubject = CurrentValueSubject<String, Never>("")
     private lazy var maxSquareSubject = CurrentValueSubject<String, Never>("")
+    
+    
 
     private let model: SearchModel
     private var distanceCellModels: [DistanceCellModel] = [
@@ -47,8 +54,7 @@ final class SearchFiltersViewModel: BaseViewModel {
         .init(numberOfRooms: .five),
     ]
 
-    private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
-    private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
+   
 
     init(model: SearchModel) {
         self.model = model
@@ -65,6 +71,7 @@ final class SearchFiltersViewModel: BaseViewModel {
 extension SearchFiltersViewModel {
     func cleanFilters() {
         model.cleanSearchRequestModel()
+        ortSubject.value = ""
         minPriceSubject.value = ""
         maxPriceSubject.value = ""
         minSquareSubject.value = ""
@@ -84,8 +91,35 @@ extension SearchFiltersViewModel {
     func configureScreen(for index: Int) {
         screenConfiguration = index
     }
+    
+    func updateOrt(_ ort: String) {
+        self.ortSubject.value = ort
+        
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(ort, completionHandler: { (placemarks, error) in
+            if error != nil {
+                print("Failed to retrieve location")
+                return
+            }
+            
+            var location: CLLocation?
+            
+            if let placemarks = placemarks, placemarks.count > 0 {
+                location = placemarks.first?.location
+            }
+            
+            if let location = location {
+                let coordinate = location.coordinate
+                self.point = "POINT(\(coordinate.latitude) \(coordinate.longitude))"
+            }
+            else
+            {
+                print("No Matching Location Found")
+            }
+        })
+    }
 
-    func updateDistance(_ distance: DistanceCellModel) {
+    func updateDistanceOnSphere(_ distance: DistanceCellModel) {
         for (index, _) in distanceCellModels.enumerated() {
             distanceCellModels[index].isSelected = false
         }
@@ -93,7 +127,9 @@ extension SearchFiltersViewModel {
             return
         }
         distanceCellModels[selectedItemIndex].isSelected.toggle()
-        model.updateSearchRequestModel(distance: distance.distance)
+        let stringDistance = String(distance.distance.rawValue)
+        let searchParam = "(location, '\(point)') <= \(stringDistance)"
+        model.updateSearchRequestModel(distance: searchParam)
         updateDataSource()
     }
 
@@ -111,10 +147,6 @@ extension SearchFiltersViewModel {
     
     func updateMaxSquare(_ max: String) {
         maxSquareSubject.value = max
-    }
-    
-    func updateOrt(_ ort: String) {
-        ortSubject.value = ort
     }
 
     func updateType(_ type: PropertyTypeCellModel) {
@@ -183,18 +215,13 @@ private extension SearchFiltersViewModel {
                 self.model.updateSearchRequestModel(maxSquare: square)
             })
             .store(in: &cancellables)
-        
-        ortSubject
-            .sinkWeakly(self, receiveValue: { (self, square) in
-//                self.model.updateSearchRequestModel(maxSquare: square)
-            })
-            .store(in: &cancellables)
     }
 
     func updateDataSource() {
         let segmentControlSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .segmentControl, items: [.segmentControl])
         }()
+        
         let model = OrtCellModel(ort: ortSubject.value)
         let ortSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .ort, items: [.ort(model)])

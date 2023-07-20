@@ -126,7 +126,8 @@ extension AdMultiDetailsView {
         dataSource = UICollectionViewDiffableDataSource<
             AdMultiDetailsSection,
             AdMultiDetailsItem
-        >(collectionView: collectionView, cellProvider: {
+        >(collectionView: collectionView,
+          cellProvider: {
             collectionView, indexPath, item -> UICollectionViewCell in
             let cell: DetailedCell = collectionView.dedequeueReusableCell(for: indexPath)
             switch item {
