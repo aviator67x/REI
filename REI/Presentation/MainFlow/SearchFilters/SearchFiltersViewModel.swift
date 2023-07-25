@@ -6,8 +6,8 @@
 //
 
 import Combine
-import Foundation
 import CoreLocation
+import Foundation
 
 final class SearchFiltersViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -15,18 +15,16 @@ final class SearchFiltersViewModel: BaseViewModel {
 
     @Published var screenConfiguration = 0
     @Published private(set) var sections: [SearchFiltersCollection] = []
-    
+
     private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
     private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
 
     private lazy var ortSubject = CurrentValueSubject<String, Never>("")
-    private var point: String = ""
+    private var point = ""
     private lazy var minPriceSubject = CurrentValueSubject<String, Never>("")
     private lazy var maxPriceSubject = CurrentValueSubject<String, Never>("")
     private lazy var minSquareSubject = CurrentValueSubject<String, Never>("")
     private lazy var maxSquareSubject = CurrentValueSubject<String, Never>("")
-    
-    
 
     private let model: SearchModel
     private var distanceCellModels: [DistanceCellModel] = [
@@ -53,8 +51,6 @@ final class SearchFiltersViewModel: BaseViewModel {
         .init(numberOfRooms: .four),
         .init(numberOfRooms: .five),
     ]
-
-   
 
     init(model: SearchModel) {
         self.model = model
@@ -91,29 +87,27 @@ extension SearchFiltersViewModel {
     func configureScreen(for index: Int) {
         screenConfiguration = index
     }
-    
+
     func updateOrt(_ ort: String) {
-        self.ortSubject.value = ort
-        
+        ortSubject.value = ort
+
         let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(ort, completionHandler: { (placemarks, error) in
+        geocoder.geocodeAddressString(ort, completionHandler: { placemarks, error in
             if error != nil {
                 print("Failed to retrieve location")
                 return
             }
-            
+
             var location: CLLocation?
-            
-            if let placemarks = placemarks, placemarks.count > 0 {
+
+            if let placemarks = placemarks, !placemarks.isEmpty {
                 location = placemarks.first?.location
             }
-            
+
             if let location = location {
                 let coordinate = location.coordinate
                 self.point = "POINT(\(coordinate.latitude) \(coordinate.longitude))"
-            }
-            else
-            {
+            } else {
                 print("No Matching Location Found")
             }
         })
@@ -140,11 +134,11 @@ extension SearchFiltersViewModel {
     func updateMaxPrice(_ max: String) {
         maxPriceSubject.value = max
     }
-    
+
     func updateMinSquare(_ min: String) {
         minSquareSubject.value = min
     }
-    
+
     func updateMaxSquare(_ max: String) {
         maxSquareSubject.value = max
     }
@@ -221,7 +215,7 @@ private extension SearchFiltersViewModel {
         let segmentControlSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .segmentControl, items: [.segmentControl])
         }()
-        
+
         let model = OrtCellModel(ort: ortSubject.value)
         let ortSection: SearchFiltersCollection = {
             SearchFiltersCollection(sections: .ort, items: [.ort(model)])
@@ -235,21 +229,30 @@ private extension SearchFiltersViewModel {
         )
 
         let priceSection: SearchFiltersCollection = {
-            let model = PriceCellModel(minPrice: minPriceSubject.value, maxPrice: maxPriceSubject.value)
+            let model = PriceCellModel(
+                minPrice: minPriceSubject.value,
+                maxPrice: maxPriceSubject.value
+            )
             return SearchFiltersCollection(sections: .price, items: [.price(model: model)])
         }()
 
         let yearSection: SearchFiltersCollection = {
-            SearchFiltersCollection(sections: .year, items: [.year(.since1850)])
+            SearchFiltersCollection(
+                sections: .year,
+                items: [.year(.since1850)])
         }()
 
         let squareSection: SearchFiltersCollection = {
             let model = SquareCellModel(minSquare: minSquareSubject.value, maxSquare: maxSquareSubject.value)
-            return SearchFiltersCollection(sections: .square, items: [.square(model: model)])
+            return SearchFiltersCollection(
+                sections: .square,
+                items: [.square(model: model)])
         }()
 
         let garageSection: SearchFiltersCollection = {
-            SearchFiltersCollection(sections: .garage, items: [.garage(.garage)])
+            SearchFiltersCollection(
+                sections: .garage,
+                items: [.garage(.garage)])
         }()
 
         let numberOfRoomsItems = numberOfRoomsCellModels
@@ -267,7 +270,9 @@ private extension SearchFiltersViewModel {
         )
 
         let backgroundSection: SearchFiltersCollection = {
-            SearchFiltersCollection(sections: .backgroundItem, items: [.backgroundItem])
+            SearchFiltersCollection(
+                sections: .backgroundItem,
+                items: [.backgroundItem])
         }()
 
         sections = [

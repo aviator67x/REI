@@ -11,9 +11,12 @@ import Combine
 
 final class SquareCell: UICollectionViewListCell {   
     private let stack = UIStackView()
-    private let minTextField = UITextField()
-    private let maxTextField = UITextField()
+    private let minTextField = TextField()
+    private let maxTextField = TextField()
     private let middleLabel = UILabel()
+    
+    private var minSquare = 0
+    private var maxSquare = 0
     
     private var cancellables = Set<AnyCancellable>()
 
@@ -24,6 +27,7 @@ final class SquareCell: UICollectionViewListCell {
         super.init(frame: frame)
         setupLayout()
         setupUI()
+        addPadding()
         setupBinding()
     }
 
@@ -45,6 +49,7 @@ final class SquareCell: UICollectionViewListCell {
         minTextField.layer.borderWidth = 1
         minTextField.keyboardType = .decimalPad
         minTextField.addDoneButtonOnKeyboard()
+        minTextField.delegate = self
         
         maxTextField.placeholder = " Max square"
         maxTextField.layer.cornerRadius = 3
@@ -52,10 +57,20 @@ final class SquareCell: UICollectionViewListCell {
         maxTextField.layer.borderWidth = 1
         maxTextField.keyboardType = .decimalPad
         maxTextField.addDoneButtonOnKeyboard()
+        maxTextField.delegate = self
         
         stack.alignment = .center
         stack.distribution = .equalSpacing
         stack.spacing = 16
+    }
+    
+    private func addPadding() {
+        let maxPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        maxTextField.leftView = maxPaddingView
+        maxTextField.leftViewMode = .always
+        let minPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        minTextField.leftView = minPaddingView
+        minTextField.leftViewMode = .always
     }
 
     private func setupLayout() {
@@ -87,7 +102,12 @@ final class SquareCell: UICollectionViewListCell {
             .unwrap()
             .removeDuplicates()
             .sinkWeakly(self, receiveValue: { (self, min) in
-                self.minValue?(min)
+                self.minSquare = Int(min) ?? 0
+                if self.maxSquare != 0 &&
+                    self.minSquare < self.maxSquare || self.maxSquare == 0
+                {
+                    self.minValue?(min)
+                }
             })
             .store(in: &cancellables)
        
@@ -96,9 +116,52 @@ final class SquareCell: UICollectionViewListCell {
             .dropFirst()
             .unwrap()
             .removeDuplicates()
-            .sinkWeakly(self, receiveValue: { (self, min) in
-                self.maxValue?(min)
+            .sinkWeakly(self, receiveValue: { (self, max) in
+                self.maxSquare = Int(max) ?? 0
+                if self.minSquare != 0,
+                   self.maxSquare < self.minSquare {
+                    self.maxValue?(self.minTextField.text ?? "")
+                } else {
+                    self.maxValue?(max)
+                }
             })
             .store(in: &cancellables)
+    }
+}
+
+extension SquareCell: UITextFieldDelegate {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        switch textField {
+        case minTextField:
+            if let text = minTextField.text,
+               let textRange = Range(range, in: text),
+               maxSquare != 0,
+               maxSquare <= minSquare
+            {
+                minTextField.text = text.replacingCharacters(
+                    in: textRange,
+                    with: ""
+                )
+            }
+        default:
+            break
+        }
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case maxTextField:
+            if maxSquare <= minSquare {
+                maxTextField.text = minTextField.text
+            }
+           
+        default:
+            break
+        }
     }
 }
