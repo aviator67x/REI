@@ -185,6 +185,7 @@ extension SearchResultsView {
     func showCollection(sections: [SearchResultsCollection]) {
         collectionView.isHidden = false
         mapView.isHidden = true
+        availableHousesButton.isHidden = true
         setupSnapShot(sections: sections)
     }
 

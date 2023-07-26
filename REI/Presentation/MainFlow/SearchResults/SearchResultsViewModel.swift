@@ -104,13 +104,6 @@ private extension SearchResultsViewModel {
             sectionsSubject.value = [section]
 
         case .list:
-            let mainViewItem = housesSubject.value
-                .map { MainCellModel(data: $0) }
-                .map { SearchResultsItem.main($0) }
-                .randomElement()
-            guard let item = mainViewItem else { return }
-            let manViewSection = SearchResultsCollection(section: .main, items: [item])
-
             let items = housesSubject.value
                 .map { if favouriteIdsSubject.value.contains($0.id) {
                     return ListCellModel(data: $0, isFavourite: true)
@@ -120,7 +113,17 @@ private extension SearchResultsViewModel {
                 }
                 .map { SearchResultsItem.list($0) }
             let listSection = SearchResultsCollection(section: .list, items: items)
-            sectionsSubject.value = [manViewSection, listSection]
+            
+            let mainViewItem = housesSubject.value
+                .map { MainCellModel(data: $0) }
+                .map { SearchResultsItem.main($0) }
+                .randomElement()
+           if let item = mainViewItem  {
+              let mainViewSection = SearchResultsCollection(section: .main, items: [item])
+               sectionsSubject.value = [mainViewSection, listSection]
+           } else {
+               sectionsSubject.value = [listSection]
+           }
 
         case .map:
             break

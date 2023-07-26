@@ -9,13 +9,13 @@ import Foundation
 
 struct MainCellModel: Hashable {
     let uuid = UUID()
-    let id: String?
+    let id: String
     let image: URL?
     let street: String
     let ort: String
     let price: Int
     
-    init(id: String? = nil, image: URL, street: String, ort: String, price: Int) {
+    init(id: String, image: URL?, street: String, ort: String, price: Int) {
         self.id = id
         self.image = image
         self.street = street
