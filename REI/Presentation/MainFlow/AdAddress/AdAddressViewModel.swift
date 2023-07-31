@@ -66,47 +66,39 @@ private extension AdAddressViewModel {
     func validateAddress() {
         guard let ort = validationSubject.value.ort,
               let street = validationSubject.value.street,
-              let house = validationSubject.value.house
+              let house = validationSubject.value.house,
+              validationSubject.value.isOrtValid,
+              validationSubject.value.isStreetValid,
+              validationSubject.value.isHouseValid
         else {
             return
         }
-        let address = [ort, street, house].joined(separator: " ")
-        validationSubject.value.isValid = address == "Broek-Op-Langedijk Dorpstraat 41" ? true : false
-        guard let houseInt = Int(house),
-              validationSubject.value.isValid
+        let address = [ort, street, house].joined(separator: ", ")
+
+        guard let houseInt = Int(house)
         else {
             return
         }
 
-        getHouseLocation(from: address)
-            .sinkWeakly(self, receiveValue: { (self, location) in
-                let pointLocation = Point(type: "Point", coordinates: [location.coordinates[0], location.coordinates[1]])
-                self.model.updateAdCreatingRequestModel(
-                    location: pointLocation,
-                    ort: ort,
-                    street: street,
-                    house: houseInt
-                )
-            })
-            .store(in: &cancellables)
-    }
-
-    func getHouseLocation(from address: String) -> AnyPublisher<Point, Never> {
         let geoCoder = CLGeocoder()
-        let publisher = PassthroughSubject<Point, Never>()
         geoCoder.geocodeAddressString(address) { [weak self] placemarks, _ in
             guard
                 let placemarks = placemarks,
                 let location = placemarks.first?.location
             else {
+                self?.validationSubject.value.isValid = false
                 return
             }
+            self?.validationSubject.value.isValid = true
             let lat = location.coordinate.latitude
             let long = location.coordinate.longitude
             let point = Point(type: "Point", coordinates: [lat, long])
-            publisher.send(point)
+            self?.model.updateAdCreatingRequestModel(
+                location: point,
+                ort: ort,
+                street: street,
+                house: houseInt
+            )
         }
-        return publisher
-            .eraseToAnyPublisher()
     }
 }
