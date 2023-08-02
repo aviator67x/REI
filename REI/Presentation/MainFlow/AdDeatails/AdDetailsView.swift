@@ -219,7 +219,7 @@ final class AdDetailsView: BaseView {
         typeLabel.text = " Type of property"
         numberLabel.text = " Number of rooms"
         yearLabel.text = " Year of building"
-        garageLabel.text = " Type of parkng place"
+        garageLabel.text = " Type of parking place"
         livingAreaLabel.text = " Living area"
         squareLabel.text = " Square"
         priceLabel.text = " Price"
@@ -380,6 +380,8 @@ final class AdDetailsView: BaseView {
     }
 
     func setupView(_ adDetails: AdCreatingRequestModel) {
+        let address = [adDetails.ort ?? "", adDetails.street ?? "", String(adDetails.house ?? 0) ].joined(separator: " ")
+        addressLabel.text = address
         var isRequestModelFilled = false
         if adDetails.house != nil,
            adDetails.price != nil,
@@ -418,14 +420,23 @@ extension AdDetailsView: UITextViewDelegate {
             let newString = currentString.replacingCharacters(in: range, with: string)
 
             return newString.count <= maxLength
+            
         case livingAreaTextField, squareTextField:
             let maxLength = 5
             let currentString = (textField.text ?? "") as NSString
             let newString = currentString.replacingCharacters(in: range, with: string)
 
             return newString.count <= maxLength
+            
+        case priceTextField:
+            let maxLength = 8
+            let currentString = (textField.text ?? "") as NSString
+            let newString = currentString.replacingCharacters(in: range, with: string)
+
+            return newString.count <= maxLength
+
         default:
-            let maxLength = 11
+            let maxLength = 0
             let currentString = (textField.text ?? "") as NSString
             let newString = currentString.replacingCharacters(in: range, with: string)
 
