@@ -1,6 +1,6 @@
 //
 //  PasswordRestoreView.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 27.02.2023.
 //
@@ -24,6 +24,7 @@ final class PasswordRestoreView: BaseView {
     private let emailTextField = UITextField()
     private let crossButton = UIButton()
 
+    // MARK: - Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
@@ -34,17 +35,18 @@ final class PasswordRestoreView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Private methods
+    @objc
+    private func hideKeyboardByTappingOutside() {
+        endEditing(true)
+    }
+
     private func initialSetup() {
         setupLayout()
         setupUI()
         bindActions()
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTappingOutside))
         addGestureRecognizer(tap)
-    }
-
-    @objc
-    func hideKeyboardByTappingOutside() {
-        endEditing(true)
     }
 
     private func bindActions() {
@@ -108,7 +110,10 @@ final class PasswordRestoreView: BaseView {
             $0.bottom.equalToSuperview().offset(-120)
         }
     }
+}
 
+// MARK: - Internal extension
+extension PasswordRestoreView {
     func updateRestoreButton(_ value: Bool) {
         restorePasswordButton.alpha = value ? 1 : 0.5
     }

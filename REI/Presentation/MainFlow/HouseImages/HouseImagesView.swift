@@ -1,6 +1,6 @@
 //
 //  HouseImagesView.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 06.06.2023.
 //

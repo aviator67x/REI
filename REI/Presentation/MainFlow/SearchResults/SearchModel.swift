@@ -1,6 +1,6 @@
 //
 //  FindModel.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 14.04.2023.
 //

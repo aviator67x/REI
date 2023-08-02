@@ -1,6 +1,6 @@
 //
 //  UICollectionView+dequeue.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 07.05.2023.
 //

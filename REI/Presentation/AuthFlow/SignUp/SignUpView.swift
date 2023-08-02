@@ -1,13 +1,13 @@
 //
 //  SignUpView.swift
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 12.12.2021.
+//  Created by user on 12.02.2023.
 //
 
 import Combine
-import UIKit
 import SnapKit
+import UIKit
 
 enum SignUpViewAction {
     case nameDidChange(String)
@@ -46,6 +46,7 @@ final class SignUpView: BaseView {
     private var isPasswordVisible = false
     private var isConfirmPasswordVisible = false
 
+    // MARK: - Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
@@ -56,17 +57,18 @@ final class SignUpView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Private methods
+    @objc
+    private func hideKeyboardByTappingOutside() {
+        endEditing(true)
+    }
+
     private func initialSetup() {
         setupLayout()
         setupUI()
         bindActions()
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTappingOutside))
         addGestureRecognizer(tap)
-    }
-
-    @objc
-    func hideKeyboardByTappingOutside() {
-        endEditing(true)
     }
 
     func setSignUpButton(enabled: Bool) {
@@ -118,7 +120,7 @@ final class SignUpView: BaseView {
                 handleConfirmPasswordTextField()
             }
             .store(in: &cancellables)
-        
+
         crossButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.actionSubject.send(.crossDidTap)
@@ -131,7 +133,7 @@ final class SignUpView: BaseView {
 
         logoView.image = UIImage(named: "newLogo")
         logoView.tintColor = .orange
-        
+
         var config = UIButton.Configuration.plain()
         config.image = UIImage(
             systemName: "multiply",
@@ -140,7 +142,7 @@ final class SignUpView: BaseView {
         crossButton.configuration = config
         crossButton.imageView?.clipsToBounds = true
         crossButton.tintColor = .white
-        
+
         nameTextField.placeholder = Localization.name
         emailTextField.placeholder = Localization.email
 
@@ -195,7 +197,7 @@ final class SignUpView: BaseView {
             $0.leading.equalToSuperview()
             $0.size.equalTo(150)
         }
-        
+
         let stack = UIStackView()
         stack.setup(axis: .vertical, alignment: .fill, distribution: .fill, spacing: Constants.textFieldSpacing)
         stack.addSpacer(200)
@@ -215,7 +217,7 @@ final class SignUpView: BaseView {
 
         addSubview(scrollView, withEdgeInsets: .zero, safeArea: true, bottomToKeyboard: true)
         scrollView.contentView.addSubview(stack, withEdgeInsets: .all(Constants.containerSpacing))
-        
+
         scrollView.contentView.addSubview(crossButton) {
             $0.top.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().inset(20)
@@ -246,7 +248,10 @@ final class SignUpView: BaseView {
             confirmPasswordRightImage.setImage(eyeSlashImage, for: .normal)
         }
     }
+}
 
+// MARK: - Internal extension
+extension SignUpView {
     func showNameErrorMessage(message: String) {
         DispatchQueue.main.async {
             self.nameErrorMessageLabel.text = message

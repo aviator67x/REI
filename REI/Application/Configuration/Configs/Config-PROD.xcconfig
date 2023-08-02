@@ -1,15 +1,15 @@
 //
 //  Config-PROD.xcconfig
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 16.12.2021.
+//  Created by user on 16.12.2021.
 //
 
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
 APP_ENVIRONMENT = prod
-APP_NAME = MVVMSkeleton
+APP_NAME = REI
 APP_BUNDLE_ID = com.chi.mvvmskeleton
 APP_API_KEY = 04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B
 APP_APP_ID = DD1C6C3C-1432-CEA8-FF78-F071F66BF000

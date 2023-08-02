@@ -1,6 +1,6 @@
 //
 //  PasswordRestoreViewModel.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 27.02.2023.
 //
@@ -11,25 +11,26 @@ import Foundation
 final class PasswordRestoreViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<PasswordRestoreTransition, Never>()
-    
+
     private let authService: AuthNetworkService
-    
+
     private(set) lazy var showAlertPublisher = showAlertSubject.eraseToAnyPublisher()
     private lazy var showAlertSubject = PassthroughSubject<Void, Never>()
-    
-//    private(set) lazy var emailPublisher = emailSubject.eraseToAnyPublisher()
+
     private lazy var emailSubject = CurrentValueSubject<String, Never>("")
-    
+
     private(set) lazy var isInputValidSubjectPublisher = isInputValidSubject.eraseToAnyPublisher()
     private lazy var isInputValidSubject = CurrentValueSubject<Bool, Never>(false)
-    
+
+    // MARK: - Life cycle
     init(authServicw: AuthNetworkService) {
         self.authService = authServicw
 
         super.init()
         setupBinding()
     }
-    
+
+    // MARK: - Private methods
     private func setupBinding() {
         emailSubject
             .sinkWeakly(self, receiveValue: { (self, text) in
@@ -37,7 +38,10 @@ final class PasswordRestoreViewModel: BaseViewModel {
             })
             .store(in: &cancellables)
     }
-    
+}
+
+// MARK: - Internal extension
+extension PasswordRestoreViewModel {
     func restorePassword() {
         let requestModel = RestoreRequest(email: emailSubject.value)
         authService.restorePassword(requestModel)
@@ -56,16 +60,16 @@ final class PasswordRestoreViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
     }
-    
+
     func updateEmail(_ email: String) {
-        self.emailSubject.value = email
+        emailSubject.value = email
     }
-    
+
     func popScreen() {
-        self.transitionSubject.send(.popScreen)
+        transitionSubject.send(.popScreen)
     }
-    
+
     func onBackDidTap() {
-        self.transitionSubject.send(.finishFow)
+        transitionSubject.send(.finishFow)
     }
 }

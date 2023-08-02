@@ -1266,8 +1266,8 @@
 			isa = PBXGroup;
 			children = (
 				CEAEB9E829ACA6B1005BBF50 /* PasswordRestoreModuleBuilder.swift */,
-				CEAEB9E929ACA6B1005BBF50 /* PasswordRestoreViewController.swift */,
 				CEAEB9EA29ACA6B1005BBF50 /* PasswordRestoreView.swift */,
+				CEAEB9E929ACA6B1005BBF50 /* PasswordRestoreViewController.swift */,
 				CEAEB9EB29ACA6B1005BBF50 /* PasswordRestoreViewModel.swift */,
 			);
 			path = PasswordRestore;

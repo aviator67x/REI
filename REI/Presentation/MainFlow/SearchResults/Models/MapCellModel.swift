@@ -1,6 +1,6 @@
 //
 //  MapCellModel.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 02.06.2023.
 //

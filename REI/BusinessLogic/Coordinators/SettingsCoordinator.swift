@@ -1,8 +1,8 @@
 //
 //  SettingsCoordinator.swift
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 28.11.2021.
+//  Created by user on 28.11.2021.
 //
 
 import Combine

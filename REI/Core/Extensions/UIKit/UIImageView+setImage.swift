@@ -1,6 +1,6 @@
 //
 //  UIImageView+setImage.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 14.03.2023.
 //

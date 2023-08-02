@@ -1,8 +1,8 @@
 //
 //  AppEnvironment.swift
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 16.12.2021.
+//  Created by user on 16.12.2021.
 //
 
 import Foundation

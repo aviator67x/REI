@@ -1,6 +1,6 @@
 //
 //  CollectionCells.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 21.03.2023.
 //

@@ -1,6 +1,6 @@
 //
 //  UIView+isHidden.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 24.04.2023.
 //

@@ -1,8 +1,8 @@
 //
 //  SignInViewController.swift
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 12.12.2021.
+//  Created by user on 12.02.2023.
 //
 
 import UIKit
@@ -22,6 +22,7 @@ final class SignInViewController: BaseViewController<SignInViewModel> {
         navigationController?.navigationBar.isHidden = true
     }
 
+    // MARK: - Private methods
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in

@@ -1,6 +1,6 @@
 //
 //  AuthPlugin.swift
-//  MVVMSkeleton
+//  REI
 //
 //  Created by user on 14.12.2021.
 //

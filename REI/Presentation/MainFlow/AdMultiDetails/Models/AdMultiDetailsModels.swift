@@ -1,6 +1,6 @@
 //
 //  AdMultiDetailsModels.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 22.05.2023.
 //

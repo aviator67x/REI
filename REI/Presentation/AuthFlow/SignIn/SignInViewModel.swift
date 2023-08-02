@@ -1,8 +1,8 @@
 //
 //  SignInViewModel.swift
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 12.12.2021.
+//  Created by user on 12.02.2023.
 //
 
 import Combine
@@ -24,10 +24,11 @@ final class SignInViewModel: BaseViewModel {
     @Published var isPasswordValid: State = .invalid(errorMessage: nil)
 
     @Published private(set) var isInputValid = false
-    
+
     private(set) lazy var showAlertPublisher = showAlertSubject.eraseToAnyPublisher()
     private lazy var showAlertSubject = PassthroughSubject<Void, Never>()
 
+    // MARK: - Life cycle
     init(
         authService: AuthNetworkService,
         userService: UserService
@@ -39,6 +40,11 @@ final class SignInViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
+        setupBinding()
+    }
+
+    // MARK: - Private methods
+    private func setupBinding() {
         emailSubject
             .dropFirst()
             .map { login in
@@ -50,7 +56,7 @@ final class SignInViewModel: BaseViewModel {
             .store(in: &cancellables)
 
         $password
-//            .map { password in TextFieldValidator(type: .password).validateText(text: password) }
+            //            .map { password in TextFieldValidator(type: .password).validateText(text: password) }
             .dropFirst()
             .map { $0.count > 8 }
             .sink { [unowned self] state in
@@ -68,7 +74,10 @@ final class SignInViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
     }
+}
 
+// MARK: - Internal extension
+extension SignInViewModel {
     func setEmail(_ text: String) {
         emailSubject.send(text)
     }
@@ -83,7 +92,6 @@ final class SignInViewModel: BaseViewModel {
                 switch completion {
                 case let .failure(error):
                     debugPrint(error.localizedDescription)
-//                    self?.errorSubject.send(error)
                     self?.showAlertSubject.send()
                 case .finished:
                     debugPrint("SignIn is successfully finished")

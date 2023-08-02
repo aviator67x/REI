@@ -1,6 +1,6 @@
 //
 //  TestSignUpModuleViewController.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 03.02.2023.
 //
@@ -22,6 +22,7 @@ final class SignUpViewController: BaseViewController<SignUpViewModel> {
         super.viewDidLoad()
     }
 
+    // MARK: - Private methods
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in

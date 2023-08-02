@@ -1,6 +1,6 @@
 //
 //  UserModel.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 28.02.2023.
 //

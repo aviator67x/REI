@@ -1,6 +1,6 @@
 //
 //  AdDetailsView.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 22.05.2023.
 //
@@ -285,14 +285,14 @@ final class AdDetailsView: BaseView {
         addSubview(scrollView) {
             $0.leading.top.trailing.bottom.equalToSuperview()
         }
-        
+
         scrollView.addSubview(pageControl) {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().offset(20)
             $0.height.equalTo(20)
             $0.width.equalTo(200)
         }
-        
+
         scrollView.addSubview(crossButton) {
             $0.centerY.equalTo(pageControl.snp.centerY)
             $0.trailing.equalToSuperview().inset(16)
@@ -354,7 +354,7 @@ final class AdDetailsView: BaseView {
                 squareStack,
                 priceStack,
             ])
-        
+
         scrollView.addSubview(lineView) {
             $0.top.equalTo(stackView.snp.bottom).offset(70)
             $0.leading.trailing.equalToSuperview()
@@ -380,7 +380,7 @@ final class AdDetailsView: BaseView {
     }
 
     func setupView(_ adDetails: AdCreatingRequestModel) {
-        let address = [adDetails.ort ?? "", adDetails.street ?? "", String(adDetails.house ?? 0) ].joined(separator: " ")
+        let address = [adDetails.ort ?? "", adDetails.street ?? "", String(adDetails.house ?? 0)].joined(separator: " ")
         addressLabel.text = address
         var isRequestModelFilled = false
         if adDetails.house != nil,
@@ -420,14 +420,14 @@ extension AdDetailsView: UITextViewDelegate {
             let newString = currentString.replacingCharacters(in: range, with: string)
 
             return newString.count <= maxLength
-            
+
         case livingAreaTextField, squareTextField:
             let maxLength = 5
             let currentString = (textField.text ?? "") as NSString
             let newString = currentString.replacingCharacters(in: range, with: string)
 
             return newString.count <= maxLength
-            
+
         case priceTextField:
             let maxLength = 8
             let currentString = (textField.text ?? "") as NSString
@@ -441,6 +441,27 @@ extension AdDetailsView: UITextViewDelegate {
             let newString = currentString.replacingCharacters(in: range, with: string)
 
             return newString.count <= maxLength
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let square = Int(squareTextField.text ?? ""),
+              let livingArea = Int(livingAreaTextField.text ?? "")
+        else {
+            return
+        }
+        switch textField {
+        case squareTextField:
+            if square <= livingArea {
+                squareTextField.text = livingAreaTextField.text
+            }
+            
+        case livingAreaTextField:
+            if square <= livingArea {
+                livingAreaTextField.text = squareTextField.text
+            }
+        default:
+            break
         }
     }
 }

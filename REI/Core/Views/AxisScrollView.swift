@@ -1,8 +1,8 @@
 //
 //  AxisScrollView.swift
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 12.12.2021.
+//  Created by user on 12.02.2023.
 //
 
 import UIKit

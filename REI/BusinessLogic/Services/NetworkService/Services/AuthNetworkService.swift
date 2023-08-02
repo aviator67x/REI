@@ -1,8 +1,8 @@
 //
 //  AuthService.swift
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 20.11.2021.
+//  Created by user on 20.11.2021.
 //
 
 import Combine

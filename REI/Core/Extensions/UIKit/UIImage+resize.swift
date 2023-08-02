@@ -1,6 +1,6 @@
 //
 //  UIImage+resize.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 22.03.2023.
 //

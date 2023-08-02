@@ -1,6 +1,6 @@
 //
 //  AdPhotosViewModel.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 25.05.2023.
 //

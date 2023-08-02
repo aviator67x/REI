@@ -1,6 +1,6 @@
 //
 //  FavouriteCell.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 11.05.2023.
 //

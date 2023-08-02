@@ -1,6 +1,6 @@
 //
 //  InfoView.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 04.05.2023.
 //

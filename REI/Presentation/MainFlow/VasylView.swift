@@ -1,6 +1,6 @@
 //
 //  VasylView.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 19.06.2023.
 //

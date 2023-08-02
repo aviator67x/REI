@@ -1,6 +1,6 @@
 //
 //  NetworkManager.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by user on 20.02.2023.
 //

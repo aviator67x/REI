@@ -54,9 +54,9 @@ internal enum Localization {
   /// Email
   internal static let email = Localization.tr("Localizable", "email", fallback: "Email")
   /// Localizable.strings
-  ///   MVVMSkeleton
+  ///   REI
   /// 
-  ///   Created by Roman Savchenko on 12.12.2021.
+  ///   Created by user on 12.02.2023.
   internal static let error = Localization.tr("Localizable", "error", fallback: "Error")
   /// Favourite
   internal static let favourite = Localization.tr("Localizable", "favourite", fallback: "Favourite")

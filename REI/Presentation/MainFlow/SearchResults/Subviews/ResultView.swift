@@ -1,6 +1,6 @@
 //
 //  ResultView.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 21.04.2023.
 //

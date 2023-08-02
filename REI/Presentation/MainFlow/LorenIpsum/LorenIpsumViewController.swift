@@ -1,6 +1,6 @@
 //
 //  LorenIpsumViewController.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 07.06.2023.
 //

@@ -1,8 +1,8 @@
 //
 //  UserDataCellModel.swift
-//  RomaMVVM
+//  REI
 //
-//  Created by Roman Savchenko on 31.03.2023.
+//  Created by user on 31.03.2023.
 //
 
 import Foundation

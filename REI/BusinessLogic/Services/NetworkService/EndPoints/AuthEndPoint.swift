@@ -1,6 +1,6 @@
 //
 //  AuthEndPoint.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 20.02.2023.
 //

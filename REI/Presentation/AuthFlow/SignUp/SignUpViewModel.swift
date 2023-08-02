@@ -1,8 +1,8 @@
 //
 //  SignUpViewModel.swift
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 12.12.2021.
+//  Created by user on 12.02.2023.
 //
 
 import Combine
@@ -20,7 +20,7 @@ final class SignUpViewModel: BaseViewModel {
 
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SignUpTransition, Never>()
-    
+
     private(set) lazy var showAlertPublisher = showAlertSubject.eraseToAnyPublisher()
     private lazy var showAlertSubject = PassthroughSubject<Void, Never>()
 
@@ -31,10 +31,16 @@ final class SignUpViewModel: BaseViewModel {
         self.authService = authService
         self.userService = userService
 
+        // MARK: - Life cycle
         super.init()
     }
 
     override func onViewDidLoad() {
+        setupBinding()
+    }
+
+    // MARK: - Private methods
+    private func setupBinding() {
         $name
             .dropFirst(2)
             .map { name in
@@ -65,17 +71,18 @@ final class SignUpViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
 
-//        $name.combineLatest($email, $password, $confirmPassword)
-//            .map { !$0.0.isEmpty && !$0.1.isEmpty && !$0.2.isEmpty && !$0.3.isEmpty }
-//            .sink { [unowned self] in isInputValid = $0 }
-//            .store(in: &cancellables)
-        
         isNameValid.combineLatest(isEmailValid, isPasswordValid)
-            .map { _ in self.isNameValid.value == .valid && self.isEmailValid.value == .valid && self.isPasswordValid.value == .valid }
-            .sink { [unowned self] in isInputValid = $0}
+            .map { _ in
+                self.isNameValid.value == .valid && self.isEmailValid.value == .valid && self.isPasswordValid
+                    .value == .valid
+            }
+            .sink { [unowned self] in isInputValid = $0 }
             .store(in: &cancellables)
     }
+}
 
+// MARK: - Internal extension
+extension SignUpViewModel {
     func signUp() {
         let requestModel = SignUpRequest(name: name, email: email, password: password)
         isLoadingSubject.send(true)
@@ -85,10 +92,9 @@ final class SignUpViewModel: BaseViewModel {
                 self?.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
-                    print("SignUp is successfully finished")
+                    debugPrint("SignUp is successfully finished")
                 case let .failure(error):
-                    print(error.localizedDescription)
-//                    self?.errorSubject.send(error)
+                    debugPrint(error.localizedDescription)
                     self?.showAlertSubject.send()
                 }
             } receiveValue: { [weak self] signUpInfo in
@@ -109,10 +115,10 @@ final class SignUpViewModel: BaseViewModel {
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
-                    print("SignIn is successfully finished")
+                    debugPrint("SignIn is successfully finished")
                     self?.isLoadingSubject.send(false)
                 case let .failure(error):
-                    print(error.localizedDescription)
+                    debugPrint(error.localizedDescription)
                     self?.errorSubject.send(error)
                 }
             } receiveValue: { [weak self] signinResponse in
@@ -125,7 +131,7 @@ final class SignUpViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
     }
-    
+
     func popScreen() {
         transitionSubject.send(.popScreen)
     }

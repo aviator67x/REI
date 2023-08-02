@@ -1,6 +1,6 @@
 //
 //  SearchRequestModel.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 01.05.2023.
 //

@@ -2,7 +2,7 @@
 //  Endpoint.swift
 //  NetworkingDemo
 //
-//  Created by Roman Savchenko on 20.02.2023.
+//  Created by user on 20.02.2023.
 //
 import Foundation
 

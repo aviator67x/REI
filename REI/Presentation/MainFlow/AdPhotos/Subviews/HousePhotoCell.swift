@@ -1,6 +1,6 @@
 //
 //  HousePhotoCell.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 29.05.2023.
 //

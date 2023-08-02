@@ -1,8 +1,8 @@
 //
 //  SignInView.swift
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 12.12.2021.
+//  Created by user on 12.02.2023.
 //
 
 import Combine
@@ -37,6 +37,7 @@ final class SignInView: BaseView {
 
     private var isPasswordVisible = false
 
+    // MARK: - Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
@@ -44,16 +45,17 @@ final class SignInView: BaseView {
         addGestureRecognizer(tap)
     }
 
-    @objc
-    func hideKeyboardByTappingOutside() {
-        endEditing(true)
-    }
-
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    // MARK: - Private methods
+    @objc
+    private func hideKeyboardByTappingOutside() {
+        endEditing(true)
+    }
+    
     private func initialSetup() {
         setupLayout()
         setupUI()
@@ -152,7 +154,7 @@ final class SignInView: BaseView {
         signInButton.rounded(3)
 
         let firstAttributes: [NSAttributedString.Key: Any] =
-            [.foregroundColor: UIColor(named: "textFieldsBackground")]
+        [.foregroundColor: UIColor(named: "textFieldsBackground") ?? UIColor.white]
         let secondAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]
         let firstString = NSMutableAttributedString(string: "Not a member? ", attributes: firstAttributes)
         let secondString = NSAttributedString(string: "Create an account", attributes: secondAttributes)

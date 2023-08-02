@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  MVVMSkeleton
+//  REI
 //
-//  Created by Roman Savchenko on 24.10.2021.
+//  Created by user on 24.10.2021.
 //
 
 import UIKit

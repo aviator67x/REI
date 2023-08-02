@@ -1,6 +1,6 @@
 //
 //  AddressCellModel.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 18.05.2023.
 //

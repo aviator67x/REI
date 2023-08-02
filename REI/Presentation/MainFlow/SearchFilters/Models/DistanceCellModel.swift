@@ -1,6 +1,6 @@
 //
 //  DistanceCellModel.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 10.05.2023.
 //

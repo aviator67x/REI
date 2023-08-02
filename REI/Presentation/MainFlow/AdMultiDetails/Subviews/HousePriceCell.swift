@@ -1,6 +1,6 @@
 //
 //  HousePriceCell.swift
-//  RomaMVVM
+//  REI
 //
 //  Created by User on 28.05.2023.
 //
