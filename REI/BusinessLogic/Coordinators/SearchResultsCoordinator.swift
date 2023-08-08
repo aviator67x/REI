@@ -24,7 +24,8 @@ final class SearchResultsCoordinator: Coordinator {
     }
 
     func start() {
-        findRoot()
+//        findRoot()
+        sort()
     }
 
     private func findRoot() {
@@ -35,6 +36,8 @@ final class SearchResultsCoordinator: Coordinator {
                 case let .searchFilters(model):
                     self.searchFilters(model: model)
                 case .sort:
+                    break
+                case .lastSearch:
                     break
                 case .favourite:
                     self.favourite()
@@ -49,6 +52,11 @@ final class SearchResultsCoordinator: Coordinator {
     private func favourite() {
         let fovouriteModule = FavouriteModuleBuilder.build(container: container)
         push(fovouriteModule.viewController, animated: false)
+    }
+    
+    private func sort() {
+        let sortModule = SortModuleBuilder.build(container: container)
+        push(sortModule.viewController)
     }
 
     private func searchFilters(model: SearchModel) {

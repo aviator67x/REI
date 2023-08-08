@@ -292,16 +292,16 @@ final class AdAddressView: BaseView {
         }
     }
     
-    func setupView(with initialValue: AdCreatingRequestModel) {
-        guard let ort = initialValue.ort,
-              let street = initialValue.street,
-              let house = initialValue.house  else {
-            return
-        }
-                    ortTextField.text = ort
-                    streetTextField.text = street
-                    houseTextField.text = String(describing: house)
-    }
+//    func setupView(with initialValue: AdCreatingRequestModel) {
+//        guard let ort = initialValue.ort,
+//              let street = initialValue.street,
+//              let house = initialValue.house  else {
+//            return
+//        }
+//                    ortTextField.text = ort
+//                    streetTextField.text = street
+//                    houseTextField.text = String(describing: house)
+//    }
 
     func setupView(with model: AddressModel) {
         ortMessageLabel.isHidden = model.isOrtValid
@@ -311,7 +311,7 @@ final class AdAddressView: BaseView {
         guard let ort = model.ort,
               let street = model.street,
               let house = model.house else {
-            forwardButton.isEnabled = true
+            forwardButton.isEnabled = false
             return
         }
 

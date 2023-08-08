@@ -11,6 +11,7 @@ import Combine
 enum FindTransition: Transition {
     case searchFilters(SearchModel)
     case sort
+    case lastSearch
     case favourite
     case selectedHouse(HouseDomainModel)
 }

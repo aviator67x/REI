@@ -28,6 +28,7 @@ final class SearchResultsViewModel: BaseViewModel {
 
     private lazy var favouriteIdsSubject = CurrentValueSubject<[String], Never>([])
 
+    // MARK: - Life cycle
     init(model: SearchModel) {
         self.model = model
     }
@@ -43,10 +44,11 @@ final class SearchResultsViewModel: BaseViewModel {
     }
 }
 
-// MARK: - extension
+// MARK: - private extension
 private extension SearchResultsViewModel {
     func setupBinding() {
         model.favouriteHousesIdPublisher
+            .receive(on: DispatchQueue.main)
             .sinkWeakly(self, receiveValue: { (self, favouriteIds) in
                 self.favouriteIdsSubject.value = favouriteIds
                 self.createDataSource()
@@ -54,6 +56,7 @@ private extension SearchResultsViewModel {
             .store(in: &cancellables)
 
         model.housesPublisher
+            .receive(on: DispatchQueue.main)
             .sinkWeakly(self, receiveValue: { (self, houses) in
                 self.housesSubject.value = houses
             })
@@ -160,8 +163,8 @@ extension SearchResultsViewModel {
             transitionSubject.send(.searchFilters(model))
         case .sort:
             transitionSubject.send(.sort)
-        case .favourite:
-            transitionSubject.send(.favourite)
+        case .lastSearch:
+            transitionSubject.send(.lastSearch)
         }
     }
 

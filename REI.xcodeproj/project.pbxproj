@@ -139,6 +139,11 @@
 		CE5CCECD29FFF3D8007972CB /* PriceCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCECC29FFF3D8007972CB /* PriceCellModel.swift */; };
 		CE5CCECF29FFF400007972CB /* SquareCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCECE29FFF400007972CB /* SquareCellModel.swift */; };
 		CE5CCED32A042153007972CB /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CCED22A042153007972CB /* InfoView.swift */; };
+		CE5E91582A7C036B00EFD6EB /* SortModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E91542A7C036B00EFD6EB /* SortModuleBuilder.swift */; };
+		CE5E91592A7C036B00EFD6EB /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E91552A7C036B00EFD6EB /* SortViewController.swift */; };
+		CE5E915A2A7C036B00EFD6EB /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E91562A7C036B00EFD6EB /* SortView.swift */; };
+		CE5E915B2A7C036B00EFD6EB /* SortViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E91572A7C036B00EFD6EB /* SortViewModel.swift */; };
+		CE5E915E2A7D288600EFD6EB /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E915D2A7D288600EFD6EB /* SortButton.swift */; };
 		CE63F86029D4B0F600268B7E /* UniversalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63F85F29D4B0F600268B7E /* UniversalCell.swift */; };
 		CE6B906E2A1F439E00642B90 /* AdPhotosModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906A2A1F439E00642B90 /* AdPhotosModuleBuilder.swift */; };
 		CE6B906F2A1F439E00642B90 /* AdPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */; };
@@ -258,6 +263,13 @@
 		CEFE0A4A2A33613B00B6ECA6 /* OrtCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE0A492A33613B00B6ECA6 /* OrtCellModel.swift */; };
 		CEFE0A4C2A33656900B6ECA6 /* OrtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE0A4B2A33656900B6ECA6 /* OrtCell.swift */; };
 		CEFEA50F29A7881F0085AB1D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEA50E29A7881F0085AB1D /* NetworkLogger.swift */; };
+		CEFEEACF2A81399C00EBBC40 /* SortTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEEACE2A81399C00EBBC40 /* SortTable.swift */; };
+		CEFEEAD12A813E3600EBBC40 /* SortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEEAD02A813E3600EBBC40 /* SortCell.swift */; };
+		CEFEEAD32A8142B500EBBC40 /* UITableView+dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEEAD22A8142B500EBBC40 /* UITableView+dequeue.swift */; };
+		CEFEEAD52A8144C000EBBC40 /* TableView+reusedIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEEAD42A8144C000EBBC40 /* TableView+reusedIdentifier.swift */; };
+		CEFEEAD72A82444900EBBC40 /* SortCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEEAD62A82444900EBBC40 /* SortCellModel.swift */; };
+		CEFEEAD92A8246F800EBBC40 /* TitleCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEEAD82A8246F800EBBC40 /* TitleCellModel.swift */; };
+		CEFEEADB2A82486E00EBBC40 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEEADA2A82486E00EBBC40 /* TitleCell.swift */; };
 		CEFFB99E2A20AB420009F624 /* HouseImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFFB99D2A20AB420009F624 /* HouseImageModel.swift */; };
 		CEFFB9A02A2295CA0009F624 /* LivingAreaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFFB99F2A2295CA0009F624 /* LivingAreaCell.swift */; };
 		CEFFB9A22A2395A80009F624 /* HouseSquareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFFB9A12A2395A80009F624 /* HouseSquareCell.swift */; };
@@ -419,6 +431,11 @@
 		CE5CCECC29FFF3D8007972CB /* PriceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCellModel.swift; sourceTree = "<group>"; };
 		CE5CCECE29FFF400007972CB /* SquareCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareCellModel.swift; sourceTree = "<group>"; };
 		CE5CCED22A042153007972CB /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		CE5E91542A7C036B00EFD6EB /* SortModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortModuleBuilder.swift; sourceTree = "<group>"; };
+		CE5E91552A7C036B00EFD6EB /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
+		CE5E91562A7C036B00EFD6EB /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
+		CE5E91572A7C036B00EFD6EB /* SortViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewModel.swift; sourceTree = "<group>"; };
+		CE5E915D2A7D288600EFD6EB /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
 		CE63F85F29D4B0F600268B7E /* UniversalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalCell.swift; sourceTree = "<group>"; };
 		CE6B906A2A1F439E00642B90 /* AdPhotosModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosModuleBuilder.swift; sourceTree = "<group>"; };
 		CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosViewController.swift; sourceTree = "<group>"; };
@@ -536,6 +553,13 @@
 		CEFE0A492A33613B00B6ECA6 /* OrtCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrtCellModel.swift; sourceTree = "<group>"; };
 		CEFE0A4B2A33656900B6ECA6 /* OrtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrtCell.swift; sourceTree = "<group>"; };
 		CEFEA50E29A7881F0085AB1D /* NetworkLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		CEFEEACE2A81399C00EBBC40 /* SortTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTable.swift; sourceTree = "<group>"; };
+		CEFEEAD02A813E3600EBBC40 /* SortCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortCell.swift; sourceTree = "<group>"; };
+		CEFEEAD22A8142B500EBBC40 /* UITableView+dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+dequeue.swift"; sourceTree = "<group>"; };
+		CEFEEAD42A8144C000EBBC40 /* TableView+reusedIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+reusedIdentifier.swift"; sourceTree = "<group>"; };
+		CEFEEAD62A82444900EBBC40 /* SortCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortCellModel.swift; sourceTree = "<group>"; };
+		CEFEEAD82A8246F800EBBC40 /* TitleCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCellModel.swift; sourceTree = "<group>"; };
+		CEFEEADA2A82486E00EBBC40 /* TitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		CEFFB99D2A20AB420009F624 /* HouseImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseImageModel.swift; sourceTree = "<group>"; };
 		CEFFB99F2A2295CA0009F624 /* LivingAreaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivingAreaCell.swift; sourceTree = "<group>"; };
 		CEFFB9A12A2395A80009F624 /* HouseSquareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseSquareCell.swift; sourceTree = "<group>"; };
@@ -657,6 +681,8 @@
 				CEFFB9AA2A260B6E0009F624 /* UINavigationController+popToSpecificController.swift */,
 				CE7153062A339011000CC3C5 /* UITextField+doneButton.swift */,
 				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
+				CEFEEAD22A8142B500EBBC40 /* UITableView+dequeue.swift */,
+				CEFEEAD42A8144C000EBBC40 /* TableView+reusedIdentifier.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1081,6 +1107,29 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		CE5E91532A7C034500EFD6EB /* Sort */ = {
+			isa = PBXGroup;
+			children = (
+				CE5E91542A7C036B00EFD6EB /* SortModuleBuilder.swift */,
+				CE5E91552A7C036B00EFD6EB /* SortViewController.swift */,
+				CE5E91562A7C036B00EFD6EB /* SortView.swift */,
+				CE5E91572A7C036B00EFD6EB /* SortViewModel.swift */,
+				CEFEEACD2A81396C00EBBC40 /* Models */,
+				CE5E915C2A7D285F00EFD6EB /* Subviews */,
+			);
+			path = Sort;
+			sourceTree = "<group>";
+		};
+		CE5E915C2A7D285F00EFD6EB /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				CEFEEAD02A813E3600EBBC40 /* SortCell.swift */,
+				CE5E915D2A7D288600EFD6EB /* SortButton.swift */,
+				CEFEEADA2A82486E00EBBC40 /* TitleCell.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		CE6B90692A1F436800642B90 /* AdPhotos */ = {
 			isa = PBXGroup;
 			children = (
@@ -1294,6 +1343,7 @@
 				CEAA10E529DDBA0200340401 /* SearchResults */,
 				CE0E27AA29CE1D90001EDFCD /* SearchFilters */,
 				CE13E3A629DAFDE100B948C9 /* SearchFiltersDetailed */,
+				CE5E91532A7C034500EFD6EB /* Sort */,
 				CE31F8D92A275700003595CA /* SelectedHouse */,
 				CE5CCEBE29FAE6B3007972CB /* Favourite */,
 				CE5CCEBF29FAE782007972CB /* MyHouse */,
@@ -1376,6 +1426,16 @@
 				CEFFB9A32A2396C30009F624 /* HousePriceCell.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		CEFEEACD2A81396C00EBBC40 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CEFEEACE2A81399C00EBBC40 /* SortTable.swift */,
+				CEFEEAD82A8246F800EBBC40 /* TitleCellModel.swift */,
+				CEFEEAD62A82444900EBBC40 /* SortCellModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		CEFFB99C2A20AAFA0009F624 /* Models */ = {
@@ -1589,6 +1649,7 @@
 				CE13E3BD29DC81A900B948C9 /* UserProfileCell.swift in Sources */,
 				CE9430D729C8873200FFB94C /* TermsView.swift in Sources */,
 				CEB9F6822A17AE410082A674 /* AdAddressViewModel.swift in Sources */,
+				CE5E915B2A7C036B00EFD6EB /* SortViewModel.swift in Sources */,
 				CEF83F982A1BF114009B0791 /* AdMultiDetailsViewModel.swift in Sources */,
 				CEA51C4529F03C6E0030602E /* HousesService.swift in Sources */,
 				CEAA10EA29DDBA5200340401 /* SearchResultsModuleBuilder.swift in Sources */,
@@ -1601,6 +1662,7 @@
 				CEAEB9EE29ACA6B1005BBF50 /* PasswordRestoreView.swift in Sources */,
 				CEA5F58B298CEBA200B87DD4 /* UISegmentControl.swift in Sources */,
 				08EEB3184A8082B0C0C25EC4 /* AppCoordinator.swift in Sources */,
+				CEFEEACF2A81399C00EBBC40 /* SortTable.swift in Sources */,
 				82CC8E4ECAA1B873DDFB95AB /* AppDelegate.swift in Sources */,
 				CE13E3AE29DAFE5600B948C9 /* SearchFiltersDetailedViewModel.swift in Sources */,
 				CEAA10F029DDBC5600340401 /* PhotoCell.swift in Sources */,
@@ -1624,6 +1686,7 @@
 				70260AA3E13A03EE2B5450FE /* AuthCoordinator.swift in Sources */,
 				CEAE383929BB19680046198A /* SearchQueryBuilder.swift in Sources */,
 				CEA545F3297820A3007F9962 /* ChecmarkView.swift in Sources */,
+				CE5E91582A7C036B00EFD6EB /* SortModuleBuilder.swift in Sources */,
 				CE5CCECF29FFF400007972CB /* SquareCellModel.swift in Sources */,
 				CEF83F832A1BB09A009B0791 /* AdDetailsModuleBuilder.swift in Sources */,
 				CEAA10FB29DEE01000340401 /* HousesNetworkService.swift in Sources */,
@@ -1642,6 +1705,7 @@
 				CE9430CC29C8736400FFB94C /* ProfileModuleBuilder.swift in Sources */,
 				CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */,
 				CE1E2DD02A07C92F00328EAF /* Publisher.swift in Sources */,
+				CE5E915E2A7D288600EFD6EB /* SortButton.swift in Sources */,
 				CE8B29832A2A323900425FB0 /* MapCellModel.swift in Sources */,
 				CE9430C629C4C20B00FFB94C /* ImageAsset+Hashable.swift in Sources */,
 				CE6B90702A1F439E00642B90 /* AdPhotosView.swift in Sources */,
@@ -1676,6 +1740,7 @@
 				B33A99E3AECD58D23DDA8E79 /* Coordinator.swift in Sources */,
 				CEAE383529BA020D0046198A /* NSMutableData+.swift in Sources */,
 				CEB0FCC42A077FB6009EEABA /* UICollectionView+dequeue.swift in Sources */,
+				CEFEEAD72A82444900EBBC40 /* SortCellModel.swift in Sources */,
 				CEF83F9C2A1BF3E2009B0791 /* AdMultiDetailsModels.swift in Sources */,
 				CE5CCECB29FFF37A007972CB /* SearchRequestModel.swift in Sources */,
 				CEFFB99E2A20AB420009F624 /* HouseImageModel.swift in Sources */,
@@ -1704,6 +1769,7 @@
 				CE1E2DE02A0B9FF700328EAF /* NumberOfRoomsCellModel.swift in Sources */,
 				CE4E7FEA29BC9CEA0042C2F8 /* Array.swift in Sources */,
 				E8A38D357261F60F542286DF /* FavouriteCoordinator.swift in Sources */,
+				CEFEEAD92A8246F800EBBC40 /* TitleCellModel.swift in Sources */,
 				CE990E9629CB623100120D6F /* EditProfileView.swift in Sources */,
 				CE0E27B129CE1DA9001EDFCD /* SearchFiltersView.swift in Sources */,
 				CE5CCEC929FAEB71007972CB /* MyHouseCoordinator.swift in Sources */,
@@ -1719,6 +1785,7 @@
 				CE481C7A2A2FC095000E00BC /* HouseImagesCollection.swift in Sources */,
 				CE0E27BF29D43D06001EDFCD /* HeaderView.swift in Sources */,
 				CEB9F6812A17AE410082A674 /* AdAddressView.swift in Sources */,
+				CEFEEAD32A8142B500EBBC40 /* UITableView+dequeue.swift in Sources */,
 				CEDDF29E29D6FA27003BF639 /* SearchFiltersCollection.swift in Sources */,
 				CEA545F1297820A3007F9962 /* ValidatorType.swift in Sources */,
 				CE481C902A31F590000E00BC /* MyHouseCollection.swift in Sources */,
@@ -1729,10 +1796,13 @@
 				744F123129D6DC930015A4D3 /* UserDataCellModel.swift in Sources */,
 				CEF13C782A40826A001EA946 /* VasylView.swift in Sources */,
 				CE1E2E042A0D54B200328EAF /* FavouriteCell.swift in Sources */,
+				CE5E91592A7C036B00EFD6EB /* SortViewController.swift in Sources */,
 				EDFD24AA92041FD400F9F11D /* MainTabBarCoordinator.swift in Sources */,
 				936E18287F780641A997D742 /* MainTabBarModuleBuilder.swift in Sources */,
+				CEFEEAD52A8144C000EBBC40 /* TableView+reusedIdentifier.swift in Sources */,
 				CEA5B72829B0A1B80038A29C /* Publisher+Sink.swift in Sources */,
 				C8968B325266869290C207ED /* MainTabBarViewController.swift in Sources */,
+				CEFEEADB2A82486E00EBBC40 /* TitleCell.swift in Sources */,
 				8DEAEE4E8A532047AAF41423 /* MainTabBarViewModel.swift in Sources */,
 				CE13E3C729DC850F00B948C9 /* EditProfileModels.swift in Sources */,
 				CE13E3CA29DC860E00B948C9 /* DetailedModels.swift in Sources */,
@@ -1741,6 +1811,7 @@
 				CEE2DE6329F2939E0029AFF8 /* ResultView.swift in Sources */,
 				8B92C57154F6E7BCFE57E7B1 /* Module.swift in Sources */,
 				CEFFB9A62A24E4F90009F624 /* PhotoCollection.swift in Sources */,
+				CE5E915A2A7C036B00EFD6EB /* SortView.swift in Sources */,
 				CE1E2DD22A07C98100328EAF /* Subscriber.swift in Sources */,
 				B355206A6EA2EE9B20C77B89 /* SceneDelegate.swift in Sources */,
 				CE13E3AD29DAFE5600B948C9 /* SearchFiltersDetailedView.swift in Sources */,
@@ -1808,6 +1879,7 @@
 				CE403E222A4337BD0069621F /* Fonts.swift in Sources */,
 				E4CB518683283ED390099429 /* UIStackView+Ext.swift in Sources */,
 				CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */,
+				CEFEEAD12A813E3600EBBC40 /* SortCell.swift in Sources */,
 				CE13E3BB29DC5AFA00B948C9 /* BackgroundCell.swift in Sources */,
 				CEB9F6802A17AE410082A674 /* AdAddressViewController.swift in Sources */,
 				CE481C8B2A31B4C5000E00BC /* LoremState.swift in Sources */,
