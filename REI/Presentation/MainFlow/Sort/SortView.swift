@@ -8,7 +8,9 @@
 import Combine
 import UIKit
 
-enum SortViewAction {}
+enum SortViewAction {
+    case selectedCell(SortItem)
+}
 
 final class SortView: BaseView {
     // MARK: - Subviews
@@ -53,6 +55,14 @@ final class SortView: BaseView {
     }
 
     private func bindActions() {
+        tableView.didSelectRowPublisher
+            .compactMap { self.diffableDataSource?.itemIdentifier(for: $0) }
+            .map { SortViewAction.selectedCell($0) }
+            .sinkWeakly(self) { (self, selectedCell) in
+                self.actionSubject.send(selectedCell)
+            }
+            .store(in: &cancellables)
+
         addressButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.addressButton.isSelected.toggle()
@@ -76,24 +86,30 @@ final class SortView: BaseView {
 
     private func setupDataSource() {
         diffableDataSource = UITableViewDiffableDataSource<SortSection, SortItem>(
-            tableView: tableView) { tableView, indexPath, item in
-                switch item {
-                case let .address(model):
-                    let cell: SortCell = tableView.dequeueReusableCell(for: indexPath)
-                    cell.setup(model)
-                    return cell
-                case .title(model: let model):
-                    let cell: TitleCell = tableView.dequeueReusableCell(for: indexPath)
-                    cell.setup(model)
-                    
-                    return cell
-                }
+            tableView: tableView
+        ) { tableView, indexPath, item in
+            switch item {
+            case let .title(model):
+                let cell: TitleCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.setup(model)
+                return cell
+                
+            case let .address(model):
+                let cell: SortCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.setup(model)
+                return cell
+           
+            case let .price(model):
+                let cell: SortCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.setup(model)
+                return cell
             }
+        }
     }
 
     private func setupUI() {
         tableView.backgroundColor = .orange
-        
+
         scrollView.backgroundColor = .white
         addressStackView.backgroundColor = .green
         addressButton.backgroundColor = .cyan
@@ -104,10 +120,10 @@ final class SortView: BaseView {
         zaButton.isHidden = true
         zaButton.backgroundColor = .yellow
     }
-    
+
     private func setupTableLayout() {
         addSubview(tableView) {
-            $0.edges.equalToSuperview()//(safeAreaLayoutGuide.snp.edges)
+            $0.edges.equalTo(safeAreaLayoutGuide.snp.edges)
         }
     }
 
@@ -138,14 +154,14 @@ final class SortView: BaseView {
             $0.height.equalTo(50)
         }
     }
-    
+
     func setupSnapShot(sections: [SortTable]) {
         var snapshot = NSDiffableDataSourceSnapshot<SortSection, SortItem>()
         for section in sections {
             snapshot.appendSections([section.section])
             snapshot.appendItems(section.items, toSection: section.section)
         }
-        diffableDataSource.apply(snapshot)
+        diffableDataSource.apply(snapshot, animatingDifferences: false)
     }
 }
 

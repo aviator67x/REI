@@ -8,6 +8,7 @@
 import Foundation
 
 struct SortCellModel: Hashable {
+    let id = UUID()
     let name: String
     var isHidden: Bool
     var isSelected: Bool

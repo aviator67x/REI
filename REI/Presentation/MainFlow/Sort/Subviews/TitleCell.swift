@@ -9,13 +9,14 @@ import UIKit
 
 final class TitleCell: UITableViewCell {
     // MARK: - SubViews
-    let nameLabel = UILabel()
+    let titleLabel = UILabel()
     let checkmarkImageView = UIImageView()
 
     // MARK: - Life cycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
+        setupUI()
     }
 
     @available(*, unavailable)
@@ -24,17 +25,21 @@ final class TitleCell: UITableViewCell {
     }
 
     func setup(_ model: TitleCellModel) {
-        backgroundColor = .red
-        nameLabel.text = model.title
+        titleLabel.text = model.title
         checkmarkImageView.isHidden = model.isCheckmarkHidden
-        checkmarkImageView.image = UIImage(systemName: "checkmark")
     }
 }
 
 // MARK: - private extension
 private extension TitleCell {
+    func setupUI() {
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        checkmarkImageView.image = UIImage(systemName: "chevron.down")
+        checkmarkImageView.tintColor = .black
+    }
+    
     func setupLayout() {
-        contentView.addSubview(nameLabel) {
+        contentView.addSubview(titleLabel) {
             $0.leading.equalToSuperview().offset(10)
             $0.top.bottom.equalToSuperview().inset(10)
         }
@@ -42,7 +47,7 @@ private extension TitleCell {
         contentView.addSubview(checkmarkImageView) {
             $0.trailing.equalToSuperview().inset(16)
             $0.centerY.equalToSuperview()
-//            $0.size.equalTo(30)
+            $0.size.equalTo(24)
         }
     }
 }

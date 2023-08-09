@@ -25,6 +25,8 @@ final class SortViewController: BaseViewController<SortViewModel> {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
+                case .selectedCell(let cell):
+                    viewModel.updateCellModel(cell)
                 }
             }
             .store(in: &cancellables)
