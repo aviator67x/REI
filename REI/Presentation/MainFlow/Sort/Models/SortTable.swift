@@ -15,10 +15,12 @@ struct SortTable: Hashable {
 enum SortSection: Hashable {
     case address
     case price
+    case date
 }
 
 enum SortItem: Hashable {
     case title(model: TitleCellModel)
     case address(model: SortCellModel)
     case price(model: SortCellModel)
+    case date(model: SortCellModel)
 }

@@ -62,26 +62,6 @@ final class SortView: BaseView {
                 self.actionSubject.send(selectedCell)
             }
             .store(in: &cancellables)
-
-        addressButton.tapPublisher
-            .sinkWeakly(self, receiveValue: { (self, _) in
-                self.addressButton.isSelected.toggle()
-                self.azButton.isHidden.toggle()
-                self.zaButton.isHidden.toggle()
-            })
-            .store(in: &cancellables)
-
-        zaButton.tapPublisher
-            .sinkWeakly(self, receiveValue: { (self, _) in
-                self.zaButton.isSelected.toggle()
-            })
-            .store(in: &cancellables)
-
-        azButton.tapPublisher
-            .sinkWeakly(self, receiveValue: { (self, _) in
-                self.azButton.isSelected.toggle()
-            })
-            .store(in: &cancellables)
     }
 
     private func setupDataSource() {
@@ -100,6 +80,10 @@ final class SortView: BaseView {
                 return cell
            
             case let .price(model):
+                let cell: SortCell = tableView.dequeueReusableCell(for: indexPath)
+                cell.setup(model)
+                return cell
+            case let .date(model):
                 let cell: SortCell = tableView.dequeueReusableCell(for: indexPath)
                 cell.setup(model)
                 return cell

@@ -38,7 +38,7 @@ final class SortCell: UITableViewCell {
 // MARK: - private extension
 private extension SortCell {
     func setupUI() {
-        nameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        nameLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
     }
 
     func setupLayout() {

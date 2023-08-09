@@ -18,15 +18,20 @@ final class SortViewModel: BaseViewModel {
         [TitleCellModel], Never
     >(
         [
-        TitleCellModel(
-            sectionType: .address, title: "Address",
-            isCheckmarkHidden: false
-        ),
-        TitleCellModel(
-            sectionType: .price, title: "Price",
-            isCheckmarkHidden: false
-        ),
-    ])
+            TitleCellModel(
+                sectionType: .address,
+                isCheckmarkHidden: false
+            ),
+            TitleCellModel(
+                sectionType: .price,
+                isCheckmarkHidden: false
+            ),
+            TitleCellModel(
+                sectionType: .date,
+                isCheckmarkHidden: false
+            ),
+        ]
+    )
 
     private lazy var addressCellSubject = CurrentValueSubject<[SortCellModel], Never>([
         SortCellModel(
@@ -42,13 +47,31 @@ final class SortViewModel: BaseViewModel {
             arrowImageName: "arrow.down"
         ),
     ])
+    private var tempAddressCellValue: [SortCellModel]?
+
+    private lazy var dateCellSubject = CurrentValueSubject<[SortCellModel], Never>([
+        SortCellModel(
+            name: "newest first",
+            isHidden: false,
+            isSelected: false,
+            arrowImageName: "arrow.down"
+        ),
+        SortCellModel(
+            name: "oldest first",
+            isHidden: false,
+            isSelected: false,
+            arrowImageName: "arrow.up"
+        ),
+    ])
+    private var tempDateCellValue: [SortCellModel]?
 
     private lazy var priceCellSubject = CurrentValueSubject<[SortCellModel], Never>([
         SortCellModel(
             name: "min - max",
             isHidden: false,
             isSelected: false,
-            arrowImageName: "arrow.up"),
+            arrowImageName: "arrow.up"
+        ),
         SortCellModel(
             name: "max - min",
             isHidden: false,
@@ -56,6 +79,7 @@ final class SortViewModel: BaseViewModel {
             arrowImageName: "arrow.down"
         ),
     ])
+    private var tempPriceCellValue: [SortCellModel]?
 
     override init() {
         super.init()
@@ -67,21 +91,61 @@ final class SortViewModel: BaseViewModel {
 
     func updateCellModel(_ cell: SortItem) {
         switch cell {
-        case let .address(addressCell):
-            guard let index = addressCellSubject.value.firstIndex(where: { $0.id == addressCell.id }) else {
-                return
-            }
-            addressCellSubject.value[index].isSelected.toggle()
         case let .title(titleCell):
             guard let index = titleCellSubject.value.firstIndex(where: { $0.id == titleCell.id }) else {
                 return
             }
             titleCellSubject.value[index].isCheckmarkHidden.toggle()
+            switch titleCell.sectionType {
+            case .address:
+                if !addressCellSubject.value.isEmpty {
+                    tempAddressCellValue = addressCellSubject.value
+                    addressCellSubject.value.removeAll()
+                } else {
+                    guard let tempAddressCellSubj = tempAddressCellValue else {
+                        return
+                    }
+                    addressCellSubject.value = tempAddressCellSubj
+                }
+
+            case .price:
+                if !priceCellSubject.value.isEmpty {
+                    tempPriceCellValue = priceCellSubject.value
+                    priceCellSubject.value.removeAll()
+                } else {
+                    guard let tempPriceCellValue = tempPriceCellValue else {
+                        return
+                    }
+                    priceCellSubject.value = tempPriceCellValue
+                }
+            case .date:
+                if !dateCellSubject.value.isEmpty {
+                    tempDateCellValue = dateCellSubject.value
+                    dateCellSubject.value.removeAll()
+                } else {
+                    guard let tempDateCellValue = tempDateCellValue else {
+                        return
+                    }
+                    dateCellSubject.value = tempDateCellValue
+                }
+            }
+        case let .address(addressCell):
+            guard let index = addressCellSubject.value.firstIndex(where: { $0.id == addressCell.id }) else {
+                return
+            }
+            addressCellSubject.value[index].isSelected.toggle()
+
         case let .price(priceCell):
             guard let index = priceCellSubject.value.firstIndex(where: { $0.id == priceCell.id }) else {
                 return
             }
             priceCellSubject.value[index].isSelected.toggle()
+
+        case let .date(dateCell):
+            guard let index = dateCellSubject.value.firstIndex(where: { $0.id == dateCell.id }) else {
+                return
+            }
+            dateCellSubject.value[index].isSelected.toggle()
         }
     }
 
@@ -91,7 +155,7 @@ final class SortViewModel: BaseViewModel {
                 self.createDataSource()
             })
             .store(in: &cancellables)
-        
+
         addressCellSubject
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.createDataSource()
@@ -103,27 +167,32 @@ final class SortViewModel: BaseViewModel {
                 self.createDataSource()
             })
             .store(in: &cancellables)
+        
+        dateCellSubject
+            .sinkWeakly(self, receiveValue: { (self, _) in
+                self.createDataSource()
+            })
+            .store(in: &cancellables)
     }
 
     private func createDataSource() {
-        let addressTitleCellModel = titleCellSubject.value[0]
-        let titleItem = SortItem
-            .title(model: addressTitleCellModel)
-        var addressSectionItems = [titleItem]
-        var addressItems = addressCellSubject.value
-            .map { SortItem.address(model: $0) }
-        addressSectionItems.append(contentsOf: addressItems)
-        let addressSection = SortTable(section: .address, items: addressSectionItems)
-        sectionsSubject.value = [addressSection]
-
-        let priceTitleCellModel = titleCellSubject.value[1]
-        let priceTitleItem = SortItem
-            .title(model: priceTitleCellModel)
-        var priceSectionItems = [priceTitleItem]
-        var priceItems = priceCellSubject.value
-            .map { SortItem.price(model: $0)}
-        priceSectionItems.append(contentsOf: priceItems)
-        let priceSection = SortTable(section: .price, items: priceSectionItems)
-        sectionsSubject.value.append(priceSection)
+        sectionsSubject.value = titleCellSubject.value
+            .map { value -> SortTable in
+                let sectionTitleItem = SortItem.title(model: value)
+                var sectionItems: [SortItem]
+                switch value.sectionType {
+                case .address:
+                    sectionItems = addressCellSubject.value
+                        .map { SortItem.address(model: $0) }
+                case .price:
+                    sectionItems = priceCellSubject.value
+                        .map { SortItem.price(model: $0) }
+                case .date:
+                    sectionItems = dateCellSubject.value
+                        .map { SortItem.date(model: $0) }
+                }
+                sectionItems.insert(sectionTitleItem, at: 0)
+                return SortTable(section: value.sectionType, items: sectionItems)
+            }
     }
 }

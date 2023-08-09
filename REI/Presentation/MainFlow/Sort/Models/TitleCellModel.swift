@@ -10,15 +10,16 @@ import Foundation
 struct TitleCellModel: Hashable {
     let sectionType: SortSection
     let id = UUID()
-    let title: String
     var isCheckmarkHidden: Bool
     
-    var newTitle: String {
+    var title: String {
         switch sectionType {
         case .address:
            return "Address"
         case .price:
            return "Price"
+        case .date:
+            return "Date"
         }
     }
 }
