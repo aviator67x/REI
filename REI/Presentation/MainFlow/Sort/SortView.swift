@@ -10,19 +10,15 @@ import UIKit
 
 enum SortViewAction {
     case selectedCell(SortItem)
+    case crossDidTap
+    case sortDidTap
 }
 
 final class SortView: BaseView {
     // MARK: - Subviews
-    private let scrollView = UIScrollView()
-    private let contentView = UIView()
-    private let standardButton = UIButton()
-    private let addressStackView = UIStackView()
-    private let addressButton = SortButton(buttonName: "Address")
-    private let azButton = SortButton(buttonName: "AZ")
-    private let zaButton = SortButton(buttonName: "ZA")
-
     private let tableView = UITableView()
+    private let sortButton = UIButton()
+    private let crossButton = UIButton()
 
     private var diffableDataSource: UITableViewDiffableDataSource<SortSection, SortItem>!
 
@@ -62,6 +58,18 @@ final class SortView: BaseView {
                 self.actionSubject.send(selectedCell)
             }
             .store(in: &cancellables)
+        
+        sortButton.tapPublisher
+            .sinkWeakly(self) { (self, _) in
+                self.actionSubject.send(.sortDidTap)
+            }
+            .store(in: &cancellables)
+        
+        crossButton.tapPublisher
+            .sinkWeakly(self) { (self, _) in
+                self.actionSubject.send(.crossDidTap)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupDataSource() {
@@ -92,49 +100,29 @@ final class SortView: BaseView {
     }
 
     private func setupUI() {
-        tableView.backgroundColor = .orange
-
-        scrollView.backgroundColor = .white
-        addressStackView.backgroundColor = .green
-        addressButton.backgroundColor = .cyan
-        contentView.backgroundColor = .gray
-
-        azButton.backgroundColor = .green
-        azButton.isHidden = true
-        zaButton.isHidden = true
-        zaButton.backgroundColor = .yellow
+        sortButton.backgroundColor = .orange
+        sortButton.setTitle("Sort", for: .normal)
+        sortButton.rounded(6)
+        
+        let image = UIImage(systemName: "multiply")
+        crossButton.setImage(image, for: .normal)
+        crossButton.tintColor = .black
+        crossButton.backgroundColor = .white
     }
 
     private func setupTableLayout() {
         addSubview(tableView) {
             $0.edges.equalTo(safeAreaLayoutGuide.snp.edges)
         }
-    }
-
-    private func setupStackLayout() {
-        addSubview(scrollView) {
-            $0.edges.equalToSuperview()
+        
+        addSubview(crossButton) {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(80)
         }
-
-        scrollView.addSubview(contentView) {
-            $0.edges.equalToSuperview()
-            $0.width.equalToSuperview()
-        }
-
-        contentView.addSubview(addressStackView) {
-            $0.top.bottom.equalToSuperview()
+        
+        addSubview(sortButton) {
             $0.leading.trailing.equalToSuperview().inset(16)
-        }
-
-        addressStackView.axis = .vertical
-        addressStackView.addArrangedSubview(addressButton) {
-            $0.height.equalTo(50)
-        }
-        addressStackView.addArrangedSubview(azButton) {
-            $0.height.equalTo(50)
-        }
-
-        addressStackView.addArrangedSubview(zaButton) {
+            $0.bottom.equalTo(crossButton.snp.top)
             $0.height.equalTo(50)
         }
     }
@@ -148,6 +136,7 @@ final class SortView: BaseView {
         diffableDataSource.apply(snapshot, animatingDifferences: false)
     }
 }
+
 
 // MARK: - View constants
 private enum Constant {}

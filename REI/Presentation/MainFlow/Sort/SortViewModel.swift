@@ -158,6 +158,10 @@ final class SortViewModel: BaseViewModel {
     func getHousesSorted(by parameteres: [String]) {
         searchModel.getHousesSorted(by: parameteres)
     }
+    
+    func popScreen() {
+        transitionSubject.send(.popScreen)
+    }
 }
 
 // MARK: - private extension

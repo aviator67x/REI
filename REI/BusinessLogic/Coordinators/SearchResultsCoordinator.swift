@@ -24,8 +24,7 @@ final class SearchResultsCoordinator: Coordinator {
     }
 
     func start() {
-//        findRoot()
-        sort()
+        findRoot()
     }
 
     private func findRoot() {
@@ -36,7 +35,7 @@ final class SearchResultsCoordinator: Coordinator {
                 case let .searchFilters(model):
                     self.searchFilters(model: model)
                 case .sort:
-                    break
+                    sort()
                 case .lastSearch:
                     break
                 case .favourite:
@@ -53,9 +52,20 @@ final class SearchResultsCoordinator: Coordinator {
         let fovouriteModule = FavouriteModuleBuilder.build(container: container)
         push(fovouriteModule.viewController, animated: false)
     }
-    
+
     private func sort() {
         let sortModule = SortModuleBuilder.build(container: container)
+        sortModule.transitionPublisher
+            .sinkWeakly(
+                self,
+                receiveValue: { (self, transition) in
+                    switch transition {
+                    case .popScreen:
+                        self.pop()
+                    }
+                }
+            )
+            .store(in: &cancellables)
         push(sortModule.viewController)
     }
 
@@ -85,9 +95,13 @@ final class SearchResultsCoordinator: Coordinator {
         )
         push(module.viewController)
     }
-    
+
     private func selectedHouse(_ house: HouseDomainModel) {
-        let detailCoordinator = DetaileHouseCoordinator(navigationController: navigationController, container: container, house: house)
+        let detailCoordinator = DetaileHouseCoordinator(
+            navigationController: navigationController,
+            container: container,
+            house: house
+        )
         childCoordinators.append(detailCoordinator)
         detailCoordinator.didFinishPublisher
             .sink { [unowned self] in

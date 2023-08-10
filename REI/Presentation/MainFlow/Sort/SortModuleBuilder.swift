@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum SortTransition: Transition {
-    
+    case popScreen
 }
 
 final class SortModuleBuilder {
