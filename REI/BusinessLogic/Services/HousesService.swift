@@ -25,6 +25,7 @@ protocol HousesService {
     func getUserAds(ownerId: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func deleteAd(with id: String) -> AnyPublisher<Void, HousesServiceError>
     func getAvailableHouses(in poligon: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
+    func getHousesSorted(by parameters: [String]) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
@@ -104,7 +105,18 @@ final class HousesServiceImpl: HousesService {
     func getAvailableHouses(in poligon: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
         housesNetworkService.getAvailableHouses(in: poligon)
             .mapError { HousesServiceError.networking($0) }
-            .map { value -> [HouseDomainModel] in value.map { HouseDomainModel(model: $0) }
+            .map { value -> [HouseDomainModel] in
+                value.map { HouseDomainModel(model: $0) }
+            }
+            .eraseToAnyPublisher()
+ 
+    }
+    
+    func getHousesSorted(by parameters: [String]) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
+        housesNetworkService.getHousesSorted(by: parameters)
+            .mapError { HousesServiceError.networking($0)}
+            .map { value -> [HouseDomainModel] in
+                value.map {  HouseDomainModel(model: $0) }
             }
             .eraseToAnyPublisher()
     }

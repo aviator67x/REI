@@ -22,7 +22,11 @@ class NetworkServiceProviderImpl<E: Endpoint>: NetworkServiceProvider {
     private let decoder: JSONDecoder
     private let plugins: [Plugin]
 
-    init(baseURLStorage: BaseURLStorage, networkManager: NetworkManager, encoder: JSONEncoder, decoder: JSONDecoder, plugins: [Plugin] = []) {
+    init(baseURLStorage: BaseURLStorage,
+         networkManager: NetworkManager,
+         encoder: JSONEncoder,
+         decoder: JSONDecoder,
+         plugins: [Plugin] = []) {
         self.baseURLStorage = baseURLStorage
         self.networkManager = networkManager
         self.encoder = encoder
@@ -53,7 +57,10 @@ class NetworkServiceProviderImpl<E: Endpoint>: NetworkServiceProvider {
 
     func execute<Model: Decodable>(endpoint: E) -> AnyPublisher<Model, NetworkError> {
         do {
-            let request = try endpoint.build(baseURL: baseURLStorage.baseURL, encoder: encoder, plugins: plugins)
+            let request = try endpoint.build(
+                baseURL: baseURLStorage.baseURL,
+                encoder: encoder,
+                plugins: plugins)
             return networkManager.execute(request: request)
                 .decode(type: Model.self, decoder: decoder)
                 .mapError { [unowned self] error -> NetworkError in

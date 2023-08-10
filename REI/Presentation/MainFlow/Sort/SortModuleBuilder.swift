@@ -14,7 +14,7 @@ enum SortTransition: Transition {
 
 final class SortModuleBuilder {
     class func build(container: AppContainer) -> Module<SortTransition, UIViewController> {
-        let viewModel = SortViewModel()
+        let viewModel = SortViewModel(houseService: container.housesService)
         let viewController = SortViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 final class SortViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -81,12 +82,17 @@ final class SortViewModel: BaseViewModel {
     ])
     private var tempPriceCellValue: [SortCellModel]?
 
-    override init() {
+    private var houseService: HousesService
+
+    // MARK: - Life cycle
+    init(houseService: HousesService) {
+        self.houseService = houseService
         super.init()
     }
 
     override func onViewDidLoad() {
         setupBinding()
+        getHousesSorted(by: ["price", "ort"])
     }
 
     func updateCellModel(_ cell: SortItem) {
@@ -149,7 +155,19 @@ final class SortViewModel: BaseViewModel {
         }
     }
 
-    private func setupBinding() {
+    func getHousesSorted(by parameteres: [String]) {
+        houseService.getHousesSorted(by: parameteres)
+            .receive(on: DispatchQueue.main)
+            .sinkWeakly(self, receiveValue:  { (self, houses) in
+                print(houses.count)
+            })
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: - private extension
+private extension SortViewModel {
+ func setupBinding() {
         titleCellSubject
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.createDataSource()
@@ -167,7 +185,7 @@ final class SortViewModel: BaseViewModel {
                 self.createDataSource()
             })
             .store(in: &cancellables)
-        
+
         dateCellSubject
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.createDataSource()
@@ -175,7 +193,7 @@ final class SortViewModel: BaseViewModel {
             .store(in: &cancellables)
     }
 
-    private func createDataSource() {
+func createDataSource() {
         sectionsSubject.value = titleCellSubject.value
             .map { value -> SortTable in
                 let sectionTitleItem = SortItem.title(model: value)

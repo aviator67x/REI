@@ -58,7 +58,6 @@ enum Search {
                 }
             }
             let result = searchItems.joined(separator: " and ")
-            print("result: \(result)")
             return ["where": result]
         }
     }
