@@ -284,4 +284,14 @@ final class SearchModel {
             })
             .store(in: &cancellables)
     }
+    
+    func getHousesSorted(by parameteres: [String]) {
+        housesService.getHousesSorted(by: parameteres)
+            .receive(on: DispatchQueue.main)
+            .sinkWeakly(self, receiveValue:  { (self, houses) in
+                print(houses.count)
+                self.housesSubject.value = houses
+            })
+            .store(in: &cancellables)
+    }
 }

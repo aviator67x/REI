@@ -82,11 +82,11 @@ final class SortViewModel: BaseViewModel {
     ])
     private var tempPriceCellValue: [SortCellModel]?
 
-    private var houseService: HousesService
+    private var searchModel: SearchModel
 
     // MARK: - Life cycle
-    init(houseService: HousesService) {
-        self.houseService = houseService
+    init(searchModel: SearchModel) {
+        self.searchModel = searchModel
         super.init()
     }
 
@@ -156,12 +156,7 @@ final class SortViewModel: BaseViewModel {
     }
 
     func getHousesSorted(by parameteres: [String]) {
-        houseService.getHousesSorted(by: parameteres)
-            .receive(on: DispatchQueue.main)
-            .sinkWeakly(self, receiveValue:  { (self, houses) in
-                print(houses.count)
-            })
-            .store(in: &cancellables)
+        searchModel.getHousesSorted(by: parameteres)
     }
 }
 
