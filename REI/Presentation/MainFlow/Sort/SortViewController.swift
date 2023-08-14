@@ -56,7 +56,7 @@ final class SortViewController: BaseViewController<SortViewModel> {
                 case .crossDidTap:
                     viewModel.popScreen()
                 case .sortDidTap:
-                    break//viewModel.sortAds()
+                    viewModel.getSortedHouses()
                 }
             }
             .store(in: &cancellables)

@@ -164,7 +164,11 @@ extension SearchResultsViewModel {
         case .sort:
             transitionSubject.send(.sort)
         case .lastSearch:
-            transitionSubject.send(.lastSearch)
+            guard let parametersData = UserDefaults.standard.value(forKey: "searchParameters") as? Data,
+               let parameters = try? JSONDecoder().decode([SearchParam].self, from: parametersData) else {
+                return
+            }
+            model.executeSearch(with: parameters)
         }
     }
 

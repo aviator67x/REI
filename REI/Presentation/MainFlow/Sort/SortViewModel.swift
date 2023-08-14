@@ -37,12 +37,14 @@ final class SortViewModel: BaseViewModel {
     private lazy var addressCellSubject = CurrentValueSubject<[SortCellModel], Never>([
         SortCellModel(
             name: "a - z",
+            sortingParameter: .addressUp,
             isHidden: false,
             isSelected: false,
             arrowImageName: "arrow.up"
         ),
         SortCellModel(
             name: "z - a",
+            sortingParameter: .addressDown,
             isHidden: false,
             isSelected: false,
             arrowImageName: "arrow.down"
@@ -53,12 +55,14 @@ final class SortViewModel: BaseViewModel {
     private lazy var dateCellSubject = CurrentValueSubject<[SortCellModel], Never>([
         SortCellModel(
             name: "newest first",
+            sortingParameter: .dateNewFirst,
             isHidden: false,
             isSelected: false,
             arrowImageName: "arrow.down"
         ),
         SortCellModel(
             name: "oldest first",
+            sortingParameter: .dateOldFirst,
             isHidden: false,
             isSelected: false,
             arrowImageName: "arrow.up"
@@ -69,18 +73,22 @@ final class SortViewModel: BaseViewModel {
     private lazy var priceCellSubject = CurrentValueSubject<[SortCellModel], Never>([
         SortCellModel(
             name: "min - max",
+            sortingParameter: .priceUp,
             isHidden: false,
             isSelected: false,
             arrowImageName: "arrow.up"
         ),
         SortCellModel(
             name: "max - min",
+            sortingParameter: .priceDown,
             isHidden: false,
             isSelected: false,
             arrowImageName: "arrow.down"
         ),
     ])
     private var tempPriceCellValue: [SortCellModel]?
+
+    private var sortParameters: [String] = []
 
     private var searchModel: SearchModel
 
@@ -92,7 +100,6 @@ final class SortViewModel: BaseViewModel {
 
     override func onViewDidLoad() {
         setupBinding()
-        getHousesSorted(by: ["price", "ort"])
     }
 
     func updateCellModel(_ cell: SortItem) {
@@ -135,30 +142,80 @@ final class SortViewModel: BaseViewModel {
                     dateCellSubject.value = tempDateCellValue
                 }
             }
+
         case let .address(addressCell):
             guard let index = addressCellSubject.value.firstIndex(where: { $0.id == addressCell.id }) else {
                 return
             }
+            for i in addressCellSubject.value.indices {
+                if i != index {
+                    addressCellSubject.value[i].isSelected = false
+                }
+            }
             addressCellSubject.value[index].isSelected.toggle()
+
+            let parameter = addressCellSubject.value[index].sortingParameter.rawValue
+            if let paramIndex = sortParameters.firstIndex(where: { $0 == parameter }) {
+                sortParameters.remove(at: paramIndex)
+            } else {
+                let filtered = sortParameters
+                    .filter {
+                        $0 != SortingParameters.addressUp.rawValue && $0 != SortingParameters.addressDown.rawValue
+                    }
+                sortParameters = filtered
+                sortParameters.append(parameter)
+            }
 
         case let .price(priceCell):
             guard let index = priceCellSubject.value.firstIndex(where: { $0.id == priceCell.id }) else {
                 return
             }
+            for i in priceCellSubject.value.indices {
+                if i != index {
+                    priceCellSubject.value[i].isSelected = false
+                }
+            }
             priceCellSubject.value[index].isSelected.toggle()
+
+            let parameter = priceCellSubject.value[index].sortingParameter.rawValue
+            if let paramIndex = sortParameters.firstIndex(where: { $0 == parameter }) {
+                sortParameters.remove(at: paramIndex)
+            } else {
+                let filtered = sortParameters
+                    .filter { $0 != SortingParameters.priceUp.rawValue && $0 != SortingParameters.priceDown.rawValue }
+                sortParameters = filtered
+                sortParameters.append(parameter)
+            }
 
         case let .date(dateCell):
             guard let index = dateCellSubject.value.firstIndex(where: { $0.id == dateCell.id }) else {
                 return
             }
+            for i in dateCellSubject.value.indices {
+                if i != index {
+                    dateCellSubject.value[i].isSelected = false
+                }
+            }
             dateCellSubject.value[index].isSelected.toggle()
+
+            let parameter = dateCellSubject.value[index].sortingParameter.rawValue
+            if let parameterIndex = sortParameters.firstIndex(where: { $0 == parameter }) {
+                sortParameters.remove(at: parameterIndex)
+            } else {
+                let filtered = sortParameters
+                    .filter {
+                        $0 != SortingParameters.dateNewFirst.rawValue && $0 != SortingParameters.dateOldFirst.rawValue
+                    }
+                sortParameters = filtered
+                sortParameters.append(parameter)
+            }
         }
     }
 
-    func getHousesSorted(by parameteres: [String]) {
-        searchModel.getHousesSorted(by: parameteres)
+    func getSortedHouses() {
+        searchModel.getHousesSorted(by: sortParameters)
     }
-    
+
     func popScreen() {
         transitionSubject.send(.popScreen)
     }
@@ -166,7 +223,7 @@ final class SortViewModel: BaseViewModel {
 
 // MARK: - private extension
 private extension SortViewModel {
- func setupBinding() {
+    func setupBinding() {
         titleCellSubject
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.createDataSource()
@@ -192,7 +249,7 @@ private extension SortViewModel {
             .store(in: &cancellables)
     }
 
-func createDataSource() {
+    func createDataSource() {
         sectionsSubject.value = titleCellSubject.value
             .map { value -> SortTable in
                 let sectionTitleItem = SortItem.title(model: value)

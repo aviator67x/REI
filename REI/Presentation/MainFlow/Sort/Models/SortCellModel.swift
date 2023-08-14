@@ -10,6 +10,7 @@ import Foundation
 struct SortCellModel: Hashable {
     let id = UUID()
     let name: String
+    let sortingParameter: SortingParameters
     var isHidden: Bool
     var isSelected: Bool
     var arrowImageName: String

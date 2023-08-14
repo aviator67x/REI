@@ -11,7 +11,7 @@ final class SwiftUIViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SwiftUITransition, Never>()
     
-    init() {
+    override init() {
 
         super.init()
     }

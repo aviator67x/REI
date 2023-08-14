@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SearchType: Equatable {
+enum SearchType: Equatable, Codable {
     case equalToInt(parameter: Int)
     case equalToString(parameter: String)
     case more(than: Int)
@@ -16,7 +16,7 @@ enum SearchType: Equatable {
     case within(distance: String)
 }
 
-enum HouseColumn: CaseIterable {
+enum HouseColumn: CaseIterable, Codable {
     case ownerId
     case price
     case propertyType
@@ -28,7 +28,7 @@ enum HouseColumn: CaseIterable {
     case distanceOnSphere
 }
 
-struct SearchParam: Equatable {
+struct SearchParam: Equatable, Codable {
     let key: HouseColumn
     let value: SearchType
 }

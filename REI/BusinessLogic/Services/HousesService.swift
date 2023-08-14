@@ -51,7 +51,11 @@ final class HousesServiceImpl: HousesService {
     }
 
     func searchHouses(_ parameters: [SearchParam]) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
-        housesNetworkService.searchHouses(with: parameters)
+        if let parametersData = try? JSONEncoder().encode(parameters) {
+            UserDefaults.standard.set(parametersData, forKey: "searchParameters")
+        }
+
+        return housesNetworkService.searchHouses(with: parameters)
             .mapError { HousesServiceError.networking($0) }
             .map { value -> [HouseDomainModel] in
                 value.map { HouseDomainModel(model: $0) }
@@ -109,14 +113,13 @@ final class HousesServiceImpl: HousesService {
                 value.map { HouseDomainModel(model: $0) }
             }
             .eraseToAnyPublisher()
- 
     }
-    
+
     func getHousesSorted(by parameters: [String]) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
         housesNetworkService.getHousesSorted(by: parameters)
-            .mapError { HousesServiceError.networking($0)}
+            .mapError { HousesServiceError.networking($0) }
             .map { value -> [HouseDomainModel] in
-                value.map {  HouseDomainModel(model: $0) }
+                value.map { HouseDomainModel(model: $0) }
             }
             .eraseToAnyPublisher()
     }

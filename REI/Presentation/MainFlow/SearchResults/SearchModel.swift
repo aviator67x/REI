@@ -267,6 +267,28 @@ final class SearchModel {
             .store(in: &cancellables)
     }
     
+    func executeSearch(with searchParameters: [SearchParam]) {
+        isFilterActive = true
+        isLoadingSubject.send(true)
+        housesService.searchHouses(searchParameters)
+            .receive(on: DispatchQueue.main)
+            .sink( receiveCompletion: { [unowned self] completion in
+                self.isLoadingSubject.send(false)
+                switch completion {
+                case .finished:
+                    break
+                case let .failure(error):
+                    debugPrint(error.localizedDescription)
+                }
+            }, receiveValue: { [unowned self] houses in
+                self.housesSubject.value = houses
+                self.searchRequestModelSubject.value = SearchRequestModel.empty
+//                isFilterActive = false
+                self.hasMoreToLoad = false
+            })
+            .store(in: &cancellables)
+    }
+    
     func getAvailableHouses(in poligon: String) {
         isLoadingSubject.send(true)
         housesService.getAvailableHouses(in: poligon)
