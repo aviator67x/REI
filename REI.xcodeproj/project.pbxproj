@@ -89,8 +89,6 @@
 		CE13E3C729DC850F00B948C9 /* EditProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3C629DC850F00B948C9 /* EditProfileModels.swift */; };
 		CE13E3CA29DC860E00B948C9 /* DetailedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE13E3C929DC860E00B948C9 /* DetailedModels.swift */; };
 		CE17ACD92A8A75CC00586466 /* SwiftUIModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17ACD52A8A75CC00586466 /* SwiftUIModuleBuilder.swift */; };
-		CE17ACDA2A8A75CC00586466 /* SwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17ACD62A8A75CC00586466 /* SwiftUIViewController.swift */; };
-		CE17ACDB2A8A75CC00586466 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17ACD72A8A75CC00586466 /* SwiftUIView.swift */; };
 		CE17ACDC2A8A75CC00586466 /* SwiftUIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17ACD82A8A75CC00586466 /* SwiftUIViewModel.swift */; };
 		CE1E2DCD2A078E1300328EAF /* UICollectionReusableView+identifiier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DCC2A078E1300328EAF /* UICollectionReusableView+identifiier.swift */; };
 		CE1E2DD02A07C92F00328EAF /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DCF2A07C92F00328EAF /* Publisher.swift */; };
@@ -176,6 +174,7 @@
 		CE990E9629CB623100120D6F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9229CB623100120D6F /* EditProfileView.swift */; };
 		CE990E9729CB623100120D6F /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9329CB623100120D6F /* EditProfileViewModel.swift */; };
 		CE990E9929CB820D00120D6F /* UIImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9829CB820C00120D6F /* UIImage+resize.swift */; };
+		CE9BB3522A8B981A0015031D /* SwiftUIModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9BB3512A8B981A0015031D /* SwiftUIModuleView.swift */; };
 		CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */; };
 		CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2F29B52163007DC31B /* DecodingError+.swift */; };
 		CE9CAF3229B6551B007DC31B /* SearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */; };
@@ -386,8 +385,6 @@
 		CE13E3C629DC850F00B948C9 /* EditProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileModels.swift; sourceTree = "<group>"; };
 		CE13E3C929DC860E00B948C9 /* DetailedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedModels.swift; sourceTree = "<group>"; };
 		CE17ACD52A8A75CC00586466 /* SwiftUIModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIModuleBuilder.swift; sourceTree = "<group>"; };
-		CE17ACD62A8A75CC00586466 /* SwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewController.swift; sourceTree = "<group>"; };
-		CE17ACD72A8A75CC00586466 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		CE17ACD82A8A75CC00586466 /* SwiftUIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewModel.swift; sourceTree = "<group>"; };
 		CE1E2DCC2A078E1300328EAF /* UICollectionReusableView+identifiier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+identifiier.swift"; sourceTree = "<group>"; };
 		CE1E2DCF2A07C92F00328EAF /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
@@ -473,6 +470,7 @@
 		CE990E9229CB623100120D6F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		CE990E9329CB623100120D6F /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		CE990E9829CB820C00120D6F /* UIImage+resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+resize.swift"; sourceTree = "<group>"; };
+		CE9BB3512A8B981A0015031D /* SwiftUIModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIModuleView.swift; sourceTree = "<group>"; };
 		CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+coding.swift"; sourceTree = "<group>"; };
 		CE9CAF2F29B52163007DC31B /* DecodingError+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingError+.swift"; sourceTree = "<group>"; };
 		CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsCoordinator.swift; sourceTree = "<group>"; };
@@ -991,9 +989,8 @@
 			isa = PBXGroup;
 			children = (
 				CE17ACD52A8A75CC00586466 /* SwiftUIModuleBuilder.swift */,
-				CE17ACD62A8A75CC00586466 /* SwiftUIViewController.swift */,
-				CE17ACD72A8A75CC00586466 /* SwiftUIView.swift */,
 				CE17ACD82A8A75CC00586466 /* SwiftUIViewModel.swift */,
+				CE9BB3512A8B981A0015031D /* SwiftUIModuleView.swift */,
 			);
 			path = SwiftUIModule;
 			sourceTree = "<group>";
@@ -1730,7 +1727,6 @@
 				CE4E7FEE29C095C10042C2F8 /* UIImageView+setImage.swift in Sources */,
 				CE1E2DD02A07C92F00328EAF /* Publisher.swift in Sources */,
 				CE5E915E2A7D288600EFD6EB /* SortButton.swift in Sources */,
-				CE17ACDA2A8A75CC00586466 /* SwiftUIViewController.swift in Sources */,
 				CE8B29832A2A323900425FB0 /* MapCellModel.swift in Sources */,
 				CE9430C629C4C20B00FFB94C /* ImageAsset+Hashable.swift in Sources */,
 				CE6B90702A1F439E00642B90 /* AdPhotosView.swift in Sources */,
@@ -1772,7 +1768,6 @@
 				CE5CCEBD29FAB09F007972CB /* FavouriteViewModel.swift in Sources */,
 				CEFFB9A92A24EAB50009F624 /* HousePhotoCell.swift in Sources */,
 				CE31637A29F6D9EE00E8A6B0 /* UIView+isHidden.swift in Sources */,
-				CE17ACDB2A8A75CC00586466 /* SwiftUIView.swift in Sources */,
 				CEA545FF297832F6007F9962 /* UIView+layout.swift in Sources */,
 				CEADC9A32981A22E007A0650 /* CGPoint+UniformKeyPathInitializable.swift in Sources */,
 				CEAA10F729DEDBBE00340401 /* HouseModels.swift in Sources */,
@@ -1889,6 +1884,7 @@
 				CE5CCECD29FFF3D8007972CB /* PriceCellModel.swift in Sources */,
 				E0783FEAD4F64D8929109DF5 /* SignInViewController.swift in Sources */,
 				CE13E3C429DC83E200B948C9 /* SearchModels.swift in Sources */,
+				CE9BB3522A8B981A0015031D /* SwiftUIModuleView.swift in Sources */,
 				62A24654EC339481A9A42790 /* SignInViewModel.swift in Sources */,
 				CEF83F972A1BF114009B0791 /* AdMultiDetailsView.swift in Sources */,
 				36F21C3E89939F36F60109C7 /* SignUpModuleBuilder.swift in Sources */,

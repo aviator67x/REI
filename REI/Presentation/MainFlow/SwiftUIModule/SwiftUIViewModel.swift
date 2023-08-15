@@ -6,14 +6,21 @@
 //
 
 import Combine
+import SwiftUI
 
-final class SwiftUIViewModel: BaseViewModel {
+final class SwiftUIViewModel: BaseViewModel, ObservableObject {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SwiftUITransition, Never>()
+    
+    @Published var title: String = "Initial title"
     
     override init() {
 
         super.init()
+    }
+    
+    func doSmth() {
+        print("I din somth")
     }
     
 }

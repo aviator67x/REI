@@ -30,10 +30,10 @@ final class AppCoordinator: Coordinator {
     }
 
     func start() {
-//        let vm = LoremIpsumViewModel(state: .blueprint)
-//        let vc = LoremIpsumViewController(viewModel: vm)
+       
+        let vc = SwiftUIModuleBuilder.build(container: container).viewController
         
-        window.rootViewController = navigationController
+        window.rootViewController = vc//navigationController
         window.makeKeyAndVisible()
 
 //        container.userService.tokenStorageService.clearAccessToken()
