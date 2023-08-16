@@ -24,11 +24,11 @@ final class SwiftUIViewModel: BaseViewModel, ObservableObject {
     
     func saveHousesToCD() {
     debugPrint("I'm savieng to CD")
-        coreDataStack.saveHouses()
+        coreDataStack.saveObjects()
     }
     
     func retrieveHousesFromCD() {
         debugPrint("I'm retrieving from CD")
-        coreDataStack.getHouses()
+        coreDataStack.getObjects(entiityName: "House")
     }
 }

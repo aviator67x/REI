@@ -37,41 +37,88 @@ class CoreDataStack {
         }
     }
 
-    func saveHouses() {
+    func saveObjects() {
         let houseModels: [HouseDomainModel] = [
-            HouseDomainModel(id: "firstId", constructionYear: 1111, garage: "", images: [], ort: "", livingArea: 0, square: 0, street: "", house: 0, propertyType: "", roomsNumber: 0, price: 0, location: Point(type: "point", coordinates: [1.1, 1.1])),
-            HouseDomainModel(id: "secondtId", constructionYear: 2222, garage: "", images: [], ort: "", livingArea: 0, square: 0, street: "", house: 0, propertyType: "", roomsNumber: 0, price: 0, location: Point(type: "point", coordinates: [1.1, 1.1]))
+            HouseDomainModel(
+                id: "firstId",
+                constructionYear: 1111,
+                garage: "",
+                images: [],
+                ort: "",
+                livingArea: 0,
+                square: 0,
+                street: "",
+                house: 0,
+                propertyType: "",
+                roomsNumber: 0,
+                price: 0,
+                location: Point(type: "point", coordinates: [1.1, 1.1])
+            ),
+            HouseDomainModel(
+                id: "secondtId",
+                constructionYear: 2222,
+                garage: "",
+                images: [],
+                ort: "",
+                livingArea: 0,
+                square: 0,
+                street: "",
+                house: 0,
+                propertyType: "",
+                roomsNumber: 0,
+                price: 0,
+                location: Point(type: "point", coordinates: [1.1, 1.1])
+            ),
         ]
         
+        self.deleteObjects()
+
         guard let houseEntity = NSEntityDescription.entity(forEntityName: modelName, in: managedContext) else {
             return
         }
-        for index in 0...houseModels.count-1 {
+        for index in 0 ... houseModels.count - 1 {
             let house = NSManagedObject(entity: houseEntity, insertInto: managedContext)
             house.setValue(houseModels[index].constructionYear, forKey: "constructionYear")
             house.setValue(houseModels[index].id, forKey: "id")
         }
-        
+
         do {
             try managedContext.save()
             debugPrint("I think trial houses have been saved to Core Data")
         } catch let error as NSError {
             debugPrint("Could not save. \(error), \(error.userInfo)")
-            
+        }
+    }
+
+    func getObjects(entiityName: String) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entiityName)
+
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "id") ?? "")
+            }
+        } catch {
+            debugPrint("Failed")
         }
     }
     
-    func getHouses() {
+    func deleteObjects() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "House")
         
         do {
             let result = try managedContext.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "id"))
+                managedContext.delete(data)
                 
+                do {
+                    try managedContext.save()
+                } catch {
+                    debugPrint("Failed to save context with error \(error)")
+                }
             }
         } catch {
-            debugPrint("Failed")
+            debugPrint("Failed to delete data with error \(error)")
         }
     }
 }
