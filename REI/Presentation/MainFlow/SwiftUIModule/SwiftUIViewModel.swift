@@ -7,6 +7,7 @@
 
 import Combine
 import SwiftUI
+import CoreData
 
 final class SwiftUIViewModel: BaseViewModel, ObservableObject {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -14,13 +15,20 @@ final class SwiftUIViewModel: BaseViewModel, ObservableObject {
     
     @Published var title: String = "Initial title"
     
+    let coreDataStack = CoreDataStack(modelName: "House")
+    
     override init() {
 
         super.init()
     }
     
-    func doSmth() {
-        print("I din somth")
+    func saveHousesToCD() {
+    debugPrint("I'm savieng to CD")
+        coreDataStack.saveHouses()
     }
     
+    func retrieveHousesFromCD() {
+        debugPrint("I'm retrieving from CD")
+        coreDataStack.getHouses()
+    }
 }

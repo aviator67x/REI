@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct SwiftUIModuleView: View {
     @StateObject var model: SwiftUIViewModel
@@ -13,8 +14,13 @@ struct SwiftUIModuleView: View {
     var body: some View {
         VStack {
             Text("SwiftUI")
-            Button("Button", action: {
-                model.doSmth()
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 40, trailing: 0))
+            Button("Save houses to Core Data", action: {
+                model.saveHousesToCD()
+            })
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 40, trailing: 0))
+            Button("Retrieve houses from Core Data", action: {
+                model.retrieveHousesFromCD()
             })
         }
     }

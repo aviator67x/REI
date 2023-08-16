@@ -175,6 +175,8 @@
 		CE990E9729CB623100120D6F /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9329CB623100120D6F /* EditProfileViewModel.swift */; };
 		CE990E9929CB820D00120D6F /* UIImage+resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE990E9829CB820C00120D6F /* UIImage+resize.swift */; };
 		CE9BB3522A8B981A0015031D /* SwiftUIModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9BB3512A8B981A0015031D /* SwiftUIModuleView.swift */; };
+		CE9BB3542A8BA3900015031D /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9BB3532A8BA3900015031D /* CoreDataService.swift */; };
+		CE9BB3582A8BA77B0015031D /* House.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE9BB3562A8BA77B0015031D /* House.xcdatamodeld */; };
 		CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */; };
 		CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2F29B52163007DC31B /* DecodingError+.swift */; };
 		CE9CAF3229B6551B007DC31B /* SearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */; };
@@ -471,6 +473,8 @@
 		CE990E9329CB623100120D6F /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		CE990E9829CB820C00120D6F /* UIImage+resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+resize.swift"; sourceTree = "<group>"; };
 		CE9BB3512A8B981A0015031D /* SwiftUIModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIModuleView.swift; sourceTree = "<group>"; };
+		CE9BB3532A8BA3900015031D /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		CE9BB3572A8BA77B0015031D /* SortParameters.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SortParameters.xcdatamodel; sourceTree = "<group>"; };
 		CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+coding.swift"; sourceTree = "<group>"; };
 		CE9CAF2F29B52163007DC31B /* DecodingError+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingError+.swift"; sourceTree = "<group>"; };
 		CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsCoordinator.swift; sourceTree = "<group>"; };
@@ -698,6 +702,7 @@
 		349F303FFCA4CD75E776E982 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
+				CE9BB3552A8BA3BF0015031D /* CoreData */,
 				52A4E13210B0541B137E47EA /* Coordinators */,
 				82F56F5577E1E85435A0F9AD /* Models */,
 				F1C1128FE7BE78FE71CFC8EE /* Services */,
@@ -1223,6 +1228,15 @@
 			path = EditProfile;
 			sourceTree = "<group>";
 		};
+		CE9BB3552A8BA3BF0015031D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				CE9BB3532A8BA3900015031D /* CoreDataService.swift */,
+				CE9BB3562A8BA77B0015031D /* House.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		CEA545E9297820A3007F9962 /* MainTextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -1733,6 +1747,7 @@
 				CE9CAF2E29B21203007DC31B /* UserDefaults+coding.swift in Sources */,
 				CEAEB9F929AE34EC005BBF50 /* UserDomainModel.swift in Sources */,
 				CE5CCED32A042153007972CB /* InfoView.swift in Sources */,
+				CE9BB3542A8BA3900015031D /* CoreDataService.swift in Sources */,
 				CE481C752A2FBB84000E00BC /* HouseImagesViewModel.swift in Sources */,
 				CE9881B829A4F3550086F583 /* NetworkManager.swift in Sources */,
 				656F7BA65C21EC792A53FC1A /* AuthNetworkService.swift in Sources */,
@@ -1869,6 +1884,7 @@
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,
 				CEB9F67F2A17AE410082A674 /* AdAddressModuleBuilder.swift in Sources */,
 				CEE2DE6B29F3174B0029AFF8 /* ListCell.swift in Sources */,
+				CE9BB3582A8BA77B0015031D /* House.xcdatamodeld in Sources */,
 				1F2825C6E85F4B0D9F8DAC85 /* SignInModuleBuilder.swift in Sources */,
 				CEAEB9ED29ACA6B1005BBF50 /* PasswordRestoreViewController.swift in Sources */,
 				CEF83F862A1BB09A009B0791 /* AdDetailsViewModel.swift in Sources */,
@@ -2590,6 +2606,19 @@
 			productName = KeyboardLayoutGuide;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		CE9BB3562A8BA77B0015031D /* House.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CE9BB3572A8BA77B0015031D /* SortParameters.xcdatamodel */,
+			);
+			currentVersion = CE9BB3572A8BA77B0015031D /* SortParameters.xcdatamodel */;
+			path = House.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 88AEDCAC92283F256D6DF57E /* Project object */;
 }
