@@ -164,10 +164,13 @@ extension SearchResultsViewModel {
         case .sort:
             transitionSubject.send(.sort)
         case .lastSearch:
+            // get searchParameters from UserDefaults
             guard let parametersData = UserDefaults.standard.value(forKey: "searchParameters") as? Data,
                let parameters = try? JSONDecoder().decode([SearchParam].self, from: parametersData) else {
                 return
             }
+            // get searchParameters from Documents
+//            FileService().readDataFromDocument(filename: "SearchParameters", decodingType: [SearchParam])
             model.executeSearch(with: parameters)
         }
     }

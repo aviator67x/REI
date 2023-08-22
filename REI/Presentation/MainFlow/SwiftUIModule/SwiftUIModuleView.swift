@@ -6,14 +6,17 @@
 //
 
 import Foundation
+import Kingfisher
 import SwiftUI
 
 struct SwiftUIModuleView: View {
     @StateObject var model: SwiftUIViewModel
+    var image = UIImage()
 
     var body: some View {
         VStack {
-            Text("SwiftUI")
+           
+            Text(model.title)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 40, trailing: 0))
             Button("Save houses to Core Data", action: {
                 model.saveHousesToCD()
@@ -22,6 +25,13 @@ struct SwiftUIModuleView: View {
             Button("Retrieve houses from Core Data", action: {
                 model.retrieveHousesFromCD()
             })
+
+            if model.data != nil {
+                KFImage(model.data!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100, height: 100)
+            }
         }
     }
 }

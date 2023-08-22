@@ -3,5 +3,6 @@
     <entity name="House" representedClassName="House" syncable="YES" codeGenerationType="class">
         <attribute name="constructionYear" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="urls" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
     </entity>
 </model>

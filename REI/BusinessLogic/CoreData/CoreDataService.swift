@@ -43,7 +43,7 @@ class CoreDataStack {
                 id: "firstId",
                 constructionYear: 1111,
                 garage: "",
-                images: [],
+                images: [URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0411-min.jpg")!, URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0410-min.jpg")!],
                 ort: "",
                 livingArea: 0,
                 square: 0,
@@ -58,7 +58,7 @@ class CoreDataStack {
                 id: "secondtId",
                 constructionYear: 2222,
                 garage: "",
-                images: [],
+                images: [URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0413-min.jpg")!, URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0408-min.jpg")!],
                 ort: "",
                 livingArea: 0,
                 square: 0,
@@ -80,6 +80,12 @@ class CoreDataStack {
             let house = NSManagedObject(entity: houseEntity, insertInto: managedContext)
             house.setValue(houseModels[index].constructionYear, forKey: "constructionYear")
             house.setValue(houseModels[index].id, forKey: "id")
+            
+            guard let urls = houseModels[index].images else {
+                return
+            }
+          let urlStrings = urls.map { String(describing: $0) }
+            house.setValue(urlStrings, forKey: "urls")
         }
 
         do {
@@ -90,13 +96,40 @@ class CoreDataStack {
         }
     }
 
-    func getObjects(entiityName: String) {
+    func getObjects(entiityName: String, completionHandler: ((HouseDomainModel) -> Void)?) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entiityName)
 
         do {
             let result = try managedContext.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "id") ?? "")
+                if let imageArray = data.value(forKey: "urls") as? [String],
+                   let id = data.value(forKey: "id") as? String,
+                   let constructionYear = data.value(forKey: "constructionYear") as? Int {
+                    var urlArray = [URL]()
+                    imageArray.forEach {
+                        guard let url = URL(string: $0) else {
+                            return
+                        }
+                        urlArray.append(url)
+                    }
+                    
+                    let houseDomainModel = HouseDomainModel(
+                        id: id,
+                        constructionYear: constructionYear,
+                        garage: "someGarage",
+                        images: urlArray,
+                        ort: "someTown",
+                        livingArea: 20,
+                        square: 30,
+                        street: "someStreet",
+                        house: 11,
+                        propertyType: "someType",
+                        roomsNumber: 5,
+                        price: 100,
+                        location: Point(type: "Point", coordinates: [1.1, 2.2]))
+                    
+                    completionHandler?(houseDomainModel)
+                }
             }
         } catch {
             debugPrint("Failed")

@@ -30,9 +30,11 @@ protocol HousesService {
 
 final class HousesServiceImpl: HousesService {
     private let housesNetworkService: HousesNetworkService
+    private let fileService: FileServiceProtocol
 
-    init(housesNetworkService: HousesNetworkService) {
+    init(housesNetworkService: HousesNetworkService, fileService: FileService) {
         self.housesNetworkService = housesNetworkService
+        self.fileService = fileService
     }
 
     func getHousesCount() -> AnyPublisher<Int, HousesServiceError> {
@@ -52,7 +54,10 @@ final class HousesServiceImpl: HousesService {
 
     func searchHouses(_ parameters: [SearchParam]) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
         if let parametersData = try? JSONEncoder().encode(parameters) {
+            // Saving to UserDeafaults
             UserDefaults.standard.set(parametersData, forKey: "searchParameters")
+            // Saving to FileDirectory
+            fileService.saveToDocuments(object: parameters, with: "SearchParameters")
         }
 
         return housesNetworkService.searchHouses(with: parameters)

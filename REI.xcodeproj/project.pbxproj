@@ -146,6 +146,7 @@
 		CE5E915A2A7C036B00EFD6EB /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E91562A7C036B00EFD6EB /* SortView.swift */; };
 		CE5E915B2A7C036B00EFD6EB /* SortViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E91572A7C036B00EFD6EB /* SortViewModel.swift */; };
 		CE5E915E2A7D288600EFD6EB /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5E915D2A7D288600EFD6EB /* SortButton.swift */; };
+		CE6041042A8E24D900E3A1AB /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6041032A8E24D900E3A1AB /* FileService.swift */; };
 		CE63F86029D4B0F600268B7E /* UniversalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63F85F29D4B0F600268B7E /* UniversalCell.swift */; };
 		CE6B906E2A1F439E00642B90 /* AdPhotosModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906A2A1F439E00642B90 /* AdPhotosModuleBuilder.swift */; };
 		CE6B906F2A1F439E00642B90 /* AdPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */; };
@@ -444,6 +445,7 @@
 		CE5E91562A7C036B00EFD6EB /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
 		CE5E91572A7C036B00EFD6EB /* SortViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewModel.swift; sourceTree = "<group>"; };
 		CE5E915D2A7D288600EFD6EB /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
+		CE6041032A8E24D900E3A1AB /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		CE63F85F29D4B0F600268B7E /* UniversalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalCell.swift; sourceTree = "<group>"; };
 		CE6B906A2A1F439E00642B90 /* AdPhotosModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosModuleBuilder.swift; sourceTree = "<group>"; };
 		CE6B906B2A1F439E00642B90 /* AdPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPhotosViewController.swift; sourceTree = "<group>"; };
@@ -1540,6 +1542,7 @@
 		F1C1128FE7BE78FE71CFC8EE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CE6041032A8E24D900E3A1AB /* FileService.swift */,
 				B61D0EF8B1999093C976E133 /* AppSettings.swift */,
 				90A4F4E565EAAD3D9ED5C262 /* UserService.swift */,
 				CEA51C4429F03C6E0030602E /* HousesService.swift */,
@@ -1796,6 +1799,7 @@
 				CEADC9A02981A22E007A0650 /* CGSize+UniformKeyPathInitializable.swift in Sources */,
 				CEE2DE7129F323660029AFF8 /* PhotoCellModel.swift in Sources */,
 				CE9430D529C8873200FFB94C /* TermsModuleBuilder.swift in Sources */,
+				CE6041042A8E24D900E3A1AB /* FileService.swift in Sources */,
 				CE82633E2A3F887500113AF9 /* PasswordCoordinator.swift in Sources */,
 				CEA54601297836C8007F9962 /* NSAttributedString.swift in Sources */,
 				CEA2A86729E9D1B400395817 /* SearchModel.swift in Sources */,

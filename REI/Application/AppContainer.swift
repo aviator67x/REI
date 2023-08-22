@@ -38,6 +38,7 @@ final class AppContainerImpl: AppContainer {
         let keychainService = Keychain(service: appConfiguration.bundleId)
         let tokenStorageService = TokenStorageServiceImpl(keychain: keychainService)
         let tokenPlugin = TokenPlugin(tokenStorage: tokenStorageService)
+        let fileService = FileService()
         let networkManagerImpl = NetworkManagerImpl(session: URLSession.shared)
 
         let authNetworkServiceProvider = NetworkServiceProviderImpl<AuthEndPoint>(
@@ -71,7 +72,7 @@ final class AppContainerImpl: AppContainer {
                 decoder: JSONDecoder()
             )
         let housesNetworkService = HousesNetworkServiceImpl(housesProvider: housesNetworkServiceProvider)
-        self.housesService = HousesServiceImpl(housesNetworkService: housesNetworkService)
+        self.housesService = HousesServiceImpl(housesNetworkService: housesNetworkService, fileService: fileService)
 
         self.adCreatingModel = AdCreatingModel(housesService: housesService, userService: userService)
 
