@@ -16,6 +16,7 @@ final class SwiftUIViewModel: BaseViewModel, ObservableObject {
 
     @Published var title = "Initial title"
     @Published var images: [URL] = []
+    @Published var streetName: String = ""
 
     let coreDataStack = CoreDataStack(modelName: "House")
 
@@ -32,11 +33,13 @@ final class SwiftUIViewModel: BaseViewModel, ObservableObject {
 
     func retrieveHousesFromCD() {
         debugPrint("I'm retrieving from CD")
-        coreDataStack.getObjects(entiityName: "House") { house in
-            guard let images = house.images else {
+        coreDataStack.getObjects(entiityName: "House") { houses in
+            guard let images = houses.first?.images,
+            let street = houses.first?.street else {
                 return
             }
             self.data = images
+            self.streetName = street
         }
     }
 }

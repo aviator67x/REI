@@ -27,7 +27,7 @@ class CoreDataStack {
     }()
 
     lazy var managedContext: NSManagedObjectContext = self.storeContainer.viewContext
-    
+
     lazy var backgroundContext: NSManagedObjectContext = self.storeContainer.newBackgroundContext()
 
     func saveContext() {
@@ -43,51 +43,68 @@ class CoreDataStack {
         let houseModels: [HouseDomainModel] = [
             HouseDomainModel(
                 id: "firstId",
-                constructionYear: 1111,
-                garage: "",
-                images: [URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0411-min.jpg")!, URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0410-min.jpg")!],
-                ort: "",
-                livingArea: 0,
-                square: 0,
-                street: "",
-                house: 0,
-                propertyType: "",
-                roomsNumber: 0,
-                price: 0,
+                constructionYear: 2023,
+                garage: "TiefGarage",
+                images: [
+                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0411-min.jpg")!,
+                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0410-min.jpg")!,
+                ],
+                ort: "Heimerdingen",
+                livingArea: 68,
+                square: 76,
+                street: "Feuerbacher",
+                house: 48,
+                propertyType: PropertyType.apartment.rawValue,
+                roomsNumber: 3,
+                price: 530_000,
                 location: Point(type: "point", coordinates: [1.1, 1.1])
             ),
             HouseDomainModel(
                 id: "secondtId",
                 constructionYear: 2222,
-                garage: "",
-                images: [URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0413-min.jpg")!, URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0408-min.jpg")!],
-                ort: "",
-                livingArea: 0,
-                square: 0,
-                street: "",
-                house: 0,
-                propertyType: "",
-                roomsNumber: 0,
-                price: 0,
+                garage: "someGarage",
+                images: [
+                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0413-min.jpg")!,
+                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0408-min.jpg")!,
+                ],
+                ort: "SomeCity",
+                livingArea: 20,
+                square: 30,
+                street: "someStreet",
+                house: 10,
+                propertyType: PropertyType.house.rawValue,
+                roomsNumber: 5,
+                price: 200_000,
                 location: Point(type: "point", coordinates: [1.1, 1.1])
             ),
         ]
-        
-        self.deleteObjects()
+
+        deleteObjects()
 
         guard let houseEntity = NSEntityDescription.entity(forEntityName: modelName, in: backgroundContext) else {
             return
         }
         for index in 0 ... houseModels.count - 1 {
             let house = NSManagedObject(entity: houseEntity, insertInto: backgroundContext)
-            house.setValue(houseModels[index].constructionYear, forKey: "constructionYear")
             house.setValue(houseModels[index].id, forKey: "id")
-            
+            house.setValue(houseModels[index].constructionYear, forKey: "constructionYear")
+            house.setValue(houseModels[index].garage, forKey: "garage")
             guard let urls = houseModels[index].images else {
                 return
             }
-          let urlStrings = urls.map { String(describing: $0) }
+            let urlStrings = urls.map { String(describing: $0) }
             house.setValue(urlStrings, forKey: "urls")
+            house.setValue(
+                houseModels[index].ort,
+                forKey: "ort"
+            )
+            house.setValue(houseModels[index].livingArea, forKey: "livingArea")
+            house.setValue(houseModels[index].square, forKey: "square")
+            house.setValue(houseModels[index].street, forKey: "street")
+            house.setValue(houseModels[index].house, forKey: "house")
+            house.setValue(houseModels[index].propertyType, forKey: "propertyType")
+            house.setValue(houseModels[index].roomsNumber, forKey: "roomsNumber")
+           let pointType = houseModels[index].location?.type
         }
 
         do {
@@ -98,15 +115,26 @@ class CoreDataStack {
         }
     }
 
-    func getObjects(entiityName: String, completionHandler: ((HouseDomainModel) -> Void)?) {
+    func getObjects(entiityName: String, completionHandler: (([HouseDomainModel]) -> Void)?) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entiityName)
 
         do {
+            var domainModels: [HouseDomainModel] = []
             let result = try managedContext.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
-                if let imageArray = data.value(forKey: "urls") as? [String],
-                   let id = data.value(forKey: "id") as? String,
-                   let constructionYear = data.value(forKey: "constructionYear") as? Int {
+                if let id = data.value(forKey: "id") as? String,
+                   let constructionYear = data.value(forKey: "constructionYear") as? Int,
+                   let imageArray = data.value(forKey: "urls") as? [String],
+                   let garage = data.value(forKey: "garage") as? String,
+                   let ort = data.value(forKey: "ort") as? String,
+                   let livingArea = data.value(forKey: "livingArea") as? Int,
+                   let square = data.value(forKey: "square") as? Int,
+                   let street = data.value(forKey: "street") as? String,
+                   let house = data.value(forKey: "house") as? Int,
+                   let propertyType = data.value(forKey: "propertyType") as? String,
+                   let roomsNumber = data.value(forKey: "roomsNumber") as? Int,
+                   let price = data.value(forKey: "price") as? Int
+                {
                     var urlArray = [URL]()
                     imageArray.forEach {
                         guard let url = URL(string: $0) else {
@@ -114,38 +142,40 @@ class CoreDataStack {
                         }
                         urlArray.append(url)
                     }
-                    
+
                     let houseDomainModel = HouseDomainModel(
                         id: id,
                         constructionYear: constructionYear,
-                        garage: "someGarage",
+                        garage: garage,
                         images: urlArray,
-                        ort: "someTown",
-                        livingArea: 20,
-                        square: 30,
-                        street: "someStreet",
-                        house: 11,
-                        propertyType: "someType",
-                        roomsNumber: 5,
-                        price: 100,
-                        location: Point(type: "Point", coordinates: [1.1, 2.2]))
-                    
-                    completionHandler?(houseDomainModel)
+                        ort: ort,
+                        livingArea: livingArea,
+                        square: square,
+                        street: street,
+                        house: house,
+                        propertyType: propertyType,
+                        roomsNumber: roomsNumber,
+                        price: price,
+                        location: Point(type: "Point", coordinates: [1.1, 2.2])
+                    )
+
+                    domainModels.append(houseDomainModel)
                 }
+                completionHandler?(domainModels)
             }
         } catch {
             debugPrint("Failed")
         }
     }
-    
+
     func deleteObjects() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "House")
-        
+
         do {
             let result = try managedContext.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
                 managedContext.delete(data)
-                
+
                 do {
                     try managedContext.save()
                 } catch {
