@@ -19,7 +19,7 @@ final class SwiftUIViewModel: BaseViewModel, ObservableObject {
 
     let coreDataStack = CoreDataStack(modelName: "House")
 
-    @Published var data: URL?
+    @Published var data: [URL] = []
 
     override init() {
         super.init()
@@ -32,12 +32,11 @@ final class SwiftUIViewModel: BaseViewModel, ObservableObject {
 
     func retrieveHousesFromCD() {
         debugPrint("I'm retrieving from CD")
-        coreDataStack.getObjects(entiityName: "House") { houses in
-            guard let images = houses.images,
-            let image = images.last else {
+        coreDataStack.getObjects(entiityName: "House") { house in
+            guard let images = house.images else {
                 return
             }
-            self.data = image
+            self.data = images
         }
     }
 }

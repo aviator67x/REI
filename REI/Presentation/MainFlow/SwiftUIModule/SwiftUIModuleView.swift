@@ -26,11 +26,13 @@ struct SwiftUIModuleView: View {
                 model.retrieveHousesFromCD()
             })
 
-            if model.data != nil {
-                KFImage(model.data!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100, height: 100)
+            if !model.data.isEmpty{
+                ForEach(0..<model.data.count) { index in
+                    KFImage(model.data[index])
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 100, height: 100)
+                }              
             }
         }
     }

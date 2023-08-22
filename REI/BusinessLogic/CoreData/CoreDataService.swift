@@ -27,9 +27,11 @@ class CoreDataStack {
     }()
 
     lazy var managedContext: NSManagedObjectContext = self.storeContainer.viewContext
+    
+    lazy var backgroundContext: NSManagedObjectContext = self.storeContainer.newBackgroundContext()
 
     func saveContext() {
-        guard managedContext.hasChanges else { return }
+        guard backgroundContext.hasChanges else { return }
         do {
             try managedContext.save()
         } catch let error as NSError {
@@ -73,11 +75,11 @@ class CoreDataStack {
         
         self.deleteObjects()
 
-        guard let houseEntity = NSEntityDescription.entity(forEntityName: modelName, in: managedContext) else {
+        guard let houseEntity = NSEntityDescription.entity(forEntityName: modelName, in: backgroundContext) else {
             return
         }
         for index in 0 ... houseModels.count - 1 {
-            let house = NSManagedObject(entity: houseEntity, insertInto: managedContext)
+            let house = NSManagedObject(entity: houseEntity, insertInto: backgroundContext)
             house.setValue(houseModels[index].constructionYear, forKey: "constructionYear")
             house.setValue(houseModels[index].id, forKey: "id")
             
@@ -89,7 +91,7 @@ class CoreDataStack {
         }
 
         do {
-            try managedContext.save()
+            try backgroundContext.save()
             debugPrint("I think trial houses have been saved to Core Data")
         } catch let error as NSError {
             debugPrint("Could not save. \(error), \(error.userInfo)")
