@@ -27,19 +27,19 @@ final class SwiftUIViewModel: BaseViewModel, ObservableObject {
     }
 
     func saveHousesToCD() {
-        debugPrint("I'm savieng to CD")
-        coreDataStack.saveObjects()
+//        debugPrint("I'm savieng to CD")
+//        coreDataStack.saveObjects()
     }
 
     func retrieveHousesFromCD() {
         debugPrint("I'm retrieving from CD")
         coreDataStack.getObjects(entiityName: "House") { houses in
             guard let images = houses.first?.images,
-            let street = houses.first?.street else {
+                  let street = houses.first?.location?.coordinates[0] else {
                 return
             }
             self.data = images
-            self.streetName = street
+            self.streetName = "Latitude is: \(street)"
         }
     }
 }

@@ -39,45 +39,45 @@ class CoreDataStack {
         }
     }
 
-    func saveObjects() {
-        let houseModels: [HouseDomainModel] = [
-            HouseDomainModel(
-                id: "firstId",
-                constructionYear: 2023,
-                garage: "TiefGarage",
-                images: [
-                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0411-min.jpg")!,
-                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0410-min.jpg")!,
-                ],
-                ort: "Heimerdingen",
-                livingArea: 68,
-                square: 76,
-                street: "Feuerbacher",
-                house: 48,
-                propertyType: PropertyType.apartment.rawValue,
-                roomsNumber: 3,
-                price: 530_000,
-                location: Point(type: "point", coordinates: [1.1, 1.1])
-            ),
-            HouseDomainModel(
-                id: "secondtId",
-                constructionYear: 2222,
-                garage: "someGarage",
-                images: [
-                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0413-min.jpg")!,
-                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0408-min.jpg")!,
-                ],
-                ort: "SomeCity",
-                livingArea: 20,
-                square: 30,
-                street: "someStreet",
-                house: 10,
-                propertyType: PropertyType.house.rawValue,
-                roomsNumber: 5,
-                price: 200_000,
-                location: Point(type: "point", coordinates: [1.1, 1.1])
-            ),
-        ]
+    func saveObjects(houseModels: [HouseDomainModel]) {
+//        let houseModels: [HouseDomainModel] = [
+//            HouseDomainModel(
+//                id: "firstId",
+//                constructionYear: 2023,
+//                garage: "TiefGarage",
+//                images: [
+//                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0411-min.jpg")!,
+//                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0410-min.jpg")!,
+//                ],
+//                ort: "Heimerdingen",
+//                livingArea: 68,
+//                square: 76,
+//                street: "Feuerbacher",
+//                house: 48,
+//                propertyType: PropertyType.apartment.rawValue,
+//                roomsNumber: 3,
+//                price: 530_000,
+//                location: Point(type: "point", coordinates: [1.1, 1.1])
+//            ),
+//            HouseDomainModel(
+//                id: "secondtId",
+//                constructionYear: 2222,
+//                garage: "someGarage",
+//                images: [
+//                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0413-min.jpg")!,
+//                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0408-min.jpg")!,
+//                ],
+//                ort: "SomeCity",
+//                livingArea: 20,
+//                square: 30,
+//                street: "someStreet",
+//                house: 10,
+//                propertyType: PropertyType.house.rawValue,
+//                roomsNumber: 5,
+//                price: 200_000,
+//                location: Point(type: "point", coordinates: [1.1, 1.1])
+//            ),
+//        ]
 
         deleteObjects()
 
@@ -104,7 +104,8 @@ class CoreDataStack {
             house.setValue(houseModels[index].house, forKey: "house")
             house.setValue(houseModels[index].propertyType, forKey: "propertyType")
             house.setValue(houseModels[index].roomsNumber, forKey: "roomsNumber")
-           let pointType = houseModels[index].location?.type
+            house.setValue(houseModels[index].location?.coordinates[0], forKey: "pointLatitude")
+            house.setValue(houseModels[index].location?.coordinates[1], forKey: "pointLongitude")
         }
 
         do {
@@ -133,7 +134,9 @@ class CoreDataStack {
                    let house = data.value(forKey: "house") as? Int,
                    let propertyType = data.value(forKey: "propertyType") as? String,
                    let roomsNumber = data.value(forKey: "roomsNumber") as? Int,
-                   let price = data.value(forKey: "price") as? Int
+                   let price = data.value(forKey: "price") as? Int,
+                   let latitude = data.value(forKey: "pointLatitude") as? Double,
+                   let longitude = data.value(forKey: "pointLongitude") as? Double
                 {
                     var urlArray = [URL]()
                     imageArray.forEach {
@@ -156,7 +159,7 @@ class CoreDataStack {
                         propertyType: propertyType,
                         roomsNumber: roomsNumber,
                         price: price,
-                        location: Point(type: "Point", coordinates: [1.1, 2.2])
+                        location: Point(type: "Point", coordinates: [latitude, longitude])
                     )
 
                     domainModels.append(houseDomainModel)

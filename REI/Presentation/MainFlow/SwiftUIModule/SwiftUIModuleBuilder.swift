@@ -14,7 +14,7 @@ enum SwiftUITransition: Transition {
 }
 
 final class SwiftUIModuleBuilder {
-    class func build(container: AppContainer) -> Module<SwiftUITransition, UIViewController> {
+    class func build() -> Module<SwiftUITransition, UIViewController> {
         let viewModel = SwiftUIViewModel()
         let view = SwiftUIModuleView(model: viewModel)
         let viewController = UIHostingController(rootView: view)

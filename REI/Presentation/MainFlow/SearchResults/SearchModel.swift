@@ -36,7 +36,7 @@ final class SearchModel {
     private var isPaginationInProgress = false
     private var hasMoreToLoad = true
     private var offset = 0
-    private var pageSize = 7
+    private var pageSize = 2
     private var housesCount = 0
     
     var isFilterActive = false

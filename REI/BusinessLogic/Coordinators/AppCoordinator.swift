@@ -31,9 +31,9 @@ final class AppCoordinator: Coordinator {
 
     func start() {
        
-        let vc = SwiftUIModuleBuilder.build(container: container).viewController
+        let vc = SwiftUIModuleBuilder.build().viewController
         
-        window.rootViewController = vc//navigationController
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
 
 //        container.userService.tokenStorageService.clearAccessToken()

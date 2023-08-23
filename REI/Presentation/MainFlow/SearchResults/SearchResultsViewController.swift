@@ -26,8 +26,20 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
 
     private func setupNavigationBar() {
         navigationItem.titleView = segmentedControl
+        let recognizer = UITapGestureRecognizer()
+        recognizer.addTarget(self, action: #selector(showSwiftUIModule))
+        let imageView = UIImageView(image: UIImage(systemName: "face.dashed"))
+        imageView.addGestureRecognizer(recognizer)
         navigationItem
-            .leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(systemName: "face.dashed")))
+            .leftBarButtonItem = UIBarButtonItem(customView: imageView)
+     
+    
+    }
+    
+    @objc
+    func showSwiftUIModule() {
+        let vc = SwiftUIModuleBuilder.build().viewController
+        present(vc, animated: true)
     }
 
     private func setupBindings() {
@@ -79,6 +91,6 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                 viewModel.setScreenState(state)
                 contentView.makeSelectView(isVisible: state != .map)
             }
-            .store(in: &cancellables)           
+            .store(in: &cancellables)
     }
 }
