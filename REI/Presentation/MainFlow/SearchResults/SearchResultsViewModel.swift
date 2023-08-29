@@ -34,7 +34,7 @@ final class SearchResultsViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
-        loadHouses()
+        model.loadHouses()
 //        getHousesCount()
         setupBinding()
     }
@@ -59,10 +59,6 @@ private extension SearchResultsViewModel {
             .receive(on: DispatchQueue.main)
             .sinkWeakly(self, receiveValue: { (self, houses) in
                 self.housesSubject.value = houses
-                if !houses.isEmpty {
-                    let coreDataService = CoreDataStack(modelName: "House")
-                    coreDataService.saveObjects(houseModels: houses)
-                }
             })
             .store(in: &cancellables)
 
@@ -141,7 +137,7 @@ private extension SearchResultsViewModel {
 // MARK: - extension
 extension SearchResultsViewModel {
     func loadHouses() {
-        model.loadHouses()
+        model.loadHousesAPI()
     }
     
     func getAvailableHouses(in poligon: String) {

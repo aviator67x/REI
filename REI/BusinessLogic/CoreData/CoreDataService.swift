@@ -9,7 +9,14 @@ import CoreData
 import Foundation
 import UIKit
 
-class CoreDataStack {
+protocol CoreDataStackProtocol {
+    func saveContext()
+    func deleteObjects()
+    func saveObjects(houseModels: [HouseDomainModel])
+    func getObjects() -> [HouseDomainModel]
+}
+
+class CoreDataStack: CoreDataStackProtocol {
     private let modelName: String
 
     init(modelName: String) {
@@ -116,11 +123,11 @@ class CoreDataStack {
         }
     }
 
-    func getObjects(entiityName: String, completionHandler: (([HouseDomainModel]) -> Void)?) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entiityName)
+    func getObjects() -> [HouseDomainModel] {
+        var domainModels: [HouseDomainModel] = []
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: modelName)
 
         do {
-            var domainModels: [HouseDomainModel] = []
             let result = try managedContext.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
                 if let id = data.value(forKey: "id") as? String,
@@ -164,11 +171,11 @@ class CoreDataStack {
 
                     domainModels.append(houseDomainModel)
                 }
-                completionHandler?(domainModels)
             }
         } catch {
             debugPrint("Failed")
         }
+        return domainModels
     }
 
     func deleteObjects() {

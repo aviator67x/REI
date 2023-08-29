@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CombineCocoa
 import Foundation
 
 enum HousesServiceError: Error {
@@ -26,15 +27,19 @@ protocol HousesService {
     func deleteAd(with id: String) -> AnyPublisher<Void, HousesServiceError>
     func getAvailableHouses(in poligon: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func getHousesSorted(by parameters: [String]) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
+    func getHousesFromCoreData() -> AnyPublisher<[HouseDomainModel], HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
     private let housesNetworkService: HousesNetworkService
     private let fileService: FileServiceProtocol
+    private let coreDataService: CoreDataStackProtocol
 
-    init(housesNetworkService: HousesNetworkService, fileService: FileService) {
+    private lazy var cancellables = Set<AnyCancellable>()
+    init(housesNetworkService: HousesNetworkService, fileService: FileService, coreDataService: CoreDataStackProtocol) {
         self.housesNetworkService = housesNetworkService
         self.fileService = fileService
+        self.coreDataService = coreDataService
     }
 
     func getHousesCount() -> AnyPublisher<Int, HousesServiceError> {
@@ -43,11 +48,24 @@ final class HousesServiceImpl: HousesService {
             .eraseToAnyPublisher()
     }
 
+    func getHousesFromCoreData() -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
+        let housesInCoreData = coreDataService.getObjects()
+        let housesPublisher = Just(housesInCoreData)
+            .setFailureType(to: HousesServiceError.self)
+        return housesPublisher.eraseToAnyPublisher()
+    }
+
     func getHouses(pageSize: Int, offset: Int) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
-        housesNetworkService.getHouses(pageSize: pageSize, skip: offset)
+        return housesNetworkService.getHouses(pageSize: pageSize, skip: pageSize)
             .mapError { HousesServiceError.networking($0) }
             .map { value -> [HouseDomainModel] in
-                value.map { HouseDomainModel(model: $0) }
+                let houses = value.map { HouseDomainModel(model: $0)
+                }
+              
+                if offset == 0 {
+                    self.coreDataService.saveObjects(houseModels: houses)
+                }
+                return houses
             }
             .eraseToAnyPublisher()
     }

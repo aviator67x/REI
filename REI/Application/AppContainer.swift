@@ -40,6 +40,7 @@ final class AppContainerImpl: AppContainer {
         let tokenPlugin = TokenPlugin(tokenStorage: tokenStorageService)
         let fileService = FileService()
         let networkManagerImpl = NetworkManagerImpl(session: URLSession.shared)
+        let coreDataService = CoreDataStack(modelName: "House")
 
         let authNetworkServiceProvider = NetworkServiceProviderImpl<AuthEndPoint>(
             baseURLStorage: appConfiguration,
@@ -72,7 +73,7 @@ final class AppContainerImpl: AppContainer {
                 decoder: JSONDecoder()
             )
         let housesNetworkService = HousesNetworkServiceImpl(housesProvider: housesNetworkServiceProvider)
-        self.housesService = HousesServiceImpl(housesNetworkService: housesNetworkService, fileService: fileService)
+        self.housesService = HousesServiceImpl(housesNetworkService: housesNetworkService, fileService: fileService, coreDataService: coreDataService)
 
         self.adCreatingModel = AdCreatingModel(housesService: housesService, userService: userService)
 

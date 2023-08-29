@@ -28,20 +28,19 @@ final class SearchModel {
 
     private(set) lazy var favouriteHousesIdPublisher = favouriteHousesIdSubject.eraseToAnyPublisher()
     private lazy var favouriteHousesIdSubject = CurrentValueSubject<[String], Never>([])
-    
+
     private(set) lazy var housesCountPublisher = housesCountSubject.eraseToAnyPublisher()
     private lazy var housesCountSubject = PassthroughSubject<Int, Never>()
-
 
     private var isPaginationInProgress = false
     private var hasMoreToLoad = true
     private var offset = 0
     private var pageSize = 2
     private var housesCount = 0
-    
+
     var isFilterActive = false
     var hasFilters: Bool {
-        searchParametersSubject.value.count > 0
+        !searchParametersSubject.value.isEmpty
     }
 
     init(housesService: HousesService, userService: UserService) {
@@ -94,7 +93,7 @@ final class SearchModel {
         userService.addToFavourities(houses: favouriteHousesIdSubject.value)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
-            self.isLoadingSubject.send(false)
+                self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
                     break
@@ -158,7 +157,7 @@ final class SearchModel {
         housesSubject.value = []
         loadHouses()
     }
-    
+
     func updateSearchRequestModel(ortPolygon: String) {
         searchRequestModelSubject.value.ortPolygon = ortPolygon
     }
@@ -200,6 +199,16 @@ final class SearchModel {
     }
 
     func loadHouses() {
+        housesService.getHousesFromCoreData()
+            .sinkWeakly(self, receiveCompletion: { (self, _) in
+                self.loadHousesAPI()
+            }, receiveValue: { (self, houses) in
+                self.housesSubject.value = houses
+            })
+            .store(in: &cancellables)
+    }
+
+    func loadHousesAPI() {
         guard !isPaginationInProgress,
               hasMoreToLoad
         else {
@@ -209,24 +218,27 @@ final class SearchModel {
         isLoadingSubject.send(true)
         housesService.getHouses(pageSize: pageSize, offset: offset)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [unowned self] completion in
+                self.isPaginationInProgress = false
                 self.isLoadingSubject.send(false)
-                switch completion {
-                case .finished:
-                    break
-                case let .failure(error):
+                if case let .failure(error) = completion {
                     debugPrint(error.localizedDescription)
                 }
             }, receiveValue: { [unowned self] data in
                 NetworkLogger.log(data: data)
-                self.housesSubject.value.append(contentsOf: data)
-                self.offset += data.count
-                self.hasMoreToLoad = offset >= pageSize
-                self.isPaginationInProgress = false
+                if offset == 0 {
+                    self.housesSubject.value = data
+                } else {
+                    self.housesSubject.value.append(contentsOf: data)
+                }
+                    self.offset += data.count
+                    self.hasMoreToLoad = offset >= pageSize
+                  
+                    
             })
             .store(in: &cancellables)
     }
-    
+
     func getHousesCount() {
         isLoadingSubject.send(true)
         housesService.getHousesCount()
@@ -236,7 +248,7 @@ final class SearchModel {
                 switch completion {
                 case .finished:
                     break
-                case .failure(let error):
+                case let .failure(error):
                     debugPrint(error.localizedDescription)
                 }
             } receiveValue: { [unowned self] count in
@@ -250,7 +262,7 @@ final class SearchModel {
         isLoadingSubject.send(true)
         housesService.searchHouses(searchParametersSubject.value)
             .receive(on: DispatchQueue.main)
-            .sink( receiveCompletion: { [unowned self] completion in
+            .sink(receiveCompletion: { [unowned self] completion in
                 self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
@@ -266,13 +278,13 @@ final class SearchModel {
             })
             .store(in: &cancellables)
     }
-    
+
     func executeSearch(with searchParameters: [SearchParam]) {
         isFilterActive = true
         isLoadingSubject.send(true)
         housesService.searchHouses(searchParameters)
             .receive(on: DispatchQueue.main)
-            .sink( receiveCompletion: { [unowned self] completion in
+            .sink(receiveCompletion: { [unowned self] completion in
                 self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
@@ -288,29 +300,29 @@ final class SearchModel {
             })
             .store(in: &cancellables)
     }
-    
+
     func getAvailableHouses(in poligon: String) {
         isLoadingSubject.send(true)
         housesService.getAvailableHouses(in: poligon)
             .receive(on: DispatchQueue.main)
-            .sinkWeakly ( self, receiveCompletion: { (self, completion) in
+            .sinkWeakly(self, receiveCompletion: { (self, completion) in
                 self.isLoadingSubject.send(false)
                 switch completion {
                 case .finished:
                     break
-                case .failure(let error):
+                case let .failure(error):
                     debugPrint(error.localizedDescription)
                 }
-            }, receiveValue: { (self, houses) in
+            }, receiveValue: { _, houses in
                 print(houses)
             })
             .store(in: &cancellables)
     }
-    
+
     func getHousesSorted(by parameteres: [String]) {
         housesService.getHousesSorted(by: parameteres)
             .receive(on: DispatchQueue.main)
-            .sinkWeakly(self, receiveValue:  { (self, houses) in
+            .sinkWeakly(self, receiveValue: { (self, houses) in
                 print(houses.count)
                 self.housesSubject.value = houses
             })
