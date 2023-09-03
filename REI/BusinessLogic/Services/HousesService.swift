@@ -27,7 +27,7 @@ protocol HousesService {
     func deleteAd(with id: String) -> AnyPublisher<Void, HousesServiceError>
     func getAvailableHouses(in poligon: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func getHousesSorted(by parameters: [String]) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
-    func getHousesFromCoreData() -> AnyPublisher<[HouseDomainModel], HousesServiceError>
+    func getHousesFromCoreData() -> AnyPublisher<[HouseDomainModel]?, HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
@@ -48,8 +48,8 @@ final class HousesServiceImpl: HousesService {
             .eraseToAnyPublisher()
     }
 
-    func getHousesFromCoreData() -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
-        let housesInCoreData = coreDataService.getObjects()
+    func getHousesFromCoreData() -> AnyPublisher<[HouseDomainModel]?, HousesServiceError> {
+        let housesInCoreData = coreDataService.getObjects(by: nil)
         let housesPublisher = Just(housesInCoreData)
             .setFailureType(to: HousesServiceError.self)
         return housesPublisher.eraseToAnyPublisher()
@@ -63,7 +63,7 @@ final class HousesServiceImpl: HousesService {
                 }
               
                 if offset == 0 {
-                    self.coreDataService.saveObjects(houseModels: houses)
+                    self.coreDataService.saveObjects(houseModels: houses, isFavourite: false)
                 }
                 return houses
             }

@@ -61,7 +61,7 @@ final class AppContainerImpl: AppContainer {
         let userNetworkService = UserNetworkServiceImpl(userProvider: userNetworkServiceProvider)
         let userService = UserServiceImpl(
             tokenStorageService: tokenStorageService,
-            userNetworkService: userNetworkService
+            userNetworkService: userNetworkService, coreDataService: coreDataService
         )
         self.userService = userService
 

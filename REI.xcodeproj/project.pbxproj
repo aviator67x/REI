@@ -64,6 +64,10 @@
 		CE02BD722A140290007AD3C7 /* AdCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD712A140290007AD3C7 /* AdCollectionModel.swift */; };
 		CE02BD7E2A1602D8007AD3C7 /* AdCreatingRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD7D2A1602D8007AD3C7 /* AdCreatingRequestModel.swift */; };
 		CE02BD802A164C3E007AD3C7 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE02BD7F2A164C3E007AD3C7 /* AddressModel.swift */; };
+		CE080E7A2AA3D283006B9D25 /* REITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE080E792AA3D283006B9D25 /* REITests.swift */; };
+		CE080E852AA3D3D9006B9D25 /* MockHousesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE080E842AA3D3D9006B9D25 /* MockHousesService.swift */; };
+		CE080E872AA3D510006B9D25 /* Houses.json in Resources */ = {isa = PBXBuildFile; fileRef = CE080E862AA3D510006B9D25 /* Houses.json */; };
+		CE080E892AA46D20006B9D25 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE080E882AA46D20006B9D25 /* Mockable.swift */; };
 		CE0E27AF29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AB29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift */; };
 		CE0E27B029CE1DA9001EDFCD /* SearchFiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AC29CE1DA9001EDFCD /* SearchFiltersViewController.swift */; };
 		CE0E27B129CE1DA9001EDFCD /* SearchFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AD29CE1DA9001EDFCD /* SearchFiltersView.swift */; };
@@ -300,6 +304,16 @@
 		FF488366C76C74DAAB5DAB98 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83E301C44244DAC7A96495F4 /* Montserrat-BoldItalic.ttf */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		CE080E7B2AA3D283006B9D25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88AEDCAC92283F256D6DF57E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A811F3B6541B825175643714;
+			remoteInfo = REI;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		031E74515AC1F3B09C5D4E87 /* Config-DEV.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-DEV.xcconfig"; sourceTree = "<group>"; };
 		09D54B0D2668984CC055A531 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -363,6 +377,11 @@
 		CE02BD712A140290007AD3C7 /* AdCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCollectionModel.swift; sourceTree = "<group>"; };
 		CE02BD7D2A1602D8007AD3C7 /* AdCreatingRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingRequestModel.swift; sourceTree = "<group>"; };
 		CE02BD7F2A164C3E007AD3C7 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
+		CE080E772AA3D282006B9D25 /* REITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = REITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE080E792AA3D283006B9D25 /* REITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REITests.swift; sourceTree = "<group>"; };
+		CE080E842AA3D3D9006B9D25 /* MockHousesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHousesService.swift; sourceTree = "<group>"; };
+		CE080E862AA3D510006B9D25 /* Houses.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Houses.json; sourceTree = "<group>"; };
+		CE080E882AA46D20006B9D25 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		CE0E27AB29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersModuleBuilder.swift; sourceTree = "<group>"; };
 		CE0E27AC29CE1DA9001EDFCD /* SearchFiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersViewController.swift; sourceTree = "<group>"; };
 		CE0E27AD29CE1DA9001EDFCD /* SearchFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersView.swift; sourceTree = "<group>"; };
@@ -607,6 +626,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE080E742AA3D282006B9D25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -650,6 +676,7 @@
 			isa = PBXGroup;
 			children = (
 				CC0A1CA43C51CE9B7E60BECF /* REI */,
+				CE080E782AA3D283006B9D25 /* REITests */,
 				DE3F1EFB85403EF50F47B481 /* Products */,
 				47F11462ACEDD10BC6A4F32A /* Frameworks */,
 			);
@@ -914,6 +941,17 @@
 				CE02BD7F2A164C3E007AD3C7 /* AddressModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CE080E782AA3D283006B9D25 /* REITests */ = {
+			isa = PBXGroup;
+			children = (
+				CE080E792AA3D283006B9D25 /* REITests.swift */,
+				CE080E842AA3D3D9006B9D25 /* MockHousesService.swift */,
+				CE080E862AA3D510006B9D25 /* Houses.json */,
+				CE080E882AA46D20006B9D25 /* Mockable.swift */,
+			);
+			path = REITests;
 			sourceTree = "<group>";
 		};
 		CE0E27AA29CE1D90001EDFCD /* SearchFilters */ = {
@@ -1524,6 +1562,7 @@
 			isa = PBXGroup;
 			children = (
 				E6353D0F1511E20E206B1634 /* REI.app */,
+				CE080E772AA3D282006B9D25 /* REITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1583,13 +1622,38 @@
 			productReference = E6353D0F1511E20E206B1634 /* REI.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CE080E762AA3D282006B9D25 /* REITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE080E7D2AA3D284006B9D25 /* Build configuration list for PBXNativeTarget "REITests" */;
+			buildPhases = (
+				CE080E732AA3D282006B9D25 /* Sources */,
+				CE080E742AA3D282006B9D25 /* Frameworks */,
+				CE080E752AA3D282006B9D25 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE080E7C2AA3D283006B9D25 /* PBXTargetDependency */,
+			);
+			name = REITests;
+			productName = REITests;
+			productReference = CE080E772AA3D282006B9D25 /* REITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		88AEDCAC92283F256D6DF57E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					CE080E762AA3D282006B9D25 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = A811F3B6541B825175643714;
+					};
+				};
 			};
 			buildConfigurationList = C2DE4C4BA8CC13D1AABE3E88 /* Build configuration list for PBXProject "REI" */;
 			compatibilityVersion = "Xcode 11.0";
@@ -1614,6 +1678,7 @@
 			projectRoot = "";
 			targets = (
 				A811F3B6541B825175643714 /* REI */,
+				CE080E762AA3D282006B9D25 /* REITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1650,6 +1715,14 @@
 				958FD4F99C542E77C7038DED /* Montserrat-SemiBoldItalic.ttf in Resources */,
 				54796C8496C2F4F5AE71B114 /* Montserrat-Thin.ttf in Resources */,
 				2BD0BBB880E8AED31DD819F2 /* Montserrat-ThinItalic.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE080E752AA3D282006B9D25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE080E872AA3D510006B9D25 /* Houses.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1943,7 +2016,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE080E732AA3D282006B9D25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE080E852AA3D3D9006B9D25 /* MockHousesService.swift in Sources */,
+				CE080E892AA46D20006B9D25 /* Mockable.swift in Sources */,
+				CE080E7A2AA3D283006B9D25 /* REITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CE080E7C2AA3D283006B9D25 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A811F3B6541B825175643714 /* REI */;
+			targetProxy = CE080E7B2AA3D283006B9D25 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		69AFA02F2BF8513E7A1E3CB0 /* Localizable.strings */ = {
@@ -1978,6 +2069,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				"SWIFT_INCLUDE_PATHS[arch=*]" = "${SRCROOT}/Runtime";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -2130,6 +2222,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				"SWIFT_INCLUDE_PATHS[arch=*]" = "${SRCROOT}/Runtime";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "Release STG";
@@ -2155,6 +2248,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				"SWIFT_INCLUDE_PATHS[arch=*]" = "${SRCROOT}/Runtime";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2367,9 +2461,160 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				"SWIFT_INCLUDE_PATHS[arch=*]" = "${SRCROOT}/Runtime";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "Release DEV";
+		};
+		CE080E7E2AA3D284006B9D25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = L3QAWRZFYR.REITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/REI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/REI";
+			};
+			name = Debug;
+		};
+		CE080E7F2AA3D284006B9D25 /* Debug DEV */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = L3QAWRZFYR.REITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/REI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/REI";
+			};
+			name = "Debug DEV";
+		};
+		CE080E802AA3D284006B9D25 /* Debug STG */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = L3QAWRZFYR.REITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/REI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/REI";
+			};
+			name = "Debug STG";
+		};
+		CE080E812AA3D284006B9D25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = L3QAWRZFYR.REITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/REI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/REI";
+			};
+			name = Release;
+		};
+		CE080E822AA3D284006B9D25 /* Release DEV */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = L3QAWRZFYR.REITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/REI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/REI";
+			};
+			name = "Release DEV";
+		};
+		CE080E832AA3D284006B9D25 /* Release STG */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = L3QAWRZFYR.REITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/REI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/REI";
+			};
+			name = "Release STG";
 		};
 		CF49975B4D04F48B89282E4D /* Debug DEV */ = {
 			isa = XCBuildConfiguration;
@@ -2392,6 +2637,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				"SWIFT_INCLUDE_PATHS[arch=*]" = "${SRCROOT}/Runtime";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "Debug DEV";
@@ -2417,6 +2663,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/Runtime";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "Debug STG";
@@ -2513,6 +2760,19 @@
 				26CDA319F1CF0BAE3EBFA8B3 /* Release */,
 				9EA48EFF68B9FACC42913423 /* Release DEV */,
 				A04E358C50BBB9FEB091C79B /* Release STG */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CE080E7D2AA3D284006B9D25 /* Build configuration list for PBXNativeTarget "REITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE080E7E2AA3D284006B9D25 /* Debug */,
+				CE080E7F2AA3D284006B9D25 /* Debug DEV */,
+				CE080E802AA3D284006B9D25 /* Debug STG */,
+				CE080E812AA3D284006B9D25 /* Release */,
+				CE080E822AA3D284006B9D25 /* Release DEV */,
+				CE080E832AA3D284006B9D25 /* Release STG */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

@@ -12,8 +12,8 @@ import UIKit
 protocol CoreDataStackProtocol {
     func saveContext()
     func deleteObjects()
-    func saveObjects(houseModels: [HouseDomainModel])
-    func getObjects() -> [HouseDomainModel]
+    func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool)
+    func getObjects(by filter: String?) -> [HouseDomainModel]?
 }
 
 class CoreDataStack: CoreDataStackProtocol {
@@ -46,46 +46,7 @@ class CoreDataStack: CoreDataStackProtocol {
         }
     }
 
-    func saveObjects(houseModels: [HouseDomainModel]) {
-//        let houseModels: [HouseDomainModel] = [
-//            HouseDomainModel(
-//                id: "firstId",
-//                constructionYear: 2023,
-//                garage: "TiefGarage",
-//                images: [
-//                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0411-min.jpg")!,
-//                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0410-min.jpg")!,
-//                ],
-//                ort: "Heimerdingen",
-//                livingArea: 68,
-//                square: 76,
-//                street: "Feuerbacher",
-//                house: 48,
-//                propertyType: PropertyType.apartment.rawValue,
-//                roomsNumber: 3,
-//                price: 530_000,
-//                location: Point(type: "point", coordinates: [1.1, 1.1])
-//            ),
-//            HouseDomainModel(
-//                id: "secondtId",
-//                constructionYear: 2222,
-//                garage: "someGarage",
-//                images: [
-//                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0413-min.jpg")!,
-//                    URL(string: "https://closedoor.backendless.app/api/files/Houses/IMG_0408-min.jpg")!,
-//                ],
-//                ort: "SomeCity",
-//                livingArea: 20,
-//                square: 30,
-//                street: "someStreet",
-//                house: 10,
-//                propertyType: PropertyType.house.rawValue,
-//                roomsNumber: 5,
-//                price: 200_000,
-//                location: Point(type: "point", coordinates: [1.1, 1.1])
-//            ),
-//        ]
-
+    func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool = false) {
         deleteObjects()
 
         guard let houseEntity = NSEntityDescription.entity(forEntityName: modelName, in: backgroundContext) else {
@@ -113,6 +74,7 @@ class CoreDataStack: CoreDataStackProtocol {
             house.setValue(houseModels[index].roomsNumber, forKey: "roomsNumber")
             house.setValue(houseModels[index].location?.coordinates[0], forKey: "pointLatitude")
             house.setValue(houseModels[index].location?.coordinates[1], forKey: "pointLongitude")
+            house.setValue(isFavourite, forKey: "isFavourite")
         }
 
         do {
@@ -123,10 +85,14 @@ class CoreDataStack: CoreDataStackProtocol {
         }
     }
 
-    func getObjects() -> [HouseDomainModel] {
+    func getObjects(by filter: String? = nil) -> [HouseDomainModel]? {
         var domainModels: [HouseDomainModel] = []
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: modelName)
 
+        if let filter = filter {
+            let predicate = NSPredicate(format: "type = %@", filter)
+            fetchRequest.predicate = predicate
+        }
         do {
             let result = try managedContext.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {

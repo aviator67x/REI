@@ -34,27 +34,33 @@ protocol UserService {
 
 final class UserServiceImpl: UserService {
     let tokenStorageService: TokenStorageService
-    
+    private let coreDataService: CoreDataStackProtocol
+
     private var cancellables = Set<AnyCancellable>()
-    
+
     private(set) lazy var userPublisher = userValueSubject.eraseToAnyPublisher()
     private var userValueSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
-      
+
     private let userNetworkService: UserNetworkService
     private let userDefaults = UserDefaults.standard
-    
+
     var isFirstLoading: Bool {
-            get {
-                guard let obj = UserDefaults.standard.object(forKey: "isFirstLoading") else {
-                    return true
-                }
-                return obj as! Bool
+        get {
+            guard let obj = UserDefaults.standard.object(forKey: "isFirstLoading") else {
+                return true
             }
-            set { UserDefaults.standard.set(newValue, forKey: "isFirstLoading") }
+            return obj as! Bool
         }
+        set { UserDefaults.standard.set(newValue, forKey: "isFirstLoading") }
+    }
 
     var user: UserDomainModel? {
-        userValueSubject.value
+        if let favouriteHouses = coreDataService.getObjects(by: "isFavourite") {
+            userValueSubject.value?.favouriteHouses = favouriteHouses
+            return userValueSubject.value
+        } else {
+           return userValueSubject.value
+        }
     }
 
     var isAuthorized: Bool {
@@ -63,13 +69,15 @@ final class UserServiceImpl: UserService {
 
     init(
         tokenStorageService: TokenStorageService,
-        userNetworkService: UserNetworkService
+        userNetworkService: UserNetworkService,
+        coreDataService: CoreDataStackProtocol
     ) {
         self.tokenStorageService = tokenStorageService
         self.userNetworkService = userNetworkService
+        self.coreDataService = coreDataService
         if isFirstLoading {
             tokenStorageService.clearAccessToken()
-            isFirstLoading = false
+            self.isFirstLoading = false
         }
         startUserValueSubject()
     }
@@ -124,7 +132,7 @@ final class UserServiceImpl: UserService {
             .mapError { UserServiceError.networking($0) }
             .flatMap { [unowned self] avatarUrl -> AnyPublisher<UpdateUserResponseModel, UserServiceError> in
                 guard let userId = user?.id else {
-                   return Fail(error: UserServiceError.noUser)
+                    return Fail(error: UserServiceError.noUser)
                         .eraseToAnyPublisher()
                 }
 
@@ -143,7 +151,7 @@ final class UserServiceImpl: UserService {
                     completionHandler: nil
                 )
 
-               return update(user: updateUserRequestModel)
+                return update(user: updateUserRequestModel)
             }
             .handleEvents(receiveOutput: { [unowned self] user in
                 let userModel = UserDomainModel(networkModel: user)
@@ -152,38 +160,42 @@ final class UserServiceImpl: UserService {
             .map { _ in }
             .eraseToAnyPublisher()
     }
-    
+
     func addToFavourities(houses: [String]) -> AnyPublisher<Void, UserServiceError> {
         guard let userId = user?.id else {
-           return Fail(error: UserServiceError.noUser)
+            return Fail(error: UserServiceError.noUser)
                 .eraseToAnyPublisher()
         }
         return userNetworkService.saveHouseToFavourities(houses: houses, userId: userId)
             .flatMap { [unowned self] _ -> AnyPublisher<UpdateUserResponseModel, NetworkError> in
-               return self.userNetworkService.getFavouriteHouses(userId: userId)
+                self.userNetworkService.getFavouriteHouses(userId: userId)
             }
             .mapError { UserServiceError.networking($0) }
             .handleEvents(receiveOutput: { [unowned self] updatedUser in
                 let domainUser = UserDomainModel(networkModel: updatedUser)
-               save(user: domainUser)
+                save(user: domainUser)
+                guard let favouriteHouses = domainUser.favouriteHouses else {
+                    return
+                }
+                coreDataService.saveObjects(houseModels: favouriteHouses, isFavourite: true)
             })
-            .map { _ in}
+            .map { _ in }
             .eraseToAnyPublisher()
     }
-    
+
     func getFavouriteHouses() -> AnyPublisher<Void, UserServiceError> {
         guard let userId = user?.id else {
             return Fail(error: UserServiceError.noUser)
                 .eraseToAnyPublisher()
         }
-      return  userNetworkService.getFavouriteHouses(userId: userId)
-            .mapError { UserServiceError.networking($0)}
-             .handleEvents(receiveOutput: { [unowned self] user in
+        return userNetworkService.getFavouriteHouses(userId: userId)
+            .mapError { UserServiceError.networking($0) }
+            .handleEvents(receiveOutput: { [unowned self] user in
                 let userModel = UserDomainModel(networkModel: user)
                 save(user: userModel)
             })
-             .map { _ in}
-             .eraseToAnyPublisher()
+            .map { _ in }
+            .eraseToAnyPublisher()
     }
 }
 

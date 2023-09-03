@@ -94,10 +94,7 @@ final class SearchModel {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 self.isLoadingSubject.send(false)
-                switch completion {
-                case .finished:
-                    break
-                case let .failure(error):
+                if case let .failure(error) = completion {
                     debugPrint(error.localizedDescription)
                 }
             }, receiveValue: { _ in })
@@ -203,6 +200,9 @@ final class SearchModel {
             .sinkWeakly(self, receiveCompletion: { (self, _) in
                 self.loadHousesAPI()
             }, receiveValue: { (self, houses) in
+                guard let houses = houses else {
+                    return
+                }
                 self.housesSubject.value = houses
             })
             .store(in: &cancellables)

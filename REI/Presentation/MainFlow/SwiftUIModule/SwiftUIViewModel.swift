@@ -34,8 +34,8 @@ final class SwiftUIViewModel: BaseViewModel, ObservableObject {
     func retrieveHousesFromCD() {
         debugPrint("I'm retrieving from CD")
         let houses = coreDataStack.getObjects()
-        guard let images = houses.first?.images,
-              let street = houses.first?.location?.coordinates[0]
+        guard let images = houses?.first?.images,
+              let street = houses?.first?.location?.coordinates[0]
         else {
             return
         }
