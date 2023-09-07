@@ -9,7 +9,7 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    lazy var coreDataStack: CoreDataStack = .init(modelName: "House")
+//    lazy var coreDataStack: CoreDataStack = .init(modelName: "House")
 
       static let sharedAppDelegate: AppDelegate = {
           guard let delegate = UIApplication.shared.delegate as? AppDelegate else {

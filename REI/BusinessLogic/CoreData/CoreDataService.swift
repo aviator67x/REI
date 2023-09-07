@@ -24,7 +24,7 @@ class CoreDataStack: CoreDataStackProtocol {
     }
 
     private lazy var storeContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: self.modelName)
+        let container = NSPersistentContainer(name: "HouseManagedModel")
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 print("Unresolved error \(error), \(error.userInfo)")
@@ -46,37 +46,14 @@ class CoreDataStack: CoreDataStackProtocol {
         }
     }
 
-    func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool = false) {
+    func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool) {
         deleteObjects()
-
-        guard let houseEntity = NSEntityDescription.entity(forEntityName: modelName, in: backgroundContext) else {
-            return
-        }
-        for index in 0 ... houseModels.count - 1 {
-            let house = NSManagedObject(entity: houseEntity, insertInto: backgroundContext)
-            house.setValue(houseModels[index].id, forKey: "id")
-            house.setValue(houseModels[index].constructionYear, forKey: "constructionYear")
-            house.setValue(houseModels[index].garage, forKey: "garage")
-            guard let urls = houseModels[index].images else {
-                return
-            }
-            let urlStrings = urls.map { String(describing: $0) }
-            house.setValue(urlStrings, forKey: "urls")
-            house.setValue(
-                houseModels[index].ort,
-                forKey: "ort"
-            )
-            house.setValue(houseModels[index].livingArea, forKey: "livingArea")
-            house.setValue(houseModels[index].square, forKey: "square")
-            house.setValue(houseModels[index].street, forKey: "street")
-            house.setValue(houseModels[index].house, forKey: "house")
-            house.setValue(houseModels[index].propertyType, forKey: "propertyType")
-            house.setValue(houseModels[index].roomsNumber, forKey: "roomsNumber")
-            house.setValue(houseModels[index].location?.coordinates[0], forKey: "pointLatitude")
-            house.setValue(houseModels[index].location?.coordinates[1], forKey: "pointLongitude")
-            house.setValue(isFavourite, forKey: "isFavourite")
-        }
-
+        let coreDataHouseModels = houseModels.map { House(
+            houseDomainModel:
+            $0,
+            isFavourite: true,
+            insertInto: backgroundContext
+        ) }
         do {
             try backgroundContext.save()
             debugPrint("I think trial houses have been saved to Core Data")
@@ -87,15 +64,20 @@ class CoreDataStack: CoreDataStackProtocol {
 
     func getObjects(by filter: String? = nil) -> [HouseDomainModel]? {
         var domainModels: [HouseDomainModel] = []
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: modelName)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "House")
 
         if let filter = filter {
-            let predicate = NSPredicate(format: "type = %@", filter)
+            let predicate = NSPredicate(format: "isFavourite == %@", NSNumber(booleanLiteral: true))
             fetchRequest.predicate = predicate
         }
         do {
-            let result = try managedContext.fetch(fetchRequest)
-            for data in result as! [NSManagedObject] {
+            let result = try managedContext.fetch(fetchRequest) as? [NSManagedObject]
+            guard let result = result else {
+                return nil
+            }
+            for data in result {
+                let isFavourite = data.value(forKey: "isFavourite") as? Bool
+                print(isFavourite)
                 if let id = data.value(forKey: "id") as? String,
                    let constructionYear = data.value(forKey: "constructionYear") as? Int,
                    let imageArray = data.value(forKey: "urls") as? [String],

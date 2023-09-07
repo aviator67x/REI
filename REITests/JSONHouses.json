@@ -1,0 +1,341 @@
+
+[
+    {
+        "images": [
+            "https://closedoor.backendless.app/api/files/Houses/IMG_0410-min.jpg",
+            "https://closedoor.backendless.app/api/files/Houses/IMG_0409-min.jpg",
+            "https://closedoor.backendless.app/api/files/Houses/IMG_0408-min.jpg"
+        ],
+        "distance": 10,
+        "constructionYear": 1234,
+        "created": 1680857924873,
+        "roomsNumber": 6,
+        "garage": "Garage",
+        "coordinates": null,
+        "message": null,
+        "ownerId": "A87A399E-2450-4CA3-9E72-0CF0EAA79CF2",
+        "house": 15,
+        "ort": "1705 RA Heerhugowaard",
+        "livingArea": 65,
+        "square": 123,
+        "price": 500000,
+        "street": "Plantain",
+        "propertyType": "Apartment",
+        "___class": "Houses",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                4.8325,
+                52.6627
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "updated": 1692791374012,
+        "objectId": "0B561721-C99F-4FA1-9213-CA3E867B4A2B"
+    },
+    {
+        "images": [
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/48E43687-BDC5-4E78-B329-1542D3BDFD55.png",
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/A055DF41-76EF-42D2-8FD1-B9DE94065A37.png",
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/BACE3677-0B41-4B96-AA90-1C8B1059BC9F.png"
+        ],
+        "distance": null,
+        "constructionYear": 1804,
+        "created": 1685362604470,
+        "roomsNumber": 5,
+        "garage": "Municipal parking",
+        "coordinates": null,
+        "message": null,
+        "ownerId": "137BF976-4E64-45F3-A0C9-3FDC625FF3C4",
+        "house": 22,
+        "ort": "1703 JC Heerhugowaard",
+        "livingArea": 74,
+        "square": 194,
+        "price": 550000,
+        "street": "Vliet",
+        "propertyType": "house",
+        "___class": "Houses",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                4.8325,
+                52.6627
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "updated": 1692791292017,
+        "objectId": "101C29FE-3CDB-419C-B5E8-D04359104171"
+    },
+    {
+        "images": [
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/71BAC4D5-C565-4CE9-89DA-6165AD0DA872.png"
+        ],
+        "distance": null,
+        "constructionYear": 1817,
+        "created": 1686312315810,
+        "roomsNumber": 2,
+        "garage": "Municipal parking",
+        "coordinates": {
+            "type": "Point",
+            "coordinates": [
+                4.80446,
+                52.67615
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "message": null,
+        "ownerId": "137BF976-4E64-45F3-A0C9-3FDC625FF3C4",
+        "house": 21,
+        "ort": "Kharkiv",
+        "livingArea": 58,
+        "square": 219,
+        "price": 1437000,
+        "street": "Khreschatik",
+        "propertyType": "house",
+        "___class": "Houses",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                4.80446,
+                52.67615
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "updated": 1689169714775,
+        "objectId": "1449CB2A-6C5B-415C-A0BC-94F16D77466C"
+    },
+    {
+        "images": [
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/0979E8F0-486D-46F5-A774-E7FC92C60D5E.png",
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/653D70CC-D013-4A9B-8B4B-FF0B7C1C8592.png"
+        ],
+        "distance": null,
+        "constructionYear": 5,
+        "created": 1686481926605,
+        "roomsNumber": 3,
+        "garage": "Free parking",
+        "coordinates": null,
+        "message": null,
+        "ownerId": "E6D336E6-D009-4775-BBD6-4E1EA04BB3E5",
+        "house": 21,
+        "ort": "Kharkiv",
+        "livingArea": 3,
+        "square": 9,
+        "price": 8,
+        "street": "Khreschatik",
+        "propertyType": "land",
+        "___class": "Houses",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                4.8325,
+                52.6627
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "updated": 1692791378834,
+        "objectId": "1EE8C7A1-2088-4AE3-A25B-C878D8DF2DD6"
+    },
+    {
+        "images": [],
+        "distance": null,
+        "constructionYear": 1234,
+        "created": 1686922524729,
+        "roomsNumber": 3,
+        "garage": "Free parking",
+        "coordinates": null,
+        "message": null,
+        "ownerId": "666",
+        "house": 41,
+        "ort": "Broek-Op-Langedijk",
+        "livingArea": 23,
+        "square": 34,
+        "price": 45,
+        "street": "Dorpstraat",
+        "propertyType": "land",
+        "___class": "Houses",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                4.8325,
+                52.6627
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "updated": 1692791369021,
+        "objectId": "2168C42B-3E33-41CB-8F85-9FD9AE640872"
+    },
+    {
+        "images": [
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/07CFAD73-9D9B-4AAA-A987-67A2F42FF8E4.png"
+        ],
+        "distance": null,
+        "constructionYear": 234,
+        "created": 1686924640023,
+        "roomsNumber": 3,
+        "garage": "Municipal parking",
+        "coordinates": null,
+        "message": null,
+        "ownerId": "666",
+        "house": 41,
+        "ort": "Broek-Op-Langedijk",
+        "livingArea": 67,
+        "square": 78,
+        "price": 9876,
+        "street": "Dorpstraat",
+        "propertyType": "land",
+        "___class": "Houses",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                4.8325,
+                52.6627
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "updated": 1692791363621,
+        "objectId": "274C17EF-BE0B-4588-818B-287E21D2138E"
+    },
+    {
+        "images": [
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/6D50FF54-ECA0-46E7-9DD0-06B3E5D5CF8E.png",
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/FF6CCA4F-30B1-42B6-87B0-B874C2EC5BBF.png"
+        ],
+        "distance": null,
+        "constructionYear": 2023,
+        "created": 1686313217686,
+        "roomsNumber": 1,
+        "garage": "Free parking",
+        "coordinates": null,
+        "message": null,
+        "ownerId": "137BF976-4E64-45F3-A0C9-3FDC625FF3C4",
+        "house": 21,
+        "ort": "Kharkiv",
+        "livingArea": 91,
+        "square": 197,
+        "price": 618000,
+        "street": "Khreschatik",
+        "propertyType": "apartment",
+        "___class": "Houses",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                4.8325,
+                52.6627
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "updated": 1692791415708,
+        "objectId": "4108D724-DED0-4809-AC92-3AD27602D684"
+    },
+    {
+        "images": [
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/04B74571-5A93-449A-8493-E0861CCA55E7.png",
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/FE6D8ABF-A31B-4423-B72C-9C1E114979BB.png",
+            "https://backendlessappcontent.com/DD1C6C3C-1432-CEA8-FF78-F071F66BF000/04FFE4D5-65A2-4F62-AA9F-A51D1BF8550B/files/Houses/D5A51E82-0C11-406C-8C9F-E8936B74F41E.png"
+        ],
+        "distance": null,
+        "constructionYear": 1907,
+        "created": 1686243737791,
+        "roomsNumber": 3,
+        "garage": "Garage",
+        "coordinates": null,
+        "message": null,
+        "ownerId": null,
+        "house": 21,
+        "ort": "Kharkiv",
+        "livingArea": 95,
+        "square": 149,
+        "price": 630000,
+        "street": "Khreschatik",
+        "propertyType": "house",
+        "___class": "Houses",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                4.8325,
+                52.6627
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "updated": 1692791407369,
+        "objectId": "4598BAD0-788F-4045-B090-73A9A1F031CC"
+    },
+    {
+        "images": [
+            "https://closedoor.backendless.app/api/files/Houses/IMG_0408-min.jpg",
+            "https://closedoor.backendless.app/api/files/Houses/IMG_0407-min.jpg",
+            "https://closedoor.backendless.app/api/files/Houses/IMG_0410-min.jpg"
+        ],
+        "distance": 10,
+        "constructionYear": 1975,
+        "created": 1681471532491,
+        "roomsNumber": 3,
+        "garage": "Garage",
+        "coordinates": null,
+        "message": null,
+        "ownerId": "137BF976-4E64-45F3-A0C9-3FDC625FF3C4",
+        "house": 17,
+        "ort": "1704 ZM Heerhugowaard",
+        "livingArea": 70,
+        "square": 98,
+        "price": 200500,
+        "street": "Northern lights",
+        "propertyType": "House",
+        "___class": "Houses",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                4.8325,
+                52.6627
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "updated": 1687369979623,
+        "objectId": "477361FB-55A1-4D11-8C23-AF277655F8A0"
+    },
+    {
+        "images": [
+            "https://closedoor.backendless.app/api/files/Houses/IMG_0401-min.jpg",
+            "https://closedoor.backendless.app/api/files/Houses/IMG_0402-min.jpg",
+            "https://closedoor.backendless.app/api/files/Houses/IMG_0404-min.jpg"
+        ],
+        "distance": 2,
+        "constructionYear": 1911,
+        "created": 1683903655831,
+        "roomsNumber": 2,
+        "garage": "No parking",
+        "coordinates": null,
+        "message": null,
+        "ownerId": null,
+        "house": 48,
+        "ort": "1066 Amsterdam",
+        "livingArea": 55,
+        "square": 75,
+        "price": 170000,
+        "street": "Knokkestraat ",
+        "propertyType": "Apartment",
+        "___class": "Houses",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                3.33,
+                9.99
+            ],
+            "srsId": 4326,
+            "___class": "com.backendless.persistence.Point"
+        },
+        "updated": 1692791274762,
+        "objectId": "50EB43FA-0104-4651-BC3B-BF10AC0A372D"
+    }
+]
