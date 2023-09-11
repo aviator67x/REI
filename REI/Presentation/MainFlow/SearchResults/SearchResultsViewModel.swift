@@ -35,12 +35,13 @@ final class SearchResultsViewModel: BaseViewModel {
 
     override func onViewDidLoad() {
         model.loadHouses()
-//        getHousesCount()
+//        model.loadMockHouses()
+        getHousesCount()
         setupBinding()
     }
 
     override func onViewWillAppear() {
-//        model.getFavouriteHouses()
+        model.getFavouriteHouses()
     }
 }
 

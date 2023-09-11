@@ -11,7 +11,7 @@ final class HouseDomainModel: Codable {
     let id: String
     let constructionYear: Int
     let garage: String
-    let images: [URL]?
+    var images: [URL]?
     let ort: String
     let livingArea: Int
     let square: Int
@@ -66,5 +66,30 @@ final class HouseDomainModel: Codable {
         self.roomsNumber = model.roomsNumber
         self.price = model.price
         self.location = model.location
+    }
+
+    init(coreDataModel: House) {
+        var images: [URL]?
+        let urlStrings = coreDataModel.urls
+        urlStrings?.forEach { string in
+            if let url = URL(string: string) {
+                images?.append(url)
+            }
+        }
+        self.images = images
+        self.id = coreDataModel.id
+        self.constructionYear = Int(coreDataModel.constructionYear)
+        self.garage = coreDataModel.garage
+        self.ort = coreDataModel.ort
+        self.livingArea = Int(coreDataModel.livingArea)
+        self.square = Int(coreDataModel.square)
+        self.street = coreDataModel.street
+        self.house = Int(coreDataModel.house)
+        self.propertyType = coreDataModel.propertyType
+        self.roomsNumber = Int(coreDataModel.roomsNumber)
+        self.price = Int(coreDataModel.price)
+        let latitude = Double(coreDataModel.pointLatitude)
+        let longitude = Double(coreDataModel.pointLongitude)
+        self.location = Point(type: "Point", coordinates: [latitude, longitude])
     }
 }

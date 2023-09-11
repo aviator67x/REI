@@ -213,7 +213,8 @@ final class SortViewModel: BaseViewModel {
     }
 
     func getSortedHouses() {
-        searchModel.getHousesSorted(by: sortParameters)
+        searchModel.loadHousesAPI(sortParameters: sortParameters)
+        transitionSubject.send(.popScreen)
     }
 
     func popScreen() {

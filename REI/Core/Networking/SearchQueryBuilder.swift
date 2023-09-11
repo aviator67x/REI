@@ -53,7 +53,6 @@ enum Search {
                 case let .inside(poligon):
                     searchItems.append("Within(\(param.key), '\(poligon)') = True")
                 case let .within(distance):
-//                    searchItems.append("\(param.key)(location, 'POINT(52.6324 4.7534)') <= 10000")
                     searchItems.append("\(param.key)\(distance)000")
                 }
             }

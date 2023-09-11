@@ -8,7 +8,7 @@
 import Foundation
 
 enum HouseEndPoint: Endpoint {
-    case getHouses(pageSize: Int, skip: Int)
+    case getHouses(pageSize: Int, skip: Int, sortParameters: [String]?)
     case filter(with: [SearchParam])
     case saveImage([MultipartItem])
     case saveAd(AdCreatingRequestModel)
@@ -16,12 +16,11 @@ enum HouseEndPoint: Endpoint {
     case getUserAds(ownerId: String)
     case deleteAd(objectId: String)
     case getHousesIn(poligon: String)
-    case housesSorted(by: [String])
 
     var queries: HTTPQueries {
         switch self {
-        case let .getHouses(pageSize, skip):
-            return buildQuery(pageSize: pageSize, skip: skip) ?? [:]
+        case let .getHouses(pageSize, skip, sortParameters):
+            return buildQuery(pageSize: pageSize, skip: skip, parameters: sortParameters) ?? [:]
         case let .filter(searchParams):
             return buildQuery(searchParams: searchParams) ?? [:]
         case .saveImage, .saveAd, .housesCount:
@@ -34,14 +33,12 @@ enum HouseEndPoint: Endpoint {
         case let .getHousesIn(poligon):
             let searchParams = [SearchParam(key: .location, value: .inside(poligon: poligon))]
             return buildQuery(searchParams: searchParams) ?? [:]
-        case let .housesSorted(by):
-            return buidQuery(parameters: by) ?? [:]
         }
     }
 
     var path: String? {
         switch self {
-        case .getHouses, .filter, .saveAd, .getUserAds, .getHousesIn, .housesSorted:
+        case .getHouses, .filter, .saveAd, .getUserAds, .getHousesIn:
             return "/data/Houses"
         case .saveImage:
             return "/files/Houses"
@@ -54,7 +51,7 @@ enum HouseEndPoint: Endpoint {
 
     var method: HTTPMethod {
         switch self {
-        case .getHouses, .filter, .housesCount, .getUserAds, .getHousesIn, .housesSorted:
+        case .getHouses, .filter, .housesCount, .getUserAds, .getHousesIn:
             return .get
         case .saveImage, .saveAd:
             return .post
@@ -65,7 +62,7 @@ enum HouseEndPoint: Endpoint {
 
     var headers: HTTPHeaders {
         switch self {
-        case .getHouses, .filter, .saveAd, .housesCount, .getUserAds, .deleteAd, .getHousesIn, .housesSorted:
+        case .getHouses, .filter, .saveAd, .housesCount, .getUserAds, .deleteAd, .getHousesIn:
             return ["Content-Type": "application/json"]
         case .saveImage:
             return [:]
@@ -74,7 +71,7 @@ enum HouseEndPoint: Endpoint {
 
     var body: RequestBody? {
         switch self {
-        case .getHouses, .filter, .housesCount, .getUserAds, .deleteAd, .getHousesIn, .housesSorted:
+        case .getHouses, .filter, .housesCount, .getUserAds, .deleteAd, .getHousesIn:
             return nil
         case let .saveImage(image):
             return .multipartBody(image)
@@ -83,16 +80,19 @@ enum HouseEndPoint: Endpoint {
         }
     }
 
-    func buildQuery(pageSize: Int, skip: Int) -> [String: String]? {
-        return [
-            "pageSize": "\(pageSize)",
-            "offset": "\(skip)",
-        ]
-    }
-
-    func buidQuery(parameters: [String]) -> [String: String]? {
-        let paramString = parameters.joined(separator: ", ")
-
-        return ["sortBy": paramString]
+    func buildQuery(pageSize: Int, skip: Int, parameters: [String]?) -> [String: String]? {
+        if let parameters = parameters {
+            let paramString = parameters.joined(separator: ", ")
+            return [
+                "pageSize": "\(pageSize)",
+                "offset": "\(skip)",
+                "sortBy": paramString
+            ]
+        } else {
+            return [
+                "pageSize": "\(pageSize)",
+                "offset": "\(skip)",
+            ]
+        }
     }
 }

@@ -194,11 +194,18 @@ final class SearchModel {
     func updateSearchRequestModel(parkingType: Garage) {
         searchRequestModelSubject.value.garage = parkingType
     }
-
+    
+    func loadMockHouses() {
+        housesService.getMockHouses()
+            .sinkWeakly(self, receiveValue: { (self, houses) in
+                self.housesSubject.value = houses
+            })
+            .store(in: &cancellables)
+    }
     func loadHouses() {
         housesService.getHousesFromCoreData()
             .sinkWeakly(self, receiveCompletion: { (self, _) in
-                self.loadHousesAPI()
+                self.loadHousesAPI(sortParameters: nil)
             }, receiveValue: { (self, houses) in
                 guard let houses = houses else {
                     return
@@ -208,7 +215,7 @@ final class SearchModel {
             .store(in: &cancellables)
     }
 
-    func loadHousesAPI() {
+    func loadHousesAPI(sortParameters: [String]? = nil) {
         guard !isPaginationInProgress,
               hasMoreToLoad
         else {
@@ -216,7 +223,7 @@ final class SearchModel {
         }
         isPaginationInProgress = true
         isLoadingSubject.send(true)
-        housesService.getHouses(pageSize: pageSize, offset: offset)
+        housesService.getHouses(pageSize: pageSize, offset: offset, sortParameters: sortParameters)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [unowned self] completion in
                 self.isPaginationInProgress = false
@@ -315,16 +322,6 @@ final class SearchModel {
                 }
             }, receiveValue: { _, houses in
                 print(houses)
-            })
-            .store(in: &cancellables)
-    }
-
-    func getHousesSorted(by parameteres: [String]) {
-        housesService.getHousesSorted(by: parameteres)
-            .receive(on: DispatchQueue.main)
-            .sinkWeakly(self, receiveValue: { (self, houses) in
-                print(houses.count)
-                self.housesSubject.value = houses
             })
             .store(in: &cancellables)
     }

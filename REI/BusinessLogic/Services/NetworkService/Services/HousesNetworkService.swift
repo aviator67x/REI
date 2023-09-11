@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol HousesNetworkService {
-    func getHouses(pageSize: Int, skip: Int) -> AnyPublisher<[HouseResponseModel], NetworkError>
+    func getHouses(pageSize: Int, skip: Int, sortParameters: [String]?) -> AnyPublisher<[HouseResponseModel], NetworkError>
     func searchHouses(with parameters: [SearchParam]) -> AnyPublisher<[HouseResponseModel], NetworkError>
     func saveHouseImage(image: [MultipartItem]) -> AnyPublisher<SaveHouseImageResponseModel, NetworkError>
     func saveAd(house: AdCreatingRequestModel) -> AnyPublisher<HouseResponseModel, NetworkError>
@@ -17,7 +17,6 @@ protocol HousesNetworkService {
     func getUserAds(ownerId: String) -> AnyPublisher<[HouseResponseModel], NetworkError>
     func deleteAd(with id: String) -> AnyPublisher<Void, NetworkError>
     func getAvailableHouses(in poligon: String) -> AnyPublisher<[HouseResponseModel], NetworkError>
-    func getHousesSorted(by parameters: [String]) -> AnyPublisher<[HouseResponseModel], NetworkError>
 }
 
 final class HousesNetworkServiceImpl<NetworkProvider: NetworkServiceProvider> where NetworkProvider.E == HouseEndPoint {
@@ -33,8 +32,8 @@ extension HousesNetworkServiceImpl: HousesNetworkService {
         return housesProvider.execute(endpoint: .housesCount)
     }
     
-    func getHouses(pageSize: Int, skip: Int) -> AnyPublisher<[HouseResponseModel], NetworkError> {
-        return housesProvider.execute(endpoint: .getHouses(pageSize: pageSize, skip: skip))
+    func getHouses(pageSize: Int, skip: Int, sortParameters: [String]?) -> AnyPublisher<[HouseResponseModel], NetworkError> {
+        return housesProvider.execute(endpoint: .getHouses(pageSize: pageSize, skip: skip, sortParameters: sortParameters))
     }
 
     func searchHouses(with parameters: [SearchParam]) -> AnyPublisher<[HouseResponseModel], NetworkError> {
@@ -59,9 +58,5 @@ extension HousesNetworkServiceImpl: HousesNetworkService {
     
     func getAvailableHouses(in poligon: String) -> AnyPublisher<[HouseResponseModel], NetworkError> {
         return housesProvider.execute(endpoint: .getHousesIn(poligon: poligon))
-    }
-    
-    func getHousesSorted(by parameters: [String]) -> AnyPublisher<[HouseResponseModel], NetworkError> {
-        return housesProvider.execute(endpoint: .housesSorted(by: parameters))
     }
 }

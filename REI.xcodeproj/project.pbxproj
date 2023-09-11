@@ -68,7 +68,6 @@
 		CE05A0852AAA258F00849374 /* House+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05A0832AAA258F00849374 /* House+CoreDataProperties.swift */; };
 		CE080E7A2AA3D283006B9D25 /* REITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE080E792AA3D283006B9D25 /* REITests.swift */; };
 		CE080E852AA3D3D9006B9D25 /* MockHousesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE080E842AA3D3D9006B9D25 /* MockHousesService.swift */; };
-		CE080E872AA3D510006B9D25 /* Houses.json in Resources */ = {isa = PBXBuildFile; fileRef = CE080E862AA3D510006B9D25 /* Houses.json */; };
 		CE080E892AA46D20006B9D25 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE080E882AA46D20006B9D25 /* Mockable.swift */; };
 		CE0E27AF29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AB29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift */; };
 		CE0E27B029CE1DA9001EDFCD /* SearchFiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E27AC29CE1DA9001EDFCD /* SearchFiltersViewController.swift */; };
@@ -106,6 +105,7 @@
 		CE1E2DDE2A0B933300328EAF /* PropertyTypeCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DDD2A0B933300328EAF /* PropertyTypeCellModel.swift */; };
 		CE1E2DE02A0B9FF700328EAF /* NumberOfRoomsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2DDF2A0B9FF700328EAF /* NumberOfRoomsCellModel.swift */; };
 		CE1E2E042A0D54B200328EAF /* FavouriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1E2E032A0D54B200328EAF /* FavouriteCell.swift */; };
+		CE2F70A52AACCEF00000FF86 /* JSONHouses.json in Resources */ = {isa = PBXBuildFile; fileRef = CE2F70A42AACCEEF0000FF86 /* JSONHouses.json */; };
 		CE31637A29F6D9EE00E8A6B0 /* UIView+isHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */; };
 		CE31637C29F7D35100E8A6B0 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637B29F7D35100E8A6B0 /* MapCell.swift */; };
 		CE31637E29F94A2000E8A6B0 /* SelectScreenTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */; };
@@ -260,6 +260,7 @@
 		CEE2DE7129F323660029AFF8 /* PhotoCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE7029F323660029AFF8 /* PhotoCellModel.swift */; };
 		CEE2DE7329F66C550029AFF8 /* SearchResultsScreenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE7229F66C550029AFF8 /* SearchResultsScreenState.swift */; };
 		CEF13C782A40826A001EA946 /* VasylView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF13C772A40826A001EA946 /* VasylView.swift */; };
+		CEF3E5152AADA48900ECA0F7 /* JsonHouses.json in Resources */ = {isa = PBXBuildFile; fileRef = CEF3E5142AADA48900ECA0F7 /* JsonHouses.json */; };
 		CEF83F7D2A1B8318009B0791 /* AdCreatingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF83F7C2A1B8318009B0791 /* AdCreatingModel.swift */; };
 		CEF83F832A1BB09A009B0791 /* AdDetailsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF83F7F2A1BB09A009B0791 /* AdDetailsModuleBuilder.swift */; };
 		CEF83F842A1BB09A009B0791 /* AdDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF83F802A1BB09A009B0791 /* AdDetailsViewController.swift */; };
@@ -384,7 +385,6 @@
 		CE080E772AA3D282006B9D25 /* REITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = REITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE080E792AA3D283006B9D25 /* REITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REITests.swift; sourceTree = "<group>"; };
 		CE080E842AA3D3D9006B9D25 /* MockHousesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHousesService.swift; sourceTree = "<group>"; };
-		CE080E862AA3D510006B9D25 /* Houses.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Houses.json; sourceTree = "<group>"; };
 		CE080E882AA46D20006B9D25 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		CE0E27AB29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersModuleBuilder.swift; sourceTree = "<group>"; };
 		CE0E27AC29CE1DA9001EDFCD /* SearchFiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersViewController.swift; sourceTree = "<group>"; };
@@ -422,6 +422,7 @@
 		CE1E2DDD2A0B933300328EAF /* PropertyTypeCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTypeCellModel.swift; sourceTree = "<group>"; };
 		CE1E2DDF2A0B9FF700328EAF /* NumberOfRoomsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfRoomsCellModel.swift; sourceTree = "<group>"; };
 		CE1E2E032A0D54B200328EAF /* FavouriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCell.swift; sourceTree = "<group>"; };
+		CE2F70A42AACCEEF0000FF86 /* JSONHouses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JSONHouses.json; sourceTree = "<group>"; };
 		CE31637929F6D9EE00E8A6B0 /* UIView+isHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+isHidden.swift"; sourceTree = "<group>"; };
 		CE31637B29F7D35100E8A6B0 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		CE31637D29F94A2000E8A6B0 /* SelectScreenTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectScreenTransition.swift; sourceTree = "<group>"; };
@@ -574,6 +575,7 @@
 		CEE2DE7029F323660029AFF8 /* PhotoCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellModel.swift; sourceTree = "<group>"; };
 		CEE2DE7229F66C550029AFF8 /* SearchResultsScreenState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsScreenState.swift; sourceTree = "<group>"; };
 		CEF13C772A40826A001EA946 /* VasylView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VasylView.swift; sourceTree = "<group>"; };
+		CEF3E5142AADA48900ECA0F7 /* JsonHouses.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = JsonHouses.json; sourceTree = "<group>"; };
 		CEF83F7C2A1B8318009B0791 /* AdCreatingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdCreatingModel.swift; sourceTree = "<group>"; };
 		CEF83F7F2A1BB09A009B0791 /* AdDetailsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailsModuleBuilder.swift; sourceTree = "<group>"; };
 		CEF83F802A1BB09A009B0791 /* AdDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdDetailsViewController.swift; sourceTree = "<group>"; };
@@ -888,6 +890,7 @@
 				CE481C8C2A31D475000E00BC /* video.mp4 */,
 				C45ACBA4748A93450674CFAA /* Info.plist */,
 				69AFA02F2BF8513E7A1E3CB0 /* Localizable.strings */,
+				CEF3E5142AADA48900ECA0F7 /* JsonHouses.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -952,7 +955,7 @@
 			children = (
 				CE080E792AA3D283006B9D25 /* REITests.swift */,
 				CE080E842AA3D3D9006B9D25 /* MockHousesService.swift */,
-				CE080E862AA3D510006B9D25 /* Houses.json */,
+				CE2F70A42AACCEEF0000FF86 /* JSONHouses.json */,
 				CE080E882AA46D20006B9D25 /* Mockable.swift */,
 			);
 			path = REITests;
@@ -1714,6 +1717,7 @@
 				7599087924FB37E199D9CC73 /* Montserrat-LightItalic.ttf in Resources */,
 				27320143EC22CBA4054D6802 /* Montserrat-Medium.ttf in Resources */,
 				888731DFEBCF76A5F67EE010 /* Montserrat-MediumItalic.ttf in Resources */,
+				CEF3E5152AADA48900ECA0F7 /* JsonHouses.json in Resources */,
 				9A4A6C7136F1A65FA10003F6 /* Montserrat-Regular.ttf in Resources */,
 				CEA545FD29782DE0007F9962 /* SF-Pro-Text-Bold.otf in Resources */,
 				0881477AB124F9AD6F4FE4C9 /* Montserrat-SemiBold.ttf in Resources */,
@@ -1728,7 +1732,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE080E872AA3D510006B9D25 /* Houses.json in Resources */,
+				CE2F70A52AACCEF00000FF86 /* JSONHouses.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

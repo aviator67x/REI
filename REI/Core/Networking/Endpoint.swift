@@ -15,6 +15,10 @@ enum RequestBody {
 typealias HTTPQueries = [String: String]
 typealias HTTPHeaders = [String: String]
 
+protocol RequestBuilder {
+    func build(baseURL: URL, encoder: JSONEncoder, plugins: [Plugin]) throws -> URLRequest
+}
+
 protocol Endpoint: RequestBuilder {
     var baseURL: URL? { get }
     var path: String? { get }
@@ -22,10 +26,6 @@ protocol Endpoint: RequestBuilder {
     var queries: HTTPQueries { get }
     var headers: HTTPHeaders { get }
     var body: RequestBody? { get }
-}
-
-protocol RequestBuilder {
-    func build(baseURL: URL, encoder: JSONEncoder, plugins: [Plugin]) throws -> URLRequest
 }
 
 extension Endpoint {

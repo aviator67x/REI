@@ -15,7 +15,7 @@ enum HousesServiceError: Error {
 }
 
 protocol HousesService {
-    func getHouses(pageSize: Int, offset: Int) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
+    func getHouses(pageSize: Int, offset: Int, sortParameters: [String]?) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func searchHouses(_ parameters: [SearchParam]) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func saveAd(
         houseImages: [HouseImageModel],
@@ -26,8 +26,8 @@ protocol HousesService {
     func getUserAds(ownerId: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func deleteAd(with id: String) -> AnyPublisher<Void, HousesServiceError>
     func getAvailableHouses(in poligon: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
-    func getHousesSorted(by parameters: [String]) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func getHousesFromCoreData() -> AnyPublisher<[HouseDomainModel]?, HousesServiceError>
+    func getMockHouses() -> AnyPublisher<[HouseDomainModel], HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
@@ -49,19 +49,17 @@ final class HousesServiceImpl: HousesService {
     }
 
     func getHousesFromCoreData() -> AnyPublisher<[HouseDomainModel]?, HousesServiceError> {
-        let housesInCoreData = coreDataService.getObjects(by: nil)
+        let housesInCoreData = coreDataService.getObjects()
         let housesPublisher = Just(housesInCoreData)
             .setFailureType(to: HousesServiceError.self)
         return housesPublisher.eraseToAnyPublisher()
     }
 
-    func getHouses(pageSize: Int, offset: Int) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
-        return housesNetworkService.getHouses(pageSize: pageSize, skip: pageSize)
+    func getHouses(pageSize: Int, offset: Int, sortParameters: [String]?) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
+        return housesNetworkService.getHouses(pageSize: pageSize, skip: pageSize, sortParameters: sortParameters)
             .mapError { HousesServiceError.networking($0) }
             .map { value -> [HouseDomainModel] in
-                let houses = value.map { HouseDomainModel(model: $0)
-                }
-              
+                let houses = value.map { HouseDomainModel(model: $0) }
                 if offset == 0 {
                     self.coreDataService.saveObjects(houseModels: houses, isFavourite: false)
                 }
@@ -138,12 +136,25 @@ final class HousesServiceImpl: HousesService {
             .eraseToAnyPublisher()
     }
 
-    func getHousesSorted(by parameters: [String]) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
-        housesNetworkService.getHousesSorted(by: parameters)
-            .mapError { HousesServiceError.networking($0) }
-            .map { value -> [HouseDomainModel] in
-                value.map { HouseDomainModel(model: $0) }
+    func getMockHouses() -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
+        var housesPublisher = Just<[HouseDomainModel]>([])
+        if let fileUrl = Bundle.main.url(forResource: "JsonHouses", withExtension: "json") {
+            print(fileUrl)
+            do {
+                let data = try Data(contentsOf: fileUrl)
+                do {
+                    let responseModel = try JSONDecoder().decode([HouseResponseModel].self, from: data)
+                    let domainModel = responseModel.map { HouseDomainModel(model: $0)}
+                    housesPublisher = Just(domainModel)
+                } catch {
+                    debugPrint("Can't decode data with error: \(error)")
+                }
+            } catch {
+                debugPrint("Can't encode JSON")
             }
+        }
+        return housesPublisher
+            .setFailureType(to: HousesServiceError.self)
             .eraseToAnyPublisher()
     }
 }
