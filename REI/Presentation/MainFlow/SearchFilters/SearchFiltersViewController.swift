@@ -50,7 +50,9 @@ final class SearchFiltersViewController: BaseViewController<SearchFiltersViewMod
     }
 
     @objc
-    private func bellDidTap() {}
+    private func bellDidTap() {
+        viewModel.saveSearchParams()
+    }
     
     @objc
     private func crossDidTap() {

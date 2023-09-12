@@ -146,6 +146,14 @@ final class SearchModel {
         }
     }
 
+    func saveSearchFilters() {
+        let params = searchParametersSubject.value
+        if let parametersData = try? JSONEncoder().encode(params) {
+            // Saving to UserDeafaults
+            UserDefaults.standard.set(parametersData, forKey: "searchParameters")
+        }
+    }
+
     func cleanSearchRequestModel() {
         isFilterActive = false
         searchRequestModelSubject.value = SearchRequestModel.empty
@@ -194,7 +202,7 @@ final class SearchModel {
     func updateSearchRequestModel(parkingType: Garage) {
         searchRequestModelSubject.value.garage = parkingType
     }
-    
+
     func loadMockHouses() {
         housesService.getMockHouses()
             .sinkWeakly(self, receiveValue: { (self, houses) in
@@ -202,6 +210,7 @@ final class SearchModel {
             })
             .store(in: &cancellables)
     }
+
     func loadHouses() {
         housesService.getHousesFromCoreData()
             .sinkWeakly(self, receiveCompletion: { (self, _) in
@@ -238,10 +247,9 @@ final class SearchModel {
                 } else {
                     self.housesSubject.value.append(contentsOf: data)
                 }
-                    self.offset += data.count
-                    self.hasMoreToLoad = offset >= pageSize
-                  
-                    
+                self.offset += data.count
+                self.hasMoreToLoad = offset >= pageSize
+
             })
             .store(in: &cancellables)
     }
@@ -280,7 +288,7 @@ final class SearchModel {
             }, receiveValue: { [unowned self] houses in
                 self.housesSubject.value = houses
                 self.searchRequestModelSubject.value = SearchRequestModel.empty
-//                isFilterActive = false
+                isFilterActive = false
                 self.hasMoreToLoad = false
             })
             .store(in: &cancellables)
@@ -298,11 +306,12 @@ final class SearchModel {
                     break
                 case let .failure(error):
                     debugPrint(error.localizedDescription)
+                    housesSubject.value = []
                 }
             }, receiveValue: { [unowned self] houses in
                 self.housesSubject.value = houses
                 self.searchRequestModelSubject.value = SearchRequestModel.empty
-//                isFilterActive = false
+                isFilterActive = false
                 self.hasMoreToLoad = false
             })
             .store(in: &cancellables)

@@ -166,9 +166,13 @@ extension SearchFiltersViewModel {
         model.updateSearchRequestModel(roomsNumber: number.numberOfRooms)
         updateDataSource()
     }
+    
+    func saveSearchParams() {
+        model.saveSearchFilters()
+    }
 
     func executeSearch() {
-        model.hasFilters ? model.executeSearch() : model.loadHouses()
+        model.hasFilters ? model.executeSearch() : model.loadHousesAPI()
         transitionSubject.send(.pop)
     }
 
