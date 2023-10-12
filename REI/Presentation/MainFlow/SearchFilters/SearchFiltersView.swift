@@ -327,6 +327,11 @@ private enum Constant {}
 
 // MARK: - extension
 extension SearchFiltersView {
+    func updateResultButton(_ count: Int) {
+        let title = String(count)
+        self.resultButton.setTitle(title, for: .normal)
+    }
+    
     func setupSnapshot(sections: [SearchFiltersCollection]) {
         var snapshot = NSDiffableDataSourceSnapshot<SearchFiltersSection, SearchFiltersItem>()
         for section in sections {

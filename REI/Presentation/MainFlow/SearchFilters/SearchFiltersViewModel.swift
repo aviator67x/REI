@@ -18,6 +18,9 @@ final class SearchFiltersViewModel: BaseViewModel {
 
     private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
     private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
+    
+    private(set) lazy var filteredHousesCountPublisher = filteredHousesCountSubject.eraseToAnyPublisher()
+    private lazy var filteredHousesCountSubject = CurrentValueSubject<Int, Never>(0)
 
     private lazy var ortSubject = CurrentValueSubject<String, Never>("")
     private var point = ""
@@ -190,6 +193,7 @@ extension SearchFiltersViewModel {
 private extension SearchFiltersViewModel {
     func setupBinding() {
         minPriceSubject
+            .dropFirst()
             .sinkWeakly(self, receiveValue: { (self, price) in
                 self.model.updateSearchRequestModel(minPrice: price)
 
@@ -197,6 +201,7 @@ private extension SearchFiltersViewModel {
             .store(in: &cancellables)
 
         maxPriceSubject
+            .dropFirst()
             .sinkWeakly(self, receiveValue: { (self, price) in
                 self.model.updateSearchRequestModel(maxPrice: price)
 
@@ -204,14 +209,22 @@ private extension SearchFiltersViewModel {
             .store(in: &cancellables)
 
         minSquareSubject
+            .dropFirst()
             .sinkWeakly(self, receiveValue: { (self, square) in
                 self.model.updateSearchRequestModel(minSquare: square)
             })
             .store(in: &cancellables)
 
         maxSquareSubject
+            .dropFirst()
             .sinkWeakly(self, receiveValue: { (self, square) in
                 self.model.updateSearchRequestModel(maxSquare: square)
+            })
+            .store(in: &cancellables)
+        
+        model.filteredHousesCountPublisher
+            .sinkWeakly(self, receiveValue: { (self, count) in
+                self.filteredHousesCountSubject.value = count
             })
             .store(in: &cancellables)
     }

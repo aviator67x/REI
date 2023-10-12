@@ -109,5 +109,11 @@ final class SearchFiltersViewController: BaseViewController<SearchFiltersViewMod
                 self.contentView.setupSnapshot(sections: sections)
             })
             .store(in: &cancellables)
+        
+        viewModel.filteredHousesCountPublisher
+            .sinkWeakly(self, receiveValue: { (self, count) in
+                self.contentView.updateResultButton(count)
+            })
+            .store(in: &cancellables)
     }
 }

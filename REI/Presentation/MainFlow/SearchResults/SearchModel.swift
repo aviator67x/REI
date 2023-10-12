@@ -31,6 +31,9 @@ final class SearchModel {
 
     private(set) lazy var housesCountPublisher = housesCountSubject.eraseToAnyPublisher()
     private lazy var housesCountSubject = PassthroughSubject<Int, Never>()
+    
+    private(set) lazy var filteredHousesCountPublisher = filteredHousesCountSubject.eraseToAnyPublisher()
+    private lazy var filteredHousesCountSubject = PassthroughSubject<Int, Never>()
 
     private var isPaginationInProgress = false
     private var hasMoreToLoad = true
@@ -83,18 +86,18 @@ extension SearchModel {
             })
             .store(in: &cancellables)
     }
-    
+
     func favouriteHouses() -> [HouseDomainModel]? {
         return userService.user?.favouriteHouses
     }
-    
+
     func editFavouriteHouses(with id: String) {
         if let index = favouriteHousesIdSubject.value.firstIndex(of: id) {
             favouriteHousesIdSubject.value.remove(at: index)
         } else {
             favouriteHousesIdSubject.value.append(id)
         }
-        
+
         isLoadingSubject.send(true)
         userService.addToFavourities(houses: favouriteHousesIdSubject.value)
             .receive(on: DispatchQueue.main)
@@ -106,52 +109,52 @@ extension SearchModel {
             }, receiveValue: { _ in })
             .store(in: &cancellables)
     }
-    
+
     func updateSearchFilters() {
         searchParametersSubject.value = []
-        
+
         if let distance = searchRequestModelSubject.value.distanceOnSphere {
             searchParametersSubject.value
                 .append(.init(key: .distanceOnSphere, value: .within(distance: distance)))
         }
-        
+
         if let minPrice = searchRequestModelSubject.value.minPrice {
             searchParametersSubject.value.append(.init(key: .price, value: .more(than: minPrice)))
         }
-        
+
         if let maxPrice = searchRequestModelSubject.value.maxPrice {
             searchParametersSubject.value.append(.init(key: .price, value: .less(than: maxPrice)))
         }
-        
+
         if let propertyType = searchRequestModelSubject.value.propertyType {
             searchParametersSubject.value
                 .append(.init(key: .propertyType, value: .equalToString(parameter: propertyType.rawValue)))
         }
-        
+
         if let minSquare = searchRequestModelSubject.value.minSquare {
             searchParametersSubject.value.append(.init(key: .square, value: .more(than: minSquare)))
         }
-        
+
         if let maxSquare = searchRequestModelSubject.value.maxSquare {
             searchParametersSubject.value.append(.init(key: .square, value: .less(than: maxSquare)))
         }
-        
+
         if let numberOfRooms = searchRequestModelSubject.value.roomsNumber {
             searchParametersSubject.value
                 .append(.init(key: .roomsNumber, value: .equalToInt(parameter: numberOfRooms.rawValue)))
         }
-        
+
         if let constructionYear = searchRequestModelSubject.value.constructionYear {
             searchParametersSubject.value
                 .append(.init(key: .constructionYear, value: .more(than: constructionYear.rawValue)))
         }
-        
+
         if let garage = searchRequestModelSubject.value.garage {
             searchParametersSubject.value
                 .append(.init(key: .garage, value: .equalToString(parameter: garage.rawValue)))
         }
     }
-    
+
     func saveSearchFilters() {
         let params = searchParametersSubject.value
         if let parametersData = try? JSONEncoder().encode(params) {
@@ -159,7 +162,7 @@ extension SearchModel {
             UserDefaults.standard.set(parametersData, forKey: "searchParameters")
         }
     }
-    
+
     func cleanSearchRequestModel() {
         isFilterActive = false
         searchRequestModelSubject.value = SearchRequestModel.empty
@@ -168,47 +171,47 @@ extension SearchModel {
         housesSubject.value = []
         loadHouses()
     }
-    
+
     func updateSearchRequestModel(ortPolygon: String) {
         searchRequestModelSubject.value.ortPolygon = ortPolygon
     }
-    
+
     func updateSearchRequestModel(distance: String) {
         searchRequestModelSubject.value.distanceOnSphere = distance
     }
-    
+
     func updateSearchRequestModel(minPrice: String) {
         searchRequestModelSubject.value.minPrice = Int(minPrice)
     }
-    
+
     func updateSearchRequestModel(maxPrice: String) {
         searchRequestModelSubject.value.maxPrice = Int(maxPrice)
     }
-    
+
     func updateSearchRequestModel(propertyType: PropertyType) {
         searchRequestModelSubject.value.propertyType = propertyType
     }
-    
+
     func updateSearchRequestModel(minSquare: String) {
         searchRequestModelSubject.value.minSquare = Int(minSquare)
     }
-    
+
     func updateSearchRequestModel(maxSquare: String) {
         searchRequestModelSubject.value.maxSquare = Int(maxSquare)
     }
-    
+
     func updateSearchRequestModel(roomsNumber: NumberOfRooms) {
         searchRequestModelSubject.value.roomsNumber = roomsNumber
     }
-    
+
     func updateSearchRequestModel(constructionYear: PeriodOfBuilding) {
         searchRequestModelSubject.value.constructionYear = constructionYear
     }
-    
+
     func updateSearchRequestModel(parkingType: Garage) {
         searchRequestModelSubject.value.garage = parkingType
     }
-    
+
     func loadMockHouses() {
         housesService.getMockHouses()
             .sinkWeakly(self, receiveValue: { (self, houses) in
@@ -216,7 +219,7 @@ extension SearchModel {
             })
             .store(in: &cancellables)
     }
-    
+
     func loadHouses() {
         housesService.getHousesFromCoreData()
             .sinkWeakly(self, receiveCompletion: { (self, _) in
@@ -229,7 +232,7 @@ extension SearchModel {
             })
             .store(in: &cancellables)
     }
-    
+
     func loadHousesAPI(sortParameters: [String]? = nil) {
         guard !isPaginationInProgress,
               hasMoreToLoad
@@ -255,11 +258,11 @@ extension SearchModel {
                 }
                 self.offset += data.count
                 self.hasMoreToLoad = offset >= pageSize
-                
+
             })
             .store(in: &cancellables)
     }
-    
+
     func getHousesCount() {
         isLoadingSubject.send(true)
         housesService.getHousesCount()
@@ -277,7 +280,7 @@ extension SearchModel {
             }
             .store(in: &cancellables)
     }
-    
+
     func executeSearch() {
         isFilterActive = true
         isLoadingSubject.send(true)
@@ -299,7 +302,7 @@ extension SearchModel {
             })
             .store(in: &cancellables)
     }
-    
+
     func executeSearch(with searchParameters: [SearchParam]) {
         isFilterActive = true
         isLoadingSubject.send(true)
@@ -322,7 +325,7 @@ extension SearchModel {
             })
             .store(in: &cancellables)
     }
-    
+
     func getAvailableHouses(in poligon: String) {
         isLoadingSubject.send(true)
         housesService.getAvailableHouses(in: poligon)
@@ -340,21 +343,24 @@ extension SearchModel {
             })
             .store(in: &cancellables)
     }
-    
-    func  getFilteredHousesCount() {
-//        isLoadingSubject.send(true)
+
+    func getFilteredHousesCount() {
+        isLoadingSubject.send(true)
         let filters = searchParametersSubject.value
         housesService.getFilteredHousesCount(filters)
-            .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sinkWeakly(self, receiveCompletion: { (self, completion) in
-//                self.isLoadingSubject.send(false)
-                if case let .failure(error) = completion {
-                    debugPrint(error.localizedDescription)
+            .sinkWeakly(
+                self,
+                receiveCompletion: { _, completion in
+                self.isLoadingSubject.send(false)
+                    if case let .failure(error) = completion {
+                        debugPrint(error.localizedDescription)
+                    }
+                },
+                receiveValue: { _, count in
+                    self.filteredHousesCountSubject.send(count)
                 }
-            } ,receiveValue: { (self, count) in
-                print(count)
-            })
+            )
             .store(in: &cancellables)
     }
 }
