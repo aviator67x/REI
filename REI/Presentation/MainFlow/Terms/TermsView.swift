@@ -18,6 +18,7 @@ final class TermsView: BaseView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<TermsViewAction, Never>()
 
+    // MARK: - Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
@@ -27,6 +28,7 @@ final class TermsView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Private methods
     private func initialSetup() {
         setupLayout()
         setupUI()

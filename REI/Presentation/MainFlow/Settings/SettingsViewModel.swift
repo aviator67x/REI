@@ -26,11 +26,13 @@ final class SettingsViewModel: BaseViewModel {
         super.init()
     }
 
+    // MARK: - Life cycle
     override func onViewDidLoad() {
         updateDataSource()
     }
 
-    func updateDataSource() {
+    // MARK: - Private methods
+   private func updateDataSource() {
         userService.userPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] user in
@@ -61,7 +63,10 @@ final class SettingsViewModel: BaseViewModel {
         }
         .store(in: &cancellables)
     }
-        
+}
+
+// MARK: - Internal extension
+extension SettingsViewModel {
 
     func showProfile() {
         transitionSubject.send(.profile)

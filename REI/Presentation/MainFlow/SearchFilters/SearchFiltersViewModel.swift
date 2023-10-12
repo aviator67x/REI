@@ -151,6 +151,7 @@ extension SearchFiltersViewModel {
             return
         }
         propertyTypeCellModels[selectedItemIndex].isSelected.toggle()
+        
         model.updateSearchRequestModel(propertyType: type.propertyType)
         updateDataSource()
     }

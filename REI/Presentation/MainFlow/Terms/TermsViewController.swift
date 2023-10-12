@@ -21,6 +21,7 @@ final class TermsViewController: BaseViewController<TermsViewModel> {
         setupBindings()
     }
 
+    // MARK: - Private methods
     private func setupBindings() {
         contentView.actionPublisher
             .sink { action in

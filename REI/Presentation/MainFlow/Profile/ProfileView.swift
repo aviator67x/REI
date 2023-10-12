@@ -47,6 +47,7 @@ final class ProfileView: BaseView {
         return collection
     }
 
+    // MARK: - Private methods
     private func initialSetup() {
         setupLayout()
         setupUI()

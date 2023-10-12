@@ -24,6 +24,7 @@ final class EditProfileViewModel: BaseViewModel {
     private var lastName = ""
     private var nickName = ""
     
+    // MARK: - Life cycle
     init(userService: UserService) {
         self.userService = userService
         super.init()
@@ -36,7 +37,10 @@ final class EditProfileViewModel: BaseViewModel {
             }
             .store(in: &cancellables)
     }
-    
+}
+
+// MARK: - Internal extension
+extension EditProfileViewModel {
     func updateUser() {
         let userId = userService.getUser()?.id ?? ""
         let userModel = UpdateUserRequestModel(

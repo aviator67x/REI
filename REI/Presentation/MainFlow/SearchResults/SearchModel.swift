@@ -43,6 +43,7 @@ final class SearchModel {
         !searchParametersSubject.value.isEmpty
     }
 
+    // MARK: - Life cycle
     init(housesService: HousesService, userService: UserService) {
         self.housesService = housesService
         self.userService = userService
@@ -50,14 +51,19 @@ final class SearchModel {
         setupBinding()
     }
 
-    func setupBinding() {
+    // MARK: - Private methods
+    private func setupBinding() {
         searchRequestModelSubject
             .sinkWeakly(self, receiveValue: { (self, _) in
                 self.updateSearchFilters()
+                self.getFilteredHousesCount()
             })
             .store(in: &cancellables)
     }
+}
 
+// MARK: - Internal extension
+extension SearchModel {
     func getFavouriteHouses() {
         var ids: [String] = []
         isLoadingSubject.send(true)
@@ -77,18 +83,18 @@ final class SearchModel {
             })
             .store(in: &cancellables)
     }
-
+    
     func favouriteHouses() -> [HouseDomainModel]? {
         return userService.user?.favouriteHouses
     }
-
+    
     func editFavouriteHouses(with id: String) {
         if let index = favouriteHousesIdSubject.value.firstIndex(of: id) {
             favouriteHousesIdSubject.value.remove(at: index)
         } else {
             favouriteHousesIdSubject.value.append(id)
         }
-
+        
         isLoadingSubject.send(true)
         userService.addToFavourities(houses: favouriteHousesIdSubject.value)
             .receive(on: DispatchQueue.main)
@@ -100,52 +106,52 @@ final class SearchModel {
             }, receiveValue: { _ in })
             .store(in: &cancellables)
     }
-
+    
     func updateSearchFilters() {
         searchParametersSubject.value = []
-
+        
         if let distance = searchRequestModelSubject.value.distanceOnSphere {
             searchParametersSubject.value
                 .append(.init(key: .distanceOnSphere, value: .within(distance: distance)))
         }
-
+        
         if let minPrice = searchRequestModelSubject.value.minPrice {
             searchParametersSubject.value.append(.init(key: .price, value: .more(than: minPrice)))
         }
-
+        
         if let maxPrice = searchRequestModelSubject.value.maxPrice {
             searchParametersSubject.value.append(.init(key: .price, value: .less(than: maxPrice)))
         }
-
+        
         if let propertyType = searchRequestModelSubject.value.propertyType {
             searchParametersSubject.value
                 .append(.init(key: .propertyType, value: .equalToString(parameter: propertyType.rawValue)))
         }
-
+        
         if let minSquare = searchRequestModelSubject.value.minSquare {
             searchParametersSubject.value.append(.init(key: .square, value: .more(than: minSquare)))
         }
-
+        
         if let maxSquare = searchRequestModelSubject.value.maxSquare {
             searchParametersSubject.value.append(.init(key: .square, value: .less(than: maxSquare)))
         }
-
+        
         if let numberOfRooms = searchRequestModelSubject.value.roomsNumber {
             searchParametersSubject.value
                 .append(.init(key: .roomsNumber, value: .equalToInt(parameter: numberOfRooms.rawValue)))
         }
-
+        
         if let constructionYear = searchRequestModelSubject.value.constructionYear {
             searchParametersSubject.value
                 .append(.init(key: .constructionYear, value: .more(than: constructionYear.rawValue)))
         }
-
+        
         if let garage = searchRequestModelSubject.value.garage {
             searchParametersSubject.value
                 .append(.init(key: .garage, value: .equalToString(parameter: garage.rawValue)))
         }
     }
-
+    
     func saveSearchFilters() {
         let params = searchParametersSubject.value
         if let parametersData = try? JSONEncoder().encode(params) {
@@ -153,7 +159,7 @@ final class SearchModel {
             UserDefaults.standard.set(parametersData, forKey: "searchParameters")
         }
     }
-
+    
     func cleanSearchRequestModel() {
         isFilterActive = false
         searchRequestModelSubject.value = SearchRequestModel.empty
@@ -162,47 +168,47 @@ final class SearchModel {
         housesSubject.value = []
         loadHouses()
     }
-
+    
     func updateSearchRequestModel(ortPolygon: String) {
         searchRequestModelSubject.value.ortPolygon = ortPolygon
     }
-
+    
     func updateSearchRequestModel(distance: String) {
         searchRequestModelSubject.value.distanceOnSphere = distance
     }
-
+    
     func updateSearchRequestModel(minPrice: String) {
         searchRequestModelSubject.value.minPrice = Int(minPrice)
     }
-
+    
     func updateSearchRequestModel(maxPrice: String) {
         searchRequestModelSubject.value.maxPrice = Int(maxPrice)
     }
-
+    
     func updateSearchRequestModel(propertyType: PropertyType) {
         searchRequestModelSubject.value.propertyType = propertyType
     }
-
+    
     func updateSearchRequestModel(minSquare: String) {
         searchRequestModelSubject.value.minSquare = Int(minSquare)
     }
-
+    
     func updateSearchRequestModel(maxSquare: String) {
         searchRequestModelSubject.value.maxSquare = Int(maxSquare)
     }
-
+    
     func updateSearchRequestModel(roomsNumber: NumberOfRooms) {
         searchRequestModelSubject.value.roomsNumber = roomsNumber
     }
-
+    
     func updateSearchRequestModel(constructionYear: PeriodOfBuilding) {
         searchRequestModelSubject.value.constructionYear = constructionYear
     }
-
+    
     func updateSearchRequestModel(parkingType: Garage) {
         searchRequestModelSubject.value.garage = parkingType
     }
-
+    
     func loadMockHouses() {
         housesService.getMockHouses()
             .sinkWeakly(self, receiveValue: { (self, houses) in
@@ -210,7 +216,7 @@ final class SearchModel {
             })
             .store(in: &cancellables)
     }
-
+    
     func loadHouses() {
         housesService.getHousesFromCoreData()
             .sinkWeakly(self, receiveCompletion: { (self, _) in
@@ -223,7 +229,7 @@ final class SearchModel {
             })
             .store(in: &cancellables)
     }
-
+    
     func loadHousesAPI(sortParameters: [String]? = nil) {
         guard !isPaginationInProgress,
               hasMoreToLoad
@@ -249,11 +255,11 @@ final class SearchModel {
                 }
                 self.offset += data.count
                 self.hasMoreToLoad = offset >= pageSize
-
+                
             })
             .store(in: &cancellables)
     }
-
+    
     func getHousesCount() {
         isLoadingSubject.send(true)
         housesService.getHousesCount()
@@ -271,7 +277,7 @@ final class SearchModel {
             }
             .store(in: &cancellables)
     }
-
+    
     func executeSearch() {
         isFilterActive = true
         isLoadingSubject.send(true)
@@ -293,7 +299,7 @@ final class SearchModel {
             })
             .store(in: &cancellables)
     }
-
+    
     func executeSearch(with searchParameters: [SearchParam]) {
         isFilterActive = true
         isLoadingSubject.send(true)
@@ -316,7 +322,7 @@ final class SearchModel {
             })
             .store(in: &cancellables)
     }
-
+    
     func getAvailableHouses(in poligon: String) {
         isLoadingSubject.send(true)
         housesService.getAvailableHouses(in: poligon)
@@ -331,6 +337,23 @@ final class SearchModel {
                 }
             }, receiveValue: { _, houses in
                 print(houses)
+            })
+            .store(in: &cancellables)
+    }
+    
+    func  getFilteredHousesCount() {
+//        isLoadingSubject.send(true)
+        let filters = searchParametersSubject.value
+        housesService.getFilteredHousesCount(filters)
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sinkWeakly(self, receiveCompletion: { (self, completion) in
+//                self.isLoadingSubject.send(false)
+                if case let .failure(error) = completion {
+                    debugPrint(error.localizedDescription)
+                }
+            } ,receiveValue: { (self, count) in
+                print(count)
             })
             .store(in: &cancellables)
     }

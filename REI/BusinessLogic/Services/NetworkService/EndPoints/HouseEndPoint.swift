@@ -16,6 +16,7 @@ enum HouseEndPoint: Endpoint {
     case getUserAds(ownerId: String)
     case deleteAd(objectId: String)
     case getHousesIn(poligon: String)
+    case getHousesCountFor(filters: [SearchParam])
 
     var queries: HTTPQueries {
         switch self {
@@ -33,6 +34,8 @@ enum HouseEndPoint: Endpoint {
         case let .getHousesIn(poligon):
             let searchParams = [SearchParam(key: .location, value: .inside(poligon: poligon))]
             return buildQuery(searchParams: searchParams) ?? [:]
+        case let .getHousesCountFor(filters):
+            return buildQuery(searchParams: filters) ?? [:]
         }
     }
 
@@ -42,7 +45,7 @@ enum HouseEndPoint: Endpoint {
             return "/data/Houses"
         case .saveImage:
             return "/files/Houses"
-        case .housesCount:
+        case .housesCount, .getHousesCountFor:
             return "/data/Houses/count"
         case let .deleteAd(objectId: objectId):
             return "data/Houses/\(objectId)"
@@ -51,7 +54,7 @@ enum HouseEndPoint: Endpoint {
 
     var method: HTTPMethod {
         switch self {
-        case .getHouses, .filter, .housesCount, .getUserAds, .getHousesIn:
+        case .getHouses, .filter, .housesCount, .getUserAds, .getHousesIn, .getHousesCountFor:
             return .get
         case .saveImage, .saveAd:
             return .post
@@ -62,7 +65,7 @@ enum HouseEndPoint: Endpoint {
 
     var headers: HTTPHeaders {
         switch self {
-        case .getHouses, .filter, .saveAd, .housesCount, .getUserAds, .deleteAd, .getHousesIn:
+        case .getHouses, .filter, .saveAd, .housesCount, .getUserAds, .deleteAd, .getHousesIn, .getHousesCountFor:
             return ["Content-Type": "application/json"]
         case .saveImage:
             return [:]
@@ -71,7 +74,7 @@ enum HouseEndPoint: Endpoint {
 
     var body: RequestBody? {
         switch self {
-        case .getHouses, .filter, .housesCount, .getUserAds, .deleteAd, .getHousesIn:
+        case .getHouses, .filter, .housesCount, .getUserAds, .deleteAd, .getHousesIn, .getHousesCountFor:
             return nil
         case let .saveImage(image):
             return .multipartBody(image)

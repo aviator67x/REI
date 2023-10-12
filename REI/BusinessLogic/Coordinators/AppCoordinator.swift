@@ -31,7 +31,7 @@ final class AppCoordinator: Coordinator {
 
     func start() {
        
-        let vc = SwiftUIModuleBuilder.build().viewController
+//        let vc = SwiftUIModuleBuilder.build().viewController
         
         window.rootViewController = navigationController
         window.makeKeyAndVisible()

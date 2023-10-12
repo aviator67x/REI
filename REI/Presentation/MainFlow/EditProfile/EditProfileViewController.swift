@@ -40,6 +40,7 @@ final class EditProfileViewController: BaseViewController<EditProfileViewModel> 
         setupBindings()
     }
 
+    // MARK: - Private methods
     private func setupNavigationButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Done",

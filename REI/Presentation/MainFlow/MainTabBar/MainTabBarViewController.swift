@@ -11,6 +11,7 @@ final class MainTabBarViewController: UITabBarController {
     
     private var viewModel: MainTabBarViewModel
 
+    // MARK: - Life cycle
     init(viewModel: MainTabBarViewModel, viewControllers: [UIViewController]) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

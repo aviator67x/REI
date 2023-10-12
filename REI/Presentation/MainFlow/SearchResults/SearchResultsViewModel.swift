@@ -43,11 +43,10 @@ final class SearchResultsViewModel: BaseViewModel {
     override func onViewWillAppear() {
         model.getFavouriteHouses()
     }
-}
 
-// MARK: - private extension
-private extension SearchResultsViewModel {
-    func setupBinding() {
+
+// MARK: - Private methods
+   private func setupBinding() {
         model.favouriteHousesIdPublisher
             .receive(on: DispatchQueue.main)
             .sinkWeakly(self, receiveValue: { (self, favouriteIds) in
@@ -89,11 +88,11 @@ private extension SearchResultsViewModel {
             .store(in: &cancellables)
     }
 
-    func getHousesCount() {
+    private func getHousesCount() {
         model.getHousesCount()
     }
 
-    func createDataSource() {
+    private func createDataSource() {
         switch screenState {
         case .photo:
             let items = housesSubject.value
@@ -135,7 +134,7 @@ private extension SearchResultsViewModel {
     }
 }
 
-// MARK: - extension
+// MARK: - Internal extension
 extension SearchResultsViewModel {
     func loadHouses() {
         model.loadHousesAPI()

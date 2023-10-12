@@ -24,6 +24,7 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
         setupNavigationBar()
     }
 
+    // MARK: - Private methods
     private func setupNavigationBar() {
         navigationItem.titleView = segmentedControl
         let recognizer = UITapGestureRecognizer()
@@ -32,12 +33,10 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
         imageView.addGestureRecognizer(recognizer)
         navigationItem
             .leftBarButtonItem = UIBarButtonItem(customView: imageView)
-     
-    
     }
-    
+
     @objc
-    func showSwiftUIModule() {
+    private func showSwiftUIModule() {
         let vc = SwiftUIModuleBuilder.build().viewController
         present(vc, animated: true)
     }
@@ -48,15 +47,15 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                 switch action {
                 case .collectionBottomDidReach:
                     viewModel.loadHouses()
-                case .fromSelectViewTransition(let screen):
+                case let .fromSelectViewTransition(screen):
                     viewModel.moveTo(screen)
-                case .onCellHeartButtonPublisher(selectedItem: let selectedItem):
+                case let .onCellHeartButtonPublisher(selectedItem: selectedItem):
                     viewModel.editFavourites(item: selectedItem)
-                case .selectedItem(let item):
+                case let .selectedItem(item):
                     viewModel.showSelectedItem(item)
-                case .showAlert(let alert):
+                case let .showAlert(alert):
                     self.present(alert, animated: true)
-                case .visiblePoligon(let poligon):
+                case let .visiblePoligon(poligon):
                     viewModel.getAvailableHouses(in: poligon)
                 }
             }
@@ -68,16 +67,16 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                 self.contentView.showCollection(sections: sections)
             })
             .store(in: &cancellables)
-        
+
         viewModel.mapViewPublisher
             .unwrap()
             .sinkWeakly(self, receiveValue: { (self, model) in
                 self.contentView.showMapView(model: model)
             })
             .store(in: &cancellables)
-        
+
         viewModel.resultViewModelPublisher
-            .sinkWeakly(self, receiveValue: {(self, resultModel) in
+            .sinkWeakly(self, receiveValue: { (self, resultModel) in
                 guard let resultModel = resultModel else {
                     return
                 }

@@ -22,6 +22,7 @@ final class SettingsViewController: BaseViewController<SettingsViewModel> {
         title = Localization.settings
     }
 
+    // MARK: - Private methods
     private func setupBindings() {
         viewModel.$sections
             .sink { [unowned self] value in

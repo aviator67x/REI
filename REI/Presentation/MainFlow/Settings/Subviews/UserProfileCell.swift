@@ -14,18 +14,20 @@ final class UserProfileCell: UICollectionViewCell {
     private let photo = UIImageView()
     private let nameLabel = UILabel()
     private let emailLabel = UILabel()
-
+    
+    // MARK: - Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
         setupLayout()
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    // MARK: - Private methods
     private func setupLayout() {
         photo.layer.cornerRadius = 40
         photo.clipsToBounds = true
@@ -48,7 +50,9 @@ final class UserProfileCell: UICollectionViewCell {
             $0.width.equalTo(200)
         }
     }
-
+}
+// MARK: - Internal extension
+extension UserProfileCell {
     func setupCell(model: UserProfileCellModel) {
         let imageResouce = model.image
         photo.setIMage(imageResource: imageResouce)

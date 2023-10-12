@@ -28,6 +28,7 @@ protocol HousesService {
     func getAvailableHouses(in poligon: String) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func getHousesFromCoreData() -> AnyPublisher<[HouseDomainModel]?, HousesServiceError>
     func getMockHouses() -> AnyPublisher<[HouseDomainModel], HousesServiceError>
+    func getFilteredHousesCount(_ filters: [SearchParam]) -> AnyPublisher<Int, HousesServiceError>
 }
 
 final class HousesServiceImpl: HousesService {
@@ -155,6 +156,12 @@ final class HousesServiceImpl: HousesService {
         }
         return housesPublisher
             .setFailureType(to: HousesServiceError.self)
+            .eraseToAnyPublisher()
+    }
+    
+    func getFilteredHousesCount(_ filters: [SearchParam]) -> AnyPublisher<Int, HousesServiceError> {
+        housesNetworkService.getFilteredHousesCount(filters)
+            .mapError { HousesServiceError.networking($0) }
             .eraseToAnyPublisher()
     }
 }

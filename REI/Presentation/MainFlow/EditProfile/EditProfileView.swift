@@ -15,7 +15,7 @@ enum EditProfileViewAction {
 }
 
 final class EditProfileView: BaseView {
-
+    
     // MARK: - Subviews
     private var scrollView = AxisScrollView()
     private let stackView = UIStackView()
@@ -29,25 +29,27 @@ final class EditProfileView: BaseView {
     private let nickNameLable = UILabel()
     private let nickNameTextField = UITextField()
     private let emailTextField = UITextField()
-
+    
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<EditProfileViewAction, Never>()
-
+    
+    // MARK: - Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    // MARK: - Private methods
     private func initialSetup() {
         setupUI()
         bindActions()
     }
-
+    
     private func bindActions() {
         firstNameTextField.textPublisher
             .sinkWeakly(self, receiveValue: {(self, text) in
@@ -67,19 +69,45 @@ final class EditProfileView: BaseView {
             })
             .store(in: &cancellables)
     }
-
+    
     private func setupUI() {
         backgroundColor = .systemGroupedBackground
         stackView.backgroundColor = .white
         stackView.layer.cornerRadius = 8
         firstNameLabel.text = " First"
-//        firstNameTextField.text = "firstNameTextField"
         lastNameLabel.text = " Last"
-//        lastNameTextField.text = "lastNameTextField"
         nickNameLable.text = " Nickname"
-//        nickNameTextField.text = "nickNameTextField"
     }
+    
+    private func setupNameConfiguration() {
+        let firstNameStack = UIStackView()
+        let lastNameStack = UIStackView()
+        let nickNameStack = UIStackView()
+        [firstNameStack, lastNameStack, nickNameStack].forEach { stack in
+            stack.setup(
+                axis: .horizontal,
+                alignment: .center,
+                distribution: .fillProportionally,
+                spacing: Constants.stackSpacing
+            )
+        }
+        firstNameStack.addSpacer(10)
+        firstNameStack.addArranged(firstNameLabel, size: 90)
+        firstNameStack.addArranged(firstNameTextField)
+        lastNameStack.addSpacer(10)
+        lastNameStack.addArranged(lastNameLabel, size: 90)
+        lastNameStack.addArranged(lastNameTextField)
+        nickNameStack.addSpacer(10)
+        nickNameStack.addArranged(nickNameLable, size: 90)
+        nickNameStack.addArranged(nickNameTextField)
 
+        stackView.addArrangedSubviews([firstNameStack, lastNameStack, nickNameStack])
+    }
+    
+}
+
+// MARK: - Internal extension
+extension EditProfileView {
      func setupLayout(_ configuration: EditProfileConfiguration) {
         stackView.setup(axis: .vertical, alignment: .fill, distribution: .fill, spacing: Constants.stackSpacing)
         addSubview(scrollView) {
@@ -107,31 +135,6 @@ final class EditProfileView: BaseView {
         }
     }
 
-    private func setupNameConfiguration() {
-        let firstNameStack = UIStackView()
-        let lastNameStack = UIStackView()
-        let nickNameStack = UIStackView()
-        [firstNameStack, lastNameStack, nickNameStack].forEach { stack in
-            stack.setup(
-                axis: .horizontal,
-                alignment: .center,
-                distribution: .fillProportionally,
-                spacing: Constants.stackSpacing
-            )
-        }
-        firstNameStack.addSpacer(10)
-        firstNameStack.addArranged(firstNameLabel, size: 90)
-        firstNameStack.addArranged(firstNameTextField)
-        lastNameStack.addSpacer(10)
-        lastNameStack.addArranged(lastNameLabel, size: 90)
-        lastNameStack.addArranged(lastNameTextField)
-        nickNameStack.addSpacer(10)
-        nickNameStack.addArranged(nickNameLable, size: 90)
-        nickNameStack.addArranged(nickNameTextField)
-
-        stackView.addArrangedSubviews([firstNameStack, lastNameStack, nickNameStack])
-    }
-    
     func setupEmailConfifguration() {
         
     }

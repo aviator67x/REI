@@ -39,6 +39,7 @@ final class SearchResultsView: BaseView {
         constant: 0
     )
 
+    // MARK: - Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
@@ -49,6 +50,7 @@ final class SearchResultsView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Private methods
     private func createCollectionView() -> UICollectionView {
         let sectionProvider =
             { (_: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in

@@ -10,18 +10,19 @@ import UIKit
 final class ProfileViewController: BaseViewController<ProfileViewModel> {
     // MARK: - Views
     private let contentView = ProfileView()
-
+    
     // MARK: - Lifecycle
     override func loadView() {
         view = contentView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = Localization.profile
         setupBindings()
     }
-
+    
+    // MARK: - Private methods
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
@@ -47,7 +48,7 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
                 }
             }
             .store(in: &cancellables)
-
+        
         viewModel.openGalleryPublisher
             .sink { [unowned self] value in
                 if value {
@@ -55,36 +56,38 @@ final class ProfileViewController: BaseViewController<ProfileViewModel> {
                 }
             }
             .store(in: &cancellables)
-
+        
         viewModel.$sections
             .sink { [unowned self] sections in
                 self.contentView.setupSnapShot(sections: sections)
             }
             .store(in: &cancellables)
     }
-
+    
     private func imageFromGallery() {
         let imagePicker = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.delegate = self
             imagePicker.sourceType = .savedPhotosAlbum
             imagePicker.allowsEditing = true
-
+            
             present(imagePicker, animated: true, completion: nil)
         }
     }
-
+    
     private func imageFromCamera() {
         let cameraVC = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             cameraVC.delegate = self
             cameraVC.sourceType = .camera
             cameraVC.allowsEditing = true
-
+            
             present(cameraVC, animated: true, completion: nil)
         }
     }
-
+}
+// MARK: - Internal extension
+extension ProfileViewController {
     private func showPopup() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
