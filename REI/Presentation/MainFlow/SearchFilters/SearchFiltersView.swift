@@ -47,7 +47,9 @@ final class SearchFiltersView: BaseView {
         let sectionProvider =
             { [weak self] (sectionNumber: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
                 var section: NSCollectionLayoutSection?
-                    guard let dataSource = self?.dataSource else { return nil }
+                    guard let dataSource = self?.dataSource else {
+                        return nil
+                    }
                 let sectionType = dataSource.snapshot().sectionIdentifiers[sectionNumber]
                     switch sectionType {
                     case .segmentControl:

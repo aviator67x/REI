@@ -13,12 +13,13 @@ final class SearchFiltersViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SearchFiltersTransition, Never>()
 
-    @Published var screenConfiguration = 0
+    private lazy var screenConfigurationSubject = CurrentValueSubject<Int, Never>(0)
+
     @Published private(set) var sections: [SearchFiltersCollection] = []
 
     private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
     private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
-    
+
     private(set) lazy var filteredHousesCountPublisher = filteredHousesCountSubject.eraseToAnyPublisher()
     private lazy var filteredHousesCountSubject = CurrentValueSubject<Int, Never>(0)
 
@@ -30,6 +31,8 @@ final class SearchFiltersViewModel: BaseViewModel {
     private lazy var maxSquareSubject = CurrentValueSubject<String, Never>("")
 
     private let model: SearchModel
+
+    private var propertyTypeCellModels: [PropertyTypeCellModel] = []
     private var distanceCellModels: [DistanceCellModel] = [
         .init(distance: .one),
         .init(distance: .two),
@@ -41,12 +44,6 @@ final class SearchFiltersViewModel: BaseViewModel {
         .init(distance: .oneHundred),
     ]
 
-    private var propertyTypeCellModels: [PropertyTypeCellModel] = [
-        .init(propertyType: .apartment),
-        .init(propertyType: .house),
-        .init(propertyType: .land),
-    ]
-
     private var numberOfRoomsCellModels: [NumberOfRoomsCellModel] = [
         .init(numberOfRooms: .one),
         .init(numberOfRooms: .two),
@@ -54,8 +51,8 @@ final class SearchFiltersViewModel: BaseViewModel {
         .init(numberOfRooms: .four),
         .init(numberOfRooms: .five),
     ]
-    
-// MARK: - life cycle
+
+    // MARK: - life cycle
     init(model: SearchModel) {
         self.model = model
         super.init()
@@ -89,7 +86,7 @@ extension SearchFiltersViewModel {
     }
 
     func configureScreen(for index: Int) {
-        screenConfiguration = index
+        screenConfigurationSubject.value = index
     }
 
     func updateOrt(_ ort: String) {
@@ -155,7 +152,7 @@ extension SearchFiltersViewModel {
             return
         }
         propertyTypeCellModels[selectedItemIndex].isSelected.toggle()
-        
+
         model.updateSearchRequestModel(propertyType: type.propertyType)
         updateDataSource()
     }
@@ -171,7 +168,7 @@ extension SearchFiltersViewModel {
         model.updateSearchRequestModel(roomsNumber: number.numberOfRooms)
         updateDataSource()
     }
-    
+
     func saveSearchParams() {
         model.saveSearchFilters()
     }
@@ -193,6 +190,8 @@ extension SearchFiltersViewModel {
 // MARK: - private extension
 private extension SearchFiltersViewModel {
     func setupBinding() {
+        bindDataSource()
+
         minPriceSubject
             .dropFirst()
             .sinkWeakly(self, receiveValue: { (self, price) in
@@ -222,10 +221,32 @@ private extension SearchFiltersViewModel {
                 self.model.updateSearchRequestModel(maxSquare: square)
             })
             .store(in: &cancellables)
-        
+
         model.filteredHousesCountPublisher
             .sinkWeakly(self, receiveValue: { (self, count) in
                 self.filteredHousesCountSubject.value = count
+            })
+            .store(in: &cancellables)
+    }
+
+    func bindDataSource() {
+        screenConfigurationSubject
+            .receive(on: DispatchQueue.main)
+            .sinkWeakly(self, receiveValue: { (self, value) in
+                switch value {
+                case 1:
+                    self.propertyTypeCellModels = [
+                        .init(propertyType: .apartment),
+                        .init(propertyType: .house),
+                    ]
+                default:
+                    self.propertyTypeCellModels = [
+                        .init(propertyType: .apartment),
+                        .init(propertyType: .house),
+                        .init(propertyType: .land),
+                    ]
+                }
+                self.updateDataSource()
             })
             .store(in: &cancellables)
     }
@@ -258,20 +279,23 @@ private extension SearchFiltersViewModel {
         let yearSection: SearchFiltersCollection = {
             SearchFiltersCollection(
                 sections: .year,
-                items: [.year(.since1850)])
+                items: [.year(.since1850)]
+            )
         }()
 
         let squareSection: SearchFiltersCollection = {
             let model = SquareCellModel(minSquare: minSquareSubject.value, maxSquare: maxSquareSubject.value)
             return SearchFiltersCollection(
                 sections: .square,
-                items: [.square(model: model)])
+                items: [.square(model: model)]
+            )
         }()
 
         let garageSection: SearchFiltersCollection = {
             SearchFiltersCollection(
                 sections: .garage,
-                items: [.garage(.garage)])
+                items: [.garage(.garage)]
+            )
         }()
 
         let numberOfRoomsItems = numberOfRoomsCellModels
@@ -291,7 +315,8 @@ private extension SearchFiltersViewModel {
         let backgroundSection: SearchFiltersCollection = {
             SearchFiltersCollection(
                 sections: .backgroundItem,
-                items: [.backgroundItem])
+                items: [.backgroundItem]
+            )
         }()
 
         sections = [
