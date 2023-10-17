@@ -22,18 +22,24 @@ enum HouseEndPoint: Endpoint {
         switch self {
         case let .getHouses(pageSize, skip, sortParameters):
             return buildQuery(pageSize: pageSize, skip: skip, parameters: sortParameters) ?? [:]
+            
         case let .filter(searchParams):
             return buildQuery(searchParams: searchParams) ?? [:]
+            
         case .saveImage, .saveAd, .housesCount:
             return [:]
+            
         case let .getUserAds(ownerId: ownerId):
             let searchParams = [SearchParam(key: .ownerId, value: .equalToString(parameter: ownerId))]
             return buildQuery(searchParams: searchParams) ?? [:]
+            
         case .deleteAd:
             return [:]
+            
         case let .getHousesIn(poligon):
             let searchParams = [SearchParam(key: .location, value: .inside(poligon: poligon))]
             return buildQuery(searchParams: searchParams) ?? [:]
+            
         case let .getHousesCountFor(filters):
             return buildQuery(searchParams: filters) ?? [:]
         }

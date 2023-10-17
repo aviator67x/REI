@@ -54,7 +54,8 @@ final class SearchFiltersViewModel: BaseViewModel {
         .init(numberOfRooms: .four),
         .init(numberOfRooms: .five),
     ]
-
+    
+// MARK: - life cycle
     init(model: SearchModel) {
         self.model = model
         super.init()
@@ -109,7 +110,7 @@ extension SearchFiltersViewModel {
 
             if let location = location {
                 let coordinate = location.coordinate
-                self.point = "POINT(\(coordinate.latitude) \(coordinate.longitude))"
+                self.point = "'POINT(\(coordinate.latitude) \(coordinate.longitude))'"
             } else {
                 print("No Matching Location Found")
             }
@@ -125,7 +126,7 @@ extension SearchFiltersViewModel {
         }
         distanceCellModels[selectedItemIndex].isSelected.toggle()
         let stringDistance = String(distance.distance.rawValue)
-        let searchParam = "(location, '\(point)') <= \(stringDistance)"
+        let searchParam = ["(location, ", "\(point)", ") <= \(stringDistance)"].joined()
         model.updateSearchRequestModel(distance: searchParam)
         updateDataSource()
     }
