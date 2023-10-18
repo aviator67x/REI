@@ -187,6 +187,7 @@
 		CE9CAF3029B52164007DC31B /* DecodingError+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF2F29B52163007DC31B /* DecodingError+.swift */; };
 		CE9CAF3229B6551B007DC31B /* SearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */; };
 		CE9CAF3E29B678BE007DC31B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CE9CAF3D29B678BE007DC31B /* Kingfisher */; };
+		CE9F06B62AE0153C00C8B1B6 /* SearchScreenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F06B52AE0153B00C8B1B6 /* SearchScreenState.swift */; };
 		CEA2A86729E9D1B400395817 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86629E9D1B400395817 /* SearchModel.swift */; };
 		CEA2A86929E9D23E00395817 /* HouseDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86829E9D23E00395817 /* HouseDomainModel.swift */; };
 		CEA51C4529F03C6E0030602E /* HousesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA51C4429F03C6E0030602E /* HousesService.swift */; };
@@ -503,6 +504,7 @@
 		CE9CAF2D29B21203007DC31B /* UserDefaults+coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+coding.swift"; sourceTree = "<group>"; };
 		CE9CAF2F29B52163007DC31B /* DecodingError+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingError+.swift"; sourceTree = "<group>"; };
 		CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsCoordinator.swift; sourceTree = "<group>"; };
+		CE9F06B52AE0153B00C8B1B6 /* SearchScreenState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenState.swift; sourceTree = "<group>"; };
 		CEA2A86629E9D1B400395817 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		CEA2A86829E9D23E00395817 /* HouseDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseDomainModel.swift; sourceTree = "<group>"; };
 		CEA51C4429F03C6E0030602E /* HousesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesService.swift; sourceTree = "<group>"; };
@@ -988,6 +990,7 @@
 				CE0E27C629D43DE9001EDFCD /* RoomsNumberCell.swift */,
 				CE13E3BA29DC5AFA00B948C9 /* BackgroundCell.swift */,
 				CEFE0A4B2A33656900B6ECA6 /* OrtCell.swift */,
+				CE9F06B52AE0153B00C8B1B6 /* SearchScreenState.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -2008,6 +2011,7 @@
 				CE403E222A4337BD0069621F /* Fonts.swift in Sources */,
 				E4CB518683283ED390099429 /* UIStackView+Ext.swift in Sources */,
 				CC8DBF3F72C3F77954E56813 /* UIView+Constraints.swift in Sources */,
+				CE9F06B62AE0153C00C8B1B6 /* SearchScreenState.swift in Sources */,
 				CEFEEAD12A813E3600EBBC40 /* SortCell.swift in Sources */,
 				CE13E3BB29DC5AFA00B948C9 /* BackgroundCell.swift in Sources */,
 				CEB9F6802A17AE410082A674 /* AdAddressViewController.swift in Sources */,

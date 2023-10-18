@@ -13,7 +13,7 @@ final class SearchFiltersViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SearchFiltersTransition, Never>()
 
-    private lazy var screenConfigurationSubject = CurrentValueSubject<Int, Never>(0)
+    private lazy var screenConfigurationSubject = CurrentValueSubject<SearhScreenState, Never>(.buy)
 
     @Published private(set) var sections: [SearchFiltersCollection] = []
 
@@ -86,7 +86,10 @@ extension SearchFiltersViewModel {
     }
 
     func configureScreen(for index: Int) {
-        screenConfigurationSubject.value = index
+        guard let state = SearhScreenState(rawValue: index) else {
+            return
+        }
+        screenConfigurationSubject.value = state
     }
 
     func updateOrt(_ ort: String) {
@@ -234,7 +237,7 @@ private extension SearchFiltersViewModel {
             .receive(on: DispatchQueue.main)
             .sinkWeakly(self, receiveValue: { (self, value) in
                 switch value {
-                case 1:
+                case .rent:
                     self.propertyTypeCellModels = [
                         .init(propertyType: .apartment),
                         .init(propertyType: .house),
@@ -319,17 +322,31 @@ private extension SearchFiltersViewModel {
             )
         }()
 
-        sections = [
-            segmentControlSection,
-            ortSection,
-            distanceSection,
-            priceSection,
-            typeSection,
-            squareSection,
-            roomsNumberSection,
-            yearSection,
-            garageSection,
-            backgroundSection,
-        ]
+        switch screenConfigurationSubject.value {
+        case .rent:
+            sections = [
+                segmentControlSection,
+                ortSection,
+                distanceSection,
+                priceSection,
+                typeSection,
+                squareSection,
+                roomsNumberSection,
+                backgroundSection,
+            ]
+        default:
+            sections = [
+                segmentControlSection,
+                ortSection,
+                distanceSection,
+                priceSection,
+                typeSection,
+                squareSection,
+                roomsNumberSection,
+                yearSection,
+                garageSection,
+                backgroundSection,
+            ]
+        }
     }
 }
