@@ -5,6 +5,7 @@
 //  Created by User on 05.04.2023.
 //
 
+import GoogleMobileAds
 import Combine
 import CoreLocation
 import MapKit
@@ -30,6 +31,7 @@ final class SearchResultsView: BaseView {
     private lazy var collectionView: UICollectionView = createCollectionView()
     private lazy var mapView = MKMapView()
     private lazy var availableHousesButton = UIButton()
+    private let bannerView = GADBannerView()
 
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchResultsViewAction, Never>()
@@ -82,7 +84,7 @@ final class SearchResultsView: BaseView {
         setupCollectionView()
         bindActions()
     }
-
+    
     private func bindActions() {
         collectionView.didSelectItemPublisher
             .compactMap { self.dataSource?.itemIdentifier(for: $0) }
@@ -176,6 +178,12 @@ final class SearchResultsView: BaseView {
             $0.bottom.equalToSuperview().offset(-100)
             $0.height.equalTo(50)
         }
+        
+        addSubview(bannerView) {
+            $0.leading.trailing.equalToSuperview().inset(50)
+            $0.height.equalTo(250)
+            $0.centerY.equalToSuperview()
+        }
     }
 }
 
@@ -202,6 +210,12 @@ extension SearchResultsView {
 
     func updateResultView(with data: ResultViewModel) {
         resultView.setup(with: data)
+    }
+    
+    func setupBanner(_ viewController: UIViewController) {
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.load(GADRequest())
+        bannerView.rootViewController = viewController
     }
 
     func setupSnapShot(sections: [SearchResultsCollection]) {

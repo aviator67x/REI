@@ -188,6 +188,7 @@
 		CE9CAF3229B6551B007DC31B /* SearchResultsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CAF3129B6551B007DC31B /* SearchResultsCoordinator.swift */; };
 		CE9CAF3E29B678BE007DC31B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = CE9CAF3D29B678BE007DC31B /* Kingfisher */; };
 		CE9F06B62AE0153C00C8B1B6 /* SearchScreenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F06B52AE0153B00C8B1B6 /* SearchScreenState.swift */; };
+		CE9F06B92AE28A4600C8B1B6 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = CE9F06B82AE28A4600C8B1B6 /* GoogleMobileAds */; };
 		CEA2A86729E9D1B400395817 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86629E9D1B400395817 /* SearchModel.swift */; };
 		CEA2A86929E9D23E00395817 /* HouseDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2A86829E9D23E00395817 /* HouseDomainModel.swift */; };
 		CEA51C4529F03C6E0030602E /* HousesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA51C4429F03C6E0030602E /* HousesService.swift */; };
@@ -631,6 +632,7 @@
 				5522D7D73F74CCACD557A672 /* CombineNetworking in Frameworks */,
 				E55C8D3133EAF37F19BDBABE /* KeychainAccess in Frameworks */,
 				CEA545E82978016D007F9962 /* SnapKit in Frameworks */,
+				CE9F06B92AE28A4600C8B1B6 /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1629,6 +1631,7 @@
 				C07B7AD09C0EA1553D69D767 /* KeychainAccess */,
 				CEA545E72978016D007F9962 /* SnapKit */,
 				CE9CAF3D29B678BE007DC31B /* Kingfisher */,
+				CE9F06B82AE28A4600C8B1B6 /* GoogleMobileAds */,
 			);
 			productName = RomaMVVM;
 			productReference = E6353D0F1511E20E206B1634 /* REI.app */;
@@ -1684,6 +1687,7 @@
 				CEA545E62978016C007F9962 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				CE9CAF3C29B678BE007DC31B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				CEA51C4129EFE7370030602E /* XCRemoteSwiftPackageReference "UIScrollView-InfiniteScroll" */,
+				CE9F06B72AE28A4500C8B1B6 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = DE3F1EFB85403EF50F47B481 /* Products */;
 			projectDirPath = "";
@@ -2079,6 +2083,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2232,6 +2237,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2258,6 +2264,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2471,6 +2478,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2647,6 +2655,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2673,6 +2682,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2836,6 +2846,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		CE9F06B72AE28A4500C8B1B6 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 		CEA51C4129EFE7370030602E /* XCRemoteSwiftPackageReference "UIScrollView-InfiniteScroll" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pronebird/UIScrollView-InfiniteScroll";
@@ -2874,6 +2892,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE9CAF3C29B678BE007DC31B /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		CE9F06B82AE28A4600C8B1B6 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE9F06B72AE28A4500C8B1B6 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 		CEA545E72978016D007F9962 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

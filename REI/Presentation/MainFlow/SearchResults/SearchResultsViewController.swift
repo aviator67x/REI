@@ -5,6 +5,7 @@
 //  Created by User on 05.04.2023.
 //
 
+
 import Combine
 import UIKit
 
@@ -12,7 +13,7 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
     // MARK: - Views
     private let contentView = SearchResultsView()
     private lazy var segmentedControl = SegmentedControl(frame: .zero)
-
+       
     // MARK: - Lifecycle
     override func loadView() {
         view = contentView
@@ -22,6 +23,7 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
         super.viewDidLoad()
         setupBindings()
         setupNavigationBar()
+        contentView.setupBanner(self)
     }
 
     // MARK: - Private methods
