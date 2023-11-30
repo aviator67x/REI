@@ -731,9 +731,9 @@
 				CE1E2DD72A0946C700328EAF /* UIView+gesturePublisher.swift */,
 				CEFFB9AA2A260B6E0009F624 /* UINavigationController+popToSpecificController.swift */,
 				CE7153062A339011000CC3C5 /* UITextField+doneButton.swift */,
-				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
 				CEFEEAD22A8142B500EBBC40 /* UITableView+dequeue.swift */,
 				CEFEEAD42A8144C000EBBC40 /* TableView+reusedIdentifier.swift */,
+				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -2076,7 +2076,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				DEVELOPMENT_TEAM = H4CARJMF9X;
 				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2084,7 +2084,7 @@
 					"@executable_path/Frameworks",
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewkasilov.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2230,7 +2230,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				DEVELOPMENT_TEAM = H4CARJMF9X;
 				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2238,7 +2238,7 @@
 					"@executable_path/Frameworks",
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewkasilov.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2257,7 +2257,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				DEVELOPMENT_TEAM = H4CARJMF9X;
 				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2265,7 +2265,7 @@
 					"@executable_path/Frameworks",
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewkasilov.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2471,7 +2471,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				DEVELOPMENT_TEAM = H4CARJMF9X;
 				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2479,7 +2479,7 @@
 					"@executable_path/Frameworks",
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewkasilov.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2648,7 +2648,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				DEVELOPMENT_TEAM = H4CARJMF9X;
 				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2656,7 +2656,7 @@
 					"@executable_path/Frameworks",
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewkasilov.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2675,7 +2675,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L3QAWRZFYR;
+				DEVELOPMENT_TEAM = H4CARJMF9X;
 				INFOPLIST_FILE = REI/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2683,7 +2683,7 @@
 					"@executable_path/Frameworks",
 				);
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrew.REI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewkasilov.REI;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -104,11 +104,12 @@ final class EditProfileView: BaseView {
         stackView.addArrangedSubviews([firstNameStack, lastNameStack, nickNameStack])
     }
     
+    private func setupEmailConfifguration() {}
 }
 
 // MARK: - Internal extension
 extension EditProfileView {
-     func setupLayout(_ configuration: EditProfileConfiguration) {
+    func setupLayout(_ configuration: EditProfileConfiguration) {
         stackView.setup(axis: .vertical, alignment: .fill, distribution: .fill, spacing: Constants.stackSpacing)
         addSubview(scrollView) {
             $0.edges.equalTo(safeAreaLayoutGuide.snp.edges)
@@ -122,7 +123,7 @@ extension EditProfileView {
                 right: Constants.stackSpacing
             )
         )
-
+        
         switch configuration {
         case .name:
             setupNameConfiguration()
@@ -134,24 +135,17 @@ extension EditProfileView {
             break
         }
     }
-
-    func setupEmailConfifguration() {
-        
+    
+    func updateUI(_ userViewModel: EditUserViewModel) {
+        firstNameTextField.text = userViewModel.firstName
+        lastNameTextField.text = userViewModel.lastName
+        nickNameTextField.text = userViewModel.nickName
     }
 }
 
 // MARK: - View constants
 private enum Constants {
     static let stackSpacing: CGFloat = 16
-}
-
-// MARK: - extension
-extension EditProfileView {
-    func updateUI(_ userViewModel: EditUserViewModel) {
-        firstNameTextField.text = userViewModel.firstName
-        lastNameTextField.text = userViewModel.lastName
-        nickNameTextField.text = userViewModel.nickName
-    }
 }
 
 #if DEBUG

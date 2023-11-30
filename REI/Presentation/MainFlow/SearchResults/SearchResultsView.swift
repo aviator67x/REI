@@ -155,6 +155,10 @@ final class SearchResultsView: BaseView {
         availableHousesButton.tintColor = .white
         availableHousesButton.setTitle("Get suggestions in this area", for: .normal)
         availableHousesButton.isHidden = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+            self.bannerView.isHidden = true
+        }
     }
 
     private func setupLayout() {
@@ -180,9 +184,9 @@ final class SearchResultsView: BaseView {
         }
         
         addSubview(bannerView) {
-            $0.leading.trailing.equalToSuperview().inset(50)
+            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(250)
-            $0.centerY.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
 }

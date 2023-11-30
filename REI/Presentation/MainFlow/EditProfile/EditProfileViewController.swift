@@ -77,7 +77,7 @@ final class EditProfileViewController: BaseViewController<EditProfileViewModel> 
             .sinkWeakly(self, receiveValue: { (self, user) in
                 guard let user = user else { return }
                 let userViewModel = EditUserViewModel(
-                    firstName: user.firstName,
+                    firstName: user.name,
                     lastName: user.lastName,
                     nickName: user.nickName
                 )
