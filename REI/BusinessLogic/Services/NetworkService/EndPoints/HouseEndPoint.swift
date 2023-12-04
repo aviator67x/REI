@@ -31,28 +31,42 @@ enum HouseEndPoint: Endpoint {
                 skip: skip,
                 searchParameters: searchParameters,
                 sortParameters: sortParameters
-            ) ?? [:]
+            ) ?? []
 
         case let .filter(searchParams):
-            return buildQuery(searchParams: searchParams) ?? [:]
+            if let searchParameters = buildQuery(searchParams: searchParams),
+               let searchParametersString = searchParameters["where"] {
+                return [QueryParameters.whereParam(searchParametersString)]
+            }
+          
 
         case .saveImage, .saveAd, .housesCount:
-            return [:]
+            return []
 
         case let .getUserAds(ownerId: ownerId):
             let searchParams = [SearchParam(key: .ownerId, value: .equalToString(parameter: ownerId))]
-            return buildQuery(searchParams: searchParams) ?? [:]
-
+            if let searchParameters = buildQuery(searchParams: searchParams),
+               let searchParametersString = searchParameters["where"] {
+                return [QueryParameters.whereParam(searchParametersString)]
+            }
+            
         case .deleteAd:
-            return [:]
+            return []
 
         case let .getHousesIn(poligon):
             let searchParams = [SearchParam(key: .location, value: .inside(poligon: poligon))]
-            return buildQuery(searchParams: searchParams) ?? [:]
-
+            if let searchParameters = buildQuery(searchParams: searchParams),
+               let searchParametersString = searchParameters["where"] {
+                return [QueryParameters.whereParam(searchParametersString)]
+            }
+            
         case let .getHousesCountFor(filters):
-            return buildQuery(searchParams: filters) ?? [:]
+            if let searchParameters = buildQuery(searchParams: filters),
+               let searchParametersString = searchParameters["where"] {
+                return [QueryParameters.whereParam(searchParametersString)]
+            }
         }
+        return []
     }
 
     var path: String? {
@@ -104,7 +118,7 @@ enum HouseEndPoint: Endpoint {
         skip: Int,
         searchParameters: [SearchParam]?,
         sortParameters: [String]?
-    ) -> [String: String]? {
+    ) -> [QueryParameters]? {
         var searchParamString: String?
         if let serchParameters = searchParameters {
             let search = Search.searchProperty(serchParameters)
@@ -115,30 +129,50 @@ enum HouseEndPoint: Endpoint {
             if let parameters = sortParameters {
                 let paramString = parameters.joined(separator: ", ")
                 return [
-                    "where": searchParametersString,
-                    "sortBy": paramString,
-                    "pageSize": "\(pageSize)",
-                    "offset": "\(skip)"
+                    QueryParameters.whereParam(searchParametersString),
+                    QueryParameters.sortParam(paramString),
+                    QueryParameters.pageParam(pageSize),
+                    QueryParameters.offsetParam(skip)
                 ]
+//                return [
+//                    "where": searchParametersString,
+//                    "sortBy": paramString,
+//                    "pageSize": "\(pageSize)",
+//                    "offset": "\(skip)"
+//                ]
             } else {
                 return [
-                    "where": searchParametersString,
-                    "pageSize": "\(pageSize)",
-                    "offset": "\(skip)"
+                    QueryParameters.whereParam(searchParametersString),
+                    QueryParameters.pageParam(pageSize),
+                    QueryParameters.offsetParam(skip)
                 ]
+//                return [
+//                    "where": searchParametersString,
+//                    "pageSize": "\(pageSize)",
+//                    "offset": "\(skip)"
+//                ]
             }
         } else if let parameters = sortParameters {
             let paramString = parameters.joined(separator: ", ")
             return [
-                "sortBy": paramString,
-                "pageSize": "\(pageSize)",
-                "offset": "\(skip)"
+                QueryParameters.sortParam(paramString),
+                QueryParameters.pageParam(pageSize),
+                QueryParameters.offsetParam(skip)
             ]
+//            return [
+//                "sortBy": paramString,
+//                "pageSize": "\(pageSize)",
+//                "offset": "\(skip)"
+//            ]
         } else {
             return [
-                "pageSize": "\(pageSize)",
-                "offset": "\(skip)"
+                QueryParameters.pageParam(pageSize),
+                QueryParameters.offsetParam(skip)
             ]
+//            return [
+//                "pageSize": "\(pageSize)",
+//                "offset": "\(skip)"
+//            ]
         }
     }
 }

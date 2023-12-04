@@ -57,7 +57,7 @@ final class HousesServiceImpl: HousesService {
     }
 
     func getHouses(pageSize: Int, offset: Int, searchParameters: [SearchParam]?, sortParameters: [String]?) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
-        return housesNetworkService.getHouses(pageSize: pageSize, skip: pageSize, searchParameters: searchParameters, sortParameters: sortParameters)
+        return housesNetworkService.getHouses(pageSize: pageSize, skip: offset, searchParameters: searchParameters, sortParameters: sortParameters)
             .mapError { HousesServiceError.networking($0) }
             .map { value -> [HouseDomainModel] in
                 let houses = value.map { HouseDomainModel(model: $0) }

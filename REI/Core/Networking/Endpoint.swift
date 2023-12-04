@@ -6,13 +6,36 @@
 //
 import Foundation
 
+enum QueryParameters {
+    case whereParam(String)
+    case sortParam(String)
+    case pageParam(Int)
+    case offsetParam(Int)
+    case relationsParam(String)
+    
+    var queryItem: URLQueryItem {
+        switch self {
+        case let .whereParam(value):
+            return .init(name: "where", value: value)
+        case let .sortParam(value):
+            return .init(name: "sortBy", value: value)
+        case let .pageParam(value):
+            return .init(name: "pageSize", value: String(describing: value))
+        case let .offsetParam(value):
+            return .init(name: "offset", value: String(describing: value))
+        case let .relationsParam(value):
+            return .init(name: "loadRelations", value: value)
+        }
+    }
+}
+
 enum RequestBody {
     case rawData(Data)
     case encodable(Encodable)
     case multipartBody([MultipartItem])
 }
 
-typealias HTTPQueries = [String: String]
+typealias HTTPQueries = [QueryParameters]//[String: String]
 typealias HTTPHeaders = [String: String]
 
 protocol RequestBuilder {
@@ -31,7 +54,7 @@ protocol Endpoint: RequestBuilder {
 extension Endpoint {
     var baseURL: URL? { return nil }
 
-    var queries: HTTPQueries { [:] }
+    var queries: HTTPQueries {[]}//{ [:] }
 
     func build(baseURL: URL, encoder: JSONEncoder, plugins: [Plugin]) throws -> URLRequest {
         var fullURL = self.baseURL ?? baseURL
@@ -41,9 +64,10 @@ extension Endpoint {
         guard var components = URLComponents(url: fullURL, resolvingAgainstBaseURL: true) else {
             throw RequestBuilderError.unableToCreateComponents
         }
-        components.queryItems = queries.map {
-            URLQueryItem(name: $0.key, value: $0.value)
-        }
+        components.queryItems = queries.map { $0.queryItem }
+//        {
+//            URLQueryItem(name: $0.key, value: $0.value)
+//        }
         guard let requestURL = components.url else {
             throw RequestBuilderError.unableToBuildUrl
         }

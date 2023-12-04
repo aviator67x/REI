@@ -57,7 +57,7 @@ enum AuthEndPoint: Endpoint {
     var queries: HTTPQueries {
         switch self {
         case .login, .signUp,.restorePassword:
-           return [:]
+           return []//[:]
         }
     }
 }

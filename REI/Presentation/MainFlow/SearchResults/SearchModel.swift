@@ -19,7 +19,7 @@ final class SearchModel {
 
     private(set) lazy var searchParametersPublisher = searchParametersSubject.eraseToAnyPublisher()
     private lazy var searchParametersSubject = CurrentValueSubject<[SearchParam], Never>([])
-    
+
     private var sortParameters: [String]?
 
     private(set) lazy var housesPublisher = housesSubject.eraseToAnyPublisher()
@@ -111,9 +111,9 @@ extension SearchModel {
             }, receiveValue: { _ in })
             .store(in: &cancellables)
     }
-    
+
     func updateSortParameters(parameters: [String]) {
-        self.sortParameters = parameters
+        sortParameters = parameters
     }
 
     func updateSearchFilters() {
@@ -375,8 +375,8 @@ extension SearchModel {
             )
             .store(in: &cancellables)
     }
-    
+
     func updateOffset() {
-        self.offset = 0
+        offset = 0
     }
 }

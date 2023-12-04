@@ -18,9 +18,10 @@ enum UserEndPoint: Endpoint {
     var queries: HTTPQueries {
         switch self {
         case .deleteUser, .logOut, .addAvatar, .update, .saveToFavourities:
-            return [:]
+            return []//[:]
         case .getFavouriteHouses:
-            return ["loadRelations":"favouriteHouses"]
+//            return ["loadRelations":"favouriteHouses"]
+            return [QueryParameters.relationsParam("favouriteHouses")]
         }
     }
 
