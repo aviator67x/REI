@@ -69,6 +69,9 @@ final class EditProfileViewController: BaseViewController<EditProfileViewModel> 
                 case let .nickNameDidChange(text):
                     self.navigationItem.rightBarButtonItem?.isEnabled = true
                     viewModel.update(nickName: text)
+                case let .emailDidCange(text):
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                    viewModel.update(email: text)
                 }
             }
             .store(in: &cancellables)
@@ -79,7 +82,8 @@ final class EditProfileViewController: BaseViewController<EditProfileViewModel> 
                 let userViewModel = EditUserViewModel(
                     firstName: user.name,
                     lastName: user.lastName,
-                    nickName: user.nickName
+                    nickName: user.nickName,
+                    email: user.email
                 )
                 DispatchQueue.main.async {
                     self.contentView.updateUI(userViewModel)

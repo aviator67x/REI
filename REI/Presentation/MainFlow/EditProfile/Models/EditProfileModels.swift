@@ -11,4 +11,5 @@ struct EditUserViewModel {
     let firstName: String
     let lastName: String
     let nickName: String
+    let email: String
 }

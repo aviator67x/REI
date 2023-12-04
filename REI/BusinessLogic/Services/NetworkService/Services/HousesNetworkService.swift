@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol HousesNetworkService {
-    func getHouses(pageSize: Int, skip: Int, sortParameters: [String]?) -> AnyPublisher<[HouseResponseModel], NetworkError>
+    func getHouses(pageSize: Int, skip: Int, searchParameters: [SearchParam]?, sortParameters: [String]?) -> AnyPublisher<[HouseResponseModel], NetworkError>
     func searchHouses(with parameters: [SearchParam]) -> AnyPublisher<[HouseResponseModel], NetworkError>
     func saveHouseImage(image: [MultipartItem]) -> AnyPublisher<SaveHouseImageResponseModel, NetworkError>
     func saveAd(house: AdCreatingRequestModel) -> AnyPublisher<HouseResponseModel, NetworkError>
@@ -33,8 +33,8 @@ extension HousesNetworkServiceImpl: HousesNetworkService {
         return housesProvider.execute(endpoint: .housesCount)
     }
     
-    func getHouses(pageSize: Int, skip: Int, sortParameters: [String]?) -> AnyPublisher<[HouseResponseModel], NetworkError> {
-        return housesProvider.execute(endpoint: .getHouses(pageSize: pageSize, skip: skip, sortParameters: sortParameters))
+    func getHouses(pageSize: Int, skip: Int, searchParameters: [SearchParam]?, sortParameters: [String]?) -> AnyPublisher<[HouseResponseModel], NetworkError> {
+        return housesProvider.execute(endpoint: .getHouses(pageSize: pageSize, skip: skip, searchParameters: searchParameters, sortParameters: sortParameters))
     }
 
     func searchHouses(with parameters: [SearchParam]) -> AnyPublisher<[HouseResponseModel], NetworkError> {

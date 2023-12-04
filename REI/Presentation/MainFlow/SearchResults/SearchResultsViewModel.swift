@@ -34,9 +34,9 @@ final class SearchResultsViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
-//        model.loadHouses()
+        model.loadHouses()
 //        model.loadMockHouses()
-//        getHousesCount()
+        model.getHousesCount()
         setupBinding()
     }
 
@@ -67,7 +67,9 @@ final class SearchResultsViewModel: BaseViewModel {
                 self.createDataSource()
             })
             .store(in: &cancellables)
-
+       
+//       housesSubject.zip(model.searchParametersPublisher,
+//                          model.housesCountPublisher)
         housesSubject.combineLatest(
             model.searchParametersPublisher,
             model.housesCountPublisher
@@ -80,16 +82,18 @@ final class SearchResultsViewModel: BaseViewModel {
             )
         }
         .store(in: &cancellables)
-
+       
+       housesSubject
+           .sinkWeakly(self) { (self, houses) in
+               print("🔱 receeved value to housesSubject")
+           }
+           .store(in: &cancellables)
+       
         model.isLoadingPublisher
             .sinkWeakly(self, receiveValue: { (self, value) in
                 self.isLoadingSubject.send(value)
             })
             .store(in: &cancellables)
-    }
-
-    private func getHousesCount() {
-        model.getHousesCount()
     }
 
     private func createDataSource() {

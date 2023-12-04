@@ -15,7 +15,7 @@ enum HousesServiceError: Error {
 }
 
 protocol HousesService {
-    func getHouses(pageSize: Int, offset: Int, sortParameters: [String]?) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
+    func getHouses(pageSize: Int, offset: Int, searchParameters: [SearchParam]?, sortParameters: [String]?) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func searchHouses(_ parameters: [SearchParam]) -> AnyPublisher<[HouseDomainModel], HousesServiceError>
     func saveAd(
         houseImages: [HouseImageModel],
@@ -56,8 +56,8 @@ final class HousesServiceImpl: HousesService {
         return housesPublisher.eraseToAnyPublisher()
     }
 
-    func getHouses(pageSize: Int, offset: Int, sortParameters: [String]?) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
-        return housesNetworkService.getHouses(pageSize: pageSize, skip: pageSize, sortParameters: sortParameters)
+    func getHouses(pageSize: Int, offset: Int, searchParameters: [SearchParam]?, sortParameters: [String]?) -> AnyPublisher<[HouseDomainModel], HousesServiceError> {
+        return housesNetworkService.getHouses(pageSize: pageSize, skip: pageSize, searchParameters: searchParameters, sortParameters: sortParameters)
             .mapError { HousesServiceError.networking($0) }
             .map { value -> [HouseDomainModel] in
                 let houses = value.map { HouseDomainModel(model: $0) }

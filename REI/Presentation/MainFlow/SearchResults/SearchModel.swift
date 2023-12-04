@@ -19,6 +19,8 @@ final class SearchModel {
 
     private(set) lazy var searchParametersPublisher = searchParametersSubject.eraseToAnyPublisher()
     private lazy var searchParametersSubject = CurrentValueSubject<[SearchParam], Never>([])
+    
+    private var sortParameters: [String]?
 
     private(set) lazy var housesPublisher = housesSubject.eraseToAnyPublisher()
     private lazy var housesSubject = CurrentValueSubject<[HouseDomainModel], Never>([])
@@ -31,7 +33,7 @@ final class SearchModel {
 
     private(set) lazy var housesCountPublisher = housesCountSubject.eraseToAnyPublisher()
     private lazy var housesCountSubject = PassthroughSubject<Int, Never>()
-    
+
     private(set) lazy var filteredHousesCountPublisher = filteredHousesCountSubject.eraseToAnyPublisher()
     private lazy var filteredHousesCountSubject = PassthroughSubject<Int, Never>()
 
@@ -108,6 +110,10 @@ extension SearchModel {
                 }
             }, receiveValue: { _ in })
             .store(in: &cancellables)
+    }
+    
+    func updateSortParameters(parameters: [String]) {
+        self.sortParameters = parameters
     }
 
     func updateSearchFilters() {
@@ -233,34 +239,39 @@ extension SearchModel {
             .store(in: &cancellables)
     }
 
-    func loadHousesAPI(sortParameters: [String]? = nil) {
-        guard !isPaginationInProgress,
-              hasMoreToLoad
+    func loadHousesAPI(searchParameters: [SearchParam]? = nil, sortParameters: [String]? = nil) {
+        guard !isPaginationInProgress
+//              hasMoreToLoad
         else {
             return
         }
         isPaginationInProgress = true
         isLoadingSubject.send(true)
-        housesService.getHouses(pageSize: pageSize, offset: offset, sortParameters: sortParameters)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [unowned self] completion in
-                self.isPaginationInProgress = false
-                self.isLoadingSubject.send(false)
-                if case let .failure(error) = completion {
-                    debugPrint(error.localizedDescription)
-                }
-            }, receiveValue: { [unowned self] data in
-                NetworkLogger.log(data: data)
-                if offset == 0 {
-                    self.housesSubject.value = data
-                } else {
-                    self.housesSubject.value.append(contentsOf: data)
-                }
-                self.offset += data.count
-                self.hasMoreToLoad = offset >= pageSize
+        housesService.getHouses(
+            pageSize: pageSize,
+            offset: offset,
+            searchParameters: searchParameters,
+            sortParameters: self.sortParameters
+        )
+        .receive(on: DispatchQueue.main)
+        .sink(receiveCompletion: { [unowned self] completion in
+            self.isPaginationInProgress = false
+            self.isLoadingSubject.send(false)
+            if case let .failure(error) = completion {
+                debugPrint(error.localizedDescription)
+            }
+        }, receiveValue: { [unowned self] data in
+            NetworkLogger.log(data: data)
+            if offset == 0 {
+                self.housesSubject.value = data
+            } else {
+                self.housesSubject.value.append(contentsOf: data)
+            }
+            self.offset += data.count
+//            self.hasMoreToLoad = offset >= pageSize
 
-            })
-            .store(in: &cancellables)
+        })
+        .store(in: &cancellables)
     }
 
     func getHousesCount() {
@@ -303,6 +314,7 @@ extension SearchModel {
             .store(in: &cancellables)
     }
 
+    // is called to use last search paarameters
     func executeSearch(with searchParameters: [SearchParam]) {
         isFilterActive = true
         isLoadingSubject.send(true)
@@ -352,7 +364,7 @@ extension SearchModel {
             .sinkWeakly(
                 self,
                 receiveCompletion: { _, completion in
-                self.isLoadingSubject.send(false)
+                    self.isLoadingSubject.send(false)
                     if case let .failure(error) = completion {
                         debugPrint(error.localizedDescription)
                     }
@@ -362,5 +374,9 @@ extension SearchModel {
                 }
             )
             .store(in: &cancellables)
+    }
+    
+    func updateOffset() {
+        self.offset = 0
     }
 }

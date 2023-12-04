@@ -23,6 +23,7 @@ final class EditProfileViewModel: BaseViewModel {
     private var firstName = ""
     private var lastName = ""
     private var nickName = ""
+    private var email = ""
     
     // MARK: - Life cycle
     init(userService: UserService) {
@@ -47,6 +48,7 @@ extension EditProfileViewModel {
             firstName: self.firstName == "" ? nil : self.firstName,
             lastName: self.lastName == "" ? nil : self.lastName,
             nickName: self.nickName == "" ? nil : self.nickName,
+            email: self.email == "" ? nil : self.email,
             imageURL: nil,
             id: userId)
         isLoadingSubject.send(true)
@@ -67,7 +69,7 @@ extension EditProfileViewModel {
             })
             .store(in: &cancellables)
     }
-
+    
     func update(firstName: String) {
         self.firstName = firstName
     }
@@ -78,5 +80,9 @@ extension EditProfileViewModel {
     
     func update(nickName: String) {
         self.nickName = nickName
+    }
+    
+    func update(email: String) {
+        self.email = email
     }
 }

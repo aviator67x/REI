@@ -11,11 +11,11 @@ import UIKit
 enum EditProfileViewAction {
     case firstNameDidChange(String)
     case lastNameDidChange(String)
-    case nickNameDidChange(String)    
+    case nickNameDidChange(String)
+    case emailDidCange(String)
 }
 
 final class EditProfileView: BaseView {
-    
     // MARK: - Subviews
     private var scrollView = AxisScrollView()
     private let stackView = UIStackView()
@@ -29,47 +29,55 @@ final class EditProfileView: BaseView {
     private let nickNameLable = UILabel()
     private let nickNameTextField = UITextField()
     private let emailTextField = UITextField()
-    
+    private let emailLabel = UILabel()
+ 
+
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<EditProfileViewAction, Never>()
-    
+
     // MARK: - Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
     }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Private methods
     private func initialSetup() {
         setupUI()
         bindActions()
     }
-    
+
     private func bindActions() {
         firstNameTextField.textPublisher
-            .sinkWeakly(self, receiveValue: {(self, text) in
+            .sinkWeakly(self, receiveValue: { (self, text) in
                 self.actionSubject.send(.firstNameDidChange(text ?? ""))
             })
             .store(in: &cancellables)
-        
+
         lastNameTextField.textPublisher
-            .sinkWeakly(self, receiveValue: {(self, text) in
+            .sinkWeakly(self, receiveValue: { (self, text) in
                 self.actionSubject.send(.lastNameDidChange(text ?? ""))
             })
             .store(in: &cancellables)
-        
+
         nickNameTextField.textPublisher
-            .sinkWeakly(self, receiveValue: {(self, text) in
+            .sinkWeakly(self, receiveValue: { (self, text) in
                 self.actionSubject.send(.nickNameDidChange(text ?? ""))
             })
             .store(in: &cancellables)
+        
+        emailTextField.textPublisher
+            .sinkWeakly(self, receiveValue: { (self, text) in
+                self.actionSubject.send(.emailDidCange(text ?? ""))
+            })
+            .store(in: &cancellables)
     }
-    
+
     private func setupUI() {
         backgroundColor = .systemGroupedBackground
         stackView.backgroundColor = .white
@@ -77,8 +85,10 @@ final class EditProfileView: BaseView {
         firstNameLabel.text = " First"
         lastNameLabel.text = " Last"
         nickNameLable.text = " Nickname"
+        emailLabel.text = " Waiting for updated email"
+        emailTextField.placeholder = "Please enter your new email"
     }
-    
+
     private func setupNameConfiguration() {
         let firstNameStack = UIStackView()
         let lastNameStack = UIStackView()
@@ -103,8 +113,22 @@ final class EditProfileView: BaseView {
 
         stackView.addArrangedSubviews([firstNameStack, lastNameStack, nickNameStack])
     }
-    
-    private func setupEmailConfifguration() {}
+
+    private func setupEmailConfifguration() {
+        let emailStackView = UIStackView()
+
+        emailStackView.setup(
+            axis: .vertical,
+            alignment: .center,
+            distribution: .fillProportionally,
+            spacing: Constants.stackSpacing
+        )
+
+        emailStackView.addArrangedSubview(emailLabel)
+        emailStackView.addArrangedSubview(emailTextField)
+        
+        stackView.addArrangedSubview(emailStackView)
+    }
 }
 
 // MARK: - Internal extension
@@ -123,7 +147,7 @@ extension EditProfileView {
                 right: Constants.stackSpacing
             )
         )
-        
+
         switch configuration {
         case .name:
             setupNameConfiguration()
@@ -135,11 +159,12 @@ extension EditProfileView {
             break
         }
     }
-    
+
     func updateUI(_ userViewModel: EditUserViewModel) {
         firstNameTextField.text = userViewModel.firstName
         lastNameTextField.text = userViewModel.lastName
         nickNameTextField.text = userViewModel.nickName
+        emailTextField.text = userViewModel.email
     }
 }
 

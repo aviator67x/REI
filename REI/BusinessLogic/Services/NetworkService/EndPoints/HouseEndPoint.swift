@@ -8,38 +8,48 @@
 import Foundation
 
 enum HouseEndPoint: Endpoint {
-    case getHouses(pageSize: Int, skip: Int, sortParameters: [String]?)
+    case getHouses(pageSize: Int, skip: Int, searchParameters: [SearchParam]?, sortParameters: [String]?)
+    case getHousesCountFor(filters: [SearchParam])
     case filter(with: [SearchParam])
+    case getHousesIn(poligon: String)
+    case housesCount
     case saveImage([MultipartItem])
     case saveAd(AdCreatingRequestModel)
-    case housesCount
     case getUserAds(ownerId: String)
     case deleteAd(objectId: String)
-    case getHousesIn(poligon: String)
-    case getHousesCountFor(filters: [SearchParam])
 
     var queries: HTTPQueries {
         switch self {
-        case let .getHouses(pageSize, skip, sortParameters):
-            return buildQuery(pageSize: pageSize, skip: skip, parameters: sortParameters) ?? [:]
-            
+        case let .getHouses(
+            pageSize,
+            skip,
+            searchParameters,
+            sortParameters
+        ):
+            return buildQuery(
+                pageSize: pageSize,
+                skip: skip,
+                searchParameters: searchParameters,
+                sortParameters: sortParameters
+            ) ?? [:]
+
         case let .filter(searchParams):
             return buildQuery(searchParams: searchParams) ?? [:]
-            
+
         case .saveImage, .saveAd, .housesCount:
             return [:]
-            
+
         case let .getUserAds(ownerId: ownerId):
             let searchParams = [SearchParam(key: .ownerId, value: .equalToString(parameter: ownerId))]
             return buildQuery(searchParams: searchParams) ?? [:]
-            
+
         case .deleteAd:
             return [:]
-            
+
         case let .getHousesIn(poligon):
             let searchParams = [SearchParam(key: .location, value: .inside(poligon: poligon))]
             return buildQuery(searchParams: searchParams) ?? [:]
-            
+
         case let .getHousesCountFor(filters):
             return buildQuery(searchParams: filters) ?? [:]
         }
@@ -89,18 +99,45 @@ enum HouseEndPoint: Endpoint {
         }
     }
 
-    func buildQuery(pageSize: Int, skip: Int, parameters: [String]?) -> [String: String]? {
-        if let parameters = parameters {
+    func buildQuery(
+        pageSize: Int,
+        skip: Int,
+        searchParameters: [SearchParam]?,
+        sortParameters: [String]?
+    ) -> [String: String]? {
+        var searchParamString: String?
+        if let serchParameters = searchParameters {
+            let search = Search.searchProperty(serchParameters)
+            searchParamString = search.query?["where"]
+        }
+
+        if let searchParametersString = searchParamString {
+            if let parameters = sortParameters {
+                let paramString = parameters.joined(separator: ", ")
+                return [
+                    "where": searchParametersString,
+                    "sortBy": paramString,
+                    "pageSize": "\(pageSize)",
+                    "offset": "\(skip)"
+                ]
+            } else {
+                return [
+                    "where": searchParametersString,
+                    "pageSize": "\(pageSize)",
+                    "offset": "\(skip)"
+                ]
+            }
+        } else if let parameters = sortParameters {
             let paramString = parameters.joined(separator: ", ")
             return [
+                "sortBy": paramString,
                 "pageSize": "\(pageSize)",
-                "offset": "\(skip)",
-                "sortBy": paramString
+                "offset": "\(skip)"
             ]
         } else {
             return [
                 "pageSize": "\(pageSize)",
-                "offset": "\(skip)",
+                "offset": "\(skip)"
             ]
         }
     }
