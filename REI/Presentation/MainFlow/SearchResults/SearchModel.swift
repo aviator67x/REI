@@ -38,15 +38,10 @@ final class SearchModel {
     private lazy var filteredHousesCountSubject = PassthroughSubject<Int, Never>()
 
     private var isPaginationInProgress = false
-    private var hasMoreToLoad = true
+//    private var hasMoreToLoad = true
     private var offset = 0
     private var pageSize = 10
     private var housesCount = 0
-
-    var isFilterActive = false
-    var hasFilters: Bool {
-        !searchParametersSubject.value.isEmpty
-    }
 
     // MARK: - Life cycle
     init(housesService: HousesService, userService: UserService) {
@@ -113,6 +108,7 @@ extension SearchModel {
     }
 
     func updateSortParameters(parameters: [String]) {
+        offset = 0
         sortParameters = parameters
     }
 
@@ -170,12 +166,16 @@ extension SearchModel {
     }
 
     func cleanSearchRequestModel() {
-        isFilterActive = false
         searchRequestModelSubject.value = SearchRequestModel.empty
-        hasMoreToLoad = true
+//        hasMoreToLoad = true
         offset = 0
         housesSubject.value = []
-        loadHouses()
+    }
+    
+    func updateSearchParameters(_ parameters: [SearchParam]) {
+        offset = 0
+        searchParametersSubject.value = parameters
+        housesSubject.value = []
     }
 
     func updateSearchRequestModel(ortPolygon: String) {
@@ -229,7 +229,7 @@ extension SearchModel {
     func loadHouses() {
         housesService.getHousesFromCoreData()
             .sinkWeakly(self, receiveCompletion: { (self, _) in
-                self.loadHousesAPI(sortParameters: nil)
+                self.loadHousesAPI()
             }, receiveValue: { (self, houses) in
                 guard let houses = houses else {
                     return
@@ -239,7 +239,7 @@ extension SearchModel {
             .store(in: &cancellables)
     }
 
-    func loadHousesAPI(searchParameters: [SearchParam]? = nil, sortParameters: [String]? = nil) {
+    func loadHousesAPI() {
         guard !isPaginationInProgress
 //              hasMoreToLoad
         else {
@@ -250,7 +250,7 @@ extension SearchModel {
         housesService.getHouses(
             pageSize: pageSize,
             offset: offset,
-            searchParameters: searchParameters,
+            searchParameters: self.searchParametersSubject.value,
             sortParameters: self.sortParameters
         )
         .receive(on: DispatchQueue.main)
@@ -292,52 +292,6 @@ extension SearchModel {
             .store(in: &cancellables)
     }
 
-    func executeSearch() {
-        isFilterActive = true
-        isLoadingSubject.send(true)
-        housesService.searchHouses(searchParametersSubject.value)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [unowned self] completion in
-                self.isLoadingSubject.send(false)
-                switch completion {
-                case .finished:
-                    break
-                case let .failure(error):
-                    debugPrint(error.localizedDescription)
-                }
-            }, receiveValue: { [unowned self] houses in
-                self.housesSubject.value = houses
-                self.searchRequestModelSubject.value = SearchRequestModel.empty
-                isFilterActive = false
-                self.hasMoreToLoad = false
-            })
-            .store(in: &cancellables)
-    }
-
-    // is called to use last search paarameters
-    func executeSearch(with searchParameters: [SearchParam]) {
-        isFilterActive = true
-        isLoadingSubject.send(true)
-        housesService.searchHouses(searchParameters)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [unowned self] completion in
-                self.isLoadingSubject.send(false)
-                switch completion {
-                case .finished:
-                    break
-                case let .failure(error):
-                    debugPrint(error.localizedDescription)
-                    housesSubject.value = []
-                }
-            }, receiveValue: { [unowned self] houses in
-                self.housesSubject.value = houses
-                self.searchRequestModelSubject.value = SearchRequestModel.empty
-                isFilterActive = false
-                self.hasMoreToLoad = false
-            })
-            .store(in: &cancellables)
-    }
-
     func getAvailableHouses(in poligon: String) {
         isLoadingSubject.send(true)
         housesService.getAvailableHouses(in: poligon)
@@ -371,11 +325,12 @@ extension SearchModel {
                 },
                 receiveValue: { _, count in
                     self.filteredHousesCountSubject.send(count)
+                    self.housesCountSubject.send(count)
                 }
             )
             .store(in: &cancellables)
     }
-
+    
     func updateOffset() {
         offset = 0
     }

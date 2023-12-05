@@ -34,7 +34,9 @@ final class SearchResultsViewModel: BaseViewModel {
     }
 
     override func onViewDidLoad() {
-        model.loadHouses()
+        model.updateSortParameters(parameters: [])
+        model.cleanSearchRequestModel()
+        model.loadHousesAPI()
 //        model.loadMockHouses()
         model.getHousesCount()
         setupBinding()
@@ -68,26 +70,17 @@ final class SearchResultsViewModel: BaseViewModel {
             })
             .store(in: &cancellables)
        
-//       housesSubject.zip(model.searchParametersPublisher,
-//                          model.housesCountPublisher)
-        housesSubject.combineLatest(
-            model.searchParametersPublisher,
+       model.searchParametersPublisher.combineLatest(
             model.housesCountPublisher
         )
-        .sink { [unowned self] houses, searchParams, housesCount in
+        .sink { [unowned self] searchParams, housesCount in
             self.resultViewModelSubject.value = ResultViewModel(
                 country: "Netherlands",
-                result: model.isFilterActive ? houses.count : housesCount,
+                result: housesCount,
                 filters: searchParams.count
             )
         }
         .store(in: &cancellables)
-       
-       housesSubject
-           .sinkWeakly(self) { (self, houses) in
-               print("🔱 receeved value to housesSubject")
-           }
-           .store(in: &cancellables)
        
         model.isLoadingPublisher
             .sinkWeakly(self, receiveValue: { (self, value) in
@@ -170,12 +163,13 @@ extension SearchResultsViewModel {
         case .lastSearch:
             // get searchParameters from UserDefaults
             guard let parametersData = UserDefaults.standard.value(forKey: "searchParameters") as? Data,
-               let parameters = try? JSONDecoder().decode([SearchParam].self, from: parametersData) else {
+                  let parameters = try? JSONDecoder().decode([SearchParam].self, from: parametersData) else {
                 return
             }
             // get searchParameters from Documents
 //            FileService().readDataFromDocument(filename: "SearchParameters", decodingType: [SearchParam])
-            model.executeSearch(with: parameters)
+            model.updateSearchParameters(parameters)
+            model.loadHousesAPI()
         }
     }
 

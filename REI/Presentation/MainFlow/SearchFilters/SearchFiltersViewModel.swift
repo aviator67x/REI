@@ -177,7 +177,8 @@ extension SearchFiltersViewModel {
     }
 
     func executeSearch() {
-        model.hasFilters ? model.executeSearch() : model.loadHousesAPI()
+        model.updateOffset()
+        model.loadHousesAPI()
         transitionSubject.send(.pop)
     }
 

@@ -32,6 +32,7 @@ final class SortViewController: BaseViewController<SortViewModel> {
 
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        self.tabBarController?.tabBar.isHidden = false
     }
 
     private func setupNavigationBar() {
