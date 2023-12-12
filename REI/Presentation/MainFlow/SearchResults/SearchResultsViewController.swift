@@ -5,7 +5,6 @@
 //  Created by User on 05.04.2023.
 //
 
-
 import Combine
 import UIKit
 
@@ -13,7 +12,7 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
     // MARK: - Views
     private let contentView = SearchResultsView()
     private lazy var segmentedControl = SegmentedControl(frame: .zero)
-       
+
     // MARK: - Lifecycle
     override func loadView() {
         view = contentView
@@ -59,6 +58,8 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                     self.present(alert, animated: true)
                 case let .visiblePoligon(poligon):
                     viewModel.getAvailableHouses(in: poligon)
+                case .refreshCollection:
+                    viewModel.refreshFeed()
                 }
             }
             .store(in: &cancellables)
@@ -75,6 +76,18 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
             .sinkWeakly(self, receiveValue: { (self, model) in
                 self.contentView.showMapView(model: model)
             })
+            .store(in: &cancellables)
+
+        viewModel.availableInPoligonHouesesPublisher
+            .sinkWeakly(self) { (self, availableHouses) in
+                availableHouses.forEach { house in
+                    guard let location = house.location else {
+                        return
+                    }
+                    let address = ""
+                    self.contentView.showOnMap(location: location, address: address)
+                }
+            }
             .store(in: &cancellables)
 
         viewModel.resultViewModelPublisher

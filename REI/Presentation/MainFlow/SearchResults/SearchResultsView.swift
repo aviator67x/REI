@@ -12,6 +12,7 @@ import MapKit
 import UIKit
 
 enum SearchResultsViewAction {
+    case refreshCollection
     case collectionBottomDidReach
     case fromSelectViewTransition(SelectViewAction)
     case onCellHeartButtonPublisher(selectedItem: SearchResultsItem)
@@ -40,16 +41,28 @@ final class SearchResultsView: BaseView {
         equalTo: self.safeAreaLayoutGuide.topAnchor,
         constant: 0
     )
+    
+   private let refreshControl = UIRefreshControl()
 
     // MARK: - Life cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
+           refreshControl.addTarget(self, action: #selector(refreshCollection), for: .valueChanged)
+           
+           // this is the replacement of implementing: "collectionView.addSubview(refreshControl)"
+           collectionView.refreshControl = refreshControl
         initialSetup()
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc
+    func refreshCollection() {
+        actionSubject.send(.refreshCollection)
+        refreshControl.endRefreshing()
     }
 
     // MARK: - Private methods
@@ -148,6 +161,7 @@ final class SearchResultsView: BaseView {
         mapView.userTrackingMode = .follow
         mapView.isHidden = true
         mapView.showsUserLocation = true
+        mapView.userTrackingMode = .follow
         
         availableHousesButton.rounded(3)
         availableHousesButton.bordered(width: 2, color: .gray)
@@ -156,7 +170,7 @@ final class SearchResultsView: BaseView {
         availableHousesButton.setTitle("Get suggestions in this area", for: .normal)
         availableHousesButton.isHidden = true
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.bannerView.isHidden = true
         }
     }
@@ -305,14 +319,34 @@ extension SearchResultsView: CLLocationManagerDelegate {
             span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         )
 //        mapView.setRegion(region, animated: true)
-        
-        // Temporary solution to center the map on the Netherlands:
-        let alkmaarCenter = CLLocationCoordinate2D(
-            latitude: 52.6324,
-            longitude: 4.7534
+
+//         Temporary solution to center the map on the Netherlands:
+        let ditzingenCenter = CLLocationCoordinate2D(
+//            latitude: 48.8372486549913,
+//            longitude: 9.00023878679861
+            latitude: 49.990501218918006,
+            longitude: 36.23225331483332
         )
-        mapView.setCenter(alkmaarCenter, animated: true)
+        mapView.setCenter(ditzingenCenter, animated: true)
     }
+    
+    func showOnMap(location: Point, address: String) {
+            let houseLocation = CLLocationCoordinate2D(
+                latitude: location.coordinates[0],
+                longitude: location.coordinates[1]
+            )
+
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = houseLocation
+            annotation.title = address
+            let coordinateRegion = MKCoordinateRegion(
+                center: annotation.coordinate,
+                latitudinalMeters: 5000,
+                longitudinalMeters: 5000
+            )
+//            self.mapView.setRegion(coordinateRegion, animated: true)
+            self.mapView.addAnnotation(annotation)
+        }
 }
 
 #if DEBUG

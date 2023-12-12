@@ -10,9 +10,9 @@ import CoreLocation
 import MapKit
 import SnapKit
 import UIKit
+import Kingfisher
 
 enum SelectedHouseViewAction {
-    case navBarAlfaOnScroll(Bool)
     case onHeartButtonTap(itemId: String)
     case imageDidTap
     case call
@@ -72,16 +72,6 @@ final class SelectedHouseView: BaseView {
     }
 
     private func bindActions() {
-        scrollView.contentOffsetPublisher
-            .sink { [weak self] _ in
-                guard let self = self else {
-                    return
-                }
-//                let isHidden = offset.y > self.imageView.frame.height ? false : true
-//                self.actionSubject.send(.navBarAlfaOnScroll(isHidden))
-            }
-            .store(in: &cancellables)
-
         heartButton.tapPublisher
             .sinkWeakly(self, receiveValue: { (self, _) in
                 guard let currentItemId = self.currentItemId else {
@@ -309,7 +299,9 @@ final class SelectedHouseView: BaseView {
 
     func setupView(_ model: SelectedHouseModel) {
         currentItemId = model.id
-        imageView.kf.setImage(with: model.image, placeholder: UIImage(systemName: "house.lodge"))
+        let url = model.image
+        imageView.kf.setImage(with: url, placeholder: UIImage(named: "house"))
+        
         streetLabel.text = [model.street, String(model.house)].joined(separator: " ")
         ortLabel.text = model.ort
         sqmLabel.text = "\(model.livingArea) sqm / \(model.square) sqm \u{00B7} \(model.numberOfRooms) rooms"

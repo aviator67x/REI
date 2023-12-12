@@ -19,6 +19,7 @@ final class FavouriteCell: UICollectionViewListCell {
     private let stackView = UIStackView()
     private let signsButton = UIButton()
     private let separatorView = UIView()
+    private let heartButton = UIButton()
 
     var heartButtonDidTap: (() -> Void)?
 
@@ -42,14 +43,20 @@ final class FavouriteCell: UICollectionViewListCell {
         stackView.spacing = 1
 
         [streetLabel, ortLabel, sqmLabel, priceValueLabel].forEach { label in
-            label.textColor = .white
+//            label.textColor = .white
             label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         }
 
         let buttonTitle = "\u{2B6F}  \u{95E8} \u{27C1}"
         signsButton.setTitle(buttonTitle, for: .normal)
+        signsButton.setTitleColor(.black, for: .normal)
 
         separatorView.backgroundColor = .white
+        
+        let action = UIAction { [weak self] _ in
+            self?.heartButtonDidTap?()
+        }
+        heartButton.addAction(action, for: .touchUpInside)
     }
 
     private func setupLayout() {
@@ -77,6 +84,11 @@ final class FavouriteCell: UICollectionViewListCell {
         contentView.addSubview(signsButton) {
             $0.trailing.bottom.equalToSuperview().inset(20)
         }
+        
+        contentView.addSubview(heartButton) {
+            $0.size.equalTo(40)
+            $0.trailing.top.equalToSuperview().inset(20)
+        }
     }
 
     func setupCell(_ model: PhotoCellModel) {
@@ -85,5 +97,11 @@ final class FavouriteCell: UICollectionViewListCell {
         ortLabel.text = model.ort
         sqmLabel.text = "\(model.livingArea) sqm / \(model.square) sqm \u{00B7} \(model.numberOfRooms) rooms"
         priceValueLabel.text = "\u{20AC} \(String(model.price)) k.k."
+        
+        let mediumConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .medium)
+        let mediumBoldHeartEmpty = UIImage(systemName: "heart", withConfiguration: mediumConfig)
+        let mediumBoldHeartFill = UIImage(systemName: "heart.fill", withConfiguration: mediumConfig)
+        heartButton.setImage(model.isFavourite ? mediumBoldHeartFill : mediumBoldHeartEmpty, for: .normal)
+        heartButton.tintColor = model.isFavourite ? .red : .white
     }
 }

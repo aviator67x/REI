@@ -12,13 +12,13 @@ import Kingfisher
 final class ListCell: UICollectionViewListCell {
     var heartButtonDidTap: (() -> ())?
     
-    let imageView = UIImageView()
-    let streetLabel = UILabel()
-    let ortLabel = UILabel()
-    let sqmLabel = UILabel()
-    let priceValueLabel = UILabel()
-    let stackView = UIStackView()
-    let heartButton = UIButton()
+   private let imageView = UIImageView()
+   private let streetLabel = UILabel()
+   private let ortLabel = UILabel()
+   private let sqmLabel = UILabel()
+   private let priceValueLabel = UILabel()
+   private let stackView = UIStackView()
+   private let heartButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,8 +32,17 @@ final class ListCell: UICollectionViewListCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+        streetLabel.text = nil
+        ortLabel.text = nil
+        sqmLabel.text = nil
+        priceValueLabel.text = nil
+    }
+    
     private func setupUI() {
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         
         stackView.axis = .vertical
@@ -73,7 +82,17 @@ final class ListCell: UICollectionViewListCell {
     }
     
     func setupCell(_ model: ListCellModel) {
-        imageView.kf.setImage(with: model.image, placeholder: UIImage(systemName: "house.lodge.circle"))
+        let url = model.image
+        let processor = DownsamplingImageProcessor(size: imageView.bounds.size)
+        imageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "house"),
+            options: [
+                .processor(processor),
+                .scaleFactor(UIScreen.main.scale),
+                .cacheOriginalImage
+            ])
+        
         streetLabel.text = [model.street, String(model.house)].joined(separator: " ")
         ortLabel.text = model.ort
         

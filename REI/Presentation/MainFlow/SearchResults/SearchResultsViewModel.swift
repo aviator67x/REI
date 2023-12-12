@@ -17,9 +17,12 @@ final class SearchResultsViewModel: BaseViewModel {
 
     private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
     private lazy var sectionsSubject = CurrentValueSubject<[SearchResultsCollection], Never>([])
-    
+
     private(set) lazy var mapViewPublisher = mapViewSubject.eraseToAnyPublisher()
     private lazy var mapViewSubject = CurrentValueSubject<MapCellModel?, Never>(nil)
+
+    private(set) lazy var availableInPoligonHouesesPublisher = availableInPoligonHouesesSubject.eraseToAnyPublisher()
+    private lazy var availableInPoligonHouesesSubject = PassthroughSubject<[HouseDomainModel], Never>()
 
     private(set) lazy var resultViewModelPublisher = resultViewModelSubject.eraseToAnyPublisher()
     private lazy var resultViewModelSubject = CurrentValueSubject<ResultViewModel?, Never>(nil)
@@ -46,9 +49,8 @@ final class SearchResultsViewModel: BaseViewModel {
         model.getFavouriteHouses()
     }
 
-
-// MARK: - Private methods
-   private func setupBinding() {
+    // MARK: - Private methods
+    private func setupBinding() {
         model.favouriteHousesIdPublisher
             .receive(on: DispatchQueue.main)
             .sinkWeakly(self, receiveValue: { (self, favouriteIds) in
@@ -69,8 +71,8 @@ final class SearchResultsViewModel: BaseViewModel {
                 self.createDataSource()
             })
             .store(in: &cancellables)
-       
-       model.searchParametersPublisher.combineLatest(
+
+        model.searchParametersPublisher.combineLatest(
             model.housesCountPublisher
         )
         .sink { [unowned self] searchParams, housesCount in
@@ -81,7 +83,13 @@ final class SearchResultsViewModel: BaseViewModel {
             )
         }
         .store(in: &cancellables)
-       
+        
+        model.availableInPoligonHouesesPublisher
+            .sinkWeakly(self) { (self, availableHouses) in
+                self.availableInPoligonHouesesSubject.send(availableHouses)
+            }
+            .store(in: &cancellables)
+        
         model.isLoadingPublisher
             .sinkWeakly(self, receiveValue: { (self, value) in
                 self.isLoadingSubject.send(value)
@@ -113,17 +121,17 @@ final class SearchResultsViewModel: BaseViewModel {
                 }
                 .map { SearchResultsItem.list($0) }
             let listSection = SearchResultsCollection(section: .list, items: items)
-            
+
             let mainViewItem = housesSubject.value
                 .map { MainCellModel(data: $0) }
                 .map { SearchResultsItem.main($0) }
                 .randomElement()
-           if let item = mainViewItem  {
-              let mainViewSection = SearchResultsCollection(section: .main, items: [item])
-               sectionsSubject.value = [mainViewSection, listSection]
-           } else {
-               sectionsSubject.value = [listSection]
-           }
+            if let item = mainViewItem {
+                let mainViewSection = SearchResultsCollection(section: .main, items: [item])
+                sectionsSubject.value = [mainViewSection, listSection]
+            } else {
+                sectionsSubject.value = [listSection]
+            }
 
         case .map:
             break
@@ -137,6 +145,13 @@ extension SearchResultsViewModel {
         model.loadHousesAPI()
     }
     
+    func refreshFeed() {
+        model.updateSortParameters(parameters: [])
+        model.cleanSearchRequestModel()
+        model.loadHousesAPI()
+        model.getHousesCount()
+    }
+
     func getAvailableHouses(in poligon: String) {
         model.getAvailableHouses(in: poligon)
     }
@@ -163,7 +178,8 @@ extension SearchResultsViewModel {
         case .lastSearch:
             // get searchParameters from UserDefaults
             guard let parametersData = UserDefaults.standard.value(forKey: "searchParameters") as? Data,
-                  let parameters = try? JSONDecoder().decode([SearchParam].self, from: parametersData) else {
+                  let parameters = try? JSONDecoder().decode([SearchParam].self, from: parametersData)
+            else {
                 return
             }
             // get searchParameters from Documents

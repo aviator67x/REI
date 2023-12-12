@@ -34,6 +34,15 @@ final class PhotoCell: UICollectionViewListCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+        streetLabel.text = nil
+        ortLabel.text = nil
+        sqmLabel.text = nil
+        priceValueLabel.text = nil
+    }
 
     private func setupUI() {
         backgroundColor = .lightGray
@@ -92,7 +101,18 @@ final class PhotoCell: UICollectionViewListCell {
     }
 
     func setupCell(_ model: PhotoCellModel) {
-        imageView.kf.setImage(with: model.image, placeholder: UIImage(systemName: "house.lodge"))
+        let url = model.image
+        let processor = DownsamplingImageProcessor(size: imageView.bounds.size)
+        imageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "house"),
+            options: [
+                .processor(processor),
+                .scaleFactor(UIScreen.main.scale),
+                .cacheOriginalImage
+            ])
+//        imageView.kf.setImage(with: url, placeholder: UIImage(named: "house"))
+        
         streetLabel.text = [model.street, String(model.house)].joined(separator: " ")
         ortLabel.text = model.ort
 
@@ -104,5 +124,33 @@ final class PhotoCell: UICollectionViewListCell {
         let mediumBoldHeartFill = UIImage(systemName: "heart.fill", withConfiguration: mediumConfig)
         heartButton.setImage(model.isFavourite ? mediumBoldHeartFill : mediumBoldHeartEmpty, for: .normal)
         heartButton.tintColor = model.isFavourite ? .red : .white
+    }
+    
+    func downsample(imageAt imageURL: URL,
+                    to pointSize: CGSize,
+                    scale: CGFloat = UIScreen.main.scale) -> UIImage? {
+
+        // Create an CGImageSource that represent an image
+        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        guard let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions) else {
+            return nil
+        }
+        
+        // Calculate the desired dimension
+        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
+        
+        // Perform downsampling
+        let downsampleOptions = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceShouldCacheImmediately: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
+        ] as [CFString : Any] as CFDictionary
+        guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions) else {
+            return nil
+        }
+        
+        // Return the downsampled image as UIImage
+        return UIImage(cgImage: downsampledImage)
     }
 }

@@ -35,8 +35,6 @@ final class SelectedHouseViewController: BaseViewController<SelectedHouseViewMod
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case let .navBarAlfaOnScroll(isHidden):
-                    self.navigationController?.navigationBar.isHidden = isHidden ? false : false
                 case let .onHeartButtonTap(id):
                     viewModel.editFavorites(with: id)
                 case .imageDidTap:

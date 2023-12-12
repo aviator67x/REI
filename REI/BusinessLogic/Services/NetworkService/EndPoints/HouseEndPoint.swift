@@ -134,23 +134,12 @@ enum HouseEndPoint: Endpoint {
                     QueryParameters.pageParam(pageSize),
                     QueryParameters.offsetParam(skip)
                 ]
-//                return [
-//                    "where": searchParametersString,
-//                    "sortBy": paramString,
-//                    "pageSize": "\(pageSize)",
-//                    "offset": "\(skip)"
-//                ]
             } else {
                 return [
                     QueryParameters.whereParam(searchParametersString),
                     QueryParameters.pageParam(pageSize),
                     QueryParameters.offsetParam(skip)
                 ]
-//                return [
-//                    "where": searchParametersString,
-//                    "pageSize": "\(pageSize)",
-//                    "offset": "\(skip)"
-//                ]
             }
         } else if let parameters = sortParameters {
             let paramString = parameters.joined(separator: ", ")
@@ -159,20 +148,11 @@ enum HouseEndPoint: Endpoint {
                 QueryParameters.pageParam(pageSize),
                 QueryParameters.offsetParam(skip)
             ]
-//            return [
-//                "sortBy": paramString,
-//                "pageSize": "\(pageSize)",
-//                "offset": "\(skip)"
-//            ]
         } else {
             return [
                 QueryParameters.pageParam(pageSize),
                 QueryParameters.offsetParam(skip)
             ]
-//            return [
-//                "pageSize": "\(pageSize)",
-//                "offset": "\(skip)"
-//            ]
         }
     }
 }

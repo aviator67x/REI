@@ -20,13 +20,13 @@ final class SearchModel {
     private(set) lazy var searchParametersPublisher = searchParametersSubject.eraseToAnyPublisher()
     private lazy var searchParametersSubject = CurrentValueSubject<[SearchParam], Never>([])
 
-    private var sortParameters: [String]?
+    private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
+    private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
+
+    private var sortParameters: [String] = []
 
     private(set) lazy var housesPublisher = housesSubject.eraseToAnyPublisher()
     private lazy var housesSubject = CurrentValueSubject<[HouseDomainModel], Never>([])
-
-    private(set) lazy var searchRequestModelPublisher = searchRequestModelSubject.eraseToAnyPublisher()
-    private lazy var searchRequestModelSubject = CurrentValueSubject<SearchRequestModel, Never>(.init())
 
     private(set) lazy var favouriteHousesIdPublisher = favouriteHousesIdSubject.eraseToAnyPublisher()
     private lazy var favouriteHousesIdSubject = CurrentValueSubject<[String], Never>([])
@@ -36,6 +36,9 @@ final class SearchModel {
 
     private(set) lazy var filteredHousesCountPublisher = filteredHousesCountSubject.eraseToAnyPublisher()
     private lazy var filteredHousesCountSubject = PassthroughSubject<Int, Never>()
+
+    private(set) lazy var availableInPoligonHouesesPublisher = availableInPoligonHouesesSubject.eraseToAnyPublisher()
+    private lazy var availableInPoligonHouesesSubject = PassthroughSubject<[HouseDomainModel], Never>()
 
     private var isPaginationInProgress = false
 //    private var hasMoreToLoad = true
@@ -98,13 +101,20 @@ extension SearchModel {
         isLoadingSubject.send(true)
         userService.addToFavourities(houses: favouriteHousesIdSubject.value)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
+            .sinkWeakly(self) { (self, completion) in
                 self.isLoadingSubject.send(false)
                 if case let .failure(error) = completion {
                     debugPrint(error.localizedDescription)
                 }
-            }, receiveValue: { _ in })
+            }
             .store(in: &cancellables)
+//            .sink(receiveCompletion: { completion in
+//                self.isLoadingSubject.send(false)
+//                if case let .failure(error) = completion {
+//                    debugPrint(error.localizedDescription)
+//                }
+//            }, receiveValue: { _ in })
+//            .store(in: &cancellables)
     }
 
     func updateSortParameters(parameters: [String]) {
@@ -171,7 +181,7 @@ extension SearchModel {
         offset = 0
         housesSubject.value = []
     }
-    
+
     func updateSearchParameters(_ parameters: [SearchParam]) {
         offset = 0
         searchParametersSubject.value = parameters
@@ -228,6 +238,7 @@ extension SearchModel {
 
     func loadHouses() {
         housesService.getHousesFromCoreData()
+            .receive(on: DispatchQueue.main)
             .sinkWeakly(self, receiveCompletion: { (self, _) in
                 self.loadHousesAPI()
             }, receiveValue: { (self, houses) in
@@ -245,13 +256,15 @@ extension SearchModel {
         else {
             return
         }
+        let searchParams = searchParametersSubject.value.isEmpty ? nil : searchParametersSubject.value
+        let sortParams = sortParameters.isEmpty ? nil : sortParameters
         isPaginationInProgress = true
         isLoadingSubject.send(true)
         housesService.getHouses(
             pageSize: pageSize,
             offset: offset,
-            searchParameters: self.searchParametersSubject.value,
-            sortParameters: self.sortParameters
+            searchParameters: searchParams,
+            sortParameters: sortParams
         )
         .receive(on: DispatchQueue.main)
         .sink(receiveCompletion: { [unowned self] completion in
@@ -304,8 +317,8 @@ extension SearchModel {
                 case let .failure(error):
                     debugPrint(error.localizedDescription)
                 }
-            }, receiveValue: { _, houses in
-                print(houses)
+            }, receiveValue: { (self, houses) in
+                self.availableInPoligonHouesesSubject.send(houses)
             })
             .store(in: &cancellables)
     }
@@ -317,20 +330,20 @@ extension SearchModel {
             .receive(on: DispatchQueue.main)
             .sinkWeakly(
                 self,
-                receiveCompletion: { _, completion in
+                receiveCompletion: { (self, completion) in
                     self.isLoadingSubject.send(false)
                     if case let .failure(error) = completion {
                         debugPrint(error.localizedDescription)
                     }
                 },
-                receiveValue: { _, count in
+                receiveValue: { (self, count) in
                     self.filteredHousesCountSubject.send(count)
                     self.housesCountSubject.send(count)
                 }
             )
             .store(in: &cancellables)
     }
-    
+
     func updateOffset() {
         offset = 0
     }

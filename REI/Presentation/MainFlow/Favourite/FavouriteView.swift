@@ -104,6 +104,9 @@ final class FavouriteView: BaseView {
                 case let .photo(model):
                     let cell: FavouriteCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
+                    cell.heartButtonDidTap = {
+                        self.actionSubject.send(.selectedItem(item))
+                    }
                     return cell
                 }
             }
