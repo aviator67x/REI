@@ -42,7 +42,7 @@ final class ListCell: UICollectionViewListCell {
     }
     
     private func setupUI() {
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         
         stackView.axis = .vertical
@@ -88,7 +88,7 @@ final class ListCell: UICollectionViewListCell {
             with: url,
             placeholder: UIImage(named: "house"),
             options: [
-                .processor(processor),
+//                .processor(processor),
                 .scaleFactor(UIScreen.main.scale),
                 .cacheOriginalImage
             ])

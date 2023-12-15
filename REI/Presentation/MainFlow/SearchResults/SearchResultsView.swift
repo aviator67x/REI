@@ -48,8 +48,6 @@ final class SearchResultsView: BaseView {
     override init(frame: CGRect) {
         super.init(frame: frame)
            refreshControl.addTarget(self, action: #selector(refreshCollection), for: .valueChanged)
-           
-           // this is the replacement of implementing: "collectionView.addSubview(refreshControl)"
            collectionView.refreshControl = refreshControl
         initialSetup()
     }
@@ -215,6 +213,15 @@ extension SearchResultsView {
         mapView.isHidden = true
         availableHousesButton.isHidden = true
         setupSnapShot(sections: sections)
+        
+        if sections.last?.section != .main  {
+            let section = sections.count - 1
+            if self.collectionView.numberOfItems(inSection: section) > 10 {
+                let item = self.collectionView.numberOfItems(inSection: section) - 1
+                let lastItemIndex = IndexPath(item: item, section: section)
+                self.collectionView.scrollToItem(at: lastItemIndex, at: .top, animated: true)
+            }
+        }
     }
 
     func showMapView(model: MapCellModel) {

@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleMobileAds
+import Kingfisher
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         customizeNavBar()
+        
+        let cache = ImageCache.default
+        cache.memoryStorage.config.totalCostLimit = 300 * 1024 * 1024
+        cache.memoryStorage.config.countLimit = 50
 
         return true
     }
