@@ -11,7 +11,7 @@ import UIKit
 
 protocol CoreDataStackProtocol {
     func deleteObjects()
-    func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool)
+    func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool?)
     func getObjects(by filter: String?, filterValue: Bool?) -> [HouseDomainModel]?
     func getObjects() -> [HouseDomainModel]?
 }
@@ -37,39 +37,40 @@ class CoreDataStack: CoreDataStackProtocol {
 
     lazy var backgroundContext: NSManagedObjectContext = self.storeContainer.newBackgroundContext()
 
-    func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool = false) {
-//        if !isFavourite {
-//            guard let notFavouriteObjects = getObjects(by: "isFavourite", filterValue: false) else {
-//                return
-//            }
-//            deleteObjects()
-//            let coreDataHouseModels = notFavouriteObjects.map { House(
-//                houseDomainModel: $0,
-//                isFavourite: false,
-//                insertInto: backgroundContext
-//            ) }
-//        } else {
+    func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool? = false) {
         deleteObjects()
-       let cdHouses = houseModels.map {
-//            houseModel in
-//            let house = House(context: backgroundContext)
-//            house.id = houseModel.id
-//            house.constructionYear = Int64(houseModel.constructionYear)
-//            house.garage = houseModel.garage
-//            house.livingArea = Int64(houseModel.livingArea)
-//            guard let urls = houseModel.images else {
-//                return
-//            }
-//            house.urls = urls.map { String(describing: $0) }
-
-                House(
-                houseDomainModel:
-                $0,
-                isFavourite: isFavourite,
-                insertInto: backgroundContext
-            )
+        guard let savedUser = UserDefaults.standard.object(forKey: "User") as? Data,
+              let user = UserDefaults.standard.decode(type: UserDomainModel.self, data: savedUser),
+              let favouriteHouses = user.favouriteHouses
+        else {
+            return
         }
-//        }
+
+        var favouriteHousesIds: [String] = []
+        favouriteHouses.forEach {
+            favouriteHousesIds.append($0.id)
+        }
+
+        if let isFavourite = isFavourite {
+            let cdHouses = houseModels.map {
+                House(
+                    houseDomainModel:
+                    $0,
+                    isFavourite: isFavourite,
+                    insertInto: backgroundContext
+                )
+            }
+        } else {
+            houseModels.map {
+                let isFavourite: Bool = favouriteHousesIds.contains($0.id) ? true : false
+                House(
+                    houseDomainModel:
+                    $0,
+                    isFavourite: isFavourite,
+                    insertInto: backgroundContext
+                )
+            }
+        }
         do {
             try backgroundContext.save()
             debugPrint("I think trial houses have been saved to Core Data")

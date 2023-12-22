@@ -62,7 +62,7 @@ final class HousesServiceImpl: HousesService {
             .map { value -> [HouseDomainModel] in
                 let houses = value.map { HouseDomainModel(model: $0) }
                 if offset == 0 {
-                    self.coreDataService.saveObjects(houseModels: houses, isFavourite: false)
+                    self.coreDataService.saveObjects(houseModels: houses, isFavourite: nil)
                 }
                 return houses
             }
