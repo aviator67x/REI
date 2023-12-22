@@ -73,7 +73,7 @@ final class HouseDomainModel: Codable {
         let urlStrings = coreDataModel.urls
         urlStrings?.forEach { string in
             if let url = URL(string: string) {
-                images?.append(url)
+                images == nil ? images = [url] : images?.append(url)
             }
         }
         self.images = images

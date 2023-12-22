@@ -31,21 +31,4 @@ final class MapCell: UICollectionViewListCell {
             $0.edges.equalToSuperview()
         }
     }
-    
-    func setup(with model: MapCellModel) {
-        model.points.forEach { point in
-            let address = point.address
-            guard let location = point.location else {
-                return
-            }
-            let houseLocation = CLLocationCoordinate2D(
-                latitude: location.coordinates[0],
-                longitude: location.coordinates[1]
-            )
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = houseLocation
-            annotation.title = address
-            mapView.addAnnotation(annotation)
-        }
-    }
 }

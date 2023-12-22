@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum FavouriteTransition: Transition {
-    
+    case selectedHouse(HouseDomainModel)
 }
 
 final class FavouriteModuleBuilder {

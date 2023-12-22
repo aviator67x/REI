@@ -28,10 +28,11 @@ final class FavouriteViewModel: BaseViewModel {
     override func onViewDidLoad() {
         setupBinding()
     }
-    
+
     override func onViewWillAppear() {
         guard let favouriteHouses =
-                model.favouriteHouses() else {
+            model.favouriteHouses()
+        else {
             return
         }
         favouriteHousesSubject.value = favouriteHouses
@@ -58,10 +59,21 @@ final class FavouriteViewModel: BaseViewModel {
 
     func deleteItem(_ item: FavouriteItem) {
         switch item {
-        case .photo(let house):
-            let id = house.id 
-            self.favouriteHousesSubject.value.removeAll(where: {$0.id == id})
+        case let .photo(house):
+            let id = house.id
+            favouriteHousesSubject.value.removeAll(where: { $0.id == id })
             model.editFavouriteHouses(with: id)
+        }
+    }
+
+    func showSelectedItem(_ item: FavouriteItem) {
+        switch item {
+        case let .photo(model):
+            let id = model.id
+            guard let house = favouriteHousesSubject.value.first(where: { $0.id == id }) else {
+                return
+            }
+            transitionSubject.send(.selectedHouse(house))
         }
     }
 }

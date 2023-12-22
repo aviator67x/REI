@@ -71,9 +71,10 @@ extension AdPhotosViewController: PHPickerViewControllerDelegate {
             dispatchGroup.enter()
             result.itemProvider.loadObject(ofClass: UIImage.self, completionHandler: { object, _ in
                 if let image = object as? UIImage {
+                   let compressedImage = image.aspectFittedToHeight(200)
                     DispatchQueue.main.async {
                         debugPrint(image)
-                        guard let imageData = image.pngData() else {
+                        guard let imageData = compressedImage.jpegData(compressionQuality: 0.2) else {
                             return
                         }
                         debugPrint(imageData)

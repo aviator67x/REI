@@ -248,6 +248,8 @@
 		CEB9F6802A17AE410082A674 /* AdAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9F67C2A17AE410082A674 /* AdAddressViewController.swift */; };
 		CEB9F6812A17AE410082A674 /* AdAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9F67D2A17AE410082A674 /* AdAddressView.swift */; };
 		CEB9F6822A17AE410082A674 /* AdAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9F67E2A17AE410082A674 /* AdAddressViewModel.swift */; };
+		CECB60162B2CF46900CDF054 /* UIImage+downSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB60152B2CF46900CDF054 /* UIImage+downSizing.swift */; };
+		CECB60192B3067A900CDF054 /* MyHouseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECB60182B3067A900CDF054 /* MyHouseCell.swift */; };
 		CEDDF29E29D6FA27003BF639 /* SearchFiltersCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDDF29D29D6FA27003BF639 /* SearchFiltersCollection.swift */; };
 		CEDDF2A229D87B65003BF639 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDDF2A129D87B65003BF639 /* KeychainService.swift */; };
 		CEE2DE5D29F18CC70029AFF8 /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE2DE5C29F18CC70029AFF8 /* Plugin.swift */; };
@@ -564,6 +566,8 @@
 		CEB9F67C2A17AE410082A674 /* AdAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdAddressViewController.swift; sourceTree = "<group>"; };
 		CEB9F67D2A17AE410082A674 /* AdAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdAddressView.swift; sourceTree = "<group>"; };
 		CEB9F67E2A17AE410082A674 /* AdAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdAddressViewModel.swift; sourceTree = "<group>"; };
+		CECB60152B2CF46900CDF054 /* UIImage+downSizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+downSizing.swift"; sourceTree = "<group>"; };
+		CECB60182B3067A900CDF054 /* MyHouseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHouseCell.swift; sourceTree = "<group>"; };
 		CEDDF29D29D6FA27003BF639 /* SearchFiltersCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFiltersCollection.swift; sourceTree = "<group>"; };
 		CEDDF2A129D87B65003BF639 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		CEE2DE5C29F18CC70029AFF8 /* Plugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
@@ -733,6 +737,7 @@
 				CE7153062A339011000CC3C5 /* UITextField+doneButton.swift */,
 				CEFEEAD22A8142B500EBBC40 /* UITableView+dequeue.swift */,
 				CEFEEAD42A8144C000EBBC40 /* TableView+reusedIdentifier.swift */,
+				CECB60152B2CF46900CDF054 /* UIImage+downSizing.swift */,
 				CEADC99B2981A22E007A0650 /* KeyPathInitializable */,
 			);
 			path = UIKit;
@@ -1160,6 +1165,7 @@
 				CE5CCEC229FAE7A5007972CB /* MyHouseView.swift */,
 				CE5CCEC329FAE7A5007972CB /* MyHouseViewModel.swift */,
 				CEF83F7C2A1B8318009B0791 /* AdCreatingModel.swift */,
+				CECB60172B30678500CDF054 /* Subviews */,
 				CE481C8E2A31F574000E00BC /* Models */,
 			);
 			path = MyHouse;
@@ -1455,6 +1461,14 @@
 				CE02BD702A14026C007AD3C7 /* Models */,
 			);
 			path = AdAddress;
+			sourceTree = "<group>";
+		};
+		CECB60172B30678500CDF054 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				CECB60182B3067A900CDF054 /* MyHouseCell.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		CEDDF29C29D6F9FC003BF639 /* Models */ = {
@@ -1797,6 +1811,7 @@
 				CEE2DE6929F30B310029AFF8 /* MainCell.swift in Sources */,
 				CEAEB9E129AAA49B005BBF50 /* UserModels.swift in Sources */,
 				CEAA10ED29DDBA5200340401 /* SearchResultsViewModel.swift in Sources */,
+				CECB60192B3067A900CDF054 /* MyHouseCell.swift in Sources */,
 				CE0E27AF29CE1DA9001EDFCD /* SearchFiltersModuleBuilder.swift in Sources */,
 				CEA5B72E29B0A2B70038A29C /* Publisher+WithLatestFrom.swift in Sources */,
 				CE5CCEC629FAE7A6007972CB /* MyHouseView.swift in Sources */,
@@ -1946,6 +1961,7 @@
 				CE17ACDC2A8A75CC00586466 /* SwiftUIViewModel.swift in Sources */,
 				CEFFB9A62A24E4F90009F624 /* PhotoCollection.swift in Sources */,
 				CE5E915A2A7C036B00EFD6EB /* SortView.swift in Sources */,
+				CECB60162B2CF46900CDF054 /* UIImage+downSizing.swift in Sources */,
 				CE1E2DD22A07C98100328EAF /* Subscriber.swift in Sources */,
 				B355206A6EA2EE9B20C77B89 /* SceneDelegate.swift in Sources */,
 				CE13E3AD29DAFE5600B948C9 /* SearchFiltersDetailedView.swift in Sources */,

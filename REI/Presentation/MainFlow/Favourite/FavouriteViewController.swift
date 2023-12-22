@@ -27,6 +27,8 @@ final class FavouriteViewController: BaseViewController<FavouriteViewModel> {
             .sink { [unowned self] action in
                 switch action {
                 case let .selectedItem(item):
+                    viewModel.showSelectedItem(item)
+                case let .remove(item):
                     viewModel.deleteItem(item)
                 }
             }

@@ -55,12 +55,12 @@ final class UserServiceImpl: UserService {
     }
 
     var user: UserDomainModel? {
-        if let favouriteHouses = coreDataService.getObjects(by: "isFavourite", filterValue: true) {
-            userValueSubject.value?.favouriteHouses = favouriteHouses
-            return userValueSubject.value
-        } else {
+//        if let favouriteHouses = coreDataService.getObjects(by: "isFavourite", filterValue: true) {
+//            userValueSubject.value?.favouriteHouses = favouriteHouses
+//            return userValueSubject.value
+//        } else {
            return userValueSubject.value
-        }
+//        }
     }
 
     var isAuthorized: Bool {

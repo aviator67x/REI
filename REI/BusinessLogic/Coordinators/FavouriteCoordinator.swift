@@ -31,18 +31,26 @@ final class FavouriteCoordinator: Coordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-//                case .detailed(let requestModel, let state):
-//                    year(model: requestModel, screenState: state)
-                default:
-                    didFinishSubject.send()
+                case let .selectedHouse(house):
+                    selectedHouse(house)
                 }
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
     }
     
-//    private func year(model: SearchRequestModel, screenState: ScreenState) {
-//        let module = DetailedModuleBuilder.build(container: container, searchRequestModel: model, screenState: screenState)
-//        push(module.viewController)
-//    }
+    private func selectedHouse(_ house: HouseDomainModel) {
+        let detailCoordinator = DetaileHouseCoordinator(
+            navigationController: navigationController,
+            container: container,
+            house: house
+        )
+        childCoordinators.append(detailCoordinator)
+        detailCoordinator.didFinishPublisher
+            .sink { [unowned self] in
+                removeChild(coordinator: detailCoordinator)
+            }
+            .store(in: &cancellables)
+        detailCoordinator.start()
+    }
 }

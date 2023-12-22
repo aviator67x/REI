@@ -92,7 +92,17 @@ final class FavouriteCell: UICollectionViewListCell {
     }
 
     func setupCell(_ model: PhotoCellModel) {
-        imageView.kf.setImage(with: model.image, placeholder: UIImage(systemName: "house.lodge.circle"))
+        let url = model.image
+        
+        let processor = DownsamplingImageProcessor(size: imageView.bounds.size)
+        imageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "house"),
+            options: [
+//                .processor(processor),
+                .scaleFactor(UIScreen.main.scale),
+                .cacheOriginalImage
+            ])
         streetLabel.text = model.street
         ortLabel.text = model.ort
         sqmLabel.text = "\(model.livingArea) sqm / \(model.square) sqm \u{00B7} \(model.numberOfRooms) rooms"
@@ -101,7 +111,7 @@ final class FavouriteCell: UICollectionViewListCell {
         let mediumConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .medium)
         let mediumBoldHeartEmpty = UIImage(systemName: "heart", withConfiguration: mediumConfig)
         let mediumBoldHeartFill = UIImage(systemName: "heart.fill", withConfiguration: mediumConfig)
-        heartButton.setImage(model.isFavourite ? mediumBoldHeartFill : mediumBoldHeartEmpty, for: .normal)
-        heartButton.tintColor = model.isFavourite ? .red : .white
+        heartButton.setImage(mediumBoldHeartFill, for: .normal)
+        heartButton.tintColor = .red
     }
 }

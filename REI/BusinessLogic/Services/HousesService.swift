@@ -93,7 +93,7 @@ final class HousesServiceImpl: HousesService {
     {
         houseImages
             .map {
-                [MultipartItem(name: "", fileName: "\(UUID().uuidString).png", data: $0.imageData)]
+                [MultipartItem(name: "", fileName: "\(UUID().uuidString).jpeg", data: $0.imageData)]
             }
             .map {
                 housesNetworkService.saveHouseImage(image: $0)

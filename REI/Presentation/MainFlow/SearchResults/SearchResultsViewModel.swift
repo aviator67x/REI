@@ -39,7 +39,8 @@ final class SearchResultsViewModel: BaseViewModel {
     override func onViewDidLoad() {
         model.updateSortParameters(parameters: [])
         model.cleanSearchRequestModel()
-        model.loadHousesAPI()
+//        model.loadHousesAPI()
+        model.loadHouses()
 //        model.loadMockHouses()
         model.getHousesCount()
         setupBinding()

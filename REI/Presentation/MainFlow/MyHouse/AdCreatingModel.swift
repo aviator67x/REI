@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import UIKit
 
 final class AdCreatingModel {
     private var cancellables = Set<AnyCancellable>()

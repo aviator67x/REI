@@ -101,7 +101,7 @@ final class SearchResultsView: BaseView {
             .compactMap { self.dataSource?.itemIdentifier(for: $0) }
             .map { SearchResultsViewAction.selectedItem($0) }
             .sink { [unowned self] in
-                actionSubject.send($0)
+                self.actionSubject.send($0)
             }
             .store(in: &cancellables)
 
@@ -131,7 +131,6 @@ final class SearchResultsView: BaseView {
         
         availableHousesButton.tapPublisher
             .sinkWeakly(self, receiveValue: {(self, _) in
-                let visibleRect = self.mapView.visibleMapRect
                 let region = self.mapView.region
                 let regionCenter = region.center
                 let spanLatitude = region.span.latitudeDelta
@@ -142,9 +141,9 @@ final class SearchResultsView: BaseView {
                 let swLongitude = nwLongitude
                 let seLatitude = swLatitude
                 let seLongitude = regionCenter.longitude + spanLongitude/2
-                let neLatitude = nwLatitude
+                let neLatitude = nwLatitude 
                 let neLongitude = seLongitude
-                let poligon = "POLYGON((\(nwLongitude) \(nwLatitude), \(swLongitude) \(swLatitude), \(seLongitude) \(seLatitude), \(neLongitude) \(neLatitude), \(nwLongitude) \(nwLatitude)))"
+                let poligon = "POLYGON((\(nwLatitude) \(nwLongitude), \(swLatitude) \(swLongitude), \(seLatitude) \(seLongitude), \(neLatitude) \(neLongitude), \(nwLatitude) \(nwLongitude)))"
             
                 self.actionSubject.send(.visiblePoligon(coordinates: poligon))
             })
@@ -327,12 +326,10 @@ extension SearchResultsView: CLLocationManagerDelegate {
         )
 //        mapView.setRegion(region, animated: true)
 
-//         Temporary solution to center the map on the Netherlands:
+
         let ditzingenCenter = CLLocationCoordinate2D(
-//            latitude: 48.8372486549913,
-//            longitude: 9.00023878679861
-            latitude: 49.990501218918006,
-            longitude: 36.23225331483332
+            latitude: 48.8372486549913,
+            longitude: 9.00023878679861
         )
         mapView.setCenter(ditzingenCenter, animated: true)
     }
@@ -346,12 +343,7 @@ extension SearchResultsView: CLLocationManagerDelegate {
             let annotation = MKPointAnnotation()
             annotation.coordinate = houseLocation
             annotation.title = address
-            let coordinateRegion = MKCoordinateRegion(
-                center: annotation.coordinate,
-                latitudinalMeters: 5000,
-                longitudinalMeters: 5000
-            )
-//            self.mapView.setRegion(coordinateRegion, animated: true)
+
             self.mapView.addAnnotation(annotation)
         }
 }

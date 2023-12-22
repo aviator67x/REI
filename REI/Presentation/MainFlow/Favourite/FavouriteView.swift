@@ -10,6 +10,7 @@ import UIKit
 
 enum FavouriteViewAction {
     case selectedItem(FavouriteItem)
+    case remove(FavouriteItem)
 }
 
 final class FavouriteView: BaseView {
@@ -73,6 +74,13 @@ final class FavouriteView: BaseView {
     }
 
     private func bindActions() {
+        collectionView.didSelectItemPublisher
+            .compactMap { self.dataSource?.itemIdentifier(for:$0) }
+            .map { FavouriteViewAction.selectedItem($0)}
+            .sink { [unowned self] in
+                self.actionSubject.send($0)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
@@ -105,7 +113,7 @@ final class FavouriteView: BaseView {
                     let cell: FavouriteCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
                     cell.heartButtonDidTap = {
-                        self.actionSubject.send(.selectedItem(item))
+                        self.actionSubject.send(.remove(item))
                     }
                     return cell
                 }

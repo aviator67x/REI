@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 protocol CoreDataStackProtocol {
-    func saveContext()
     func deleteObjects()
     func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool)
     func getObjects(by filter: String?, filterValue: Bool?) -> [HouseDomainModel]?
@@ -38,35 +37,39 @@ class CoreDataStack: CoreDataStackProtocol {
 
     lazy var backgroundContext: NSManagedObjectContext = self.storeContainer.newBackgroundContext()
 
-    func saveContext() {
-        guard backgroundContext.hasChanges else { return }
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Unresolved error \(error), \(error.userInfo)")
-        }
-    }
-
     func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool = false) {
-        if !isFavourite {
-            guard let notFavouriteObjects = getObjects(by: "isFavourite", filterValue: false) else {
-                return
-            }
-            deleteObjects()
-            notFavouriteObjects.map { House(
-                houseDomainModel: $0,
-                isFavourite: false,
-                insertInto: backgroundContext
-            ) }
-        } else {
-            deleteObjects()
-            let coreDataHouseModels = houseModels.map { House(
+//        if !isFavourite {
+//            guard let notFavouriteObjects = getObjects(by: "isFavourite", filterValue: false) else {
+//                return
+//            }
+//            deleteObjects()
+//            let coreDataHouseModels = notFavouriteObjects.map { House(
+//                houseDomainModel: $0,
+//                isFavourite: false,
+//                insertInto: backgroundContext
+//            ) }
+//        } else {
+        deleteObjects()
+       let cdHouses = houseModels.map {
+//            houseModel in
+//            let house = House(context: backgroundContext)
+//            house.id = houseModel.id
+//            house.constructionYear = Int64(houseModel.constructionYear)
+//            house.garage = houseModel.garage
+//            house.livingArea = Int64(houseModel.livingArea)
+//            guard let urls = houseModel.images else {
+//                return
+//            }
+//            house.urls = urls.map { String(describing: $0) }
+
+                House(
                 houseDomainModel:
                 $0,
                 isFavourite: isFavourite,
                 insertInto: backgroundContext
-            ) }
+            )
         }
+//        }
         do {
             try backgroundContext.save()
             debugPrint("I think trial houses have been saved to Core Data")
@@ -96,7 +99,7 @@ class CoreDataStack: CoreDataStackProtocol {
         }
         return domainModels
     }
-    
+
     func getObjects() -> [HouseDomainModel]? {
         var domainModels: [HouseDomainModel] = []
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "House")

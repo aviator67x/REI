@@ -87,7 +87,7 @@ final class MyHouseView: BaseView {
     }
 
     private func setupCollectionView() {
-        collectionView.register(FavouriteCell.self)
+        collectionView.register(MyHouseCell.self)
         collectionView.backgroundView = backgroundView
         setupDataSource()
     }
@@ -155,7 +155,7 @@ final class MyHouseView: BaseView {
                 collectionView, indexPath, item -> UICollectionViewCell in
                 switch item {
                 case let .photo(model):
-                    let cell: FavouriteCell = collectionView.dedequeueReusableCell(for: indexPath)
+                    let cell: MyHouseCell = collectionView.dedequeueReusableCell(for: indexPath)
                     cell.setupCell(model)
                     return cell
                 }

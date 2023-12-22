@@ -25,7 +25,13 @@ final class AdPhotosViewModel: BaseViewModel {
     }
     
     override func onViewDidLoad() {
+        super.onViewDidLoad()
         setupBinding()
+    }
+    
+    override func onViewWillAppear() {
+        super.onViewWillAppear()
+        imagesSubject.value = []
     }
     
     func popScreen() {

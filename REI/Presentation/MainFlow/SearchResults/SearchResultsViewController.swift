@@ -84,7 +84,7 @@ final class SearchResultsViewController: BaseViewController<SearchResultsViewMod
                     guard let location = house.location else {
                         return
                     }
-                    let address = ""
+                    let address = house.ort + house.street + String(house.house)
                     self.contentView.showOnMap(location: location, address: address)
                 }
             }
