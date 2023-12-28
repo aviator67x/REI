@@ -106,8 +106,9 @@ final class UserServiceImpl: UserService {
     }
 
     func save(user: UserDomainModel) {
-        userDefaults.encode(data: user, key: Keys.user)
+//        userDefaults.encode(data: user, key: Keys.user)
         userValueSubject.send(user)
+        coreDataService.saveUser(user)
     }
 
     func update(user: UpdateUserRequestModel) -> AnyPublisher<UpdateUserResponseModel, UserServiceError> {
@@ -117,8 +118,9 @@ final class UserServiceImpl: UserService {
     }
 
     func getUser() -> UserDomainModel? {
-        guard let savedUser = userDefaults.object(forKey: Keys.user) as? Data,
-              let user = userDefaults.decode(type: UserDomainModel.self, data: savedUser)
+//        guard let savedUser = userDefaults.object(forKey: Keys.user) as? Data,
+//              let user = userDefaults.decode(type: UserDomainModel.self, data: savedUser)
+        guard let user = coreDataService.getUser()
         else {
             return nil
         }

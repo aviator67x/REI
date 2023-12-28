@@ -279,6 +279,8 @@
 		CEFE0A482A33174B00B6ECA6 /* DetaileHouseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE0A472A33174B00B6ECA6 /* DetaileHouseCoordinator.swift */; };
 		CEFE0A4A2A33613B00B6ECA6 /* OrtCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE0A492A33613B00B6ECA6 /* OrtCellModel.swift */; };
 		CEFE0A4C2A33656900B6ECA6 /* OrtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE0A4B2A33656900B6ECA6 /* OrtCell.swift */; };
+		CEFE59842B3AED8D006EF6BD /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE59822B3AED8D006EF6BD /* User+CoreDataClass.swift */; };
+		CEFE59852B3AED8D006EF6BD /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE59832B3AED8D006EF6BD /* User+CoreDataProperties.swift */; };
 		CEFEA50F29A7881F0085AB1D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEA50E29A7881F0085AB1D /* NetworkLogger.swift */; };
 		CEFEB4F12AA76612002D0559 /* HouseManagedModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEFEB4EF2AA76612002D0559 /* HouseManagedModel.xcdatamodeld */; };
 		CEFEEACF2A81399C00EBBC40 /* SortTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEEACE2A81399C00EBBC40 /* SortTable.swift */; };
@@ -597,6 +599,8 @@
 		CEFE0A472A33174B00B6ECA6 /* DetaileHouseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetaileHouseCoordinator.swift; sourceTree = "<group>"; };
 		CEFE0A492A33613B00B6ECA6 /* OrtCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrtCellModel.swift; sourceTree = "<group>"; };
 		CEFE0A4B2A33656900B6ECA6 /* OrtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrtCell.swift; sourceTree = "<group>"; };
+		CEFE59822B3AED8D006EF6BD /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CEFE59832B3AED8D006EF6BD /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CEFEA50E29A7881F0085AB1D /* NetworkLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
 		CEFEB4F02AA76612002D0559 /* HouseManagedModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HouseManagedModel.xcdatamodel; sourceTree = "<group>"; };
 		CEFEEACE2A81399C00EBBC40 /* SortTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTable.swift; sourceTree = "<group>"; };
@@ -1289,6 +1293,8 @@
 		CE9BB3552A8BA3BF0015031D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				CEFE59822B3AED8D006EF6BD /* User+CoreDataClass.swift */,
+				CEFE59832B3AED8D006EF6BD /* User+CoreDataProperties.swift */,
 				CE05A0822AAA258F00849374 /* House+CoreDataClass.swift */,
 				CE05A0832AAA258F00849374 /* House+CoreDataProperties.swift */,
 				CE9BB3532A8BA3900015031D /* CoreDataService.swift */,
@@ -1939,6 +1945,7 @@
 				CE481C902A31F590000E00BC /* MyHouseCollection.swift in Sources */,
 				CEA2A86929E9D23E00395817 /* HouseDomainModel.swift in Sources */,
 				CEF83F9E2A1CFC8E009B0791 /* YearPickerCell.swift in Sources */,
+				CEFE59852B3AED8D006EF6BD /* User+CoreDataProperties.swift in Sources */,
 				CEAEB9DF29AAA446005BBF50 /* AuthModels.swift in Sources */,
 				CE0E27BB29D43C81001EDFCD /* DistanceCell.swift in Sources */,
 				744F123129D6DC930015A4D3 /* UserDataCellModel.swift in Sources */,
@@ -1992,6 +1999,7 @@
 				CE31F8E02A2757C4003595CA /* SelectedHouseView.swift in Sources */,
 				CE02BD7E2A1602D8007AD3C7 /* AdCreatingRequestModel.swift in Sources */,
 				CE481C732A2FBB84000E00BC /* HouseImagesViewController.swift in Sources */,
+				CEFE59842B3AED8D006EF6BD /* User+CoreDataClass.swift in Sources */,
 				CE13E3AC29DAFE5600B948C9 /* SearchFiltersDetailedViewController.swift in Sources */,
 				CE02BD722A140290007AD3C7 /* AdCollectionModel.swift in Sources */,
 				FD8F1F7CAF0DB53D9493B504 /* SettingsViewModel.swift in Sources */,

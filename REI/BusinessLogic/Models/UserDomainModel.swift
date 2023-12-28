@@ -43,4 +43,15 @@ struct UserDomainModel: Codable {
         }
         self.favouriteHouses = domainHouses
     }
+
+    init(coreDataModel: User) {
+        self.id = coreDataModel.id
+        self.name = coreDataModel.name
+        self.firstName = coreDataModel.firstName
+        self.lastName = coreDataModel.lastName
+        self.nickName = coreDataModel.nickName
+        self.email = coreDataModel.email
+        self.imageURL = URL(string: coreDataModel.imageURL)
+//        self.favouriteHouses = coreDataModel.favouriteHouses.allObjects as? [HouseDomainModel]
+    }
 }

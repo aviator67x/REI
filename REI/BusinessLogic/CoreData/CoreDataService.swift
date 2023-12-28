@@ -14,6 +14,8 @@ protocol CoreDataStackProtocol {
     func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool?)
     func getObjects(by filter: String?, filterValue: Bool?) -> [HouseDomainModel]?
     func getObjects() -> [HouseDomainModel]?
+    func saveUser(_ user: UserDomainModel)
+    func getUser() -> UserDomainModel?
 }
 
 class CoreDataStack: CoreDataStackProtocol {
@@ -118,20 +120,45 @@ class CoreDataStack: CoreDataStackProtocol {
 
     func deleteObjects() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "House")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
         do {
-            let result = try managedContext.fetch(fetchRequest)
-            for data in result as! [House] {
-                managedContext.delete(data)
-
-                do {
-                    try managedContext.save()
-                } catch {
-                    debugPrint("Failed to save context with error \(error)")
-                }
-            }
+            try managedContext.persistentStoreCoordinator?.execute(deleteRequest, with: managedContext)
         } catch {
             debugPrint("Failed to delete data with error \(error)")
         }
+    }
+
+    func saveUser(_ user: UserDomainModel) {
+        let cdHouses = getObjects()
+        cdHouses?.forEach {
+            print($0.id)
+        }
+        User(
+            userDomainModel: user,
+            insertInto: backgroundContext
+        )
+        do {
+            try backgroundContext.save()
+            debugPrint("I think trial houses have been saved to Core Data")
+        } catch let error as NSError {
+            debugPrint("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+
+    func getUser() -> UserDomainModel? {
+        var user: UserDomainModel?
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        do {
+            let result = try managedContext.fetch(fetchRequest) as? [User]
+            guard let result = result?.first else {
+                return nil
+            }
+            user = UserDomainModel(coreDataModel: result)
+
+        } catch {
+            debugPrint("Failed")
+        }
+        return user
     }
 }
