@@ -41,9 +41,13 @@ class CoreDataStack: CoreDataStackProtocol {
 
     func saveObjects(houseModels: [HouseDomainModel], isFavourite: Bool? = false) {
         deleteObjects()
-        guard let savedUser = UserDefaults.standard.object(forKey: "User") as? Data,
-              let user = UserDefaults.standard.decode(type: UserDomainModel.self, data: savedUser),
-              let favouriteHouses = user.favouriteHouses
+        let count = getObjects()?.count
+//        guard let savedUser = UserDefaults.standard.object(forKey: "User") as? Data,
+//              let user = UserDefaults.standard.decode(type: UserDomainModel.self, data: savedUser),
+//              let favouriteHouses = user.favouriteHouses
+        guard let savedUser = getUser(),
+              let favouriteHouses = savedUser.favouriteHouses
+                
         else {
             return
         }
@@ -130,14 +134,13 @@ class CoreDataStack: CoreDataStackProtocol {
     }
 
     func saveUser(_ user: UserDomainModel) {
-        let cdHouses = getObjects()
-        cdHouses?.forEach {
-            print($0.id)
-        }
+        
+        deleteUser()
         User(
             userDomainModel: user,
             insertInto: backgroundContext
         )
+
         do {
             try backgroundContext.save()
             debugPrint("I think trial houses have been saved to Core Data")
@@ -160,5 +163,16 @@ class CoreDataStack: CoreDataStackProtocol {
             debugPrint("Failed")
         }
         return user
+    }
+    
+    func deleteUser() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try managedContext.persistentStoreCoordinator?.execute(deleteRequest, with: managedContext)
+        } catch {
+            debugPrint("Failed to delete data with error \(error)")
+        }
     }
 }

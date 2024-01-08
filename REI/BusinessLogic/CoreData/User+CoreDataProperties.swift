@@ -23,7 +23,7 @@ extension User {
     @NSManaged public var nickName: String
     @NSManaged public var email: String
     @NSManaged public var imageURL: String
-//    @NSManaged public var favouriteHouses: NSSet
+    @NSManaged public var favouriteHouses: Set<House>
 
 }
 

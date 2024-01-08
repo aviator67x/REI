@@ -52,6 +52,6 @@ struct UserDomainModel: Codable {
         self.nickName = coreDataModel.nickName
         self.email = coreDataModel.email
         self.imageURL = URL(string: coreDataModel.imageURL)
-//        self.favouriteHouses = coreDataModel.favouriteHouses.allObjects as? [HouseDomainModel]
+        self.favouriteHouses = Array(coreDataModel.favouriteHouses) as? [HouseDomainModel]
     }
 }

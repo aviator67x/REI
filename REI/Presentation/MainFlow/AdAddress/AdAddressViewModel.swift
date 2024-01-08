@@ -71,6 +71,7 @@ private extension AdAddressViewModel {
               validationSubject.value.isStreetValid,
               validationSubject.value.isHouseValid
         else {
+            self.validationSubject.value.isValid = false
             return
         }
         let address = [ort, street, house].joined(separator: ", ")

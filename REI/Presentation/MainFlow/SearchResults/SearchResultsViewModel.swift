@@ -144,6 +144,8 @@ final class SearchResultsViewModel: BaseViewModel {
 extension SearchResultsViewModel {
     func loadHouses() {
         model.loadHousesAPI()
+        print("the bottom is reached")
+        
     }
     
     func refreshFeed() {

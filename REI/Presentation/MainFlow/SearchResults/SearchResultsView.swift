@@ -107,7 +107,7 @@ final class SearchResultsView: BaseView {
 
         collectionView.reachedBottomPublisher()
             .sink { [unowned self] in
-                self.actionSubject.send(.collectionBottomDidReach)
+//                self.actionSubject.send(.collectionBottomDidReach)
             }
             .store(in: &cancellables)
 
@@ -117,6 +117,10 @@ final class SearchResultsView: BaseView {
                 let selectViewHeight = selectView.bounds.height
                 if yOffset >= selectViewHeight {
                     stackViewTopConstraint.constant = -selectViewHeight
+                    if yOffset + collectionView.bounds.height > collectionView.contentSize.height {
+                      
+                        self.actionSubject.send(.collectionBottomDidReach)
+                    }
                 } else {
                     stackViewTopConstraint.constant = -yOffset
                 }
@@ -213,14 +217,14 @@ extension SearchResultsView {
         availableHousesButton.isHidden = true
         setupSnapShot(sections: sections)
         
-        if sections.last?.section != .main  {
+//        if sections.last?.section != .main  {
             let section = sections.count - 1
-            if self.collectionView.numberOfItems(inSection: section) > 10 {
-                let item = self.collectionView.numberOfItems(inSection: section) - 1
-                let lastItemIndex = IndexPath(item: item, section: section)
-                self.collectionView.scrollToItem(at: lastItemIndex, at: .top, animated: true)
-            }
-        }
+//            if self.collectionView.numberOfItems(inSection: section) > 10 {
+//                let item = self.collectionView.numberOfItems(inSection: section) - 3
+//                let lastItemIndex = IndexPath(item: item, section: section)
+//                self.collectionView.scrollToItem(at: lastItemIndex, at: .top, animated: true)
+//            }
+//        }
     }
 
     func showMapView(model: MapCellModel) {
@@ -331,7 +335,7 @@ extension SearchResultsView: CLLocationManagerDelegate {
             latitude: 48.8372486549913,
             longitude: 9.00023878679861
         )
-        mapView.setCenter(ditzingenCenter, animated: true)
+//        mapView.setCenter(ditzingenCenter, animated: true)
     }
     
     func showOnMap(location: Point, address: String) {

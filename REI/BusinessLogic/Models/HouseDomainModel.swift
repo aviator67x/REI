@@ -7,7 +7,15 @@
 
 import Foundation
 
-final class HouseDomainModel: Codable {
+final class HouseDomainModel: Codable, Hashable {
+    static func == (lhs: HouseDomainModel, rhs: HouseDomainModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     let id: String
     let constructionYear: Int
     let garage: String
